@@ -1,0 +1,7 @@
+node_modules
+dist
+~$UAD API DOCUMENTATION.docx
+FRUAD API DOCUMENTATION.docx
+
+# All markdown docs are local-machine only — never committed
+*.md
