@@ -1,0 +1,436 @@
+.btnPrimarySolid {
+  background: #04908b !important;
+  border-color: #04908b !important;
+  cursor: pointer !important;
+  border-radius: 0px !important;
+  font-weight: 400 !important;
+  font-size: 14px !important;
+  color: #fff !important;
+  margin-top: 5px !important;
+  text-transform: none !important;
+}
+.btnSecondarySolid {
+  background: #d08b07 !important;
+  border-color: #d08b07 !important;
+  cursor: pointer !important;
+  border-radius: 0px !important;
+  font-weight: 400 !important;
+  font-size: 14px !important;
+  color: #fff !important;
+  text-transform: none !important;
+}
+
+.btnDarkSolid {
+  background: #025f5c !important;
+  border-color: #025f5c !important;
+  cursor: pointer !important;
+  border-radius: 0px !important;
+  font-weight: 400 !important;
+  font-size: 14px !important;
+  color: #fff !important;
+  text-transform: none !important;
+  height: 100% !important;
+  width: 100% !important;
+}
+/* in edit button */
+.btnDarkSolidEdit {
+  background: #43b78f !important;
+  border-color: #43b78f !important;
+  cursor: pointer !important;
+  border-radius: 0px !important;
+  font-weight: 400 !important;
+  font-size: 14px !important;
+  color: #fff !important;
+  text-transform: none !important;
+  height: 100% !important;
+  width: 100% !important;
+}
+.btnDarkSolidm {
+  background: #025f5c !important;
+  border-color: #025f5c !important;
+  cursor: pointer !important;
+  border-radius: 0px !important;
+  font-weight: 400 !important;
+  font-size: 14px !important;
+  color: #fff !important;
+  text-transform: none !important;
+  height: 100% !important;
+  margin-left: -15px !important;
+  width: 211px !important;
+}
+.btnBorderStyledRedd {
+  border: 1px solid #ce483e !important;
+  color: #ce483e !important;
+  border-bottom-right-radius: 15px !important;
+  border-bottom-left-radius: 0px !important;
+  border-top-right-radius: 0px !important;
+  border-top-left-radius: 15px !important;
+  padding: 10px 25px 10px 25px !important;
+  font-weight: 600 !important;
+  margin-left: 10px !important;
+}
+.btnSecondarySolid2Search {
+  background: #025f5c !important;
+  border-color: #025f5c !important;
+  cursor: pointer !important;
+  border-radius: 0px !important;
+  font-weight: 400 !important;
+  font-size: 14px !important;
+  color: #fff !important;
+  text-transform: none !important;
+  padding: 7px 20px !important;
+  margin-left: 20px !important;
+}
+
+.btnSecondarySolid2Search2 {
+  background: #025f5c !important;
+  border-color: #025f5c !important;
+  cursor: pointer !important;
+  border-radius: 0px !important;
+  font-weight: 400 !important;
+  font-size: 14px !important;
+  color: #fff !important;
+  text-transform: none !important;
+  padding: 7px 20px !important;
+  position: relative !important;
+  left: -14px !important;
+  /* margin-left: 10px !important; */
+}
+
+.btnSecondarySolidReset {
+  background: #d08b07 !important;
+  border-color: #d08b07 !important;
+  cursor: pointer !important;
+  border-radius: 0px !important;
+  font-weight: 400 !important;
+  font-size: 14px !important;
+  color: #fff !important;
+  text-transform: none !important;
+  padding: 7px 20px !important;
+}
+
+.btnSecondarySolidResetw {
+  background: #d08b07 !important;
+  border-color: #d08b07 !important;
+  cursor: pointer !important;
+  border-radius: 0px !important;
+  font-weight: 400 !important;
+  font-size: 14px !important;
+  color: #fff !important;
+  text-transform: none !important;
+  padding: 7px 20px !important;
+  width: 160px !important;
+}
+
+.btnSecondarySolid2 {
+  background: #025f5c !important;
+  border-color: #025f5c !important;
+  cursor: pointer !important;
+  border-radius: 0px !important;
+  font-weight: 400 !important;
+  font-size: 14px !important;
+  color: #fff !important;
+  text-transform: none !important;
+}
+
+.btnDarkSolidMini {
+  background: #025f5c !important;
+  border-color: #025f5c !important;
+  cursor: pointer !important;
+  border-radius: 0px !important;
+  font-weight: 700 !important;
+  font-size: 12px !important;
+  color: #fff !important;
+  text-transform: none !important;
+  height: 30px !important;
+  width: 80px !important;
+}
+
+.btnMiniPrimary {
+  background-color: #025f5c !important;
+  padding: 5px 20px !important;
+  border: none !important;
+  color: #fff !important;
+  font-size: 12px !important;
+  border-radius: 0 !important;
+  text-transform: none !important;
+}
+
+.btnMiniSecondary {
+  background-color: #d08b07 !important;
+  padding: 5px 20px !important;
+  border: none !important;
+  color: #fff !important;
+  font-size: 12px !important;
+  border-radius: 0.2rem !important;
+  text-transform: none !important;
+}
+
+.transparentBtn {
+  background-color: #e7ecec !important;
+  padding: 5px 20px !important;
+  border: none !important;
+  color: #025f5c !important;
+  font-size: 0.8rem !important;
+}
+
+.btnBorderStyled {
+  background: #04908b !important;
+  border-color: #04908b !important;
+  border-bottom-right-radius: 15px !important;
+  border-top-left-radius: 15px !important;
+  cursor: pointer !important;
+  font-weight: 500 !important;
+  font-size: 14px !important;
+  color: #fff !important;
+  width: 100px !important;
+  border-top-right-radius: 0px !important;
+  border-bottom-left-radius: 0px !important;
+}
+
+.btnBorderStyledRedSignup {
+  background: #dc3545 !important;
+  border-color: #dc3545 !important;
+  border-bottom-right-radius: 15px !important;
+  border-top-left-radius: 15px !important;
+  cursor: pointer !important;
+  font-weight: 500 !important;
+  font-size: 14px !important;
+  color: #fff !important;
+  width: 100px !important;
+  padding: 10px !important;
+  border-top-right-radius: 0px !important;
+  border-bottom-left-radius: 0px !important;
+}
+
+.btnBorderStyledRedSignup:hover {
+  transition: 0.3s ease-in !important;
+}
+/* starts */
+.btnBorderStyledBeach {
+  background: #04908b !important;
+  background: -moz-linear-gradient(left, #04908b 0%, #04bbb4 100%) !important;
+  background: -webkit-linear-gradient(
+    left,
+    #04908b 0%,
+    #04bbb4 100%
+  ) !important;
+  background: linear-gradient(to right, #04908b 0%, #04bbb4 100%) !important;
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#04908b', endColorstr='#04bbb4',GradientType=1 );
+  border-color: #0ba19b !important;
+  color: white !important;
+  border-bottom-right-radius: 15px !important;
+  border-bottom-left-radius: 0px !important;
+  border-top-right-radius: 0px !important;
+  border-top-left-radius: 15px !important;
+  padding: 10px 25px 10px 25px !important;
+  font-weight: 600 !important;
+}
+
+.btnBorderStyledBeach:hover,
+.btnBorderStyledBeach:focus {
+  border-color: #0ba19b !important;
+  background: #09b5af !important;
+  transition: 0.3s ease-in !important;
+}
+
+.btnBorderStyledBeachSignup {
+  background: #04908b !important;
+  background: -moz-linear-gradient(left, #04908b 0%, #04bbb4 100%) !important;
+  background: -webkit-linear-gradient(
+    left,
+    #04908b 0%,
+    #04bbb4 100%
+  ) !important;
+  background: linear-gradient(to right, #04908b 0%, #04bbb4 100%) !important;
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#04908b', endColorstr='#04bbb4',GradientType=1 );
+  border-color: #0ba19b !important;
+  color: white !important;
+  border-bottom-right-radius: 15px !important;
+  border-bottom-left-radius: 0px !important;
+  border-top-right-radius: 0px !important;
+  border-top-left-radius: 15px !important;
+  padding: 8px !important;
+  font-weight: 600 !important;
+  margin-right: 70px !important ;
+}
+
+.btnBorderStyledBeachSignup:hover,
+.btnBorderStyledBeachSignup:focus {
+  border-color: #0ba19b !important;
+  background: #09b5af !important;
+  transition: 0.3s ease-in !important;
+}
+/* ends */
+
+/* starts */
+.btnBorderStyledRed {
+  border: 1px solid #ce483e !important;
+  color: #ce483e !important;
+  border-bottom-right-radius: 15px !important;
+  border-bottom-left-radius: 0px !important;
+  border-top-right-radius: 0px !important;
+  border-top-left-radius: 15px !important;
+  padding: 10px 25px 10px 25px !important;
+  font-weight: 600 !important;
+  width: 100% !important;
+}
+.btnBorderStyledRed:hover,
+.btnBorderStyledRed:focus {
+  background: #ce483e !important;
+  color: #ffffff !important;
+  transition: 0.3s ease-in !important;
+}
+/* ends */
+
+.disableClass {
+  background-color: #cccccc !important;
+  color: #666666 !important;
+}
+
+.buttonYellow {
+  border-bottom-right-radius: 15px !important;
+  border-bottom-left-radius: 0px !important;
+  border-top-right-radius: 0px !important;
+  border-top-left-radius: 15px !important;
+  font-weight: 600 !important;
+  font-size: 15px !important;
+  background: #d08c07 !important;
+  background: -moz-linear-gradient(left, #d08c07 0%, #e6b228 100%) !important;
+  background: -webkit-linear-gradient(
+    left,
+    #d08c07 0%,
+    #e6b228 100%
+  ) !important;
+  background: linear-gradient(to right, #d08c07 0%, #e6b228 100%) !important;
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d08c07', endColorstr='#e6b228',GradientType=1 ) !important;
+  border-color: #d08c07 !important;
+  color: #fff !important;
+  padding: 15px !important;
+  width: 100% !important;
+}
+.buttonYellow:hover {
+  border-color: #d08c07 !important;
+  background: #d08c07 !important;
+  transition: 0.5s ease-in !important;
+}
+
+.buttonPrimaryLarge {
+  border-radius: 0px !important;
+  font-weight: 600 !important;
+  font-size: 15px !important;
+  border-bottom-right-radius: 15px !important;
+  border-bottom-left-radius: 0px !important;
+  border-top-right-radius: 0px !important;
+  border-top-left-radius: 15px !important;
+  background: #04908b !important;
+  background: -moz-linear-gradient(left, #04908b 0%, #04bbb4 100%) !important;
+  background: -webkit-linear-gradient(
+    left,
+    #04908b 0%,
+    #04bbb4 100%
+  ) !important;
+  background: linear-gradient(to right, #04908b 0%, #04bbb4 100%) !important;
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#04908b', endColorstr='#04bbb4',GradientType=1 ) !important;
+  border-color: #0ba19b !important;
+  padding: 12px 30px !important;
+  /* font-size: 24px !important; */
+  font-weight: 600 !important;
+  color: #fff !important;
+  padding: 15px !important;
+  width: 100% !important;
+}
+.buttonPrimaryLarge:hover {
+  border-color: #0ba19b !important;
+  background: #09b5af !important;
+  transition: 0.3s ease-in !important;
+}
+
+.buttonPrimary2 {
+  border-radius: 0px !important;
+  font-weight: 600 !important;
+  font-size: 15px !important;
+  border-bottom-right-radius: 15px !important;
+  border-bottom-left-radius: 0px !important;
+  border-top-right-radius: 0px !important;
+  border-top-left-radius: 15px !important;
+  padding: 12px 30px !important;
+  /* font-size: 24px!important; */
+  font-weight: 600 !important;
+  color: #fff !important;
+  transition: all 0.3s ease-in !important;
+  background: #014946 !important;
+  background: -moz-linear-gradient(left, #014946 0%, #00b2ac 100%) !important;
+  background: -webkit-linear-gradient(
+    left,
+    #014946 0%,
+    #00b2ac 100%
+  ) !important;
+  background: linear-gradient(to right, #014946 0%, #00b2ac 100%) !important;
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#014946', endColorstr='#00b2ac',GradientType=1 ) !important;
+  border-color: #0ba19b !important;
+  color: #fff !important;
+  padding: 15px !important;
+  width: 100% !important;
+}
+
+.buttonPrimary2:hover {
+  background: #00b2ac !important;
+  color: #ffffff !important;
+  transition: 0.3s ease-in !important;
+}
+
+.buttonPrimary3 {
+  border-radius: 0px !important;
+  font-weight: 600 !important;
+  font-size: 15px !important;
+  border-bottom-right-radius: 15px !important;
+  border-bottom-left-radius: 0px !important;
+  border-top-right-radius: 0px !important;
+  border-top-left-radius: 15px !important;
+  padding: 12px 30px !important;
+  /* font-size: 24px!important; */
+  font-weight: 600 !important;
+  color: #fff !important;
+  transition: all 0.3s ease-in !important;
+  background: #014946 !important;
+  background: -moz-linear-gradient(left, #014946 0%, #00b2ac 100%) !important;
+  background: -webkit-linear-gradient(
+    left,
+    #014946 0%,
+    #00b2ac 100%
+  ) !important;
+  background: linear-gradient(to right, #014946 0%, #00b2ac 100%) !important;
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#014946', endColorstr='#00b2ac',GradientType=1 ) !important;
+  border-color: #0ba19b !important;
+  color: #fff !important;
+  padding: 12px !important;
+  width: 100% !important;
+}
+
+.buttonPrimary3:hover {
+  background: #00b2ac !important;
+  color: #ffffff !important;
+  transition: 0.3s ease-in !important;
+}
+/* :global() is required here — this is a CSS Module, which local-scopes
+   (hashes) every bare class selector by default. Without it this rule would
+   silently never match antd's real global .ant-btn class, the same way the
+   .MuiButtonBase-root.Mui-disabled rule it replaces never actually matched
+   either (CSS Modules hashes classes you don't own the same as your own). */
+:global(.ant-btn:disabled) {
+  cursor: default !important;
+  pointer-events: none !important;
+  filter: grayscale(100%) !important;
+  opacity: 0.5 !important;
+}
+.DeleteButton {
+  background-color: #dfe8e8 !important;
+  border-radius: 0 !important;
+  padding: 4px !important;
+  padding-right: 0 !important;
+}
+
+.DeleteButton:hover {
+  background-color: #dfe8e8 !important;
+}

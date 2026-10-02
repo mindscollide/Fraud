@@ -1,0 +1,12 @@
+export { default as authReducer } from "./auth-reducers";
+export { default as requestReducer } from "./request-reducers";
+// export { default as findCustomerAccountDetailsFromMisysReducer } from "./find-customer-account-details-from-misys-reducers";
+// export { default as findCustomerFromMisysReducers } from "./find-customer-from-misys-reducers";
+// export { default as wofApprovalsReducers} from "./wof-approvals-reducers";
+// export { default as writeOffCasesReducer} from "./write-off-cases-reducer";
+export { default as reportsReducer } from "./reports_reducers";
+export { default as uiReducers } from "./ui-reducers";
+export { default as setupFormsReducer } from './setup-forms-reducers';
+export { default as investigationOfficerReducer } from './investigation-officer-reducers';
+export { default as qaManagerReducer } from './qa-manager-reducers';
+export { default as investigationManagerReducer } from './investigation-manager-reducers';

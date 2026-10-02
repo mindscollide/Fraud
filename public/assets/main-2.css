@@ -1,0 +1,600 @@
+body.Loginn-Page {
+  font-family: "Open Sans", sans-serif;
+  font-size: 14px;
+  background-color: #fff;
+  padding-top: 0px !important;
+  overflow: hidden;
+}
+/* Login Page CSS */
+.Featured-Logo {
+  margin-top: 36px;
+  display: block;
+  text-align: center;
+}
+
+h1.Login-Heading {
+  text-align: center;
+  font-size: 44px;
+  font-weight: bold;
+  margin-top: 45px;
+  margin-bottom: 45px;
+}
+
+button.Login-Button {
+  padding-right: 18px;
+  padding-left: 5px;
+}
+
+button.Cancel-Button {
+  background: none;
+  color: #dc3545;
+  padding-right: 18px;
+  padding-left: 5px;
+  margin-left: 5px;
+}
+
+.form-horizontal.loginn-page {
+  padding: 0px 185px;
+}
+
+.form-group.username {
+  border-bottom: 1px solid #dadada;
+  display: flex;
+  margin-bottom: 40px;
+}
+
+.form-control.username {
+  border: none;
+}
+
+.form-group.pasword {
+  border-bottom: 1px solid #dadada;
+  display: flex;
+  margin-bottom: 40px;
+}
+
+.form-control.pasword {
+  border: none;
+}
+
+i.icon-user.loginn-page {
+  color: #09b5af;
+  font-weight: 500;
+}
+
+i.icon-lock.loginn-page {
+  color: #09b5af;
+  font-weight: 500;
+}
+
+/* Product Management */
+
+li.TM-List {
+  border-bottom: 1px solid #3b7674;
+  display: block;
+  width: 100%;
+}
+
+li.TM-Submenu {
+  padding: 10px 6px;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 400;
+}
+
+input.TM-InputField {
+  border: 1px solid #dadada;
+  padding: 5px;
+  vertical-align: middle;
+  width: 62%;
+}
+
+select.TM-SelectField {
+  padding: 5px;
+  border: 1px solid #dadada;
+  vertical-align: middle;
+  width: 35%;
+  color: #ccc;
+}
+
+.Button-Functions {
+  text-align: right;
+}
+
+button.TM-Add-Button {
+  background-color: #03907e;
+  padding: 5px 15px;
+  padding-right: 20px;
+  border: none;
+  color: #fff;
+}
+
+button.TM-Search-Button {
+  background-color: #025f5c;
+  padding: 5px 20px;
+  border: none;
+  color: #fff;
+}
+button.TM-Reset-Button {
+  background-color: #d08b07;
+  padding: 5px 15px;
+  border: none;
+  color: #fff;
+}
+
+table#ProductManagement {
+  margin-top: 10px !important;
+}
+
+tr.disabled {
+  color: #979797;
+}
+
+/* Letter Scheduling*/
+button.LL-Add-Button {
+  background-color: #025f5c;
+  padding: 5px 20px;
+  border: none;
+  color: #fff;
+}
+.modal-dialog.ManageSchedule {
+  max-width: 800px;
+}
+label.TaskNameLabel {
+  padding: 30px 30px 25px 10px;
+}
+.important {
+  color: #cc0000;
+}
+input.TaskName {
+  border: 1px solid #cccccc;
+  padding: 10px 15px;
+  width: 300px;
+}
+label.ProductCodeLabel {
+  padding: 30px 24px 25px 0px;
+}
+select.MS-SelectField {
+  border: 1px solid #cccccc;
+  padding: 10px 15px;
+  width: 300px;
+}
+button.Next-Button {
+  padding-left: 20px;
+  margin-top: 200px !important;
+}
+button.Next-Button.section-2 {
+  padding-left: 20px;
+  margin-top: 130px !important;
+}
+button.Onetime-Next-Button {
+  padding-left: 20px;
+  margin-top: 195px !important;
+}
+button.Previous-Button {
+  padding-left: 20px;
+  margin-top: 67px !important;
+}
+button.Finish-Button {
+  padding-left: 20px;
+  margin-top: 67px !important;
+}
+button.Monthly-Previous-Button {
+  padding-left: 20px;
+  margin-top: 20px !important;
+}
+button.Monthly-Finish-Button {
+  padding-left: 20px;
+  margin-top: 20px !important;
+}
+label.Days {
+  position: relative;
+  top: 26px;
+  left: 14px;
+}
+label.On {
+  position: relative;
+  top: 26px;
+  left: 14px;
+}
+p.Schedule-Text {
+  color: #025f5c;
+  font-size: 14px;
+  font-weight: 600;
+}
+.StartLabel {
+  margin-top: 27px;
+}
+.RecurLabel {
+  margin-top: 27px;
+}
+.row.select-date-time {
+  display: inherit;
+}
+i.icon-calander.datepicker-icon {
+  position: relative;
+  top: 28px;
+  right: 36px;
+}
+i.icon-calander.timepicker-icon {
+  position: relative;
+  top: 28px;
+  right: 36px;
+}
+.input-date-form {
+  width: 225px;
+  height: 50px;
+  margin-top: 15px;
+}
+.input-time-form {
+  width: 225px;
+  height: 50px;
+  margin-top: 15px;
+}
+.input-recure {
+  width: 60px;
+  height: 45px;
+  margin-top: 15px;
+}
+.Schedule-Section:not(.show) {
+  display: none !important;
+}
+select.Select-Days {
+  width: 476px;
+  height: 42px;
+  margin-top: 17px;
+  margin-left: -8px;
+}
+select.Select-Date {
+  width: 476px;
+  height: 42px;
+  margin-top: 17px;
+  margin-left: -8px;
+}
+select.Select-Months {
+  width: 476px;
+  height: 42px;
+  margin-top: 17px;
+  margin-left: -8px;
+}
+select.Select-Day {
+  width: 225px;
+  height: 42px;
+  margin-top: 17px;
+  margin-left: -8px;
+}
+select.Select-Week {
+  width: 225px;
+  height: 42px;
+  margin-top: 17px;
+  margin-left: 28px;
+}
+/* Attributes */
+.heading {
+  width: 94%;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+table#AuditTrialSorting {
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+table.dataTable.no-footer {
+  border-bottom: none !important;
+}
+div#AuditTrialSorting_length {
+  display: none !important;
+}
+div#AuditTrialSorting_filter {
+  display: none;
+}
+tfoot input {
+  width: 100%;
+  padding: 3px;
+  box-sizing: border-box;
+}
+span.ActionBy {
+  font-weight: bold;
+  color: #025f5c;
+  font-size: 16px;
+}
+span.ActionOn {
+  font-weight: bold;
+  color: #025f5c;
+  font-size: 16px;
+}
+span.ActionByValue {
+  color: #000;
+}
+span.ActionOnValue {
+  color: #000;
+}
+span.Modal-Description {
+  font-weight: bold;
+  color: #025f5c;
+  font-size: 16px;
+}
+span.Modal-Description-Value {
+  color: #000;
+}
+th.hideborder {
+  border-top: none !important;
+}
+.table tr.selected td.td-bg {
+  background-color: #997850 !important;
+}
+div.tableheight {
+  height: 290px;
+  overflow: auto;
+}
+.Non-Editable {
+  display: none;
+}
+.table-responsive.NoEditable:hover .Non-Editable {
+  display: block;
+  position: absolute;
+  width: 98.5%;
+  background-color: #cdcdcd;
+  height: 85%;
+  opacity: 0.8;
+}
+.Text p {
+  transform: rotate(-30deg);
+  font-size: 20px;
+  text-align: center;
+  margin-top: 110px;
+  font-weight: bold;
+  color: #c22b2b;
+}
+button.Search-Button {
+  background-color: #025f5c;
+  padding: 5px 10px;
+  border: none;
+  color: #fff;
+  margin-left: 20px;
+  margin-left: -6px;
+}
+button.Reset-Button {
+  background-color: #b27706;
+  padding: 5px 10px;
+  border: none;
+  color: #fff;
+  margin-left: 20px;
+}
+.Field {
+  padding: 5px 15px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+.Field2 {
+  padding: 5px 15px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-left: 20px;
+}
+.Field3 {
+  padding: 5px 15px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-left: 20px;
+}
+.Field4 {
+  padding: 5px 15px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-left: -6px;
+}
+span.Error-Message {
+  /* width: 100%; */
+  color: #cd1818;
+  font-size: 13px;
+}
+
+.line {
+  height: 3px;
+  width: 100%;
+  background: #e8e8e8;
+  margin-top: 30%;
+}
+.line > .inner {
+  width: 100%;
+  height: inherit;
+  background: #08938e;
+  animation: slide 2s ease-in-out infinite;
+}
+
+@keyframes slide {
+  0% {
+    transform-origin: left;
+    transform: scalex(0.3);
+  }
+  25% {
+    transform-origin: left;
+    transform: scalex(1);
+  }
+  26% {
+    transform-origin: right;
+    transform: scalex(1);
+  }
+  50% {
+    transform-origin: right;
+    transform: scalex(0.3);
+  }
+  75% {
+    transform-origin: right;
+    transform: scalex(1);
+  }
+  76% {
+    transform-origin: left;
+    transform: scalex(1);
+  }
+  100% {
+    transform-origin: left;
+    transform: scalex(0.3);
+  }
+}
+.Loader-logo {
+  text-align: center;
+  display: block;
+}
+.container-loader {
+  width: 200px;
+  height: 200px;
+  background-size: cover;
+  vertical-align: middle;
+  margin: 20% auto;
+}
+.overlay {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: #fff;
+  z-index: 1000;
+}
+.InputField {
+  padding: 5px;
+  vertical-align: middle;
+}
+ul.dashboard-sidebar-menu > li.TM-List > a.menu-item.active {
+  background: none;
+}
+ul#TM-Submenu > li.TM-Submenu.active {
+  background-color: #43b78f;
+}
+ul#TM-Submenu > li.TM-Submenu > a {
+  padding-left: 31px;
+  display: block;
+}
+ul#TM-Submenu {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+ul.dashboard-sidebar-menu > li.TM-List > a.menu-item.active {
+  background: none;
+}
+ul#LS-Submenu > li.TM-Submenu.active {
+  background-color: #43b78f;
+}
+ul#LS-Submenu > li.TM-Submenu > a {
+  padding-left: 31px;
+  display: block;
+}
+ul#LS-Submenu {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+ul#LM-Submenu > li.TM-Submenu.active {
+  background-color: #43b78f;
+}
+ul#LM-Submenu > li.TM-Submenu > a {
+  padding-left: 31px;
+  display: block;
+}
+ul#LM-Submenu {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+ul#CM-Submenu > li.TM-Submenu.active {
+  background-color: #43b78f;
+}
+ul#CM-Submenu > li.TM-Submenu > a {
+  padding-left: 31px;
+  display: block;
+}
+ul#CM-Submenu {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.Subheading {
+  font-size: 13px;
+  font-weight: 600;
+}
+button.Export-Excel {
+  background-color: #e7ecec;
+  padding: 5px 20px;
+  border: none;
+  color: #025f5c;
+}
+i.icon-calander.from-datepicker {
+  position: relative;
+  right: 30px;
+  top: 4px;
+}
+i.icon-edit-list {
+  color: #0a6461;
+}
+i.icon-export-pdf {
+  color: #ce2d31;
+}
+i.icon-export-excel {
+  color: #0a6461;
+}
+i.icon-arrow-up.upload {
+  background-color: #0a6461;
+  color: #fff;
+  padding: 7px;
+}
+i.icon-edit-list.preview {
+  color: #fff;
+}
+.page-heading.Courier-Numbers {
+  margin-bottom: 80px;
+}
+.fileUpload {
+  position: relative;
+  left: -13px;
+  overflow: hidden;
+}
+.fileUpload input.upload {
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 0;
+  padding: 0;
+  font-size: 20px;
+  cursor: pointer;
+  opacity: 0;
+  filter: alpha(opacity=0);
+}
+input.FileUpload {
+  background-color: #fff !important;
+  color: #000 !important;
+}
+.disabled [disabled],
+.disabled .icon-arrow-up.upload {
+  filter: grayscale(100%);
+  opacity: 0.5;
+}
+.border-left-0 {
+  border-left: 0;
+}
+.border-right-0 {
+  border-right: 0;
+}
+.border-top-0 {
+  border-top: 0;
+}
+.border-bottom-0 {
+  border-bottom: 0;
+}
+.remarks-date {
+  color: #989595;
+  font-size: 13px;
+}
+.remarks-heading {
+  font-size: 16px;
+}
+i.icon-close.Cancel {
+  color: #fff;
+}
+span.error.position {
+  position: absolute;
+}
+

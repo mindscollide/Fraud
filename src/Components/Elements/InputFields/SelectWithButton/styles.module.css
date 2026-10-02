@@ -1,0 +1,39 @@
+.uploadButton {
+    border-radius   : 0 !important;
+    background-color: #025f5c !important;
+    box-shadow      : none !important;
+    height          : 40px !important;
+}
+
+.search {
+    background   : #dfe8e8 !important;
+    color        : #078480 !important;
+    border-radius: 0 !important;
+    box-shadow   : none !important;
+    height       : 40px !important;
+}
+
+.account-number {
+    color        : #fff !important;
+    background   : #00302e !important;
+    /* background: #dfe8e8 !important;
+    color        : #078480 !important; */
+    border-radius: 0 !important;
+    box-shadow   : none !important;
+    height       : 40px !important;
+    margin       : 0 !important;
+
+}
+
+.account-number:hover {
+    background: rgb(11, 161, 155) !important;
+    transition: all 0.3s ease-in 0s;
+}
+
+.next {
+    border-radius   : 0 !important;
+    background-color: #078480 !important;
+    box-shadow      : none !important;
+    height          : 40px !important;
+    width           : 20% !important;
+}

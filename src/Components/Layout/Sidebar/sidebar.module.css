@@ -1,0 +1,58 @@
+.menuMainItem {
+  padding-top   : 10px;
+  padding-bottom: 10px !important;
+  border-bottom : 1px solid #3b7674;
+}
+
+.noLinkStyles {
+  text-decoration: none !important;
+  color          : inherit !important;
+
+}
+
+.DisableSidebar {
+  pointer-events: none;
+  filter        : grayscale(0.8);
+}
+
+.sider {
+  position : fixed !important;
+  left     : 0 !important;
+  top      : 68px !important;
+  /* Fills the full viewport below the fixed 68px header, all the way to the
+     bottom — the footer only spans the content column (left:230px in
+     footer.module.css), not the sidebar's column, so the sidebar doesn't
+     reserve any space for it. Previously a fixed "92vh" guess that left gaps
+     or overflowed depending on viewport height. */
+  height   : calc(100vh - 68px) !important;
+  width    : 230px !important;
+  min-width: 230px !important;
+  display  : block !important;
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+  scrollbar-width: thin; /* Firefox */
+}
+
+.sider::-webkit-scrollbar {
+  width: 6px;
+}
+
+.sider::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.25);
+  border-radius   : 3px;
+}
+
+.sider::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+.ant-menu-item.ant-menu-title-content {
+  white-space  : nowrap !important;
+  overflow     : initial !important;
+  text-overflow: initial !important;
+}
+
+.menuSidebarStyle {
+  height: 100%;
+  border: none !important;
+}

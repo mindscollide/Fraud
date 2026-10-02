@@ -1,0 +1,569 @@
+@import "antd/dist/antd.less";
+// @import url("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;0,800;1,300;1,400;1,600;1,700;1,800&display=swap");
+// @import url("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;0,800;1,300;1,400;1,600;1,700;1,800&display=swap");
+// all global styles are witten here
+
+// Date/Time/Range pickers (StartToEndDate, DatePicker, TimePicker Elements
+// wrappers all render antd's Picker, which shares this ".ant-picker" root
+// class) styled to match the MUI text-field border convention used
+// elsewhere in this app: #dee6e6 border, square corners, no hover color
+// change, #12B0E8 on focus (see CustomTextField's withStyles in
+// text-field.js/FormatedInput.js for the same three values).
+.ant-picker {
+  border       : 1px solid #dee6e6 !important;
+  border-radius: 0 !important;
+  box-shadow   : none !important;
+}
+
+.ant-picker:hover {
+  border-color: #dee6e6 !important;
+}
+
+.ant-picker-focused {
+  border-color: #12B0E8 !important;
+  box-shadow  : none !important;
+}
+
+// Text inputs (TextField Elements wrapper) — same border convention as the
+// pickers above. When an Input has a prefix/suffix (e.g. Login's UserOutlined
+// icon), antd wraps the real <input> in a .ant-input-affix-wrapper — and the
+// inner <input> keeps the plain .ant-input class too, so without the reset
+// below both the wrapper AND the nested input would show this border,
+// rendering as a visible box-inside-a-box around the icon.
+.ant-input,
+.ant-input-affix-wrapper {
+  border       : 1px solid #dee6e6 !important;
+  border-radius: 0 !important;
+  box-shadow   : none !important;
+}
+
+.ant-input-affix-wrapper .ant-input {
+  border     : none !important;
+  box-shadow : none !important;
+}
+
+.ant-input:hover,
+.ant-input-affix-wrapper:hover {
+  border-color: #dee6e6 !important;
+}
+
+.ant-input:focus,
+.ant-input-focused,
+.ant-input-affix-wrapper:focus,
+.ant-input-affix-wrapper-focused {
+  border-color: #12B0E8 !important;
+  box-shadow  : none !important;
+}
+
+// Select (SelectBox/SelectBoxWithButton/MultipleSelectCheckmarks Elements
+// wrappers) — same border/background convention as the inputs/pickers above.
+// The visible box is .ant-select-selector, not .ant-select itself.
+.ant-select-selector {
+  border          : 1px solid #dee6e6 !important;
+  border-radius   : 0 !important;
+  box-shadow      : none !important;
+  background-color: white !important;
+}
+
+.ant-select:hover .ant-select-selector {
+  border-color: #dee6e6 !important;
+}
+
+.ant-select-focused .ant-select-selector {
+  border-color: #12B0E8 !important;
+  box-shadow  : none !important;
+}
+
+// MultipleSelectCheckmarks (Transaction Type etc.) collapses every selected
+// tag into one comma-joined string via maxTagPlaceholder, rendered through
+// this same "overflow item" that normally holds individual tag pills. Left
+// to wrap, a long selection list wraps onto multiple lines and grows the
+// box taller instead of staying a fixed 40px like every other field —
+// forcing it to one line with an ellipsis keeps the height fixed.
+.ant-select-multiple .ant-select-selector {
+  flex-wrap: nowrap !important;
+  overflow : hidden !important;
+}
+
+.ant-select-selection-overflow {
+  flex-wrap: nowrap !important;
+}
+
+.ant-select-selection-overflow-item {
+  overflow     : hidden !important;
+  max-width    : 100%;
+}
+
+.ant-select-selection-overflow-item .ant-select-selection-item {
+  overflow     : hidden !important;
+  max-width    : 100%;
+}
+
+.ant-select-selection-item-content {
+  overflow     : hidden !important;
+  text-overflow: ellipsis !important;
+  white-space  : nowrap !important;
+}
+
+// Notification Elements wrapper — antd's own .ant-notification-notice-message
+// rule sets an explicit (dark) text color that wins over the teal
+// background's inherited color otherwise; !important here matches that
+// same specificity fight.
+.app-teal-notification .ant-notification-notice-message,
+.app-teal-notification .ant-notification-notice-close {
+  color: #fff !important;
+}
+
+// global css for side bar
+.ant-menu-root.ant-menu-vertical,
+.ant-menu-root.ant-menu-vertical-left,
+.ant-menu-root.ant-menu-vertical-right,
+.ant-menu-root.ant-menu-inline {
+  background-color: #025f5c;
+  color           : #80b1af;
+}
+
+// .ant-menu-submenu-title:hover {
+//   background-color: #04908b;
+//   color: whitesmoke !important;
+// }
+.ant-menu-submenu-arrow {
+  display: none;
+}
+
+.ant-menu-sub.ant-menu-inline {
+  background-color: #025f5c;
+  color           : whitesmoke !important;
+}
+
+.ant-menu-item-selected {
+  background-color: #43b78f !important;
+  color           : #fff;
+  border-right    : none !important;
+}
+
+// global css for sidebar ends here
+.ant-table-thead>tr * {
+  background-color: #e7ecec !important;
+  color           : #b27706 !important;
+  font-weight     : bold !important;
+}
+
+.ant-table-row {
+  background-color: #f6f6f6 !important;
+}
+
+.ant-layout {
+  background-color: #f6f6f6;
+}
+
+.ant-scrolling-effect {
+  width: 100% !important;
+}
+
+.ant-select-selector {
+  background-color: #fff !important;
+}
+
+.ant-menu-submenu-title {
+  color           : #80b1af !important;
+  background-color: inherit !important;
+}
+
+.ant-menu-item-active>.ant-menu-title-content>a:hover {
+  color: white !important;
+}
+
+.ant-menu-item-active>.ant-menu-title-content:hover {
+  color: inherit !important;
+}
+
+.ant-menu-inline .ant-menu-item::after {
+  border-right: none !important;
+}
+
+.ant-menu-item:active,
+.ant-menu-submenu-title:active {
+  background: none !important;
+}
+
+.ant-menu-item-only-child:hover {
+  color: #fff !important;
+}
+
+.ant-select-arrow {
+  display                : inline-block;
+  color                  : inherit;
+  font-style             : normal;
+  line-height            : 0;
+  text-transform         : none;
+  vertical-align         : -0.125em;
+  text-rendering         : optimizeLegibility;
+  -webkit-font-smoothing : antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  position               : absolute;
+  top                    : 80%;
+  right                  : 10px;
+  height                 : 12px;
+  margin-top             : -15px;
+  color                  : rgba(0, 0, 0, 0.25);
+  font-size              : 12px;
+  line-height            : 1;
+  text-align             : center;
+  pointer-events         : none;
+}
+
+.ant-layout-sider.ant-layout-sider-dark {
+  position  : relative;
+  min-width : 0;
+  min-height: auto;
+  background: #025f5c !important;
+  transition: all 0.2s;
+}
+
+// .ant-menu-title-content{
+//   word-break: break-word;
+//   overflow: hidden;
+//   text-overflow: ellipsis;
+//   display: -webkit-box;
+//   line-height: 16px; /* fallback */
+//   max-height: 32px; /* fallback */
+//   -webkit-line-clamp: 2; /* number of lines to show */
+//   -webkit-box-orient: vertical;
+// }
+
+// .ant-menu-title-content {
+//   white-space: nowrap !important;
+//   overflow: initial !important;
+//   text-overflow: initial !important;
+//   flex: none !important;
+//   display: block !important;
+// }
+span.LevelHeading {
+  font-size  : 10px;
+  font-weight: 400;
+  position   : absolute;
+  top        : 5px;
+}
+
+span.SubHeading {
+  font-size  : 15px;
+  font-weight: normal;
+  position   : relative;
+  top        : -5px;
+}
+
+.Level-Section {
+  background-color: #04bbb4;
+  color           : #fff;
+  padding         : 5px;
+  width           : 240px;
+  position        : absolute;
+  right           : 0;
+}
+
+.LevelSectionDetails {
+  position: absolute;
+  top     : 3px;
+  right   : 50px;
+}
+
+.Level-Section i.icon-card.icon-size-one {
+  font-size: 40px !important;
+}
+
+.TransactionHeading {
+  color      : #000;
+  background : #e7ecec !important;
+  padding    : 10px;
+  font-size  : 18px;
+  font-weight: 600;
+  text-align : center;
+  border     : 1px solid #dee6e6;
+}
+
+button.UploadFileButton {
+  background    : #d08b07 !important;
+  border-color  : #d08b07 !important;
+  cursor        : pointer !important;
+  border-radius : 0px !important;
+  font-weight   : 400 !important;
+  font-size     : 14px !important;
+  color         : #fff !important;
+  text-transform: none !important;
+}
+
+button.UploadFileButton span {
+  position: relative;
+  top     : -1px;
+}
+
+.icon-file-upload.uploadfile {
+  font-size   : 18px;
+  margin-right: 5px;
+}
+
+label.ant-checkbox-wrapper.SearchCheckbox {
+  margin-top: 7px;
+}
+
+Box.ModalBox {
+  background: #eef0f0;
+  padding   : 15px;
+}
+
+.ModalBox p {
+  margin-bottom: 0;
+  font-size    : 18px;
+}
+
+.ModalBox span {
+  font-weight: bold;
+  font-size  : 28px;
+  color      : #009892;
+}
+
+i.icon-add.icon-size-one.AddMore {
+  display : flex;
+  width   : 125px;
+  position: relative;
+}
+
+i.icon-add.icon-size-one.AddMore p {
+  font-size    : 16px;
+  margin-bottom: 0 !important;
+  position     : absolute;
+  left         : 35px;
+  top          : 7px;
+  font-family  : "Open Sans";
+}
+
+.btnSecondarySolidAddMore button {
+  background    : #d08b07 !important;
+  border-color  : #d08b07 !important;
+  cursor        : pointer !important;
+  border-radius : 0px !important;
+  font-weight   : 400 !important;
+  height        : 40px !important;
+  color         : #fff !important;
+  text-transform: none !important;
+  box-shadow    : none !important;
+}
+
+.ant-menu-sub.ant-menu-inline>.ant-menu-item,
+.ant-menu-sub.ant-menu-inline>.ant-menu-submenu>.ant-menu-submenu-title {
+  height     : 40px;
+  line-height: 20px !important;
+}
+
+.ant-menu-title-content {
+  white-space: normal !important;
+  flex       : auto !important;
+}
+
+.ant-menu-vertical>.ant-menu-item,
+.ant-menu-vertical-left>.ant-menu-item,
+.ant-menu-vertical-right>.ant-menu-item,
+.ant-menu-inline>.ant-menu-item,
+.ant-menu-vertical>.ant-menu-submenu>.ant-menu-submenu-title,
+.ant-menu-vertical-left>.ant-menu-submenu>.ant-menu-submenu-title,
+.ant-menu-vertical-right>.ant-menu-submenu>.ant-menu-submenu-title,
+.ant-menu-inline>.ant-menu-submenu>.ant-menu-submenu-title {
+  line-height: 20px !important;
+}
+
+// .notify {
+//   display: none;
+// }
+
+.dateRangePicker {
+  margin-top: 20px;
+  text-align: center;
+}
+
+h4.ant-typography.SignUpRequestTitle {
+  font-weight: normal !important;
+}
+
+.NoRecordFound {
+  background: #eef0f0;
+  padding   : 11px;
+  text-align: center;
+}
+
+.NoRecordFound p {
+  font-size: 18px;
+  margin   : 0;
+}
+
+.NoRecordFound span {
+  color      : #0ba19b;
+  font-weight: bold;
+  font-size  : 21px;
+}
+
+.ant-picker-time-panel-column::after {
+  display: none !important;
+}
+
+.ant-picker-input>input[disabled] {
+  color: #000;
+}
+
+input.CreditCardInputField {
+  font                       : inherit;
+  color                      : currentColor;
+  width                      : 95%;
+  padding                    : 6px 0px 8px 10px;
+  background-color           : white !important;
+  border                     : 1px solid #dee6e6;
+  height                     : 23px;
+  margin                     : 0;
+  display                    : block;
+  min-width                  : 0;
+  background                 : none;
+  box-sizing                 : content-box;
+  animation-name             : mui-auto-fill-cancel;
+  letter-spacing             : inherit;
+  animation-duration         : 10ms;
+  -webkit-tap-highlight-color: transparent;
+}
+
+input.CreditCardInputField:focus-visible {
+  border: 1px solid #dee6e6 !important;
+}
+
+input.CreditCardInputField:focus,
+input.CreditCardInputField:active,
+input.CreditCardInputField:focus-visible {
+  border: 1px solid #dee6e6 !important;
+}
+
+p.PlaceholderCard {
+  background-color   : #e9e9e9 !important;
+  color              : #6e6e6e !important;
+  transform          : translate(18px, -5.5px) scale(0.75) !important;
+  position           : absolute;
+  // top             : 61px;
+  transform-origin   : top left !important;
+  // left            : 44px;
+  font-size          : 13px;
+  width              : 105px;
+  text-align         : center;
+}
+
+p.PlaceholderCardEdit {
+  background-color: #e9e9e9 !important;
+  color           : #6e6e6e !important;
+  transform       : translate(18px, -5.5px) scale(0.75) !important;
+  position        : absolute;
+  top             : 106px;
+  transform-origin: top left !important;
+  left            : 44px;
+  font-size       : 13px;
+  width           : 85px;
+  text-align      : center;
+}
+
+:focus-visible {
+  outline: none !important;
+}
+
+p.PlaceholderCard span.important {
+  color: #ff0000
+}
+
+input.CreditCardInputField[disabled] {
+  background: #f3f3f3 !important;
+}
+
+span.UploadFileButton {
+  background    : #d08b07 !important;
+  border-color  : #d08b07 !important;
+  cursor        : pointer !important;
+  border-radius : 0px !important;
+  font-weight   : 400 !important;
+  font-size     : 14px !important;
+  color         : #fff !important;
+  text-transform: none !important;
+  box-shadow    : none;
+}
+
+i.icon-user.SignupIconEmail.icon-size-one {
+  border-radius   : 0 !important;
+  background-color: #078480 !important;
+  box-shadow      : none !important;
+  color           : #fff;
+  text-align      : center !important;
+  position        : relative;
+  top             : -35px;
+  padding         : 18px;
+  padding-bottom  : 5px;
+  padding-top     : 5px;
+}
+
+th.ant-table-cell.ant-table-selection-column {
+  width: 4%;
+}
+
+.NotificationTitle {
+  color      : #025f5c;
+  font-weight: 600;
+}
+
+.NotificationDescription {
+  text-align: center;
+}
+
+span.FileUploadNote {
+  font-size: 14px;
+}
+
+// .btnSecondarySolidAddMoreComment button {
+//   background    : #d08b07 !important;
+//   border-color  : #d08b07 !important;
+//   cursor        : pointer !important;
+//   border-radius : 0px !important;
+//   font-weight   : 400 !important;
+//   height        : 40px !important;
+//   color         : #fff !important;
+//   text-transform: none !important;
+//   box-shadow    : none !important;
+// }
+
+p.PlaceholderCard.AuditTrail {
+  width: 150px !important;
+}
+
+.LevelSectionDetails.AccountBBK {
+  width: 120px !important;
+}
+
+//404
+.heading-main {
+  text-align: center;
+  margin-top: 100px;
+}
+
+p.heading-error {
+  font-size  : 44px;
+  margin     : 0px;
+  font-weight: bold;
+}
+
+p.description-error {
+  font-size: 21px;
+  color    : rgb(0, 0, 0);
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.marginTop1P {
+  margin-top: 1% !important;
+}
+
+.padding40px {
+  padding: 40px;
+}

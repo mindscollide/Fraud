@@ -1,0 +1,8 @@
+.disabled-row {
+  background-color: red;
+  pointer-events  : none;
+}
+
+.rowColor {
+  background-color: white !important;
+}

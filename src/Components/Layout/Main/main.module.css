@@ -1,0 +1,18 @@
+.mainContainer {
+  /* Fills exactly what's left of the viewport between the fixed 68px header,
+     the fixed 230px sidebar, and the fixed 40px footer (see sidebar.module.css
+     / footer.module.css for the matching values), and scrolls internally.
+     This is what keeps the outer page/body from ever needing to scroll —
+     every routed page renders inside this one fixed, self-scrolling box
+     instead of growing the document's own height. */
+  position: fixed;
+  top: 68px;
+  left: 230px;
+  right: 0;
+  bottom: 40px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding-left: 15px;
+  padding-right: 20px;
+  padding-top: 10px;
+}

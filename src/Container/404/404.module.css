@@ -1,0 +1,15 @@
+.heading-main {
+    text-align: center;
+    margin-top: 100px;
+}
+
+p.heading-error {
+    font-size  : 44px;
+    margin     : 0px;
+    font-weight: bold;
+}
+
+p.description-error {
+    font-size: 21px;
+    color    : rgb(0, 0, 0);
+}

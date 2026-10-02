@@ -1,0 +1,124 @@
+.loginBody {
+  width: 400px;
+  padding: 18px;
+  border-radius: 12px;
+  background: rgba(0, 0, 0, 0.2);
+  margin-top: 10%;
+  /* Right-align fixes */
+  margin-left: auto;
+  margin-right: 0;
+}
+
+/* .signupBody {
+  width        : 400px;
+  padding      : 18px;
+  border-radius: 12px;
+  background   : rgba(0, 0, 0, 0.2);
+  margin-top   : 32%;
+} */
+
+.error {
+  color: #dc3545;
+  font-size: 11px;
+  width: 100%;
+  background: #ce0000;
+  color: #ffff;
+  padding: 2px;
+  text-align: center !important;
+  margin-top: 10px;
+}
+
+.fade {
+  transition: opacity 0.15s linear;
+}
+
+.lable {
+  color: white !important;
+  font-weight: 600 !important;
+}
+
+.lable::after {
+  content: "*";
+  color: #ce0000;
+}
+
+/* ============================================= */
+
+@keyframes ldio-qsg7zs0xcag {
+  0% {
+    top: 84px;
+    left: 84px;
+    width: 0;
+    height: 0;
+    opacity: 1;
+  }
+
+  100% {
+    top: 12px;
+    left: 12px;
+    width: 144px;
+    height: 144px;
+    opacity: 0;
+  }
+}
+
+/* .ldio-qsg7zs0xcag div {
+  position: absolute;
+  border-width: 16px;
+  border-style: solid;
+  opacity: 1;
+  border-radius: 50%;
+  animation: ldio-qsg7zs0xcag 1s cubic-bezier(0, 0.2, 0.8, 1) infinite;
+}
+.ldio-qsg7zs0xcag div:nth-child(1) {
+  border-color: #0a0a0a;
+  animation-delay: 0s;
+}
+.ldio-qsg7zs0xcag div:nth-child(2) {
+  border-color: #28292f;
+  animation-delay: -0.5s;
+}
+.loadingio-spinner-ripple-0utew0dqsh4 {
+  width:30px;
+  height: 30px;
+  display: inline-block;
+  overflow: hidden;
+  background: inherit;
+}
+.ldio-qsg7zs0xcag {
+  width: 30px;
+  height: 30px;
+  position: relative;
+  transform: translateZ(0) scale(1);
+  backface-visibility: hidden;
+  transform-origin: 0 0; 
+}
+.ldio-qsg7zs0xcag div {
+  box-sizing: content-box;
+} */
+
+.boxHeightLogin {
+  height: 100vh;
+}
+
+.fraudMainTitle {
+  color: #fff !important;
+  text-align: center;
+  margin-top: 10px;
+}
+
+.margin6p {
+  margin-top: 6%;
+}
+
+.positionRelative {
+  position: relative;
+}
+
+.passwordInputField {
+  -webkit-text-security: disc;
+}
+
+.marginTop30px {
+  margin-top: 30px;
+}

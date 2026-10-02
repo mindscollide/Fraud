@@ -1,0 +1,54 @@
+.loginBody {
+  width: 400px;
+  padding: 18px;
+  border-radius: 12px;
+  background: rgba(0, 0, 0, 0.2);
+  margin-top: 10%;
+
+  /* Right-align fixes */
+  margin-left: auto;
+  margin-right: 0;
+  text-align: left; /* Ensures field text & labels remain left-aligned inside the box */
+}
+
+.error {
+  color: #dc3545;
+  font-size: 11px;
+  width: 100%;
+  background: #ce0000;
+  color: #ffff;
+  padding: 2px;
+  text-align: center !important;
+  margin-top: 10px;
+}
+
+.fade {
+  transition: opacity 0.15s linear;
+}
+
+.boxHeightLogin {
+  height: 100vh;
+}
+
+.fraudMainTitle {
+  color: #fff !important;
+  text-align: center;
+  margin-top: 10px;
+}
+
+.margin6p {
+  margin-top: 6%;
+}
+
+.margin10p {
+  margin-top: 10%;
+}
+
+.labelLogin {
+  color: #fff !important;
+  text-align: left;
+}
+
+.passwordInputField {
+  -webkit-text-security: disc;
+}

@@ -1,0 +1,21 @@
+/* Shared by the antd-based date/time picker wrappers (StartToEndDate,
+   DatePicker, TimePicker) so their labels match the MUI shrunk-floating-
+   label look used by the TextField/FormatedInput/SelectBox fields beside
+   them (see .MuiInputLabel-shrink in src/index.css: same background/color/
+   scale) instead of each wrapper styling its own label independently. */
+.wrapper {
+  position: relative;
+}
+
+.floatingLabel {
+  position: absolute;
+  top: -5.5px;
+  left: 18px;
+  z-index: 1;
+  padding: 0 4px;
+  font-size: 10.5px;
+  color: #6e6e6e;
+  background-color: #e9e9e9;
+  pointer-events: none;
+  white-space: nowrap;
+}

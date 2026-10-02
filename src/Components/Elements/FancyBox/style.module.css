@@ -1,0 +1,32 @@
+.sectionConsolidated {
+  background-color: #e7f5f4;
+}
+.border-primary {
+  border: 1px solid #025f5c;
+}
+.sectionConsolidated .box {
+  padding: 15px 10px !important;
+  position: relative;
+  border: 1px solid #025f5c;
+}
+.sectionConsolidated .box > .boxHeading {
+  position: absolute;
+  top: -16px;
+  background-color: #e7f5f4;
+  padding: 5px;
+  color: #025f5c;
+  font-size: 12px;
+  font-weight: 600;
+  display: inline-block;
+  width: auto;
+  max-width: 90%;
+}
+.disable{
+  color: #758181!important;
+}
+.contentbox{
+  margin-top: 10px;
+}
+/* .consolidated-row .box {
+  border-color: #afbaba;
+} */

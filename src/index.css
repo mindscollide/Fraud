@@ -1,0 +1,26 @@
+body {
+  background-color: #f6f6f6 !important;
+  margin          : 0;
+  font-family     : 'Open Sans', sans-serif;
+  overflow        : visible !important;
+  padding-right   : 0 !important;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
+
+.crosstick {
+  color: red;
+}
+
+.ant-menu-submenu-title>.ant-menu-title-content:hover {
+
+  /* display: none!important; */
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}

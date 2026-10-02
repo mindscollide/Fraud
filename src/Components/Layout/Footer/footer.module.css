@@ -1,0 +1,24 @@
+.footer {
+    /* Fixed to the bottom, starting after the sidebar (matching the content
+       area's left edge, not the header's — the header spans full width
+       above both, but the footer only spans the content column). Sidebar
+       still reserves this same 40px height at its own bottom edge (see
+       sidebar.module.css) so nothing overlaps. */
+    position: fixed;
+    left: 230px;
+    right: 0;
+    bottom: 0;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    background-color: #f6f6f6;
+    border-top: 1px solid #ccc;
+    z-index: 100;
+  }
+  .footer > .innerContent {
+    padding-left: 20px;
+    padding-right: 20px;
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+  }
