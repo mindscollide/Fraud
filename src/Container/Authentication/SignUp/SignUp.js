@@ -360,7 +360,7 @@ const SignUp = () => {
     setTransactionTypes(
       transactionName.map((data, index) => {
         return data.ttName;
-      }),
+      })
     );
   }, [setupForms.TransactionTypesData]);
 
@@ -402,7 +402,7 @@ const SignUp = () => {
     setUserRole(
       nameRole.map((data, index) => {
         return data.roleName;
-      }),
+      })
     );
   }, [setupForms.UserRolesData]);
 
@@ -431,7 +431,7 @@ const SignUp = () => {
     setRegion(
       nameRegion.map((data, index) => {
         return data.name;
-      }),
+      })
     );
   }, [setupForms.RegionData]);
 
@@ -540,7 +540,7 @@ const SignUp = () => {
           });
         } else if (validateEmail(email)) {
           await dispatch(
-            validateEmailAddress(credentials.emailAddress.content),
+            validateEmailAddress(credentials.emailAddress.content)
           );
           setCredentials({
             ...credentials,
@@ -570,8 +570,8 @@ const SignUp = () => {
           dispatch(
             validateEmailAndPassword(
               emailAfterVerify,
-              credentials.password.content,
-            ),
+              credentials.password.content
+            )
           );
           setCredentials({
             ...credentials,
@@ -600,16 +600,29 @@ const SignUp = () => {
         break;
     }
   };
+  const hasValue = (v) =>
+    Array.isArray(v)
+      ? v.length > 0
+      : v !== null && v !== undefined && String(v).trim() !== "";
 
+  const isFormValid =
+    hasValue(bio.email.content) &&
+    hasValue(bio.userName.content) &&
+    hasValue(bio.firstName.content) &&
+    hasValue(bio.lastName.content) &&
+    hasValue(selectedTransactionTypeName) && // multi-select (array)
+    hasValue(regionName) &&
+    hasValue(userRoleName);
   //  For button
   const buttonProps = {
     primaryButton: {
       text: "SIGN UP",
-      icon: <i className="icon-sent icon-size-one"></i>,
+      icon: <i className="icon-sent icon-size-zero"></i>,
       endIcon: "",
       class: "btnBorderStyledBeachSignup",
       size: "small",
-      disable: false,
+      disable: !isFormValid,
+
       click: () => checkValidity("verify-bio"),
     },
     secondaryButton: {
@@ -619,7 +632,7 @@ const SignUp = () => {
       class: "btnBorderStyledRedSignup",
       size: "small",
       disable: false,
-      click: () => goback(),
+      click: () => gobackHandler(),
     },
   };
 
@@ -639,8 +652,8 @@ const SignUp = () => {
           auth.responseData.userName === undefined
             ? null
             : auth.responseData.userName.search("@") !== -1
-              ? auth.responseData.userName.split("@")[0]
-              : auth.responseData.userName,
+            ? auth.responseData.userName.split("@")[0]
+            : auth.responseData.userName,
       },
       firstName: {
         ...credentials.firstName,
@@ -705,7 +718,7 @@ const SignUp = () => {
           <Col lg={12} md={12} sm={24} className="u-text-align-right">
             <div className={styles.loginBody}>
               <Title level={2} className={styles.fraudMainTitle}>
-                Fraud Digitization Portal
+                Fraud Digitization
               </Title>
               <Title level={4} className={styles.fraudMainTitle}>
                 Signup Request
@@ -741,7 +754,7 @@ const SignUp = () => {
                     click={() =>
                       verifyEmailPassword(
                         credentials.emailAddress.content,
-                        credentials.password.content,
+                        credentials.password.content
                       )
                     }
                     applyClass="next"
@@ -774,115 +787,143 @@ const SignUp = () => {
                   </Col>
                 </>
               ) : (
-                <Row gutter={40} className="u-text-align-left">
-                  <Col md={12} lg={12}>
-                    <label className={styles.lable}>Email</label>
-                    <TextField
-                      size="small"
-                      placeholder="Enter Email"
-                      disable
-                      value={bio.email.content}
-                    />
-                    {/* <ErrorBar errorText="" /> */}
-                  </Col>
-                  <Col md={12} lg={12}>
-                    <label className={styles.lable}>Username</label>
-                    <TextField
-                      size="small"
-                      placeholder="Enter User Name"
-                      disable
-                      value={bio.userName.content}
-                    />
-                    {/* <ErrorBar errorText="" /> */}
-                  </Col>
-                  <div className={styles.marginTop30px} />
-                  <Col md={12} lg={12}>
-                    <label className={styles.lable}>First Name</label>
-                    <TextField
-                      size="small"
-                      placeholder="Enter First Name"
-                      name="firstName"
-                      change={setFieldsHandler}
-                      value={bio.firstName.content}
-                      required={true}
-                    />
+                <>
+                  <Row gutter={[10]} className="u-text-align-left">
+                    <Col md={12} lg={12}>
+                      <label className={styles.lableNotRequired}>LDAP ID</label>
+                      <TextField
+                        size="small"
+                        placeholder="Enter Email"
+                        disable
+                        value={bio.email.content}
+                      />
+                      {/* <ErrorBar errorText="" /> */}
+                    </Col>
+                    <Col md={12} lg={12}>
+                      <label className={styles.lableNotRequired}>
+                        Username
+                      </label>
+                      <TextField
+                        size="small"
+                        placeholder="Enter User Name"
+                        disable
+                        value={bio.userName.content}
+                      />
+                      {/* <ErrorBar errorText="" /> */}
+                    </Col>
+                  </Row>
 
-                    {bio.firstName.isError && (
-                      <ErrorBar errorText={bio.firstName.errorMessage} />
-                    )}
-                  </Col>
-                  <Col md={12} lg={12}>
-                    <label className={styles.lable}>Last Name</label>
-                    <TextField
-                      size="small"
-                      placeholder="Enter Last Name"
-                      name="lastName"
-                      change={setFieldsHandler}
-                      value={bio.lastName.content}
-                      required={true}
-                    />
-                    {bio.lastName.isError && (
-                      <ErrorBar errorText={bio.lastName.errorMessage} />
-                    )}
-                  </Col>
-                  <Col
-                    lg={24}
-                    md={24}
-                    sm={24}
-                    className="MultipleSelectClass SignUp u-margin-bottom-20px"
+                  <Row
+                    gutter={[10]}
+                    className="u-text-align-left"
+                    style={{ marginTop: 14 }}
                   >
-                    <MultipleSelectCheckmarks
-                      selected={selected}
-                      setSelected={setSelected}
-                      selectedUserRoleName={selectedTransactionTypeName}
-                      setSelectedUserRoleName={setSelectedTransactionTypeName}
-                      lable="Transaction Type *"
-                      change={transactionTypeHandler}
-                      option={transactionTypes}
-                      name="transactionType"
-                      required
-                    />
-                    {bio.transactionType.isError && (
-                      <ErrorBar errorText={bio.transactionType.errorMessage} />
-                    )}
-                  </Col>
-                  <Col md={24} lg={24}>
-                    <label className={styles.lable}>Region</label>
-                    <Select
-                      value={regionName}
-                      option={region}
-                      placeholder="Select Region"
-                      name="FK_RID"
-                      change={regionHandler}
-                      required={true}
-                    />
-                    {bio.FK_RID.isError && (
-                      <ErrorBar errorText={bio.FK_RID.errorMessage} />
-                    )}
-                  </Col>
-                  <div className={styles.marginTop30px} />
-                  <Col md={24} lg={24}>
-                    <label className={styles.lable}>Role</label>
-                    <Select
-                      value={userRoleName}
-                      option={userRole}
-                      placeholder="Select"
-                      name="FK_GSSUserRoleID"
-                      change={roleHandler}
-                      required={true}
-                    />
-                    {bio.FK_GSSUserRoleID.isError && (
-                      <ErrorBar errorText={bio.FK_GSSUserRoleID.errorMessage} />
-                    )}
-                    {auth.pendingError ? (
-                      <ErrorBar errorText={auth.ResponseMessage} />
-                    ) : null}
-                  </Col>
-                  <Col md={24} lg={24} className="u-text-align-center">
-                    <div className={styles.marginTop30px} />
-                    <GroupedButtons data={buttonProps} />
-                  </Col>
-                </Row>
+                    <Col md={12} lg={12}>
+                      <label className={styles.lable}>First Name</label>
+                      <TextField
+                        size="small"
+                        placeholder="Enter First Name"
+                        name="firstName"
+                        change={setFieldsHandler}
+                        value={bio.firstName.content}
+                        required={true}
+                      />
+
+                      {bio.firstName.isError && (
+                        <ErrorBar errorText={bio.firstName.errorMessage} />
+                      )}
+                    </Col>
+                    <Col md={12} lg={12}>
+                      <label className={styles.lable}>Last Name</label>
+                      <TextField
+                        size="small"
+                        placeholder="Enter Last Name"
+                        name="lastName"
+                        change={setFieldsHandler}
+                        value={bio.lastName.content}
+                        required={true}
+                      />
+                      {bio.lastName.isError && (
+                        <ErrorBar errorText={bio.lastName.errorMessage} />
+                      )}
+                    </Col>
+                  </Row>
+
+                  <Row
+                    gutter={[10]}
+                    className="u-text-align-left"
+                    style={{ marginTop: 14 }}
+                  >
+                    <Col
+                      lg={12}
+                      md={12}
+                      sm={24}
+                      className="MultipleSelectClass SignUp"
+                    >
+                      <label className={styles.lable}>Transaction Type</label>
+                      <MultipleSelectCheckmarks
+                        selected={selected}
+                        setSelected={setSelected}
+                        selectedUserRoleName={selectedTransactionTypeName}
+                        setSelectedUserRoleName={setSelectedTransactionTypeName}
+                        change={transactionTypeHandler}
+                        option={transactionTypes}
+                        name="transactionType"
+                        placeholder="Select Transaction Type"
+                        required
+                      />
+                      {bio.transactionType.isError && (
+                        <ErrorBar
+                          errorText={bio.transactionType.errorMessage}
+                        />
+                      )}
+                    </Col>
+                    <Col lg={12} md={12} sm={24}>
+                      <label className={styles.lable}>Region</label>
+                      <Select
+                        value={regionName}
+                        option={region}
+                        placeholder="Select Region"
+                        name="FK_RID"
+                        change={regionHandler}
+                        required={true}
+                      />
+                      {bio.FK_RID.isError && (
+                        <ErrorBar errorText={bio.FK_RID.errorMessage} />
+                      )}
+                    </Col>
+                  </Row>
+
+                  <Row
+                    gutter={[10]}
+                    className="u-text-align-left"
+                    style={{ marginTop: 14 }}
+                  >
+                    <Col md={24} lg={24}>
+                      <label className={styles.lable}>Role</label>
+                      <Select
+                        value={userRoleName}
+                        option={userRole}
+                        placeholder="Select"
+                        name="FK_GSSUserRoleID"
+                        change={roleHandler}
+                        required={true}
+                      />
+                      {bio.FK_GSSUserRoleID.isError && (
+                        <ErrorBar
+                          errorText={bio.FK_GSSUserRoleID.errorMessage}
+                        />
+                      )}
+                      {auth.pendingError ? (
+                        <ErrorBar errorText={auth.ResponseMessage} />
+                      ) : null}
+                    </Col>
+                    <Col md={24} lg={24} className="u-text-align-center">
+                      <div className={styles.marginTop30px} />
+                      <GroupedButtons data={buttonProps} />
+                    </Col>
+                  </Row>
+                </>
               )}
               {/* second step component  */}
             </div>

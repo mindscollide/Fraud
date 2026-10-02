@@ -251,8 +251,9 @@
   border-top-right-radius: 0px !important;
   border-top-left-radius: 15px !important;
   padding: 8px !important;
-  font-weight: 600 !important;
+  font-weight: 500 !important;
   margin-right: 70px !important ;
+  font-size: 14px !important;
 }
 
 .btnBorderStyledBeachSignup:hover,
