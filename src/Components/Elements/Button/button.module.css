@@ -96,6 +96,18 @@
   left: -14px !important;
   /* margin-left: 10px !important; */
 }
+.btnSecondarySolid2Search3 {
+  background: #025f5c !important;
+  border-color: #025f5c !important;
+  cursor: pointer !important;
+  border-radius: 0px !important;
+  font-weight: 400 !important;
+  font-size: 14px !important;
+  color: #fff !important;
+  text-transform: none !important;
+  padding: 7px 20px !important;
+  margin-right: 10px;
+}
 
 .btnSecondarySolidReset {
   background: #d08b07 !important;

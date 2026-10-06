@@ -1,6 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
 
-
 import { Typography, Radio, Tooltip, Row, Col } from "antd";
 
 import { useDispatch, useSelector } from "react-redux";
@@ -725,7 +724,11 @@ const PendingApprovals = () => {
         <Row gutter={16}>
           <Col lg={4} md={4}></Col>
           <Col lg={8} md={8}></Col>
-          <Col lg={8} md={8} className="SearchPendingApprovals u-text-align-right">
+          <Col
+            lg={8}
+            md={8}
+            className="SearchPendingApprovals u-text-align-right"
+          >
             <InputWithBtn
               label="Search"
               fullWidth

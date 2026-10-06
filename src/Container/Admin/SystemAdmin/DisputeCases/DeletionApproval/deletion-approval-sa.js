@@ -1,6 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
 
-
 import { Typography, Radio, Tooltip, Row, Col } from "antd";
 
 import { useDispatch, useSelector } from "react-redux";
@@ -732,15 +731,14 @@ const PendingDeletionApprovals = () => {
 
   return (
     <>
-      <Title level={4}>Pending Deletion Approvals</Title>
+      <Title level={4}>Pending Approvals</Title>
       <>
-        <Row gutter={16}>
-          <Col lg={4} md={4}></Col>
-          <Col lg={8} md={8}></Col>
+        <Row gutter={[16, 0]} style={{ marginBottom: 10 }}>
+          <Col lg={12} md={12}></Col>
           <Col lg={8} md={8} className="SearchPendingApprovals">
             <InputWithBtn
-              label="Search"
               fullWidth
+              label={searchData?.length > 0 ? "Search" : ""}
               textFieldSize="small"
               icon={<i className="icon-search icon-size-one"></i>}
               name="PendingApprovals"
@@ -748,6 +746,7 @@ const PendingDeletionApprovals = () => {
               click={searchPendingDeletion}
               onchange={pendingDeletionHandler}
               value={searchData}
+              placeholder={"Search"}
               autoComplete={"off"}
             />
           </Col>
@@ -760,6 +759,8 @@ const PendingDeletionApprovals = () => {
               click={resetData}
             />
           </Col>
+        </Row>
+        <Row>
           <Col lg={24} md={24}>
             <Table
               rows={allPendingForApproval}
