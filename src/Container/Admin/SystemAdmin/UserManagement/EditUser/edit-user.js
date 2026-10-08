@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { Typography, Row, Col } from "antd";
-import { PlusOutlined as AddIcon } from "@ant-design/icons";
-import { UndoOutlined as Restore } from "@ant-design/icons";
 // import style from "./custom-css.css";
 import styles from "../../../../../Components/Elements/Loader/style.module.css";
 // import {StopOutlined} from  '@mui/icons-material/StopOutlined';
@@ -26,6 +24,8 @@ import {
   GetAllRegion,
   GetAllTransactionTypes,
 } from "../../../../../store/actions/setup-forms-actions";
+import { SearchOutlined as Search } from "@ant-design/icons";
+
 const EditUser = () => {
   const { Title } = Typography;
   const state = useSelector((state) => state);
@@ -103,52 +103,52 @@ const EditUser = () => {
     UserStatus: 0,
   });
 
-  const fieldsHandler = (e, val) => {
-    let id =
-      e.target.id !== undefined && e.target.id !== null ? e.target.id : null;
-    let name = e.target.name;
-    let value = e.target.value;
-    if (val === "Investigation Manager") {
-      setSearchData({ ...searchData, ["UserRole"]: 4 });
-      setUserRoleValue(val);
-    } else if (val === "Investigation Officer") {
-      setSearchData({ ...searchData, ["UserRole"]: 3 });
-      setUserRoleValue(val);
-    } else if (val === "Auditor") {
-      setSearchData({ ...searchData, ["UserRole"]: 7 });
-      setUserRoleValue(val);
-    } else if (val === "QA Manager") {
-      setSearchData({ ...searchData, ["UserRole"]: 5 });
-      setUserRoleValue(val);
-    } else if (val === "MIS Manager") {
-      setSearchData({ ...searchData, ["UserRole"]: 6 });
-      setUserRoleValue(val);
-    } else if (val === "System Administrator") {
-      setSearchData({ ...searchData, ["UserRole"]: 2 });
-      setUserRoleValue(val);
-    } else if (val === "Security Administrator") {
-      setSearchData({ ...searchData, ["UserRole"]: 1 });
-      setUserRoleValue(val);
-    } else if (val === "Enabled") {
-      setSearchData({ ...searchData, ["UserStatus"]: 1 });
-      setUserStatusValue(val);
-    } else if (val === "Disabled") {
-      setSearchData({ ...searchData, ["UserStatus"]: 2 });
-      setUserStatusValue(val);
-    } else if (val === "Locked") {
-      setSearchData({ ...searchData, ["UserStatus"]: 3 });
-      setUserStatusValue(val);
-    } else if (val === "Closed") {
-      setSearchData({ ...searchData, ["UserStatus"]: 4 });
-      setUserStatusValue(val);
-    } else if (val === "Dormant") {
-      setSearchData({ ...searchData, ["UserStatus"]: 9 });
-      setUserStatusValue(val);
-    } else if (id && id.includes("UserStatus")) {
-    } else {
-      setSearchData({ ...searchData, [name]: value.trimStart() });
-    }
-  };
+  // const fieldsHandler = (e, val) => {
+  //   let id =
+  //     e.target.id !== undefined && e.target.id !== null ? e.target.id : null;
+  //   let name = e.target.name;
+  //   let value = e.target.value;
+  //   if (val === "Investigation Manager") {
+  //     setSearchData({ ...searchData, ["UserRole"]: 4 });
+  //     setUserRoleValue(val);
+  //   } else if (val === "Investigation Officer") {
+  //     setSearchData({ ...searchData, ["UserRole"]: 3 });
+  //     setUserRoleValue(val);
+  //   } else if (val === "Auditor") {
+  //     setSearchData({ ...searchData, ["UserRole"]: 7 });
+  //     setUserRoleValue(val);
+  //   } else if (val === "QA Manager") {
+  //     setSearchData({ ...searchData, ["UserRole"]: 5 });
+  //     setUserRoleValue(val);
+  //   } else if (val === "MIS Manager") {
+  //     setSearchData({ ...searchData, ["UserRole"]: 6 });
+  //     setUserRoleValue(val);
+  //   } else if (val === "System Administrator") {
+  //     setSearchData({ ...searchData, ["UserRole"]: 2 });
+  //     setUserRoleValue(val);
+  //   } else if (val === "Security Administrator") {
+  //     setSearchData({ ...searchData, ["UserRole"]: 1 });
+  //     setUserRoleValue(val);
+  //   } else if (val === "Enabled") {
+  //     setSearchData({ ...searchData, ["UserStatus"]: 1 });
+  //     setUserStatusValue(val);
+  //   } else if (val === "Disabled") {
+  //     setSearchData({ ...searchData, ["UserStatus"]: 2 });
+  //     setUserStatusValue(val);
+  //   } else if (val === "Locked") {
+  //     setSearchData({ ...searchData, ["UserStatus"]: 3 });
+  //     setUserStatusValue(val);
+  //   } else if (val === "Closed") {
+  //     setSearchData({ ...searchData, ["UserStatus"]: 4 });
+  //     setUserStatusValue(val);
+  //   } else if (val === "Dormant") {
+  //     setSearchData({ ...searchData, ["UserStatus"]: 9 });
+  //     setUserStatusValue(val);
+  //   } else if (id && id.includes("UserStatus")) {
+  //   } else {
+  //     setSearchData({ ...searchData, [name]: value.trimStart() });
+  //   }
+  // };
 
   // for edit user
   const editUserDataHnaler = (e, val) => {
@@ -237,6 +237,27 @@ const EditUser = () => {
     } else {
       return "";
     }
+  };
+
+  const roleChangeHandler = (e, val) => {
+    const role = userRoles.find((r) => r.name === val);
+    setSearchData((prev) => ({ ...prev, UserRole: role ? role.value : 0 }));
+    setUserRoleValue(val ?? null);
+  };
+
+  const statusChangeHandler = (e, val) => {
+    const status = userStatus.find((s) => s.name === val);
+    setSearchData((prev) => ({
+      ...prev,
+      UserStatus: status ? status.value : 0,
+    }));
+    setUserStatusValue(val ?? null);
+  };
+
+  // text fields keep using a simplified fieldsHandler
+  const fieldsHandler = (e) => {
+    const { name, value } = e.target;
+    setSearchData((prev) => ({ ...prev, [name]: (value ?? "").trimStart() }));
   };
 
   // For User transactionName DropDown SetState
@@ -343,21 +364,13 @@ const EditUser = () => {
       render: (text) => (
         <>
           {text === 1 ? (
-            <div
-              className="icon-check icon-size-one greenTick u-cursor-pointer"
-            ></div>
+            <div className="icon-check icon-size-one greenTick u-cursor-pointer"></div>
           ) : text === 2 ? (
-            <div
-              className="icon-not-allowed icon-size-one crossRed u-cursor-pointer"
-            ></div>
+            <div className="icon-not-allowed icon-size-one crossRed u-cursor-pointer"></div>
           ) : text === 3 ? (
-            <div
-              className="icon-lock icon-size-one crossRed u-cursor-pointer"
-            ></div>
+            <div className="icon-lock icon-size-one crossRed u-cursor-pointer"></div>
           ) : (
-            <div
-              className="icon-close icon-size-one crossRed u-cursor-pointer"
-            ></div>
+            <div className="icon-close icon-size-one crossRed u-cursor-pointer"></div>
           )}
         </>
       ),
@@ -567,7 +580,8 @@ const EditUser = () => {
         <Col lg={6} md={6} sm={24}>
           <TextField
             fullWidth
-            label="Login ID"
+            label={searchData.LoginID !== "" && "Login ID"}
+            placeholder={"Login ID"}
             size="small"
             autoComplete="off"
             name="LoginID"
@@ -578,7 +592,8 @@ const EditUser = () => {
         <Col lg={6} md={6} sm={24}>
           <TextField
             fullWidth
-            label="First Name"
+            label={searchData.FirstName !== "" && "First Name"}
+            placeholder={"First Name"}
             size="small"
             autoComplete="off"
             name="FirstName"
@@ -589,7 +604,8 @@ const EditUser = () => {
         <Col lg={6} md={6} sm={24}>
           <TextField
             fullWidth
-            label="Last Name"
+            label={searchData.LastName !== "" && "Last Name"}
+            placeholder={"Last Name"}
             size="small"
             autoComplete="off"
             name="LastName"
@@ -598,7 +614,7 @@ const EditUser = () => {
           />
         </Col>
         <Col lg={6} md={6} sm={24}>
-          <SelectBox
+          {/* <SelectBox
             label="Select Role"
             size="small"
             height="10px!important"
@@ -606,38 +622,46 @@ const EditUser = () => {
             name="UserRole"
             value={userRoleValue}
             change={fieldsHandler}
+          /> */}
+
+          <SelectBox
+            label={userRoleValue?.length !== 0 && "Select Role"}
+            option={userRolesName}
+            name="UserRole"
+            value={userRoleValue}
+            change={roleChangeHandler}
+            placeholder={"Select Role"}
           />
         </Col>
+      </Row>
+
+      <Row style={{ marginTop: 10, gap: 8 }}>
         <Col lg={6} md={6} sm={24}>
           <SelectBox
-            label="Select Status"
-            size="small"
-            height="10px!important"
+            label={userStatusValue?.length !== 0 && "Select Status"}
+            placeholder={"Select Status"}
             option={userStatusName}
-            name="UserStaus"
+            name="UserStatus"
             value={userStatusValue}
-            change={fieldsHandler}
+            change={statusChangeHandler}
           />
         </Col>
-        <Col md={12} lg={12} sm={24} className="AddEdit u-text-align-right">
-          <div className="u-display-flex">
-            <div style={{ width: "18.75%" }}>
-              <Button
-                applyClass="btnDarkSolid"
-                text="Search"
-                icon={<i className="icon-search icon-size-one"></i>}
-                click={searchHandler}
-              />
-            </div>
-            <div className="u-margin-left-10px" style={{ width: "18.75%" }}>
-              <Button
-                text="Reset"
-                icon={<Restore />}
-                applyClass="btnDarkSolid"
-                size="small"
-                click={resetData}
-              />
-            </div>
+        <Col md={16} lg={16} sm={24}>
+          <div>
+            <Button
+              text="Search"
+              icon={<Search />}
+              applyClass="btnSecondarySolid2Search3"
+              size="small"
+              click={searchHandler}
+            />
+            <Button
+              text="Reset"
+              icon={<i className="icon-reset"></i>}
+              applyClass="btnSecondarySolidReset"
+              size="small"
+              click={resetData}
+            />
           </div>
         </Col>
 

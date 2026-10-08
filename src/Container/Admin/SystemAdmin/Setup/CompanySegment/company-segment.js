@@ -21,6 +21,8 @@ import {
   DeleteCompanySegment,
   EditCompanySegment,
 } from "../../../../../store/actions/setup-forms-actions";
+import styles from "../systemAdmin.module.css";
+
 const CompanySegment = () => {
   const { Title } = Typography;
   const dispatch = useDispatch();
@@ -272,7 +274,8 @@ const CompanySegment = () => {
         <Col lg={18} md={18} sm={24}>
           <TextField
             fullWidth
-            label="Enter Company Segment"
+            label={companySegmentName?.Name !== "" && "Enter Company Segment"}
+            placeholder={"Enter Company Segment *"}
             size="small"
             autoComplete="off"
             required
@@ -330,11 +333,12 @@ const CompanySegment = () => {
         {/* this data will be pass to modal when delete icon btn in the table  will be clicked */}
         {actions.delete && (
           <>
-            <div className="u-padding-40px u-display-flex u-justify-content-center">
+            <div className={styles.deleteModalMain}>
               <i className="icon-trash icon-size-two"></i>
-              <Title level={3} align="center">
+
+              <span className={styles.deleteModalTitle}>
                 Are you sure you want to delete this?
-              </Title>
+              </span>
             </div>
             <GroupedButtons data={buttonProps} />
           </>

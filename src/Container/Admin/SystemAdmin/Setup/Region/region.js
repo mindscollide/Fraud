@@ -21,6 +21,7 @@ import {
   DeleteRegion,
   EditRegion,
 } from "../../../../../store/actions/setup-forms-actions";
+import styles from "../systemAdmin.module.css";
 const Region = () => {
   const { Title } = Typography;
   const dispatch = useDispatch();
@@ -206,7 +207,7 @@ const Region = () => {
 
   const handleCodeChange = (e) => {
     let value = e.target.value;
-    if (value === 0 || value === "") {
+    if (value === "") {
       setAction({ ...actions, update: actions.update ? true : false });
       setRegion({
         ...region,
@@ -214,11 +215,11 @@ const Region = () => {
       });
     } else {
       setBtnStatus(false);
-      var valueCheck = value.replace(/[^\d-]/g, "");
-      if (!valueCheck === 0) {
+      const valueCheck = value.replace(/[^\d-]/g, "");
+      if (valueCheck !== "") {
         setRegion({
           ...region,
-          Code: parseInt(valueCheck),
+          Code: parseInt(valueCheck, 10),
         });
       }
     }
@@ -359,7 +360,8 @@ const Region = () => {
         <Col lg={6} md={6} sm={24}>
           <TextField
             fullWidth
-            label="Region Code"
+            label={region.Code && "Region Code"}
+            placeholder={"Region Code *"}
             size="small"
             autoComplete="off"
             required
@@ -367,12 +369,14 @@ const Region = () => {
               region.Code === 0 || region.Code === null ? null : region.Code
             }
             change={handleCodeChange}
+            textLength={4}
           />
         </Col>
         <Col lg={14} md={14} sm={24}>
           <TextField
             fullWidth
-            label="Region Name"
+            label={region.Name && "Region Name"}
+            placeholder={"Region Name *"}
             size="small"
             autoComplete="off"
             required
@@ -430,11 +434,12 @@ const Region = () => {
         {/* this data will be pass to modal when delete icon btn in the table  will be clicked */}
         {actions.delete && (
           <>
-            <div className="u-padding-40px u-display-flex u-justify-content-center">
+            <div className={styles.deleteModalMain}>
               <i className="icon-trash icon-size-two"></i>
-              <Title level={3} align="center">
+
+              <span className={styles.deleteModalTitle}>
                 Are you sure you want to delete this?
-              </Title>
+              </span>
             </div>
             <GroupedButtons data={buttonProps} />
           </>

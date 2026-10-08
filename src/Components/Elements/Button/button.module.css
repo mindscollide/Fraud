@@ -237,6 +237,7 @@
   border-top-left-radius: 15px !important;
   padding: 10px 25px 10px 25px !important;
   font-weight: 600 !important;
+  height: 50px;
 }
 
 .btnBorderStyledBeach:hover,
@@ -287,6 +288,7 @@
   padding: 10px 25px 10px 25px !important;
   font-weight: 600 !important;
   width: 100% !important;
+  height: 50px;
 }
 .btnBorderStyledRed:hover,
 .btnBorderStyledRed:focus {

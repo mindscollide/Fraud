@@ -21,6 +21,7 @@ import {
   HideNotification,
   SearchManagementUnit,
 } from "../../../../../store/actions/setup-forms-actions";
+import styles from "../systemAdmin.module.css";
 const ManagementUnit = () => {
   const { Title } = Typography;
   const dispatch = useDispatch();
@@ -280,11 +281,12 @@ const ManagementUnit = () => {
         {/* this data will be pass to modal when delete icon btn in the table  will be clicked */}
         {actions.delete && (
           <>
-            <div className="u-padding-40px u-display-flex u-justify-content-center">
+            <div className={styles.deleteModalMain}>
               <i className="icon-trash icon-size-two"></i>
-              <Title level={3} align="center">
+
+              <span className={styles.deleteModalTitle}>
                 Are you sure you want to delete this?
-              </Title>
+              </span>
             </div>
             <GroupedButtons data={buttonProps} />
           </>

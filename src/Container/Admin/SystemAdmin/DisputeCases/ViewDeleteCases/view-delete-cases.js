@@ -557,7 +557,14 @@ const ViewDeleteCases = () => {
           />
         </Col>
       </Row>
-      <Row style={{ marginTop: 5, display: "flex", justifyContent: "center" }}>
+      <Row
+        style={{
+          marginTop: 10,
+          gap: 8,
+          display: "flex",
+          justifyContent: "center",
+        }}
+      >
         <div>
           <Button
             text="Search"
@@ -574,24 +581,6 @@ const ViewDeleteCases = () => {
             click={resetData}
           />
         </div>
-        {/* <Col lg={4} md={4} sm={24}>
-          <Button
-            text="Search"
-            icon={<Search />}
-            applyClass="btnSecondarySolid2Search3"
-            size="small"
-            click={handleSearchData}
-          />
-        </Col>
-        <Col lg={4} md={4} sm={24}>
-          <Button
-            text="Reset"
-            icon={<i className="icon-reset"></i>}
-            applyClass="btnSecondarySolidReset"
-            size="small"
-            click={resetData}
-          />
-        </Col> */}
       </Row>
       <Row gutter={8}>
         <Col lg={24} md={22} sm={24} className="u-margin-top-1pct">
