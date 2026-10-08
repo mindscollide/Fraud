@@ -146,13 +146,12 @@ const Header = ({ Notification, title, UserDetails }) => {
                   </Menu>
                 }
               >
-                <span onClick={handleClick} style={{ cursor: "pointer" }}>
+                <span onClick={handleClick} className="noti-icon">
                   <Badge count={requestReducer.userRequestCount}>
                     <NotificationsNoneIcon
-                      // Matches MUI's fontSize="large" (35px), which this
-                      // icon used before the antd swap.
-                      style={{ fontSize: "35px" }}
-                      className="noti-icon"
+                    // Matches MUI's fontSize="large" (35px), which this
+                    // icon used before the antd swap.
+                    // style={{ fontSize: "25px" }}
                     />
                   </Badge>
                 </span>

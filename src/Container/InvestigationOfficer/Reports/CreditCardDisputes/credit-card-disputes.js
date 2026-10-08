@@ -1,27 +1,21 @@
 import React, { useState, useEffect } from "react";
 import { Typography, Row, Col } from "antd";
-import { SearchOutlined as Search } from "@ant-design/icons";
 import { DownloadOutlined } from "@ant-design/icons";
 import {
   Button,
   TextField,
-  Notification,
   StartToEndDate,
   Loader,
   MultipleSelectCheckmarks,
 } from "../../../../Components/Elements";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  CardNumberFormatter,
   DateDisplayFormat,
   DateSendingFormat,
-  currentToOneYearBackDate,
-  NumberFormater,
-  CommaFormter,
 } from "../../../../Common/Functions/date-formatter";
 import { CreditCardReportExcel } from "../../../../store/actions/reports_actions";
 import { GetAllStatus } from "../../../../store/actions/setup-forms-actions";
-
+import styles from "../../investigationOfficer.module.css";
 const IOCreditCardDisputes = () => {
   const { Title } = Typography;
   const dispatch = useDispatch();
@@ -128,7 +122,7 @@ const IOCreditCardDisputes = () => {
     setStatus(
       statusName.map((data, index) => {
         return data.statusDescription;
-      }),
+      })
     );
   }, [setupForms.StatusData]);
 
@@ -177,8 +171,8 @@ const IOCreditCardDisputes = () => {
       <Title level={3}> Credit Card Disputes</Title>
       <Row gutter={8}>
         <Col
-          lg={8}
-          md={8}
+          lg={4}
+          md={4}
           sm={24}
           className="MultipleSelectClass u-position-relative"
         >
@@ -187,16 +181,18 @@ const IOCreditCardDisputes = () => {
             setSelected={setSelected}
             selectedUserRoleName={selectedStatusName}
             setSelectedUserRoleName={setSelectedStatusName}
-            lable="Dispute Status"
+            lable={selected?.length > 0 && "Dispute Status"}
+            placeholder={"Dispute Status"}
             option={status}
             name="CaseStatus"
             required
           />
         </Col>
-        <Col lg={6} md={6} sm={24}>
+        <Col lg={4} md={4} sm={24}>
           <TextField
             fullWidth
-            label="CNIC"
+            label={search?.CNIC !== "" && "CNIC"}
+            placeholder={"CNIC *"}
             autoComplete="off"
             size="small"
             name="CNIC"
@@ -226,19 +222,27 @@ const IOCreditCardDisputes = () => {
             DateRange={true}
           />
         </Col>
-        <Col lg={6} md={6} sm={24} className="u-margin-top-10px">
+        <Col lg={8} md={8} sm={24} className={styles.buttonSpacing}>
+          <Button
+            text="Search"
+            icon={<i className="icon-search icon-size-zero"></i>}
+            applyClass="btnSecondarySolid2Search"
+            size="small"
+            click={handleSerach}
+          />
           <Button
             text="Reset"
-            icon={<i className="icon-reset"></i>}
+            icon={<i className="icon-reset icon-size-zero"></i>}
             applyClass="btnSecondarySolidReset"
             size="small"
             click={handleReset}
           />
         </Col>
-
+      </Row>
+      <Row gutter={8} className={styles.creaditCardDisputeDownloadBtn}>
         <Col
-          md={24}
-          lg={24}
+          md={6}
+          lg={6}
           sm={24}
           className="u-margin-top-5pct u-text-align-center"
         >

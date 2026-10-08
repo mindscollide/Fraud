@@ -138,7 +138,7 @@ const NDRrecord = () => {
     setStatus(
       statusName.map((data, index) => {
         return data.statusDescription;
-      }),
+      })
     );
   }, [setupForms.StatusData]);
 
@@ -197,7 +197,8 @@ const NDRrecord = () => {
             setSelected={setSelected}
             selectedUserRoleName={selectedStatusName}
             setSelectedUserRoleName={setSelectedStatusName}
-            lable="Dispute Status"
+            lable={selected?.length > 0 && "Dispute Status"}
+            placeholder={"Dispute Status *"}
             option={status}
             name="CaseStatus"
             required
@@ -206,7 +207,8 @@ const NDRrecord = () => {
         <Col lg={8} md={8} sm={24}>
           <TextField
             fullWidth
-            label="Customer Name"
+            label={search?.CustomerName !== "" && "Customer Name"}
+            placeholder={"Customer Name *"}
             size="small"
             autoComplete="off"
             required
@@ -219,7 +221,8 @@ const NDRrecord = () => {
         <Col lg={8} md={8} sm={24}>
           <TextField
             fullWidth
-            label="Mobile Number"
+            label={search?.MobileNumber !== "" && "Mobile Number"}
+            placeholder={"Mobile Number *"}
             size="small"
             autoComplete="off"
             required
@@ -232,7 +235,8 @@ const NDRrecord = () => {
         <Col lg={8} md={8} sm={24} className="u-margin-top-22px">
           <TextField
             fullWidth
-            label="CNIC"
+            label={search?.CNIC !== "" && "CNIC"}
+            placeholder={"CNIC *"}
             size="small"
             autoComplete="off"
             name="CNIC"

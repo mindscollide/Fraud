@@ -70,15 +70,15 @@ const IORegionWiseStaffList = () => {
       <Row gutter={8}>
         <Col lg={8} md={8} sm={24}>
           <SelectBox
-            label="Select Region"
+            label={region !== "" && "Select Region"}
+            placeholder={"Select Region"}
             name="SelectRegion"
             option={userRegion}
             value={region}
             change={editUserDataHnaler}
           />
         </Col>
-        <Col lg={2} md={2} sm={24}></Col>
-        <Col lg={8} md={8} sm={24}>
+        <Col lg={16} md={16} sm={24}>
           <Button
             text="Reset"
             icon={<i className="icon-reset"></i>}

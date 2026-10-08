@@ -1,13 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { Typography, Row, Col } from "antd";
-import { PlusOutlined as AddIcon } from "@ant-design/icons";
 import { SearchOutlined as Search } from "@ant-design/icons";
-import { EditOutlined as Edit } from "@ant-design/icons";
-import { UndoOutlined as Restore } from "@ant-design/icons";
+
 import { DownloadOutlined } from "@ant-design/icons";
 import {
   Button,
-  Table,
   GroupedButtons,
   Modal,
   TextField,
@@ -18,11 +15,11 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   GetBorrowerType,
   AddBorrowerType,
-  EditBorrowerType,
   DeleteBorrowerType,
   HideNotification,
-  SearchBorrowerType,
 } from "../../../../../store/actions/setup-forms-actions";
+import styles from "../../Setup/systemAdmin.module.css";
+
 const CreditCardDisputes = () => {
   const { Title } = Typography;
   const dispatch = useDispatch();
@@ -254,7 +251,12 @@ const CreditCardDisputes = () => {
           />
         </Col>
 
-        <Col md={24} lg={24} sm={24} className="u-margin-top-5pct u-text-align-center">
+        <Col
+          md={24}
+          lg={24}
+          sm={24}
+          className="u-margin-top-5pct u-text-align-center"
+        >
           <div>
             <Button
               applyClass="btnDarkSolidm"
@@ -268,9 +270,11 @@ const CreditCardDisputes = () => {
         {/* this data will be pass to modal when Add Brower btn will be clicked */}
         {actions.add && (
           <>
-            <div className="u-padding-40px u-display-flex u-justify-content-center">
-              <Title level={3} align="center">
-                Are you sure you want to add Source
+            <div className={styles.deleteModalMain}>
+              <i className="icon-trash icon-size-two"></i>
+
+              <Title className={styles.deleteModalTitle} level={4}>
+                Are you sure you want to delete this?
               </Title>
             </div>
             <GroupedButtons data={addButtonProps} />

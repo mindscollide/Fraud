@@ -151,7 +151,7 @@ const IODebitCardDisputes = () => {
     setStatus(
       statusName.map((data, index) => {
         return data.statusDescription;
-      }),
+      })
     );
   }, [setupForms.StatusData]);
 
@@ -210,7 +210,8 @@ const IODebitCardDisputes = () => {
             setSelected={setSelected}
             selectedUserRoleName={selectedStatusName}
             setSelectedUserRoleName={setSelectedStatusName}
-            lable="Dispute Status"
+            lable={selected?.length > 0 && "Dispute Status"}
+            placeholder={"Dispute Status"}
             option={status}
             name="CaseStatus"
             required
@@ -219,7 +220,8 @@ const IODebitCardDisputes = () => {
         <Col lg={8} md={8} sm={24}>
           <TextField
             fullWidth
-            label="HBL Account Number"
+            label={search?.HBLAccountNumber !== "" && "HBL Account Number"}
+            placeholder={"HBL Account Number"}
             size="small"
             autoComplete="off"
             required
@@ -232,7 +234,11 @@ const IODebitCardDisputes = () => {
         <Col lg={8} md={8} sm={24}>
           <TextField
             fullWidth
-            label="Other Bank Account Number"
+            label={
+              search?.OtherBankAccountNumber !== "" &&
+              "Other Bank Account Number"
+            }
+            placeholder={"Other Bank Account Number *"}
             size="small"
             autoComplete="off"
             required
@@ -245,7 +251,8 @@ const IODebitCardDisputes = () => {
         <Col lg={8} md={8} sm={24} className="u-margin-top-22px">
           <TextField
             fullWidth
-            label="CNIC"
+            label={search?.CNIC !== "" && "CNIC"}
+            placeholder={"CNIC *"}
             size="small"
             name="CNIC"
             autoComplete="off"
@@ -276,9 +283,16 @@ const IODebitCardDisputes = () => {
           />
         </Col>
         <Col lg={6} md={6} sm={24} className="u-margin-top-21px">
+          {/* <Button
+            text="Search"
+            icon={<i className="icon-search icon-size-zero"></i>}
+            applyClass="btnSecondarySolidReset"
+            size="small"
+            click={handleReset}
+          /> */}
           <Button
             text="Reset"
-            icon={<i className="icon-reset"></i>}
+            icon={<i className="icon-reset icon-size-zero"></i>}
             applyClass="btnSecondarySolidReset"
             size="small"
             click={handleReset}

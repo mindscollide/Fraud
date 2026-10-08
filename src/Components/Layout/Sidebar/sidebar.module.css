@@ -1,33 +1,32 @@
 .menuMainItem {
-  padding-top   : 10px;
+  padding-top: 10px;
   padding-bottom: 10px !important;
-  border-bottom : 1px solid #3b7674;
+  border-bottom: 1px solid #3b7674;
 }
 
 .noLinkStyles {
   text-decoration: none !important;
-  color          : inherit !important;
-
+  color: inherit !important;
 }
 
 .DisableSidebar {
   pointer-events: none;
-  filter        : grayscale(0.8);
+  filter: grayscale(0.8);
 }
 
 .sider {
-  position : fixed !important;
-  left     : 0 !important;
-  top      : 68px !important;
+  position: fixed !important;
+  left: 0 !important;
+  top: 68px !important;
   /* Fills the full viewport below the fixed 68px header, all the way to the
      bottom — the footer only spans the content column (left:230px in
      footer.module.css), not the sidebar's column, so the sidebar doesn't
      reserve any space for it. Previously a fixed "92vh" guess that left gaps
      or overflowed depending on viewport height. */
-  height   : calc(100vh - 68px) !important;
-  width    : 230px !important;
+  height: calc(100vh - 68px) !important;
+  width: 230px !important;
   min-width: 230px !important;
-  display  : block !important;
+  display: block !important;
   overflow-y: auto !important;
   overflow-x: hidden !important;
   scrollbar-width: thin; /* Firefox */
@@ -39,7 +38,7 @@
 
 .sider::-webkit-scrollbar-thumb {
   background-color: rgba(0, 0, 0, 0.25);
-  border-radius   : 3px;
+  border-radius: 3px;
 }
 
 .sider::-webkit-scrollbar-track {
@@ -47,12 +46,63 @@
 }
 
 .ant-menu-item.ant-menu-title-content {
-  white-space  : nowrap !important;
-  overflow     : initial !important;
+  white-space: nowrap !important;
+  overflow: initial !important;
   text-overflow: initial !important;
 }
 
 .menuSidebarStyle {
   height: 100%;
   border: none !important;
+}
+
+/* ---------- Submenu arrow: right by default, rotates to down when open ---------- */
+.menuSidebarStyle :global(.ant-menu-submenu-arrow)::before {
+  display: none !important; /* remove antd's default two-bar chevron */
+}
+/* ---------- Arrow: drawn on the title itself, right by default ---------- */
+.menuSidebarStyle :global(.ant-menu-submenu-arrow) {
+  display: none !important; /* hide antd's built-in arrow completely */
+}
+
+.menuSidebarStyle :global(.ant-menu-submenu > .ant-menu-submenu-title) {
+  position: relative;
+  padding-right: 36px !important;
+}
+
+.menuSidebarStyle :global(.ant-menu-submenu > .ant-menu-submenu-title)::after {
+  content: "";
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  width: 7px;
+  height: 7px;
+  border-top: 2px solid currentColor;
+  border-right: 2px solid currentColor;
+  transform: translateY(-50%) rotate(45deg); /* points right */
+  transition: transform 0.25s ease;
+}
+
+/* open: rotate another 90deg so it points down */
+.menuSidebarStyle
+  :global(.ant-menu-submenu-open > .ant-menu-submenu-title)::after {
+  transform: translateY(-70%) rotate(135deg);
+}
+
+/* ---------- Colors ---------- */
+/* Everything inside a dropdown stays gray by default */
+.menuSidebarStyle :global(.ant-menu-sub .ant-menu-item),
+.menuSidebarStyle :global(.ant-menu-sub .ant-menu-item a) {
+  color: rgba(255, 255, 255, 0.65) !important; /* use your original gray here */
+}
+
+/* Only the open dropdown's title is white */
+.menuSidebarStyle :global(.ant-menu-submenu-open > .ant-menu-submenu-title) {
+  color: #ffffff !important;
+}
+
+/* Only the currently open page is white */
+.menuSidebarStyle :global(.ant-menu-sub .ant-menu-item-selected),
+.menuSidebarStyle :global(.ant-menu-sub .ant-menu-item-selected a) {
+  color: #ffffff !important;
 }

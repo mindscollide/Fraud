@@ -1,28 +1,20 @@
 import React, { useState, useEffect } from "react";
 import { Typography, Row, Col } from "antd";
-import { PlusOutlined as AddIcon } from "@ant-design/icons";
 import { SearchOutlined as Search } from "@ant-design/icons";
-import { EditOutlined as Edit } from "@ant-design/icons";
-import { UndoOutlined as Restore } from "@ant-design/icons";
 import { DownloadOutlined } from "@ant-design/icons";
 import {
   Button,
-  Table,
   GroupedButtons,
   Modal,
-  TextField,
   Notification,
-  StartToEndDate,
   SelectBox,
 } from "../../../../../Components/Elements";
 import { useDispatch, useSelector } from "react-redux";
 import {
   GetBorrowerType,
   AddBorrowerType,
-  EditBorrowerType,
   DeleteBorrowerType,
   HideNotification,
-  SearchBorrowerType,
 } from "../../../../../store/actions/setup-forms-actions";
 const RegionWiseStaffList = () => {
   const { Title } = Typography;
