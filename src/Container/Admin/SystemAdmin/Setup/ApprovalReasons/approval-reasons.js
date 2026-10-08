@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Typography, Row, Col } from "antd";
 import { PlusOutlined as AddIcon } from "@ant-design/icons";
-import { SearchOutlined as Search } from "@ant-design/icons";
 import { EditOutlined as Edit } from "@ant-design/icons";
-import { UndoOutlined as Restore } from "@ant-design/icons";
 import {
   Button,
   Table,
@@ -273,7 +271,10 @@ const ApprovalReasons = () => {
           <TextField
             fullWidth
             autoComplete="off"
-            label="Enter Approval Reasons"
+            label={
+              approvalReasonsReason?.Reason !== "" && "Enter Approval Reasons"
+            }
+            placeholder={"Enter Approval Reasons *"}
             change={handleChange}
             value={approvalReasonsReason.Reason}
             size="small"
