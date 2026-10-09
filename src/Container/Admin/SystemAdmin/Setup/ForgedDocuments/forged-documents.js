@@ -272,7 +272,7 @@ const ForgedDocuments = () => {
           <TextField
             fullWidth
             label={forgedDocumentsName.Name !== "" && "Enter Forged Documents"}
-            placeholder={"Enter Forged Documents"}
+            placeholder={"Enter Forged Documents *"}
             size="small"
             autoComplete="off"
             required

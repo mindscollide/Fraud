@@ -274,7 +274,7 @@ const Channel = () => {
             fullWidth
             autoComplete="off"
             label={channelName.Name !== "" && "Enter Channel"}
-            placeholder={"Enter Channel"}
+            placeholder={"Enter Channel *"}
             size="small"
             required
             value={channelName.Name.trimStart()}

@@ -200,8 +200,8 @@ const EditUser = () => {
       UserRole: 0,
       UserStatus: 0,
     };
-    setUserRoleValue();
-    setUserStatusValue();
+    setUserRoleValue([]);
+    setUserStatusValue([]);
     dispatch(getAllUserData(data));
     dispatch(GetAllRegion());
     dispatch(GetAllTransactionTypes(userid));

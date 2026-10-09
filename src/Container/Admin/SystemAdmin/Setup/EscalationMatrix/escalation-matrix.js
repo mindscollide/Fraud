@@ -459,8 +459,16 @@ const EscalationMatrix = () => {
             setSelected={setSelected}
             selectedUserRoleName={selectedUserRoleName}
             setSelectedUserRoleName={setSelectedUserRoleName}
-            lable={selected?.length > 0 && "Select Role"}
-            placeholder={"Select Role"}
+            lable={
+              selected?.length > 0 ? (
+                <>
+                  Select Role <span className={styles.required}>*</span>
+                </>
+              ) : (
+                ""
+              )
+            }
+            placeholder={"Select Role *"}
             option={userRoles}
             name={userRoles}
             // value=[]

@@ -14,6 +14,7 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { NONAPIReportExcel } from "../../../../store/actions/reports_actions";
 import { GetAllStatus } from "../../../../store/actions/setup-forms-actions";
+import styles from "../../investigationOfficer.module.css";
 
 const IONONAPIDisputes = () => {
   const { Title } = Typography;
@@ -250,7 +251,16 @@ const IONONAPIDisputes = () => {
         </Col>
         <Col lg={8} md={8} sm={24} className="u-margin-top-22px">
           <StartToEndDate
-            label={"Case Received Date"}
+            label={
+              (State.FromDate !== null && State.FromDate !== "") ||
+              (State.ToDate !== null && State.ToDate !== "") ? (
+                <>
+                  Cash Received Date <span className={styles.required}>*</span>
+                </>
+              ) : (
+                ""
+              )
+            }
             width="100%!important"
             size="large"
             change={setDate}
@@ -260,7 +270,7 @@ const IONONAPIDisputes = () => {
                 : null
             }
             endvalue={
-              State.ToDate !== null && State.FromDate !== ""
+              State.ToDate !== null && State.ToDate !== ""
                 ? DateDisplayFormat(State.ToDate)
                 : null
             }

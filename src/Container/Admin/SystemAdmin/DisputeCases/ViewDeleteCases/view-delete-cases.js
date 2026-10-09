@@ -517,7 +517,12 @@ const ViewDeleteCases = () => {
         </Col>
         <Col lg={6} md={6} sm={24} className="u-margin-top-22px">
           <StartToEndDate
-            label={"Case Received Date"}
+            label={
+              (State.from !== null && State.from !== "") ||
+              (State.to !== null && State.to !== "")
+                ? "Case Received Date"
+                : ""
+            }
             width="100%!important"
             size="large"
             change={setDate}

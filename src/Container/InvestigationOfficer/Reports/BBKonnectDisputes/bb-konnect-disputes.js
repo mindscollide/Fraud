@@ -16,6 +16,7 @@ import {
 } from "../../../../Common/Functions/date-formatter";
 import { BBKonnectReportExcel } from "../../../../store/actions/reports_actions";
 import { GetAllStatus } from "../../../../store/actions/setup-forms-actions";
+import styles from "../../investigationOfficer.module.css";
 
 const IOBBKonnectDisputes = () => {
   const { Title } = Typography;
@@ -252,7 +253,14 @@ const IOBBKonnectDisputes = () => {
         </Col>
         <Col lg={8} md={8} sm={24} className="u-margin-top-22px">
           <StartToEndDate
-            label={"Case Received Date"}
+            label={
+              ((State.FromDate !== null && State.FromDate !== "") ||
+                (State.ToDate !== null && State.FromDate !== "")) && (
+                <>
+                  Cash Received Date <span className={styles.required}>*</span>
+                </>
+              )
+            }
             width="100%!important"
             size="large"
             change={setDate}

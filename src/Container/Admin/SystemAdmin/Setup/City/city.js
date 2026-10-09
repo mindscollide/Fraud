@@ -392,7 +392,7 @@ const City = () => {
           <TextField
             fullWidth
             label={city.Name !== "" && "City Name"}
-            placeholder="City Name"
+            placeholder="City Name *"
             size="small"
             autoComplete="off"
             required

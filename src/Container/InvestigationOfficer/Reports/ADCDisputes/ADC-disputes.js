@@ -8,7 +8,6 @@ import {
 import {
   Button,
   TextField,
-  Notification,
   StartToEndDate,
   Loader,
   MultipleSelectCheckmarks,
@@ -16,6 +15,7 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { ADCReportExcel } from "../../../../store/actions/reports_actions";
 import { GetAllStatus } from "../../../../store/actions/setup-forms-actions";
+import styles from "../../investigationOfficer.module.css";
 
 const IOADCDisputes = () => {
   const { Title } = Typography;
@@ -209,7 +209,7 @@ const IOADCDisputes = () => {
           <TextField
             fullWidth
             label={search.HBLAccountNumber !== "" && "HBL Account Number"}
-            placeholder={"HBL Account Number"}
+            placeholder={"HBL Account Number *"}
             size="small"
             autoComplete="off"
             required
@@ -226,7 +226,7 @@ const IOADCDisputes = () => {
               search?.OtherBankAccountNumber !== "" &&
               "Beneficiary Account Number"
             }
-            placeholder={"Beneficiary Account Number"}
+            placeholder={"Beneficiary Account Number *"}
             size="small"
             autoComplete="off"
             required
@@ -240,7 +240,7 @@ const IOADCDisputes = () => {
           <TextField
             fullWidth
             label={search?.CNIC !== "" && "CNIC"}
-            placeholder={"CNIC"}
+            placeholder={"CNIC *"}
             size="small"
             autoComplete="off"
             name="CNIC"
@@ -252,7 +252,14 @@ const IOADCDisputes = () => {
         </Col>
         <Col lg={8} md={8} sm={24} className="u-margin-top-22px">
           <StartToEndDate
-            label={"Case Received Date"}
+            label={
+              ((State.FromDate !== null && State.FromDate !== "") ||
+                (State.ToDate !== null && State.FromDate !== "")) && (
+                <>
+                  Cash Received Date <span className={styles.required}>*</span>
+                </>
+              )
+            }
             width="100%!important"
             size="large"
             change={setDate}

@@ -333,10 +333,18 @@ const Holiday = () => {
         </Col>
         <Col lg={6} md={6} sm={24}>
           <DatePicker
+            label={
+              holiday.DateOfHoliday && (
+                <>
+                  Holiday Date <span className={styles.required}>*</span>
+                </>
+              )
+            }
+            // required
             name="DateOfHoliday"
             size="large"
             width="100%"
-            placeholder={"Holiday Date"}
+            placeholder={"Holiday Date *"}
             change={HolidayDateHandler}
             value={
               holiday.DateOfHoliday

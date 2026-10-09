@@ -204,7 +204,11 @@ const IOCreditCardDisputes = () => {
         </Col>
         <Col lg={6} md={6} sm={24}>
           <StartToEndDate
-            label={"Case Received Date"}
+            label={
+              State.FromDate !== null &&
+              State.FromDate !== "" &&
+              "Case Received Date"
+            }
             width="100%!important"
             size="large"
             change={setDate}
@@ -222,14 +226,14 @@ const IOCreditCardDisputes = () => {
             DateRange={true}
           />
         </Col>
-        <Col lg={8} md={8} sm={24} className={styles.buttonSpacing}>
-          <Button
+        <Col lg={8} md={8} sm={24}>
+          {/* <Button
             text="Search"
             icon={<i className="icon-search icon-size-zero"></i>}
             applyClass="btnSecondarySolid2Search"
             size="small"
             click={handleSerach}
-          />
+          /> */}
           <Button
             text="Reset"
             icon={<i className="icon-reset icon-size-zero"></i>}
