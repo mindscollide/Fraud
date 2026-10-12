@@ -295,14 +295,16 @@ const IONONAPIDisputes = () => {
           sm={24}
           className="u-margin-top-5pct u-text-align-center"
         >
-          <div>
-            <Button
-              applyClass="btnDarkSolidm"
-              text="Download Report"
-              icon={<DownloadOutlined />}
-              click={downloadExcel}
-            />
-          </div>
+          <Button
+            applyClass="btnDarkSolidm"
+            text="Download Report"
+            icon={
+              <i className="icon-size-zero">
+                <DownloadOutlined />
+              </i>
+            }
+            click={downloadExcel}
+          />
         </Col>
       </Row>
     </>

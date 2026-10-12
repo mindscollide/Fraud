@@ -296,7 +296,11 @@ const ADCDisputes = () => {
             <Button
               applyClass="btnDarkSolidm"
               text="Download Report"
-              icon={<DownloadOutlined />}
+              icon={
+                <i className="icon-size-zero">
+                  <DownloadOutlined />
+                </i>
+              }
             />
           </div>
         </Col>

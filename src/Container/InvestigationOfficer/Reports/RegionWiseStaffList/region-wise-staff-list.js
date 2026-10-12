@@ -98,7 +98,11 @@ const IORegionWiseStaffList = () => {
             <Button
               applyClass="btnDarkSolidm"
               text="Download Report"
-              icon={<DownloadOutlined />}
+              icon={
+                <i className="icon-size-zero">
+                  <DownloadOutlined />
+                </i>
+              }
               click={() =>
                 dispatch(
                   RegionWiseReportExcel(classificationofAdvance.RegionID)

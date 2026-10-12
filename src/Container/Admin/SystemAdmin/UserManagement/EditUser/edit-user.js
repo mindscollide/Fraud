@@ -103,53 +103,6 @@ const EditUser = () => {
     UserStatus: 0,
   });
 
-  // const fieldsHandler = (e, val) => {
-  //   let id =
-  //     e.target.id !== undefined && e.target.id !== null ? e.target.id : null;
-  //   let name = e.target.name;
-  //   let value = e.target.value;
-  //   if (val === "Investigation Manager") {
-  //     setSearchData({ ...searchData, ["UserRole"]: 4 });
-  //     setUserRoleValue(val);
-  //   } else if (val === "Investigation Officer") {
-  //     setSearchData({ ...searchData, ["UserRole"]: 3 });
-  //     setUserRoleValue(val);
-  //   } else if (val === "Auditor") {
-  //     setSearchData({ ...searchData, ["UserRole"]: 7 });
-  //     setUserRoleValue(val);
-  //   } else if (val === "QA Manager") {
-  //     setSearchData({ ...searchData, ["UserRole"]: 5 });
-  //     setUserRoleValue(val);
-  //   } else if (val === "MIS Manager") {
-  //     setSearchData({ ...searchData, ["UserRole"]: 6 });
-  //     setUserRoleValue(val);
-  //   } else if (val === "System Administrator") {
-  //     setSearchData({ ...searchData, ["UserRole"]: 2 });
-  //     setUserRoleValue(val);
-  //   } else if (val === "Security Administrator") {
-  //     setSearchData({ ...searchData, ["UserRole"]: 1 });
-  //     setUserRoleValue(val);
-  //   } else if (val === "Enabled") {
-  //     setSearchData({ ...searchData, ["UserStatus"]: 1 });
-  //     setUserStatusValue(val);
-  //   } else if (val === "Disabled") {
-  //     setSearchData({ ...searchData, ["UserStatus"]: 2 });
-  //     setUserStatusValue(val);
-  //   } else if (val === "Locked") {
-  //     setSearchData({ ...searchData, ["UserStatus"]: 3 });
-  //     setUserStatusValue(val);
-  //   } else if (val === "Closed") {
-  //     setSearchData({ ...searchData, ["UserStatus"]: 4 });
-  //     setUserStatusValue(val);
-  //   } else if (val === "Dormant") {
-  //     setSearchData({ ...searchData, ["UserStatus"]: 9 });
-  //     setUserStatusValue(val);
-  //   } else if (id && id.includes("UserStatus")) {
-  //   } else {
-  //     setSearchData({ ...searchData, [name]: value.trimStart() });
-  //   }
-  // };
-
   // for edit user
   const editUserDataHnaler = (e, val) => {
     let name = e.target.name;
@@ -614,16 +567,6 @@ const EditUser = () => {
           />
         </Col>
         <Col lg={6} md={6} sm={24}>
-          {/* <SelectBox
-            label="Select Role"
-            size="small"
-            height="10px!important"
-            option={userRolesName}
-            name="UserRole"
-            value={userRoleValue}
-            change={fieldsHandler}
-          /> */}
-
           <SelectBox
             label={userRoleValue?.length !== 0 && "Select Role"}
             option={userRolesName}
@@ -635,7 +578,7 @@ const EditUser = () => {
         </Col>
       </Row>
 
-      <Row style={{ marginTop: 10, gap: 8 }}>
+      <Row gutter={8} className="u-margin-top-22px">
         <Col lg={6} md={6} sm={24}>
           <SelectBox
             label={userStatusValue?.length !== 0 && "Select Status"}
@@ -647,25 +590,27 @@ const EditUser = () => {
           />
         </Col>
         <Col md={16} lg={16} sm={24}>
-          <div>
-            <Button
-              text="Search"
-              icon={<Search />}
-              applyClass="btnSecondarySolid2Search3"
-              size="small"
-              click={searchHandler}
-            />
-            <Button
-              text="Reset"
-              icon={<i className="icon-reset icon-size-zero"></i>}
-              applyClass="btnSecondarySolidReset"
-              size="small"
-              click={resetData}
-            />
-          </div>
+          <Button
+            text="Search"
+            icon={
+              <i className="icon-size-zero">
+                <Search />
+              </i>
+            }
+            applyClass="btnSecondarySolid2Search3"
+            size="small"
+            click={searchHandler}
+          />
+          <Button
+            text="Reset"
+            icon={<i className="icon-reset icon-size-zero"></i>}
+            applyClass="btnSecondarySolidReset"
+            size="small"
+            click={resetData}
+          />
         </Col>
-
-        <div className="u-margin-top-10pct" />
+      </Row>
+      <Row gutter={8} className="u-margin-top-22px">
         <Col md={24} lg={24} sm={24}>
           <Table
             rows={row}

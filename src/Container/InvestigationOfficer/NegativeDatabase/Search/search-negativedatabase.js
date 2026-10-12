@@ -518,7 +518,9 @@ const SearchNegativeDatabase = () => {
             name="FK_CTID"
           />
         </Col>
-        <Col lg={6} md={6} sm={24} className="u-margin-top-22px">
+      </Row>
+      <Row gutter={8} className="u-margin-top-22px">
+        <Col lg={6} md={6} sm={24}>
           <SelectBox
             label={hasCaseStatus ? "Select Case Status" : ""}
             placeholder={"Select Case Status"}
@@ -528,7 +530,7 @@ const SearchNegativeDatabase = () => {
             change={caseStatusHandler}
           />
         </Col>
-        <Col lg={6} md={6} sm={24} xs={24} className="u-margin-top-22px">
+        <Col lg={6} md={6} sm={24} xs={24}>
           <TextField
             fullWidth
             name="CNIC"
@@ -542,7 +544,7 @@ const SearchNegativeDatabase = () => {
             change={handleData}
           />
         </Col>
-        <Col lg={6} md={6} sm={24} className="u-margin-top-22px">
+        <Col lg={6} md={6} sm={24}>
           <TextField
             fullWidth
             name="CompanyName"
@@ -554,14 +556,9 @@ const SearchNegativeDatabase = () => {
             size="small"
           />
         </Col>
-        <Col lg={6} md={6} sm={24}></Col>
-        <Col lg={8} md={8} sm={24}></Col>
-        <Col
-          lg={4}
-          md={4}
-          sm={24}
-          className="u-margin-top-10px u-text-align-right"
-        >
+      </Row>
+      <Row gutter={8} className="u-margin-top-10px u-justify-content-center">
+        <Col lg={4} md={4} sm={24}>
           <Button
             text="Search"
             icon={<Search />}
@@ -570,7 +567,7 @@ const SearchNegativeDatabase = () => {
             click={(e) => handleSearch()}
           />
         </Col>
-        <Col lg={4} md={4} sm={24} className="u-margin-top-10px">
+        <Col lg={4} md={4} sm={24}>
           <Button
             text="Reset"
             icon={<i className="icon-reset icon-size-zero"></i>}
@@ -579,7 +576,8 @@ const SearchNegativeDatabase = () => {
             click={() => resetData()}
           />
         </Col>
-        <Col lg={8} md={8} sm={24}></Col>
+      </Row>
+      <Row>
         <Col lg={24} md={22} sm={24} className="u-margin-top-1pct">
           <Table
             rows={investigationOfficer.SearchNDDisputeData}

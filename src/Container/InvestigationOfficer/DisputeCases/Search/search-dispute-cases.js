@@ -2098,7 +2098,11 @@ const SearchDisputeIO = () => {
         <Col lg={4} md={4} sm={24} className="u-margin-top-15px">
           <Button
             text="Search"
-            icon={<Search />}
+            icon={
+              <i className="icon-size-zero">
+                <Search />
+              </i>
+            }
             applyClass="btnSecondarySolid2Search"
             size="small"
             click={handleSearchData}
