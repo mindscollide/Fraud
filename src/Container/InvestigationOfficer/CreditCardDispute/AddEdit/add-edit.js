@@ -157,7 +157,8 @@ const AddEditCreditCardDispute = () => {
           <Col lg={8} md={8}>
             <InputWithBtn
               onchange={cnicSectionHandler}
-              label="Enter CNIC"
+              label={inputData !== "" && "Enter CNIC"}
+              placeholder={"Enter CNIC"}
               fullWidth
               autoComplete="off"
               textFieldSize="small"

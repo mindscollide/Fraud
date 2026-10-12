@@ -519,6 +519,11 @@ const AddEditBBKDispute = () => {
     dispatch(accountNumberFoundModal(false));
     dispatch(SearchTransactionDetailsByAccountNumberInIRISBBK(Data));
   };
+
+  const hasDateValue =
+    (State.FromDate !== null && State.FromDate !== "") ||
+    (State.ToDate !== null && State.ToDate !== "");
+
   return (
     <>
       <Title level={4}>Add / Edit BB - Konnect Disputes</Title>
@@ -563,7 +568,8 @@ const AddEditBBKDispute = () => {
                 <InputWithBtn
                   isUpperCase={true}
                   onchange={cnicSectionHandler}
-                  label="Enter CNIC"
+                  label={inputData !== "" ? "Enter CNIC" : ""}
+                  placeholder={"Enter CNIC *"}
                   fullWidth
                   autoComplete="off"
                   textFieldSize="small"
@@ -584,7 +590,10 @@ const AddEditBBKDispute = () => {
                         icon={<i className="icon-search icon-size-one"></i>}
                         name="AccountNumber"
                         applyClass="account-number"
-                        label="Select Account Number"
+                        label={
+                          accountNumber?.length > 0 && "Select Account Number"
+                        }
+                        placeholder={"Select Account Number"}
                         textFieldSize="small"
                         fullWidth
                         autoComplete="off"
@@ -596,9 +605,7 @@ const AddEditBBKDispute = () => {
                         disable={btnStatusSelect}
                       />
                     </div>
-                    <div
-                      className="dateRangePicker u-margin-top-15px u-display-flex u-justify-content-space-between"
-                    >
+                    <div className="dateRangePicker u-margin-top-15px u-display-flex u-justify-content-space-between">
                       {accountFound ? (
                         <StartToEndDate
                           DateRange={true}
@@ -638,7 +645,8 @@ const AddEditBBKDispute = () => {
                 <InputWithBtn
                   isUpperCase={true}
                   onchange={accountSectionHandler}
-                  label="Enter Account Number"
+                  label={inputDataAC !== "" && "Enter Account Number"}
+                  placeholder={"Enter Account Number *"}
                   fullWidth
                   autoComplete="off"
                   textFieldSize="small"
@@ -679,7 +687,8 @@ const AddEditBBKDispute = () => {
                 <InputWithBtn
                   isUpperCase={true}
                   onchange={mobileSectionHandler}
-                  label="Enter Mobile Number"
+                  label={inputDataMobile !== "" && "Enter Mobile Number"}
+                  placeholder={"Enter Mobile Number *"}
                   fullWidth
                   autoComplete="off"
                   textFieldSize="small"
@@ -714,9 +723,7 @@ const AddEditBBKDispute = () => {
                         disable={btnStatusSelect}
                       />
                     </div>
-                    <div
-                      className="dateRangePicker u-margin-top-15px"
-                    >
+                    <div className="dateRangePicker u-margin-top-15px">
                       <StartToEndDate
                         DateRange={true}
                         size="large"
@@ -744,7 +751,13 @@ const AddEditBBKDispute = () => {
           <Col lg={6} md={6} sm={0} xs={0}></Col>
           <Col lg={6} md={6} sm={0} xs={0}></Col>
           <Col lg={12} md={12} sm={24} xs={24} className="u-display-flex">
-            <Col lg={24} md={24} sm={24} xs={24} className="u-text-align-center"></Col>
+            <Col
+              lg={24}
+              md={24}
+              sm={24}
+              xs={24}
+              className="u-text-align-center"
+            ></Col>
           </Col>
           <Col lg={6} md={6} sm={0} xs={0}></Col>
         </Row>

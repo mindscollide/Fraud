@@ -194,6 +194,9 @@ const IODebitCardDisputes = () => {
     };
     dispatch(GetAllStatus(data));
   }, []);
+  const hasDateValue =
+    (State.FromDate !== null && State.FromDate !== "") ||
+    (State.ToDate !== null && State.ToDate !== "");
 
   return (
     <>
@@ -262,9 +265,9 @@ const IODebitCardDisputes = () => {
             required
           />
         </Col>
-        <Col lg={6} md={6} sm={24} className="u-margin-top-22px">
+        <Col lg={8} md={8} sm={24} className="u-margin-top-22px">
           <StartToEndDate
-            label={"Case Received Date"}
+            label={hasDateValue ? "Case Received Date" : ""}
             width="100%!important"
             size="large"
             change={setDate}

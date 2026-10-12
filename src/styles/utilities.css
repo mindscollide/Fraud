@@ -54,7 +54,7 @@
 }
 
 .u-flex-direction-row {
-  flex-direction: row ;
+  flex-direction: row;
 }
 
 .u-flex-direction-column {
@@ -91,6 +91,10 @@
 
 .u-justify-content-space-evenly {
   justify-content: space-evenly;
+}
+
+.u-justify-content-end {
+  justify-content: end;
 }
 
 .u-margin-0 {
@@ -306,7 +310,7 @@
 }
 
 .u-width-100pctimportant {
-  width: 100%!important;
+  width: 100% !important;
 }
 
 .u-width-240px {

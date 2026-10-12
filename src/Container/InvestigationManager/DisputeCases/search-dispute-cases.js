@@ -169,7 +169,7 @@ const SearchDisputeIM = () => {
       let TTIDGS = true;
       await localStorage.setItem(
         "ReferenceNumber",
-        JSON.stringify(record.referenceNumber),
+        JSON.stringify(record.referenceNumber)
       );
       await dispatch(GetCreditCardDisputesByCnic(Data, TTIDGS));
       dispatch(enableGoBack());
@@ -181,10 +181,10 @@ const SearchDisputeIM = () => {
       localStorage.setItem("TTIDGS", true);
       await localStorage.setItem(
         "ReferenceNumber",
-        JSON.stringify(record.referenceNumber),
+        JSON.stringify(record.referenceNumber)
       );
       await dispatch(
-        SearchDebitCardDisputesByCnicAndReferenceNumber(Data, TTIDGS),
+        SearchDebitCardDisputesByCnicAndReferenceNumber(Data, TTIDGS)
       );
       dispatch(enableGoBack());
       navigate("/Fraud/DisputeCases/ViewCustomerDetailsDC");
@@ -194,14 +194,14 @@ const SearchDisputeIM = () => {
       let TTIDGS = true;
       await localStorage.setItem(
         "ReferenceNumber",
-        JSON.stringify(record.referenceNumber),
+        JSON.stringify(record.referenceNumber)
       );
       let ADCData = {
         CNICNumber: record.cnicNumber,
         RefrenceNumber: record.referenceNumber,
       };
       await dispatch(
-        SearchTransactionDetailsADCByCNICAndReferenceNumber(ADCData, TTIDGS),
+        SearchTransactionDetailsADCByCNICAndReferenceNumber(ADCData, TTIDGS)
       );
       dispatch(enableGoBack());
       navigate("/Fraud/DisputeCases/ViewCustomerDetailsADC");
@@ -212,10 +212,10 @@ const SearchDisputeIM = () => {
       localStorage.setItem("TTIDGS", true);
       await localStorage.setItem(
         "ReferenceNumber",
-        JSON.stringify(record.referenceNumber),
+        JSON.stringify(record.referenceNumber)
       );
       await dispatch(
-        SearchNonApiDisputesByCnicAndReferenceNumber(Data, TTIDGS),
+        SearchNonApiDisputesByCnicAndReferenceNumber(Data, TTIDGS)
       );
       dispatch(enableGoBack());
       navigate("/Fraud/DisputeCases/ViewCustomerDetailsNonApi");
@@ -225,14 +225,14 @@ const SearchDisputeIM = () => {
       let TTIDGS = true;
       await localStorage.setItem(
         "ReferenceNumber",
-        JSON.stringify(record.referenceNumber),
+        JSON.stringify(record.referenceNumber)
       );
       let BBKData = {
         CNICNumber: record.cnicNumber,
         ReferenceNumber: record.referenceNumber,
       };
       await dispatch(
-        SearchBBKDisputesByCnicAndReferenceNumber(BBKData, TTIDGS),
+        SearchBBKDisputesByCnicAndReferenceNumber(BBKData, TTIDGS)
       );
       dispatch(enableGoBack());
       navigate("/Fraud/DisputeCases/ViewCustomerDetailsBBK");
@@ -270,7 +270,7 @@ const SearchDisputeIM = () => {
     setTransactionTypes(
       transactionName.map((data, index) => {
         return data.ttName;
-      }),
+      })
     );
   }, [setupForms.TransactionTypesData]);
 
@@ -458,8 +458,8 @@ const SearchDisputeIM = () => {
                   disputeID,
                   setIsModalVisible2,
                   setAction,
-                  actions,
-                ),
+                  actions
+                )
               );
             }}
             className="icon-edit-list icon-size-one beachGreen u-cursor-pointer"
@@ -555,7 +555,7 @@ const SearchDisputeIM = () => {
     setCaseStatusOptions(
       caseStatus.map((data, index) => {
         return data.statusDescription;
-      }),
+      })
     );
   }, [setupForms.StatusData]);
 
@@ -576,7 +576,8 @@ const SearchDisputeIM = () => {
             setSelected={setSelected}
             selectedUserRoleName={selectedTransactionTypeName}
             setSelectedUserRoleName={setSelectedTransactionTypeName}
-            lable="Transaction Type *"
+            lable={selected?.length > 0 ? "Transaction Type *" : ""}
+            placeholder={"Transaction Type *"}
             change={transactionTypeHandler}
             option={transactionTypes}
             name="TransactionTypeIDs"
@@ -588,7 +589,8 @@ const SearchDisputeIM = () => {
             name={"ReferenceNumber"}
             fullWidth
             autoComplete="off"
-            label="Reference Number"
+            label={searchData.ReferenceNumber !== "" ? "Reference Number" : ""}
+            placeholder={"Reference Number"}
             size="small"
             value={searchData.ReferenceNumber}
             change={(e) => handleSearch(e)}
@@ -598,7 +600,8 @@ const SearchDisputeIM = () => {
           <TextField
             fullWidth
             name={"CNIC"}
-            label="CNIC"
+            label={searchData.CNIC !== "" ? "CNIC" : ""}
+            placeholder={"CNIC"}
             size="small"
             autoComplete="off"
             value={searchData.CNIC}
@@ -606,11 +609,14 @@ const SearchDisputeIM = () => {
             textLength={13}
           />
         </Col>
+      </Row>
+      <Row gutter={8}>
         <Col lg={8} md={8} sm={24} className="u-margin-top-22px">
           <TextField
             fullWidth
             name={"AccountNumber"}
-            label="Account Number"
+            label={searchData.AccountNumber !== "" ? "Account Number" : ""}
+            placeholder={"Account Number"}
             size="small"
             autoComplete="off"
             value={searchData.AccountNumber}
@@ -654,7 +660,8 @@ const SearchDisputeIM = () => {
             DateRange={true}
           />
         </Col>
-        <Col lg={8} md={8} sm={24}></Col>
+      </Row>
+      <Row className="u-margin-top-22px u-justify-content-center ">
         <Col lg={4} md={4} sm={24}>
           <Button
             text="Search"

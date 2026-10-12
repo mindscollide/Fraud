@@ -328,7 +328,7 @@ const SearchADCD = () => {
   const View = (e, value) => {
     localStorage.setItem(
       "ReferenceNumber",
-      JSON.stringify(value.refrenceNumber),
+      JSON.stringify(value.refrenceNumber)
     );
     localStorage.setItem("CNICNumber", JSON.stringify(value.cnicNumber));
     localStorage.removeItem("CaseStatus");
@@ -348,7 +348,7 @@ const SearchADCD = () => {
 
     localStorage.setItem(
       "ReferenceNumber",
-      JSON.stringify(value.refrenceNumber),
+      JSON.stringify(value.refrenceNumber)
     );
     localStorage.removeItem("CaseStatus");
     setCaseStatus("");
@@ -471,7 +471,7 @@ const SearchADCD = () => {
             onClick={() => {
               let disputeID = record.pK_ADCDID;
               dispatch(
-                GetDisputeStatusADC(disputeID, showModal, setAction, actions),
+                GetDisputeStatusADC(disputeID, showModal, setAction, actions)
               );
             }}
             className="icon-edit-list icon-size-one beachGreen u-cursor-pointer"
@@ -603,7 +603,7 @@ const SearchADCD = () => {
     setCaseStatusOptions(
       caseStatus.map((data, index) => {
         return data.statusDescription;
-      }),
+      })
     );
   }, [setupForms.StatusData]);
 
@@ -639,9 +639,214 @@ const SearchADCD = () => {
     setCity(
       valueCity.map((data, index) => {
         return data.name;
-      }),
+      })
     );
   }, [setupForms.CityData]);
+
+  // return (
+  //   <>
+  //     <Title level={3}>Search Alternate Delivery Channel Disputes</Title>
+  //     <Row gutter={8}>
+  //       <Col lg={6} md={6} sm={24}>
+  //         <TextField
+  //           name={"RefrenceNumber"}
+  //           fullWidth
+  //           autoComplete="off"
+  //           label="Reference Number"
+  //           size="small"
+  //           value={searchData.RefrenceNumber}
+  //           change={(e) => handleSearch(e)}
+  //         />
+  //       </Col>
+  //       <Col lg={6} md={6} sm={24}>
+  //         <TextField
+  //           fullWidth
+  //           name={"AccountNumber"}
+  //           label="Account Number"
+  //           autoComplete="off"
+  //           size="small"
+  //           value={searchData.AccountNumber}
+  //           change={(e) => handleSearch(e)}
+  //           textLength={14}
+  //         />
+  //       </Col>
+  //       <Col lg={6} md={6} sm={24}>
+  //         <TextField
+  //           fullWidth
+  //           name={"TransactionID"}
+  //           label="Transaction ID"
+  //           autoComplete="off"
+  //           size="small"
+  //           value={searchData.TransactionID}
+  //           change={(e) => handleSearch(e)}
+  //           textLength={20}
+  //         />
+  //       </Col>
+  //       <Col lg={6} md={6} sm={24}>
+  //         <TextField
+  //           fullWidth
+  //           name={"ApprovalCode"}
+  //           label="Approval Code"
+  //           size="small"
+  //           autoComplete="off"
+  //           value={searchData.ApprovalCode}
+  //           change={(e) => handleSearch(e)}
+  //           textLength={20}
+  //         />
+  //       </Col>
+  //       <Col lg={6} md={6} sm={24} className="u-margin-top-22px">
+  //         <TextField
+  //           fullWidth
+  //           name={"CustomerName"}
+  //           label="Customer Name"
+  //           size="small"
+  //           autoComplete="off"
+  //           value={searchData.CustomerName}
+  //           change={(e) => handleSearch(e)}
+  //           textLength={25}
+  //         />
+  //       </Col>
+  //       <Col lg={6} md={6} sm={24} className="u-margin-top-22px">
+  //         <SelectBox
+  //           label="Select City"
+  //           option={city}
+  //           value={cityValue}
+  //           change={CityNameHandler}
+  //           name="FK_CTID"
+  //         />
+  //       </Col>
+  //       <Col lg={6} md={6} sm={24} className="u-margin-top-22px">
+  //         <TextField
+  //           fullWidth
+  //           name={"CNIC"}
+  //           label="CNIC"
+  //           size="small"
+  //           autoComplete="off"
+  //           value={searchData.CNIC}
+  //           change={(e) => handleSearch(e)}
+  //           textLength={13}
+  //         />
+  //       </Col>
+  //       <Col lg={6} md={6} sm={24} className="u-margin-top-22px">
+  //         <SelectBox
+  //           label="Select Case Status"
+  //           option={caseStatusOptions}
+  //           name="fk_csid"
+  //           value={caseStatus}
+  //           change={caseStatusHandler}
+  //         />
+  //       </Col>
+  //       <Col lg={6} md={6} sm={24} className="u-margin-top-22px">
+  //         <FormattedInputs
+  //           fullWidth
+  //           name="TransactionAmount"
+  //           autoComplete="off"
+  //           Label="Total Dispute Amount"
+  //           size="small"
+  //           value={
+  //             searchData.TransactionAmount === null ||
+  //             searchData.TransactionAmount === -99999999999999999999
+  //               ? null
+  //               : CommaFormter(searchData.TransactionAmount)
+  //           }
+  //           change={(e) => handleSearch(e)}
+  //         />
+  //       </Col>
+  //       <Col lg={6} md={6} sm={24} className="u-margin-top-22px">
+  //         <StartToEndDate
+  //           label={"Case Received Date"}
+  //           width="100%!important"
+  //           size="large"
+  //           change={setDate}
+  //           key={clearDateSelect}
+  //           startvalue={
+  //             State.FromDate !== null && State.FromDate !== ""
+  //               ? DateDisplayFormat(State.FromDate)
+  //               : null
+  //           }
+  //           endvalue={
+  //             State.ToDate !== null && State.ToDate !== ""
+  //               ? DateDisplayFormat(State.ToDate)
+  //               : null
+  //           }
+  //           DateRange={true}
+  //         />
+  //       </Col>
+  //       <Col lg={6} md={6} sm={24} className="u-margin-top-22px"></Col>
+  //       <Col lg={6} md={6} sm={24}></Col>
+  //       <Col lg={6} md={6} sm={24}></Col>
+  //       <Col
+  //         lg={6}
+  //         md={6}
+  //         sm={24}
+  //         className="u-margin-top-10px u-text-align-right"
+  //       >
+  //         <Button
+  //           text="Search"
+  //           icon={<Search />}
+  //           applyClass="btnSecondarySolid2Search"
+  //           size="small"
+  //           click={handleSearchData}
+  //         />
+  //       </Col>
+  //       <Col lg={6} md={6} sm={24} className="u-margin-top-10px">
+  //         <Button
+  //           text="Reset"
+  //           icon={<i className="icon-reset"></i>}
+  //           applyClass="btnSecondarySolidReset"
+  //           size="small"
+  //           click={resetData}
+  //         />
+  //       </Col>
+  //       <Col lg={6} md={6} sm={24}></Col>
+  //       <Col lg={24} md={22} sm={24} className="u-margin-top-1pct">
+  //         <Table
+  //           rows={investigationOfficer.SearchADCDisputesData}
+  //           columns={columns}
+  //           scroll={{ x: "max-content" }}
+  //           pagination={{
+  //             defaultPageSize: 10,
+  //             showSizeChanger: true,
+  //             pageSizeOptions: ["5", "10", "20", "30"],
+  //           }}
+  //         />
+  //       </Col>
+  //     </Row>
+
+  //     <Modal
+  //       closeModal={handleCancel}
+  //       modalState={isModalVisible}
+  //       width={700}
+  //       modalTitle={<Title level={3}>View Status History</Title>}
+  //     >
+  //       {/* this data will be pass to modal when View Approval Icon will be clicked */}
+  //       {actions.viewApprovalHistory && (
+  //         <>
+  //           <Table rows={row} columns={viewApprovalColumn} />
+  //           <GroupedButtons data={okayButtonProp} />
+  //         </>
+  //       )}
+  //     </Modal>
+
+  //     <Notification setOpen={setOpen} open={open.flag} message={open.message} />
+  //     {investigationOfficer.Loading ? <Loader /> : null}
+  //   </>
+  // );
+  // Conditions used to show labels only once a field has a value
+  const hasDateValue =
+    (State.FromDate !== null && State.FromDate !== "") ||
+    (State.ToDate !== null && State.ToDate !== "");
+
+  const hasAmountValue =
+    searchData.TransactionAmount !== null &&
+    searchData.TransactionAmount !== "" &&
+    searchData.TransactionAmount !== -99999999999999999999;
+
+  const hasCaseStatus =
+    caseStatus !== null &&
+    caseStatus !== undefined &&
+    caseStatus !== "" &&
+    !(Array.isArray(caseStatus) && caseStatus.length === 0);
 
   return (
     <>
@@ -652,7 +857,8 @@ const SearchADCD = () => {
             name={"RefrenceNumber"}
             fullWidth
             autoComplete="off"
-            label="Reference Number"
+            label={searchData?.RefrenceNumber !== "" ? "Reference Number" : ""}
+            placeholder={"Reference Number"}
             size="small"
             value={searchData.RefrenceNumber}
             change={(e) => handleSearch(e)}
@@ -662,7 +868,8 @@ const SearchADCD = () => {
           <TextField
             fullWidth
             name={"AccountNumber"}
-            label="Account Number"
+            label={searchData?.AccountNumber !== "" ? "Account Number" : ""}
+            placeholder={"Account Number"}
             autoComplete="off"
             size="small"
             value={searchData.AccountNumber}
@@ -674,7 +881,8 @@ const SearchADCD = () => {
           <TextField
             fullWidth
             name={"TransactionID"}
-            label="Transaction ID"
+            label={searchData?.TransactionID !== "" ? "Transaction ID" : ""}
+            placeholder={"Transaction ID"}
             autoComplete="off"
             size="small"
             value={searchData.TransactionID}
@@ -686,10 +894,11 @@ const SearchADCD = () => {
           <TextField
             fullWidth
             name={"ApprovalCode"}
-            label="Approval Code"
+            label={searchData?.ApprovalCode ? "Approval Code" : ""}
+            placeholder={"Approval Code"}
             size="small"
             autoComplete="off"
-            value={searchData.ApprovalCode}
+            value={searchData.ApprovalCode || ""}
             change={(e) => handleSearch(e)}
             textLength={20}
           />
@@ -698,7 +907,8 @@ const SearchADCD = () => {
           <TextField
             fullWidth
             name={"CustomerName"}
-            label="Customer Name"
+            label={searchData?.CustomerName !== "" ? "Customer Name" : ""}
+            placeholder={"Customer Name"}
             size="small"
             autoComplete="off"
             value={searchData.CustomerName}
@@ -708,7 +918,8 @@ const SearchADCD = () => {
         </Col>
         <Col lg={6} md={6} sm={24} className="u-margin-top-22px">
           <SelectBox
-            label="Select City"
+            label={cityValue !== "" && cityValue !== null ? "Select City" : ""}
+            placeholder={"Select City"}
             option={city}
             value={cityValue}
             change={CityNameHandler}
@@ -719,7 +930,8 @@ const SearchADCD = () => {
           <TextField
             fullWidth
             name={"CNIC"}
-            label="CNIC"
+            label={searchData?.CNIC !== "" ? "CNIC" : ""}
+            placeholder={"CNIC"}
             size="small"
             autoComplete="off"
             value={searchData.CNIC}
@@ -729,7 +941,8 @@ const SearchADCD = () => {
         </Col>
         <Col lg={6} md={6} sm={24} className="u-margin-top-22px">
           <SelectBox
-            label="Select Case Status"
+            label={hasCaseStatus ? "Select Case Status" : ""}
+            placeholder={"Select Case Status"}
             option={caseStatusOptions}
             name="fk_csid"
             value={caseStatus}
@@ -741,7 +954,8 @@ const SearchADCD = () => {
             fullWidth
             name="TransactionAmount"
             autoComplete="off"
-            Label="Total Dispute Amount"
+            Label={hasAmountValue ? "Total Dispute Amount" : ""}
+            placeholder={"Total Dispute Amount"}
             size="small"
             value={
               searchData.TransactionAmount === null ||
@@ -754,7 +968,7 @@ const SearchADCD = () => {
         </Col>
         <Col lg={6} md={6} sm={24} className="u-margin-top-22px">
           <StartToEndDate
-            label={"Case Received Date"}
+            label={hasDateValue ? "Case Received Date" : ""}
             width="100%!important"
             size="large"
             change={setDate}

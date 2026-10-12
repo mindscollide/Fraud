@@ -37,7 +37,8 @@ const IORegionWiseStaffList = () => {
   }, [setupForms.RegionData]);
   // for edit user
   const editUserDataHnaler = (e, val) => {
-    let name = e.target.name;
+    setRegion(val);
+
     if (val !== undefined && val !== null) {
       let RegionData = setupForms.RegionData;
       if (
@@ -51,7 +52,7 @@ const IORegionWiseStaffList = () => {
               ...classificationofAdvance,
               ["RegionID"]: data.pK_RID,
             });
-            setRegion(data.name);
+            // setRegion(data.name);
           }
         });
       }
@@ -70,7 +71,7 @@ const IORegionWiseStaffList = () => {
       <Row gutter={8}>
         <Col lg={8} md={8} sm={24}>
           <SelectBox
-            label={region !== "" && "Select Region"}
+            label={region !== "" ? "Select Region" : ""}
             placeholder={"Select Region"}
             name="SelectRegion"
             option={userRegion}
@@ -81,14 +82,18 @@ const IORegionWiseStaffList = () => {
         <Col lg={16} md={16} sm={24}>
           <Button
             text="Reset"
-            icon={<i className="icon-reset"></i>}
+            icon={<i className="icon-reset icon-size-zero"></i>}
             applyClass="btnSecondarySolidReset"
             size="small"
             click={handleReset}
           />
         </Col>
-        <Col md={10} lg={10} sm={24} className="u-margin-top-5pct"></Col>
-        <Col md={8} lg={8} sm={24} className="u-margin-top-5pct">
+        <Col
+          md={24}
+          lg={24}
+          sm={24}
+          className="u-margin-top-5pct u-justify-content-center u-text-align-center"
+        >
           <div>
             <Button
               applyClass="btnDarkSolidm"

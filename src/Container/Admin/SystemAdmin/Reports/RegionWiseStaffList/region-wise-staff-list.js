@@ -35,6 +35,10 @@ const RegionWiseStaffList = () => {
     WOFStatus: 4,
     Title: "",
   });
+  const [region, setRegion] = useState("");
+  const [classificationofAdvance, setclassificationofAdvance] = useState({
+    RegionID: 0,
+  });
   const add = () => {
     if (borrowerType.Title !== "") {
       showModal();
@@ -180,15 +184,47 @@ const RegionWiseStaffList = () => {
       dispatch(GetBorrowerType());
     }
   }, [setupForms.ShowNotification]);
+
+  const editUserDataHnaler = (e, val) => {
+    let name = e.target.name;
+    if (val !== undefined && val !== null) {
+      let RegionData = setupForms.RegionData;
+      if (
+        RegionData !== undefined &&
+        RegionData !== null &&
+        RegionData.length > 0
+      ) {
+        RegionData.map((data, index) => {
+          if (val === data.name) {
+            setclassificationofAdvance({
+              ...classificationofAdvance,
+              ["RegionID"]: data.pK_RID,
+            });
+            setRegion(data.name);
+          }
+        });
+      }
+    }
+  };
+  // reset state manage handler
+  const handleReset = () => {
+    setclassificationofAdvance({
+      RegionID: 0,
+    });
+    setRegion("");
+  };
   return (
     <>
       <Title level={3}>Region Wise Staff List</Title>
       <Row gutter={8}>
         <Col lg={8} md={8} sm={24}>
           <SelectBox
-            label="Select Region"
+            label={region !== "" && "Select Region"}
+            placeholder={"Select Region"}
             name="Region"
             propertyName={"Region"}
+            value={region}
+            change={editUserDataHnaler}
           />
         </Col>
         <Col lg={2} md={2} sm={24}></Col>
@@ -204,6 +240,7 @@ const RegionWiseStaffList = () => {
             icon={<i className="icon-reset"></i>}
             applyClass="btnSecondarySolidReset"
             size="small"
+            click={handleReset}
           />
         </Col>
         <Col md={10} lg={10} sm={24} className="u-margin-top-5pct"></Col>

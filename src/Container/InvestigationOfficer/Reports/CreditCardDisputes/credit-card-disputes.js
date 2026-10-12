@@ -171,8 +171,8 @@ const IOCreditCardDisputes = () => {
       <Title level={3}> Credit Card Disputes</Title>
       <Row gutter={8}>
         <Col
-          lg={4}
-          md={4}
+          lg={6}
+          md={6}
           sm={24}
           className="MultipleSelectClass u-position-relative"
         >
@@ -188,7 +188,7 @@ const IOCreditCardDisputes = () => {
             required
           />
         </Col>
-        <Col lg={4} md={4} sm={24}>
+        <Col lg={6} md={6} sm={24}>
           <TextField
             fullWidth
             label={search?.CNIC !== "" && "CNIC"}
@@ -202,7 +202,7 @@ const IOCreditCardDisputes = () => {
             required
           />
         </Col>
-        <Col lg={6} md={6} sm={24}>
+        <Col lg={8} md={8} sm={24}>
           <StartToEndDate
             label={
               State.FromDate !== null &&
@@ -226,7 +226,7 @@ const IOCreditCardDisputes = () => {
             DateRange={true}
           />
         </Col>
-        <Col lg={8} md={8} sm={24}>
+        <Col lg={4} md={4} sm={24}>
           {/* <Button
             text="Search"
             icon={<i className="icon-search icon-size-zero"></i>}

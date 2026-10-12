@@ -177,7 +177,8 @@ const AddEditNegativeDatabase = () => {
             <InputWithBtn
               isUpperCase={true}
               onchange={cnicSectionHandler}
-              label="Enter CNIC"
+              label={inputData !== "" && "Enter CNIC"}
+              placeholder={"Enter CNIC *"}
               fullWidth
               autoComplete="off"
               textFieldSize="small"

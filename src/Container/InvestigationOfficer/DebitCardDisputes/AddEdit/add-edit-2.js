@@ -124,7 +124,7 @@ const AddEditDCDispute = () => {
       parseInt(check) === parseInt(2),
       check !== undefined,
       check !== null,
-      check !== "",
+      check !== ""
     );
     if (
       AccountNumber !== "" &&
@@ -328,7 +328,7 @@ const AddEditDCDispute = () => {
       setAccount(
         numberAccount.map((data, index) => {
           return data;
-        }),
+        })
       );
     } else if (
       investigationOfficer.ResponseMessage === "No Records Found" &&
@@ -410,7 +410,8 @@ const AddEditDCDispute = () => {
                 <InputWithBtn
                   isUpperCase={true}
                   onchange={cnicSectionHandler}
-                  label="Enter CNIC"
+                  label={inputData !== "" && "Enter CNIC"}
+                  placeholder={"Enter CNIC"}
                   fullWidth
                   textFieldSize="small"
                   autoComplete="off"
@@ -433,7 +434,10 @@ const AddEditDCDispute = () => {
                         }
                         name="AccountNumber"
                         applyClass="account-number"
-                        label="Select Account Number"
+                        label={
+                          accountNumber?.length > 0 && "Select Account Number"
+                        }
+                        placeholder={"Select Account Number"}
                         textFieldSize="small"
                         fullWidth
                         autoComplete="off"

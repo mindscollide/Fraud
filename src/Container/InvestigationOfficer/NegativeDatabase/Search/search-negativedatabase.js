@@ -371,7 +371,7 @@ const SearchNegativeDatabase = () => {
             onClick={() => {
               let disputeID = record.pK_NDDID;
               dispatch(
-                GetDisputeStatusND(disputeID, showModal, setAction, actions),
+                GetDisputeStatusND(disputeID, showModal, setAction, actions)
               );
             }}
             className="icon-edit-list icon-size-one beachGreen u-cursor-pointer"
@@ -438,7 +438,7 @@ const SearchNegativeDatabase = () => {
     setCaseStatusOptions(
       caseStatus.map((data, index) => {
         return data.statusDescription;
-      }),
+      })
     );
   }, [setupForms.StatusData]);
 
@@ -456,9 +456,15 @@ const SearchNegativeDatabase = () => {
     setCity(
       valueCity.map((data, index) => {
         return data.name;
-      }),
+      })
     );
   }, [setupForms.CityData]);
+
+  const hasCaseStatus =
+    caseStatus !== null &&
+    caseStatus !== undefined &&
+    caseStatus !== "" &&
+    !(Array.isArray(caseStatus) && caseStatus.length === 0);
 
   return (
     <>
@@ -467,10 +473,11 @@ const SearchNegativeDatabase = () => {
         <Col lg={6} md={6} sm={24}>
           <TextField
             name={"ReferenceNumber"}
+            label={searchData.ReferenceNumber !== "" ? "Reference Number" : ""}
+            placeholder={"Reference Number"}
             value={searchData.ReferenceNumber}
             autoComplete="off"
             fullWidth
-            label="Reference Number"
             size="small"
             change={handleData}
           />
@@ -478,12 +485,13 @@ const SearchNegativeDatabase = () => {
         <Col lg={6} md={6} sm={24}>
           <TextField
             name={"MobileNo"}
+            label={searchData.MobileNo !== "" ? "Mobile No" : ""}
+            placeholder={"Mobile No"}
             value={searchData.MobileNo}
             textLength={11}
             minLength={11}
             autoComplete="off"
             fullWidth
-            label="Mobile No"
             size="small"
             change={handleData}
           />
@@ -495,13 +503,15 @@ const SearchNegativeDatabase = () => {
             autoComplete="off"
             value={searchData.CustomerName}
             change={handleData}
-            label="Customer Name"
+            label={searchData?.CustomerName !== "" ? "Customer Name" : ""}
+            placeholder={"Customer Name"}
             size="small"
           />
         </Col>
         <Col lg={6} md={6} sm={24}>
           <SelectBox
-            label="Select City"
+            label={cityValue !== "" ? "Select City" : ""}
+            placeholder={"Select City"}
             option={city}
             value={cityValue}
             change={CityNameHandler}
@@ -510,7 +520,8 @@ const SearchNegativeDatabase = () => {
         </Col>
         <Col lg={6} md={6} sm={24} className="u-margin-top-22px">
           <SelectBox
-            label="Select Case Status"
+            label={hasCaseStatus ? "Select Case Status" : ""}
+            placeholder={"Select Case Status"}
             option={caseStatusOptions}
             name="fk_csid"
             value={caseStatus}
@@ -521,10 +532,11 @@ const SearchNegativeDatabase = () => {
           <TextField
             fullWidth
             name="CNIC"
+            label={searchData.CNIC !== "" ? "CNIC" : ""}
+            placeholder={"CNIC"}
             value={searchData.CNIC}
             textLength={13}
             minlenghth={13}
-            label="CNIC"
             autoComplete="off"
             size="small"
             change={handleData}
@@ -534,9 +546,10 @@ const SearchNegativeDatabase = () => {
           <TextField
             fullWidth
             name="CompanyName"
+            label={searchData.CompanyName !== "" ? "Company Name" : ""}
+            placeholder={"Company Name"}
             autoComplete="off"
             value={searchData.CompanyName}
-            label="Company Name"
             change={handleData}
             size="small"
           />

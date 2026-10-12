@@ -369,7 +369,7 @@ const SearchBBKDispute = () => {
       setFraudType(
         nameFraud.map((data, index) => {
           return data.name;
-        }),
+        })
       );
     }
   }, [setupForms.FraudTypeData]);
@@ -438,7 +438,7 @@ const SearchBBKDispute = () => {
   const View = (e, value) => {
     localStorage.setItem(
       "ReferenceNumber",
-      JSON.stringify(value.referenceNumber),
+      JSON.stringify(value.referenceNumber)
     );
     localStorage.setItem("CNICNumber", JSON.stringify(value.cnicNumber));
     let Data = {
@@ -455,7 +455,7 @@ const SearchBBKDispute = () => {
     localStorage.setItem("CNICNumber", JSON.stringify(value.cnicNumber));
     localStorage.setItem(
       "ReferenceNumber",
-      JSON.stringify(value.referenceNumber),
+      JSON.stringify(value.referenceNumber)
     );
     localStorage.setItem("accountNumber", value.accountNumber);
     let data = {
@@ -547,7 +547,7 @@ const SearchBBKDispute = () => {
             onClick={() => {
               let disputeID = record.pK_BBKDID;
               dispatch(
-                GetDisputeStatusBBK(disputeID, showModal, setAction, actions),
+                GetDisputeStatusBBK(disputeID, showModal, setAction, actions)
               );
             }}
             className="icon-edit-list icon-size-one beachGreen u-cursor-pointer"
@@ -659,7 +659,7 @@ const SearchBBKDispute = () => {
     setCaseStatusOptions(
       caseStatus.map((data, index) => {
         return data.statusDescription;
-      }),
+      })
     );
   }, [setupForms.StatusData]);
 
@@ -692,9 +692,17 @@ const SearchBBKDispute = () => {
     setCity(
       valueCity.map((data, index) => {
         return data.name;
-      }),
+      })
     );
   }, [setupForms.CityData]);
+  const hasDateValue =
+    (State.FromDate !== null && State.FromDate !== "") ||
+    (State.ToDate !== null && State.ToDate !== "");
+
+  const hasAmountValue =
+    searchData.TotalTransactionAmount !== null &&
+    searchData.TotalTransactionAmount !== "" &&
+    searchData.TotalTransactionAmount !== -99999999999999999999;
 
   return (
     <>
@@ -705,7 +713,8 @@ const SearchBBKDispute = () => {
             name={"ReferenceNumber"}
             fullWidth
             autoComplete="off"
-            label="Reference Number"
+            label={searchData?.ReferenceNumber !== "" && "Reference Number"}
+            placeholder={"Reference Number"}
             size="small"
             value={searchData.ReferenceNumber}
             change={(e) => handleSearch(e)}
@@ -715,7 +724,8 @@ const SearchBBKDispute = () => {
           <TextField
             fullWidth
             name={"AccountNumber"}
-            label="Account Number"
+            label={searchData.AccountNumber !== "" && "Account Number"}
+            placeholder={"Account Number"}
             autoComplete="off"
             size="small"
             value={searchData.AccountNumber}
@@ -728,7 +738,8 @@ const SearchBBKDispute = () => {
           <TextField
             fullWidth
             name={"TransactionID"}
-            label="Transaction ID"
+            label={searchData.TransactionID !== "" && "Transaction ID"}
+            placeholder={"Transaction ID"}
             autoComplete="off"
             size="small"
             value={searchData.TransactionID}
@@ -741,7 +752,8 @@ const SearchBBKDispute = () => {
           <TextField
             fullWidth
             name={"CustomerName"}
-            label="Customer Name"
+            label={searchData.CustomerName !== "" && "Customer Name"}
+            placeholder={"Customer Name"}
             autoComplete="off"
             size="small"
             value={searchData.CustomerName}
@@ -752,7 +764,8 @@ const SearchBBKDispute = () => {
         </Col>
         <Col lg={6} md={6} sm={24} className="u-margin-top-22px">
           <SelectBox
-            label="Select City"
+            label={cityValue?.length > 0 && "Select City"}
+            placeholder={"Select City"}
             option={city}
             value={cityValue}
             change={CityNameHandler}
@@ -763,7 +776,8 @@ const SearchBBKDispute = () => {
           <TextField
             fullWidth
             name={"CNICNumber"}
-            label="CNIC"
+            label={searchData.CNICNumber !== "" && "CNIC"}
+            placeholder={"CNIC"}
             autoComplete="off"
             size="small"
             value={searchData.CNICNumber}
@@ -776,7 +790,8 @@ const SearchBBKDispute = () => {
           <TextField
             fullWidth
             name={"MobileNumber"}
-            label="Mobile Number"
+            label={searchData?.MobileNumber !== "" && "Mobile Number"}
+            placeholder={"Mobile Number"}
             autoComplete="off"
             size="small"
             value={searchData.MobileNumber}
@@ -787,7 +802,8 @@ const SearchBBKDispute = () => {
         </Col>
         <Col lg={6} md={6} sm={24} className="u-margin-top-22px">
           <SelectBox
-            label="Select Case Status"
+            label={caseStatus?.length > 0 && "Select Case Status"}
+            placeholder={"Select Case Status"}
             option={caseStatusOptions}
             name="fk_csid"
             value={caseStatus}
@@ -796,7 +812,8 @@ const SearchBBKDispute = () => {
         </Col>
         <Col lg={6} md={6} sm={24} className="u-margin-top-22px">
           <SelectBox
-            label="Select Fraud Type"
+            label={searchData.Fraudtype !== "" && "Select Fraud Type"}
+            placeholder={"Select Fraud Type"}
             option={fraudType}
             name="Fraudtype"
             value={searchData.Fraudtype}
@@ -807,9 +824,10 @@ const SearchBBKDispute = () => {
           <FormattedInputs
             fullWidth
             name="TotalTransactionAmount"
-            Label="Total Dispute Amount"
-            size="small"
             autoComplete="off"
+            Label={hasAmountValue ? "Total Dispute Amount" : ""}
+            placeholder={"Total Dispute Amount"}
+            size="small"
             value={
               searchData.TotalTransactionAmount === null ||
               searchData.TotalTransactionAmount === -99999999999999999999
@@ -821,7 +839,7 @@ const SearchBBKDispute = () => {
         </Col>
         <Col lg={6} md={6} sm={24} className="u-margin-top-22px">
           <StartToEndDate
-            label={"Case Received Date"}
+            label={hasDateValue ? "Case Received Date" : ""}
             width="100%!important"
             size="large"
             change={setDate}
