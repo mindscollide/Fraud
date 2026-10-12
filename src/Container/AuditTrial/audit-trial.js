@@ -313,7 +313,7 @@ const AuditTrail = () => {
           />
         </Col>
       </Row>
-      <Row gutter={8} className="u-margin-top-22px u-justify-content-center">
+      <Row gutter={8} className="u-margin-top-10px u-justify-content-center">
         <Col lg={4} md={4} sm={24}>
           <Button
             applyClass="btnSecondarySolid2Search"

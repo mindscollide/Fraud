@@ -579,7 +579,7 @@ const SearchDisputeIM = () => {
     <>
       <Title level={3}>Search Dispute Cases</Title>
       <Row gutter={8}>
-        <Col lg={8} md={8} sm={24} className="MultipleSelectClass">
+        <Col lg={8} md={8} sm={24}>
           <MultipleSelectCheckmarks
             selected={selected}
             setSelected={setSelected}
@@ -619,8 +619,8 @@ const SearchDisputeIM = () => {
           />
         </Col>
       </Row>
-      <Row gutter={8}>
-        <Col lg={8} md={8} sm={24} className="u-margin-top-22px">
+      <Row gutter={8} className="u-margin-top-22px">
+        <Col lg={8} md={8} sm={24}>
           <TextField
             fullWidth
             name={"AccountNumber"}
@@ -633,7 +633,7 @@ const SearchDisputeIM = () => {
             textLength={14}
           />
         </Col>
-        <Col lg={8} md={8} sm={24} className="u-margin-top-22px">
+        <Col lg={8} md={8} sm={24}>
           <SelectBox
             label={hasCaseStatus ? "Select Case Status" : ""}
             placeholder={"Select Case Status"}
@@ -643,7 +643,7 @@ const SearchDisputeIM = () => {
             change={caseStatusHandler}
           />
         </Col>
-        <Col lg={8} md={8} sm={24} className="u-margin-top-22px">
+        <Col lg={8} md={8} sm={24}>
           <StartToEndDate
             label={hasDateValue ? "Case Received Date" : ""}
             width="100%!important"
@@ -664,7 +664,7 @@ const SearchDisputeIM = () => {
           />
         </Col>
       </Row>
-      <Row className="u-margin-top-22px u-justify-content-center ">
+      <Row className="u-margin-top-10px u-justify-content-center ">
         <Col lg={4} md={4} sm={24}>
           <Button
             text="Search"
@@ -684,8 +684,8 @@ const SearchDisputeIM = () => {
           />
         </Col>
       </Row>
-      <Row className="u-margin-top-22px">
-        <Col lg={24} md={22} sm={24} className="u-margin-top-1pct">
+      <Row className="u-margin-top-10px">
+        <Col lg={24} md={22} sm={24}>
           <Table
             rows={investigationOfficer.GlobalDisputeData}
             columns={columns}

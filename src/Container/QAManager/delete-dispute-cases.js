@@ -791,7 +791,7 @@ const DeleteDisputeCases = () => {
     <>
       <Title level={3}>Search Dispute Cases</Title>
       <Row gutter={8}>
-        <Col lg={8} md={8} sm={24} className="MultipleSelectClass">
+        <Col lg={8} md={8} sm={24}>
           <MultipleSelectCheckmarks
             selected={selected}
             setSelected={setSelected}
@@ -831,7 +831,9 @@ const DeleteDisputeCases = () => {
             change={(e) => handleSearch(e)}
           />
         </Col>
-        <Col lg={6} md={6} sm={24} className="u-margin-top-22px">
+      </Row>
+      <Row gutter={8} className="u-margin-top-22px">
+        <Col lg={6} md={6} sm={24}>
           <TextField
             name={"TransactionId"}
             fullWidth
@@ -844,7 +846,7 @@ const DeleteDisputeCases = () => {
             change={(e) => handleSearch(e)}
           />
         </Col>
-        <Col lg={6} md={6} sm={24} className="u-margin-top-22px">
+        <Col lg={6} md={6} sm={24}>
           <TextField
             fullWidth
             name={"CustomerName"}
@@ -858,7 +860,6 @@ const DeleteDisputeCases = () => {
           />
         </Col>
         <Col lg={6} md={6} sm={24}>
-          <div className="u-margin-top-22px" />
           <TextField
             fullWidth
             name={"CNIC"}
@@ -872,7 +873,6 @@ const DeleteDisputeCases = () => {
           />
         </Col>
         <Col lg={6} md={6} sm={24}>
-          <div className="u-margin-top-22px" />
           <SelectBox
             label={cityValue !== "" ? "Select City" : ""}
             placeholder={"Select City"}
@@ -882,7 +882,9 @@ const DeleteDisputeCases = () => {
             name="FK_CTID"
           />
         </Col>
-        <Col lg={6} md={6} sm={24} className="u-margin-top-22px">
+      </Row>
+      <Row gutter={8} className="u-margin-top-22px">
+        <Col lg={6} md={6} sm={24}>
           <StartToEndDate
             label={hasDateValue ? "Case Received Date" : ""}
             placeholder={"Case Received Date"}
@@ -902,7 +904,7 @@ const DeleteDisputeCases = () => {
             DateRange={true}
           />
         </Col>
-        <Col lg={6} md={6} sm={24} className="u-margin-top-22px">
+        <Col lg={6} md={6} sm={24}>
           <FormattedInputs
             name={"TransactionAmount"}
             value={
@@ -921,7 +923,6 @@ const DeleteDisputeCases = () => {
           />
         </Col>
         <Col lg={6} md={6} sm={24}>
-          <div className="u-margin-top-22px" />
           <SelectBox
             label={hasCaseStatus ? "Select Case Status" : ""}
             placeholder={"Select Case Status"}
@@ -931,10 +932,9 @@ const DeleteDisputeCases = () => {
             change={caseStatusHandler}
           />
         </Col>
-        <Col lg={8} md={8} sm={24}></Col>
+      </Row>
+      <Row gutter={8} className="u-margin-top-10px u-justify-content-center">
         <Col lg={4} md={4} sm={24}>
-          <div className="u-margin-top-22px" />
-
           <Button
             text="Search"
             icon={
@@ -948,8 +948,6 @@ const DeleteDisputeCases = () => {
           />
         </Col>
         <Col lg={4} md={4} sm={24}>
-          <div className="u-margin-top-22px" />
-
           <Button
             text="Reset"
             icon={<i className="icon-reset icon-size-zero"></i>}
@@ -958,8 +956,9 @@ const DeleteDisputeCases = () => {
             click={resetData}
           />
         </Col>
-        <Col lg={8} md={8} sm={24}></Col>
-        <Col lg={24} md={22} sm={24} className="u-margin-top-1pct">
+      </Row>
+      <Row gutter={8} className="u-margin-top-10px">
+        <Col lg={24} md={24} sm={24}>
           <Table
             rows={qaManager.AllDisputesData}
             columns={columns}
