@@ -45,7 +45,7 @@ const IMRegionWiseStaffList = () => {
           />
           <Button
             text="Reset"
-            icon={<i className="icon-reset"></i>}
+            icon={<i className="icon-reset icon-size-zero"></i>}
             applyClass="btnSecondarySolidReset"
             size="small"
           />

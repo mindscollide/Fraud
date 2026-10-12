@@ -91,13 +91,18 @@ const IMCreditCardDisputes = () => {
           />
           <Button
             text="Reset"
-            icon={<i className="icon-reset"></i>}
+            icon={<i className="icon-reset icon-size-zero"></i>}
             applyClass="btnSecondarySolidReset"
             size="small"
           />
         </Col>
 
-        <Col md={24} lg={24} sm={24} className="u-margin-top-5pct u-text-align-center">
+        <Col
+          md={24}
+          lg={24}
+          sm={24}
+          className="u-margin-top-5pct u-text-align-center"
+        >
           <div>
             <Button
               applyClass="btnDarkSolidm"

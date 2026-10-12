@@ -565,6 +565,15 @@ const SearchDisputeIM = () => {
     };
     dispatch(GetAllStatus(data));
   }, []);
+  const hasDateValue =
+    (State.from !== null && State.from !== "") ||
+    (State.to !== null && State.to !== "");
+
+  const hasCaseStatus =
+    caseStatus !== null &&
+    caseStatus !== undefined &&
+    caseStatus !== "" &&
+    !(Array.isArray(caseStatus) && caseStatus.length === 0);
 
   return (
     <>
@@ -626,23 +635,17 @@ const SearchDisputeIM = () => {
         </Col>
         <Col lg={8} md={8} sm={24} className="u-margin-top-22px">
           <SelectBox
-            label="Select Case Status"
+            label={hasCaseStatus ? "Select Case Status" : ""}
+            placeholder={"Select Case Status"}
             option={caseStatusOptions}
             name="fk_csid"
             value={caseStatus}
             change={caseStatusHandler}
           />
-          {/* <Checkbox
-            className="SearchCheckbox"
-            checked={searchData.Inprocess}
-            onChange={onChange}
-          >
-            In Process Only
-          </Checkbox> */}
         </Col>
         <Col lg={8} md={8} sm={24} className="u-margin-top-22px">
           <StartToEndDate
-            label={"Case Received Date"}
+            label={hasDateValue ? "Case Received Date" : ""}
             width="100%!important"
             size="large"
             change={setDate}
@@ -653,7 +656,7 @@ const SearchDisputeIM = () => {
                 : null
             }
             endvalue={
-              State.to !== null && State.from !== ""
+              State.to !== null && State.to !== ""
                 ? DateDisplayFormat(State.to)
                 : null
             }
@@ -674,13 +677,14 @@ const SearchDisputeIM = () => {
         <Col lg={4} md={4} sm={24}>
           <Button
             text="Reset"
-            icon={<i className="icon-reset"></i>}
+            icon={<i className="icon-reset icon-size-zero"></i>}
             applyClass="btnSecondarySolidReset"
             size="small"
             click={resetData}
           />
         </Col>
-        <Col lg={8} md={8} sm={24}></Col>
+      </Row>
+      <Row className="u-margin-top-22px">
         <Col lg={24} md={22} sm={24} className="u-margin-top-1pct">
           <Table
             rows={investigationOfficer.GlobalDisputeData}

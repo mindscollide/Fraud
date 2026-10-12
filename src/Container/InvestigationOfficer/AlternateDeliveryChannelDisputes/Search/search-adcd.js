@@ -833,6 +833,7 @@ const SearchADCD = () => {
   //   </>
   // );
   // Conditions used to show labels only once a field has a value
+
   const hasDateValue =
     (State.FromDate !== null && State.FromDate !== "") ||
     (State.ToDate !== null && State.ToDate !== "");
@@ -1006,7 +1007,7 @@ const SearchADCD = () => {
         <Col lg={6} md={6} sm={24} className="u-margin-top-10px">
           <Button
             text="Reset"
-            icon={<i className="icon-reset"></i>}
+            icon={<i className="icon-reset icon-size-zero"></i>}
             applyClass="btnSecondarySolidReset"
             size="small"
             click={resetData}

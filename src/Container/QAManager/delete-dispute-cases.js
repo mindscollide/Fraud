@@ -230,7 +230,8 @@ const DeleteDisputeCases = () => {
       }
     } else if (
       name === "TransactionAmount" &&
-      value !== -99999999999999999999
+      value !== -99999999999999999999 &&
+      value !== ""
     ) {
       if (value > 0) {
         if (value % 1 !== 0) {
@@ -377,7 +378,7 @@ const DeleteDisputeCases = () => {
   const View = async (e, record) => {
     localStorage.setItem(
       "ReferenceNumber",
-      JSON.stringify(record.refrenceNumber),
+      JSON.stringify(record.refrenceNumber)
     );
     let Data = {
       CNICNumber: record.cnicNumber,
@@ -410,7 +411,7 @@ const DeleteDisputeCases = () => {
       let flag = true;
       localStorage.setItem("ttid", ttid);
       dispatch(
-        SearchTransactionDetailsADCByCNICAndReferenceNumber(Data2, flag),
+        SearchTransactionDetailsADCByCNICAndReferenceNumber(Data2, flag)
       );
       navigate("/Fraud/QAM/ViewCustomerDetailsADC");
     }
@@ -480,7 +481,7 @@ const DeleteDisputeCases = () => {
     setTransactionTypes(
       transactionName.map((data, index) => {
         return data.ttName;
-      }),
+      })
     );
   }, [setupForms.TransactionTypesData]);
 
@@ -605,8 +606,8 @@ const DeleteDisputeCases = () => {
                   disputeID,
                   setIsModalVisible2,
                   setAction,
-                  actions,
-                ),
+                  actions
+                )
               );
             }}
             className="icon-edit-list icon-size-one beachGreen u-cursor-pointer"
@@ -737,7 +738,7 @@ const DeleteDisputeCases = () => {
     setCaseStatusOptions(
       caseStatus.map((data, index) => {
         return data.statusDescription;
-      }),
+      })
     );
   }, [setupForms.StatusData]);
 
@@ -769,9 +770,22 @@ const DeleteDisputeCases = () => {
     setCity(
       valueCity.map((data, index) => {
         return data.name;
-      }),
+      })
     );
   }, [setupForms.CityData]);
+  const hasDateValue =
+    (State.FromDate !== null && State.FromDate !== "") ||
+    (State.ToDate !== null && State.ToDate !== "");
+  const hasAmountValue =
+    searchData.TransactionAmount !== null &&
+    searchData.TransactionAmount !== "" &&
+    searchData.TransactionAmount !== -99999999999999999999;
+
+  const hasCaseStatus =
+    caseStatus !== null &&
+    caseStatus !== undefined &&
+    caseStatus !== "" &&
+    !(Array.isArray(caseStatus) && caseStatus.length === 0);
 
   return (
     <>
@@ -783,7 +797,8 @@ const DeleteDisputeCases = () => {
             setSelected={setSelected}
             selectedUserRoleName={selectedTransactionTypeName}
             setSelectedUserRoleName={setSelectedTransactionTypeName}
-            lable="Transaction Type *"
+            lable={selected?.length > 0 ? "Transaction Type *" : ""}
+            placeholder={"Transaction Type *"}
             change={transactionTypeHandler}
             option={transactionTypes}
             name="TransactionTypeIDs"
@@ -795,7 +810,8 @@ const DeleteDisputeCases = () => {
             name={"RefrenceNumber"}
             fullWidth
             autoComplete="off"
-            label="Reference Number"
+            label={searchData.RefrenceNumber !== "" ? "Reference Number" : ""}
+            placeholder={"Reference Number"}
             size="small"
             value={searchData.RefrenceNumber}
             textLength={20}
@@ -807,7 +823,8 @@ const DeleteDisputeCases = () => {
             name={"AccountNumber"}
             fullWidth
             autoComplete="off"
-            label="Account Number"
+            label={searchData.AccountNumber !== "" ? "Account Number" : ""}
+            placeholder={"Account Number"}
             size="small"
             value={searchData.AccountNumber}
             textLength={14}
@@ -819,7 +836,8 @@ const DeleteDisputeCases = () => {
             name={"TransactionId"}
             fullWidth
             autoComplete="off"
-            label="Transaction ID"
+            label={searchData.TransactionId !== "" ? "Transaction ID" : ""}
+            placeholder={"Transaction ID"}
             size="small"
             value={searchData.TransactionId}
             textLength={20}
@@ -830,7 +848,8 @@ const DeleteDisputeCases = () => {
           <TextField
             fullWidth
             name={"CustomerName"}
-            label="Customer Name"
+            label={searchData.CustomerName !== "" ? "Customer Name" : ""}
+            placeholder={"Customer Name"}
             size="small"
             autoComplete="off"
             value={searchData.CustomerName}
@@ -843,7 +862,8 @@ const DeleteDisputeCases = () => {
           <TextField
             fullWidth
             name={"CNIC"}
-            label="CNIC"
+            label={searchData.CNIC !== "" ? "CNIC" : ""}
+            placeholder={"CNIC"}
             size="small"
             autoComplete="off"
             value={searchData.CNIC}
@@ -854,7 +874,8 @@ const DeleteDisputeCases = () => {
         <Col lg={6} md={6} sm={24}>
           <div className="u-margin-top-22px" />
           <SelectBox
-            label="Select City"
+            label={cityValue !== "" ? "Select City" : ""}
+            placeholder={"Select City"}
             option={city}
             value={cityValue}
             change={CityNameHandler}
@@ -863,7 +884,8 @@ const DeleteDisputeCases = () => {
         </Col>
         <Col lg={6} md={6} sm={24} className="u-margin-top-22px">
           <StartToEndDate
-            label={"Case Received Date"}
+            label={hasDateValue ? "Case Received Date" : ""}
+            placeholder={"Case Received Date"}
             size="large"
             change={setDate}
             // key={clearDateSelect}
@@ -880,30 +902,29 @@ const DeleteDisputeCases = () => {
             DateRange={true}
           />
         </Col>
-        <Col lg={6} md={6} sm={24}>
-          <div className="u-margin-top-22px" />
+        <Col lg={6} md={6} sm={24} className="u-margin-top-22px">
           <FormattedInputs
             name={"TransactionAmount"}
             value={
-              searchData.TransactionAmount !== null &&
-              searchData.TransactionAmount !== -99999999999999999999
-                ? searchData.TransactionAmount
-                : null
+              searchData.TransactionAmount === null ||
+              searchData.TransactionAmount === -99999999999999999999
+                ? null
+                : CommaFormter(searchData.TransactionAmount)
             }
-            textLength={(999, 999, 999, 999, 999, 999, 999)}
+            // textLength={(999, 999, 999, 999, 999, 999, 999)}
             size="small"
-            Label={"Total Dispute Amount"}
+            Label={hasAmountValue ? "Total Dispute Amount" : ""}
+            placeholder={"Total Dispute Amount"}
             fullWidth
             autoComplete="off"
             change={(e) => handleSearch(e)}
-            max={15}
-            min={15}
           />
         </Col>
         <Col lg={6} md={6} sm={24}>
           <div className="u-margin-top-22px" />
           <SelectBox
-            label="Select Case Status"
+            label={hasCaseStatus ? "Select Case Status" : ""}
+            placeholder={"Select Case Status"}
             option={caseStatusOptions}
             name="fk_csid"
             value={caseStatus}
@@ -916,7 +937,11 @@ const DeleteDisputeCases = () => {
 
           <Button
             text="Search"
-            icon={<Search />}
+            icon={
+              <i className="icon-size-zero">
+                <Search />
+              </i>
+            }
             applyClass="btnSecondarySolid2Search"
             size="large"
             click={handleSearchData}
@@ -927,7 +952,7 @@ const DeleteDisputeCases = () => {
 
           <Button
             text="Reset"
-            icon={<i className="icon-reset"></i>}
+            icon={<i className="icon-reset icon-size-zero"></i>}
             applyClass="btnSecondarySolidReset"
             size="large"
             click={resetData}

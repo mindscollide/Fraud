@@ -753,7 +753,7 @@ const PendingDeletionApprovals = () => {
           <Col lg={4} md={4} sm={24}>
             <Button
               text="Reset"
-              icon={<i className="icon-reset"></i>}
+              icon={<i className="icon-reset icon-size-zero"></i>}
               applyClass="btnSecondarySolidResetw"
               size="small"
               click={resetData}

@@ -876,7 +876,7 @@ const SearchBBKDispute = () => {
         <Col lg={4} md={4} sm={24} className="u-margin-top-10px">
           <Button
             text="Reset"
-            icon={<i className="icon-reset"></i>}
+            icon={<i className="icon-reset icon-size-zero"></i>}
             applyClass="btnSecondarySolidReset"
             size="small"
             click={resetData}

@@ -210,6 +210,10 @@ const AuditTrail = () => {
   // For Action Options
   useEffect(() => {}, [actionType]);
 
+  const hasDateValue =
+    (State.DateFrom !== null && State.DateFrom !== "") ||
+    (State.DateTo !== null && State.DateFrom !== "");
+
   return (
     <>
       <Title level={3}>Audit Trail</Title>
@@ -218,7 +222,8 @@ const AuditTrail = () => {
           <TextField
             name={"ReferenceNumber"}
             fullWidth
-            label="Reference Number"
+            label={searchData.ReferenceNumber !== "" ? "Reference Number" : ""}
+            placeholder={"Reference Number"}
             value={searchData.ReferenceNumber}
             change={(e) => handleSearch(e)}
             autoComplete="off"
@@ -229,7 +234,8 @@ const AuditTrail = () => {
           <TextField
             fullWidth
             name={"CustomerName"}
-            label="Customer Name"
+            label={searchData.CustomerName !== "" ? "Customer Name" : ""}
+            placeholder={"Customer Name"}
             value={searchData.CustomerName}
             change={(e) => handleSearch(e)}
             size="small"
@@ -240,7 +246,8 @@ const AuditTrail = () => {
           <TextField
             fullWidth
             name={"CNICNumber"}
-            label="CNIC Number"
+            label={searchData.CNICNumber !== "" ? "CNIC Number" : ""}
+            placeholder={"CNIC Number"}
             value={searchData.CNICNumber}
             change={(e) => handleSearch(e)}
             size="small"
@@ -252,7 +259,8 @@ const AuditTrail = () => {
           <TextField
             fullWidth
             name={"AccountNumber"}
-            label="Account Number"
+            label={searchData.AccountNumber !== "" ? "Account Number" : ""}
+            placeholder={"Account Number"}
             value={searchData.AccountNumber}
             change={(e) => handleSearch(e)}
             size="small"
@@ -260,30 +268,34 @@ const AuditTrail = () => {
             textLength={14}
           />
         </Col>
-        <Col lg={10} md={10} sm={24} xs={24} className="u-margin-top-22px">
+      </Row>
+      <Row gutter={8} className="u-margin-top-22px">
+        <Col lg={8} md={8} sm={24}>
           <SelectBox
-            label="Select Action"
+            label={actionTypeName?.length > 0 ? "Select Action" : ""}
+            placeholder="Select Action"
             name="ActionID"
             option={actionType}
             value={actionTypeName}
             change={actionTypeHandler}
           />
         </Col>
-        <Col lg={8} md={8} sm={24} className="u-margin-top-22px">
+        <Col lg={8} md={8} sm={24}>
           <TextField
             fullWidth
             name={"ActionBy"}
-            label="Action By"
+            label={searchData.ActionBy !== "" ? "Action By" : ""}
+            placeholder={"Action By"}
             value={searchData.ActionBy}
             change={(e) => handleSearch(e)}
             size="small"
             autoComplete="off"
           />
         </Col>
-
-        <Col lg={6} md={6} sm={24}>
+        <Col lg={8} md={8} sm={24}>
           <StartToEndDate
-            label={"Action On"}
+            label={hasDateValue ? "Action On" : ""}
+            placeholder={"Action On"}
             width="100%!important"
             size="large"
             change={setDate}
@@ -293,15 +305,16 @@ const AuditTrail = () => {
                 : null
             }
             endvalue={
-              State.DateTO !== null && State.DateFrom !== ""
+              State.DateTO !== null && State.DateTO !== ""
                 ? DateDisplayFormat(State.DateTO)
                 : null
             }
             DateRange={true}
           />
         </Col>
-        <Col lg={8} md={8} sm={24}></Col>
-        <Col lg={4} md={4} sm={24} className="u-margin-top-22px">
+      </Row>
+      <Row gutter={8} className="u-margin-top-22px u-justify-content-center">
+        <Col lg={4} md={4} sm={24}>
           <Button
             applyClass="btnSecondarySolid2Search"
             size="small"
@@ -310,16 +323,15 @@ const AuditTrail = () => {
             icon={<DownloadOutlined />}
           />
         </Col>
-        <Col lg={4} md={4} sm={24} className="u-margin-top-22px">
+        <Col lg={4} md={4} sm={24}>
           <Button
             text="Reset"
-            icon={<i className="icon-reset"></i>}
+            icon={<i className="icon-reset icon-size-zero"></i>}
             applyClass="btnSecondarySolidReset"
             size="small"
             click={resetData}
           />
         </Col>
-        <Col lg={8} md={8} sm={24}></Col>
       </Row>
       {reports.isLoading ? <Loader /> : null}
     </>
