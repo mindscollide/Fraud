@@ -21,6 +21,8 @@ import {
   DeleteEscalationMatrix,
   EditEscalationMatrix,
 } from "../../../../../store/actions/setup-forms-actions";
+import styles from "../systemAdmin.module.css";
+
 import { render } from "react-dom";
 const EscalationMatrix = () => {
   const { Title } = Typography;
@@ -53,25 +55,48 @@ const EscalationMatrix = () => {
 
   const [isModalVisible, setIsModalVisible] = useState(false);
 
+  // const handleDaysChange = (e) => {
+  //   let value = e.target.value;
+  //   if (value === 0 || value === "") {
+  //     setAction({ ...actions, update: actions.update ? true : false });
+  //     setAddEscalationMatrix({
+  //       ...addEscalationMatrix,
+  //       Days: 0,
+  //     });
+  //   }
+
+  //   var valueCheck = value.replace(/[^\d-]/g, "");
+  //   if (!valueCheck === 0) {
+  //     setAddEscalationMatrix({
+  //       ...addEscalationMatrix,
+  //       Days: parseInt(valueCheck),
+  //     });
+  //   }
+  // };
+
   const handleDaysChange = (e) => {
-    let value = e.target.value;
-    if (value === 0 || value === "") {
-      setAction({ ...actions, update: actions.update ? true : false });
+    const raw = e.target.value;
+
+    // Allow empty → treat as 0 / not set
+    if (raw === "") {
       setAddEscalationMatrix({
         ...addEscalationMatrix,
         Days: 0,
       });
+      setAction({ ...actions, update: actions.update ? true : false });
+      return;
     }
 
-    var valueCheck = value.replace(/[^\d-]/g, "");
-    if (!valueCheck === 0) {
-      setAddEscalationMatrix({
-        ...addEscalationMatrix,
-        Days: parseInt(valueCheck),
-      });
-    }
+    // Keep only digits (drop the "-" unless you really want negatives)
+    const digitsOnly = raw.replace(/[^\d]/g, "");
+
+    if (digitsOnly === "") return; // don't wipe on intermediate invalid states
+
+    setAddEscalationMatrix({
+      ...addEscalationMatrix,
+      Days: parseInt(digitsOnly, 10),
+    });
   };
-
   const deleteit = (e, record) => {
     setEscalationMatrixName(record.days.pK_EMID, record.userRoles.fK_EMID);
     showModal();
@@ -411,17 +436,20 @@ const EscalationMatrix = () => {
         <Col lg={8} md={8} sm={24}>
           <TextField
             fullWidth
-            label="Days (>)"
+            label={addEscalationMatrix.Days !== 0 && "Days (>)"}
+            placeholder={"Days (>) *"}
             size="small"
             autoComplete="off"
             change={handleDaysChange}
             value={
               addEscalationMatrix.Days === 0 ||
-              addEscalationMatrix.Days === null
-                ? null
-                : addEscalationMatrix.Days
+              addEscalationMatrix.Days === null ||
+              addEscalationMatrix.Days === undefined
+                ? ""
+                : String(addEscalationMatrix.Days)
             }
             required
+            maxLength={5}
           />
         </Col>
         <Col lg={8} md={8} sm={24} className="MultipleSelectClass">
@@ -431,7 +459,16 @@ const EscalationMatrix = () => {
             setSelected={setSelected}
             selectedUserRoleName={selectedUserRoleName}
             setSelectedUserRoleName={setSelectedUserRoleName}
-            lable="Select Role"
+            lable={
+              selected?.length > 0 ? (
+                <>
+                  Select Role <span className={styles.required}>*</span>
+                </>
+              ) : (
+                ""
+              )
+            }
+            placeholder={"Select Role *"}
             option={userRoles}
             name={userRoles}
             // value=[]
@@ -488,11 +525,12 @@ const EscalationMatrix = () => {
         {/* this data will be pass to modal when delete icon btn in the table  will be clicked */}
         {actions.delete && (
           <>
-            <div className="u-padding-40px u-display-flex u-justify-content-center">
+            <div className={styles.deleteModalMain}>
               <i className="icon-trash icon-size-two"></i>
-              <Title level={3} align="center">
+
+              <span className={styles.deleteModalTitle}>
                 Are you sure you want to delete this?
-              </Title>
+              </span>
             </div>
             <GroupedButtons data={buttonProps} />
           </>

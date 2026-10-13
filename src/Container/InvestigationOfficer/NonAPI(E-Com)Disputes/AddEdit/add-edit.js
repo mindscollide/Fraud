@@ -417,7 +417,8 @@ const AddEditNONAPIDispute = () => {
                 <InputWithBtn
                   isUpperCase={true}
                   onchange={cnicSectionHandler}
-                  label="Enter CNIC"
+                  label={inputData !== "" && "Enter CNIC"}
+                  placeholder={"Enter CNIC"}
                   fullWidth
                   textFieldSize="small"
                   autoComplete="off"
@@ -438,7 +439,8 @@ const AddEditNONAPIDispute = () => {
                         icon={<i className="icon-search icon-size-one"></i>}
                         name="AccountNumber"
                         applyClass="account-number"
-                        label="Select Account Number"
+                        label={accountNumber !== "" && "Select Account Number"}
+                        placeholder={"Select Account Number"}
                         textFieldSize="small"
                         fullWidth
                         required
@@ -451,9 +453,7 @@ const AddEditNONAPIDispute = () => {
                       />
                     </div>
 
-                    <div
-                      className="dateRangePicker u-margin-top-15px u-display-flex u-justify-content-space-between"
-                    >
+                    <div className="dateRangePicker u-margin-top-15px u-display-flex u-justify-content-space-between">
                       {accountFound ? (
                         <StartToEndDate
                           size="large"
@@ -493,7 +493,8 @@ const AddEditNONAPIDispute = () => {
                 <InputWithBtn
                   isUpperCase={true}
                   onchange={accountSectionHandler}
-                  label="Enter Account Number"
+                  label={inputDataAC !== "" && "Enter Account Number"}
+                  placeholder={"Enter Account Number"}
                   fullWidth
                   textFieldSize="small"
                   applyClass="search-cnic"
@@ -533,7 +534,13 @@ const AddEditNONAPIDispute = () => {
           <Col lg={6} md={6} sm={0} xs={0}></Col>
           <Col lg={6} md={6} sm={0} xs={0}></Col>
           <Col lg={12} md={12} sm={24} xs={24} className="u-display-flex">
-            <Col lg={24} md={24} sm={24} xs={24} className="u-text-align-center"></Col>
+            <Col
+              lg={24}
+              md={24}
+              sm={24}
+              xs={24}
+              className="u-text-align-center"
+            ></Col>
           </Col>
           <Col lg={6} md={6} sm={0} xs={0}></Col>
         </Row>

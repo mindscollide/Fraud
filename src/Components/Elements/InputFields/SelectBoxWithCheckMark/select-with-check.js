@@ -1,6 +1,7 @@
 import * as React from "react";
 import { Select, Checkbox } from "antd";
 import styles from "../../floating-label.module.css";
+import { useState } from "react";
 
 export default function MultipleSelectCheckmarks({
   setSelectedUserRoleName,
@@ -10,9 +11,11 @@ export default function MultipleSelectCheckmarks({
   option,
   lable,
   disable,
+  placeholder,
 }) {
   const isAllSelected = option.length > 0 && selected.length === option.length;
-  const isIndeterminate = selected.length > 0 && selected.length < option.length;
+  const isIndeterminate =
+    selected.length > 0 && selected.length < option.length;
 
   // The dropdown's own displayed value is selectedUserRoleName, kept one
   // render behind `selected` via this effect — preserved exactly as the
@@ -23,20 +26,27 @@ export default function MultipleSelectCheckmarks({
   }, [selected]);
 
   const antdOptions = option.map((name) => ({ label: name, value: name }));
-
-  const selectAll = () => setSelected(option);
-  const deselectAll = () => setSelected([]);
+  const [deselectClicked, setDeselectClicked] = useState(false);
+  const selectAll = () => {
+    setSelected(option);
+    setDeselectClicked(false);
+  };
+  const deselectAll = () => {
+    setSelected([]);
+    setDeselectClicked(true);
+  };
 
   return (
     <div className={lable ? styles.wrapper : undefined}>
-      {lable ? (
-        <span className={styles.floatingLabel}>{lable}</span>
-      ) : null}
+      {lable ? <span className={styles.floatingLabel}>{lable}</span> : null}
       <Select
         mode="multiple"
         size="large"
         value={selectedUserRoleName}
-        onChange={(newValue) => setSelected(newValue)}
+        onChange={(newValue) => {
+          setSelected(newValue);
+          setDeselectClicked(false);
+        }}
         options={antdOptions}
         disabled={disable}
         style={{ width: "100%" }}
@@ -64,31 +74,59 @@ export default function MultipleSelectCheckmarks({
               <span
                 className="CheckAllClick"
                 onClick={selectAll}
-                style={{ display: "flex", alignItems: "center", cursor: "pointer" }}
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  cursor: "pointer",
+                }}
               >
                 <Checkbox
                   checked={isAllSelected}
                   indeterminate={isIndeterminate}
                   onChange={selectAll}
                 />
-                <span style={{ fontWeight: 500, marginLeft: 8 }}>Select All</span>
+                <span style={{ fontWeight: 500, marginLeft: 8 }}>
+                  Select All
+                </span>
               </span>
-              <span
+              {/* <span
                 className="UncheckAllClick"
                 onClick={deselectAll}
-                style={{ display: "flex", alignItems: "center", cursor: "pointer" }}
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  cursor: "pointer",
+                }}
               >
                 <Checkbox
                   checked={isAllSelected}
                   indeterminate={isIndeterminate}
                   onChange={deselectAll}
                 />
-                <span style={{ fontWeight: 500, marginLeft: 8 }}>Deselect All</span>
+                <span style={{ fontWeight: 500, marginLeft: 8 }}>
+                  Deselect All
+                </span>
+              </span> */}
+
+              <span
+                className="UncheckAllClick"
+                onClick={deselectAll}
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  cursor: "pointer",
+                }}
+              >
+                <Checkbox checked={deselectClicked} />
+                <span style={{ fontWeight: 500, marginLeft: 8 }}>
+                  Deselect All
+                </span>
               </span>
             </div>
             {menu}
           </div>
         )}
+        placeholder={placeholder}
       />
     </div>
   );

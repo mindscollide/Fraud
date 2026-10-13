@@ -37,6 +37,11 @@
   font-weight: 600 !important;
 }
 
+.lableNotRequired {
+  color: white !important;
+  font-weight: 600 !important;
+}
+
 .lable::after {
   content: "*";
   color: #ce0000;

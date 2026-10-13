@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { Typography, Row, Col } from "antd";
 import { PlusOutlined as AddIcon } from "@ant-design/icons";
-import { SearchOutlined as Search } from "@ant-design/icons";
+
 import { EditOutlined as Edit } from "@ant-design/icons";
-import { UndoOutlined as Restore } from "@ant-design/icons";
+
 import {
   Button,
   Table,
@@ -17,11 +17,6 @@ import {
 import {
   DateDisplayFormat,
   DateSendingFormat,
-  RemoveTimeDashes,
-  NumberFormater,
-  CommaFormter,
-  TimeDisplayFormat,
-  removeDashesFromDate,
 } from "../../../../../Common/Functions/date-formatter";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -31,6 +26,7 @@ import {
   DeleteHoliday,
   EditHoliday,
 } from "../../../../../store/actions/setup-forms-actions";
+import styles from "../systemAdmin.module.css";
 
 const Holiday = () => {
   const { Title } = Typography;
@@ -324,7 +320,8 @@ const Holiday = () => {
         <Col lg={12} md={12} sm={24}>
           <TextField
             fullWidth
-            label="Enter Holiday"
+            label={holiday?.HolidayName !== "" && "Enter Holiday"}
+            placeholder={"Enter Holiday *"}
             name="HolidayName"
             size="small"
             autoComplete="off"
@@ -336,10 +333,18 @@ const Holiday = () => {
         </Col>
         <Col lg={6} md={6} sm={24}>
           <DatePicker
+            label={
+              holiday.DateOfHoliday && (
+                <>
+                  Holiday Date <span className={styles.required}>*</span>
+                </>
+              )
+            }
+            // required
             name="DateOfHoliday"
             size="large"
             width="100%"
-            placeholder={"Holiday Date"}
+            placeholder={"Holiday Date *"}
             change={HolidayDateHandler}
             value={
               holiday.DateOfHoliday
@@ -398,11 +403,12 @@ const Holiday = () => {
         {/* this data will be pass to modal when delete icon btn in the table  will be clicked */}
         {actions.delete && (
           <>
-            <div className="u-padding-40px u-display-flex u-justify-content-center">
+            <div className={styles.deleteModalMain}>
               <i className="icon-trash icon-size-two"></i>
-              <Title level={3} align="center">
+
+              <span className={styles.deleteModalTitle}>
                 Are you sure you want to delete this?
-              </Title>
+              </span>
             </div>
             <GroupedButtons data={buttonProps} />
           </>

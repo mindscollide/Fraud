@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Typography, Row, Col } from "antd";
 import { PlusOutlined as AddIcon } from "@ant-design/icons";
-import { SearchOutlined as Search } from "@ant-design/icons";
 import { EditOutlined as Edit } from "@ant-design/icons";
-import { UndoOutlined as Restore } from "@ant-design/icons";
 import {
   Button,
   Table,
@@ -21,6 +19,7 @@ import {
   DeleteSourceOfIBChannelCreation,
   EditSourceOfIBChannelCreation,
 } from "../../../../../store/actions/setup-forms-actions";
+import styles from "../systemAdmin.module.css";
 const SourceOfIB = () => {
   const { Title } = Typography;
   const dispatch = useDispatch();
@@ -274,7 +273,11 @@ const SourceOfIB = () => {
         <Col lg={18} md={18} sm={24}>
           <TextField
             fullWidth
-            label="Enter Source of IB Channel Creation"
+            label={
+              sourceOfIBChannelCreationName?.Name !== "" &&
+              "Enter Source of IB Channel Creation"
+            }
+            placeholder={"Enter Source of IB Channel Creation *"}
             size="small"
             autoComplete="off"
             required
@@ -332,11 +335,12 @@ const SourceOfIB = () => {
         {/* this data will be pass to modal when delete icon btn in the table  will be clicked */}
         {actions.delete && (
           <>
-            <div className="u-padding-40px u-display-flex u-justify-content-center">
+            <div className={styles.deleteModalMain}>
               <i className="icon-trash icon-size-two"></i>
-              <Title level={3} align="center">
+
+              <span className={styles.deleteModalTitle}>
                 Are you sure you want to delete this?
-              </Title>
+              </span>
             </div>
             <GroupedButtons data={buttonProps} />
           </>

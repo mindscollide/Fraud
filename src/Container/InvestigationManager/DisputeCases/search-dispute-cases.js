@@ -169,7 +169,7 @@ const SearchDisputeIM = () => {
       let TTIDGS = true;
       await localStorage.setItem(
         "ReferenceNumber",
-        JSON.stringify(record.referenceNumber),
+        JSON.stringify(record.referenceNumber)
       );
       await dispatch(GetCreditCardDisputesByCnic(Data, TTIDGS));
       dispatch(enableGoBack());
@@ -181,10 +181,10 @@ const SearchDisputeIM = () => {
       localStorage.setItem("TTIDGS", true);
       await localStorage.setItem(
         "ReferenceNumber",
-        JSON.stringify(record.referenceNumber),
+        JSON.stringify(record.referenceNumber)
       );
       await dispatch(
-        SearchDebitCardDisputesByCnicAndReferenceNumber(Data, TTIDGS),
+        SearchDebitCardDisputesByCnicAndReferenceNumber(Data, TTIDGS)
       );
       dispatch(enableGoBack());
       navigate("/Fraud/DisputeCases/ViewCustomerDetailsDC");
@@ -194,14 +194,14 @@ const SearchDisputeIM = () => {
       let TTIDGS = true;
       await localStorage.setItem(
         "ReferenceNumber",
-        JSON.stringify(record.referenceNumber),
+        JSON.stringify(record.referenceNumber)
       );
       let ADCData = {
         CNICNumber: record.cnicNumber,
         RefrenceNumber: record.referenceNumber,
       };
       await dispatch(
-        SearchTransactionDetailsADCByCNICAndReferenceNumber(ADCData, TTIDGS),
+        SearchTransactionDetailsADCByCNICAndReferenceNumber(ADCData, TTIDGS)
       );
       dispatch(enableGoBack());
       navigate("/Fraud/DisputeCases/ViewCustomerDetailsADC");
@@ -212,10 +212,10 @@ const SearchDisputeIM = () => {
       localStorage.setItem("TTIDGS", true);
       await localStorage.setItem(
         "ReferenceNumber",
-        JSON.stringify(record.referenceNumber),
+        JSON.stringify(record.referenceNumber)
       );
       await dispatch(
-        SearchNonApiDisputesByCnicAndReferenceNumber(Data, TTIDGS),
+        SearchNonApiDisputesByCnicAndReferenceNumber(Data, TTIDGS)
       );
       dispatch(enableGoBack());
       navigate("/Fraud/DisputeCases/ViewCustomerDetailsNonApi");
@@ -225,14 +225,14 @@ const SearchDisputeIM = () => {
       let TTIDGS = true;
       await localStorage.setItem(
         "ReferenceNumber",
-        JSON.stringify(record.referenceNumber),
+        JSON.stringify(record.referenceNumber)
       );
       let BBKData = {
         CNICNumber: record.cnicNumber,
         ReferenceNumber: record.referenceNumber,
       };
       await dispatch(
-        SearchBBKDisputesByCnicAndReferenceNumber(BBKData, TTIDGS),
+        SearchBBKDisputesByCnicAndReferenceNumber(BBKData, TTIDGS)
       );
       dispatch(enableGoBack());
       navigate("/Fraud/DisputeCases/ViewCustomerDetailsBBK");
@@ -270,7 +270,7 @@ const SearchDisputeIM = () => {
     setTransactionTypes(
       transactionName.map((data, index) => {
         return data.ttName;
-      }),
+      })
     );
   }, [setupForms.TransactionTypesData]);
 
@@ -458,8 +458,8 @@ const SearchDisputeIM = () => {
                   disputeID,
                   setIsModalVisible2,
                   setAction,
-                  actions,
-                ),
+                  actions
+                )
               );
             }}
             className="icon-edit-list icon-size-one beachGreen u-cursor-pointer"
@@ -555,7 +555,7 @@ const SearchDisputeIM = () => {
     setCaseStatusOptions(
       caseStatus.map((data, index) => {
         return data.statusDescription;
-      }),
+      })
     );
   }, [setupForms.StatusData]);
 
@@ -565,18 +565,28 @@ const SearchDisputeIM = () => {
     };
     dispatch(GetAllStatus(data));
   }, []);
+  const hasDateValue =
+    (State.from !== null && State.from !== "") ||
+    (State.to !== null && State.to !== "");
+
+  const hasCaseStatus =
+    caseStatus !== null &&
+    caseStatus !== undefined &&
+    caseStatus !== "" &&
+    !(Array.isArray(caseStatus) && caseStatus.length === 0);
 
   return (
     <>
       <Title level={3}>Search Dispute Cases</Title>
       <Row gutter={8}>
-        <Col lg={8} md={8} sm={24} className="MultipleSelectClass">
+        <Col lg={8} md={8} sm={24}>
           <MultipleSelectCheckmarks
             selected={selected}
             setSelected={setSelected}
             selectedUserRoleName={selectedTransactionTypeName}
             setSelectedUserRoleName={setSelectedTransactionTypeName}
-            lable="Transaction Type *"
+            lable={selected?.length > 0 ? "Transaction Type *" : ""}
+            placeholder={"Transaction Type *"}
             change={transactionTypeHandler}
             option={transactionTypes}
             name="TransactionTypeIDs"
@@ -588,7 +598,8 @@ const SearchDisputeIM = () => {
             name={"ReferenceNumber"}
             fullWidth
             autoComplete="off"
-            label="Reference Number"
+            label={searchData.ReferenceNumber !== "" ? "Reference Number" : ""}
+            placeholder={"Reference Number"}
             size="small"
             value={searchData.ReferenceNumber}
             change={(e) => handleSearch(e)}
@@ -598,7 +609,8 @@ const SearchDisputeIM = () => {
           <TextField
             fullWidth
             name={"CNIC"}
-            label="CNIC"
+            label={searchData.CNIC !== "" ? "CNIC" : ""}
+            placeholder={"CNIC"}
             size="small"
             autoComplete="off"
             value={searchData.CNIC}
@@ -606,11 +618,14 @@ const SearchDisputeIM = () => {
             textLength={13}
           />
         </Col>
-        <Col lg={8} md={8} sm={24} className="u-margin-top-22px">
+      </Row>
+      <Row gutter={8} className="u-margin-top-22px">
+        <Col lg={8} md={8} sm={24}>
           <TextField
             fullWidth
             name={"AccountNumber"}
-            label="Account Number"
+            label={searchData.AccountNumber !== "" ? "Account Number" : ""}
+            placeholder={"Account Number"}
             size="small"
             autoComplete="off"
             value={searchData.AccountNumber}
@@ -618,25 +633,19 @@ const SearchDisputeIM = () => {
             textLength={14}
           />
         </Col>
-        <Col lg={8} md={8} sm={24} className="u-margin-top-22px">
+        <Col lg={8} md={8} sm={24}>
           <SelectBox
-            label="Select Case Status"
+            label={hasCaseStatus ? "Select Case Status" : ""}
+            placeholder={"Select Case Status"}
             option={caseStatusOptions}
             name="fk_csid"
             value={caseStatus}
             change={caseStatusHandler}
           />
-          {/* <Checkbox
-            className="SearchCheckbox"
-            checked={searchData.Inprocess}
-            onChange={onChange}
-          >
-            In Process Only
-          </Checkbox> */}
         </Col>
-        <Col lg={8} md={8} sm={24} className="u-margin-top-22px">
+        <Col lg={8} md={8} sm={24}>
           <StartToEndDate
-            label={"Case Received Date"}
+            label={hasDateValue ? "Case Received Date" : ""}
             width="100%!important"
             size="large"
             change={setDate}
@@ -647,14 +656,15 @@ const SearchDisputeIM = () => {
                 : null
             }
             endvalue={
-              State.to !== null && State.from !== ""
+              State.to !== null && State.to !== ""
                 ? DateDisplayFormat(State.to)
                 : null
             }
             DateRange={true}
           />
         </Col>
-        <Col lg={8} md={8} sm={24}></Col>
+      </Row>
+      <Row className="u-margin-top-10px u-justify-content-center ">
         <Col lg={4} md={4} sm={24}>
           <Button
             text="Search"
@@ -667,14 +677,15 @@ const SearchDisputeIM = () => {
         <Col lg={4} md={4} sm={24}>
           <Button
             text="Reset"
-            icon={<i className="icon-reset"></i>}
+            icon={<i className="icon-reset icon-size-zero"></i>}
             applyClass="btnSecondarySolidReset"
             size="small"
             click={resetData}
           />
         </Col>
-        <Col lg={8} md={8} sm={24}></Col>
-        <Col lg={24} md={22} sm={24} className="u-margin-top-1pct">
+      </Row>
+      <Row className="u-margin-top-10px">
+        <Col lg={24} md={22} sm={24}>
           <Table
             rows={investigationOfficer.GlobalDisputeData}
             columns={columns}

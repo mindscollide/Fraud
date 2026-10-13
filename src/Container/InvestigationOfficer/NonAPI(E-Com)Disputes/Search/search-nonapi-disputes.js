@@ -377,7 +377,7 @@ const SearchNONAPIDispute = () => {
       setFraudType(
         nameFraud.map((data, index) => {
           return data.name;
-        }),
+        })
       );
     }
   }, [setupForms.FraudTypeData]);
@@ -410,7 +410,7 @@ const SearchNONAPIDispute = () => {
   const View = (e, value) => {
     localStorage.setItem(
       "ReferenceNumber",
-      JSON.stringify(value.refrenceNumber),
+      JSON.stringify(value.refrenceNumber)
     );
     localStorage.setItem("CNICNumber", JSON.stringify(value.cnicNumber));
     let Data = {
@@ -429,7 +429,7 @@ const SearchNONAPIDispute = () => {
     localStorage.setItem("accountNumber", value.accountNumber);
     localStorage.setItem(
       "ReferenceNumber",
-      JSON.stringify(value.refrenceNumber),
+      JSON.stringify(value.refrenceNumber)
     );
     let data = {
       CNICNumber: value.cnicNumber,
@@ -551,12 +551,7 @@ const SearchNONAPIDispute = () => {
             onClick={() => {
               let disputeID = record.pK_NAPIDID;
               dispatch(
-                GetDisputeStatusNONAPI(
-                  disputeID,
-                  showModal,
-                  setAction,
-                  actions,
-                ),
+                GetDisputeStatusNONAPI(disputeID, showModal, setAction, actions)
               );
             }}
             className="icon-edit-list icon-size-one beachGreen u-cursor-pointer"
@@ -666,7 +661,7 @@ const SearchNONAPIDispute = () => {
     setCaseStatusOptions(
       caseStatus.map((data, index) => {
         return data.statusDescription;
-      }),
+      })
     );
   }, [setupForms.StatusData]);
 
@@ -684,10 +679,18 @@ const SearchNONAPIDispute = () => {
     setCity(
       valueCity.map((data, index) => {
         return data.name;
-      }),
+      })
     );
   }, [setupForms.CityData]);
 
+  const hasDateValue =
+    (State.FromDate !== null && State.FromDate !== "") ||
+    (State.ToDate !== null && State.ToDate !== "");
+
+  const hasAmountValue =
+    searchData.TransactionAmount !== null &&
+    searchData.TransactionAmount !== "" &&
+    searchData.TransactionAmount !== -99999999999999999999;
   return (
     <>
       <Title level={3}>Search Non API (E-Com) Disputes</Title>
@@ -696,7 +699,8 @@ const SearchNONAPIDispute = () => {
           <TextField
             name={"RefrenceNumber"}
             fullWidth
-            label="Reference Number"
+            label={searchData?.RefrenceNumber !== "" && "Reference Number"}
+            placeholder={"Reference Number"}
             autoComplete="off"
             size="small"
             value={searchData.RefrenceNumber}
@@ -707,7 +711,8 @@ const SearchNONAPIDispute = () => {
           <TextField
             fullWidth
             name={"AccountNumber"}
-            label="Account Number"
+            label={searchData?.AccountNumber !== "" && "Account Number"}
+            placeholder={"Account Number"}
             autoComplete="off"
             size="small"
             value={searchData.AccountNumber}
@@ -720,7 +725,8 @@ const SearchNONAPIDispute = () => {
           <TextField
             fullWidth
             name={"TransactionId"}
-            label="Transaction ID"
+            label={searchData?.TransactionId !== "" && "Transaction ID"}
+            placeholder={"Transaction ID"}
             size="small"
             autoComplete="off"
             value={searchData.TransactionId}
@@ -733,7 +739,8 @@ const SearchNONAPIDispute = () => {
           <TextField
             fullWidth
             name={"ApprovalCode"}
-            label="Approval Code"
+            label={searchData?.ApprovalCode !== "" && "Approval Code"}
+            placeholder={"Approval Code"}
             size="small"
             autoComplete="off"
             value={searchData.ApprovalCode}
@@ -742,11 +749,14 @@ const SearchNONAPIDispute = () => {
             minLength={6}
           />
         </Col>
-        <Col lg={6} md={4} sm={24} className="u-margin-top-22px">
+      </Row>
+      <Row gutter={8} className="u-margin-top-22px">
+        <Col lg={6} md={4} sm={24}>
           <TextField
             fullWidth
             name={"CustomerName"}
-            label="Customer Name"
+            label={searchData?.CustomerName !== "" && "Customer Name"}
+            placeholder={"Customer Name"}
             size="small"
             autoComplete="off"
             value={searchData.CustomerName}
@@ -755,11 +765,12 @@ const SearchNONAPIDispute = () => {
             minLength={25}
           />
         </Col>
-        <Col lg={6} md={6} sm={24} className="u-margin-top-22px">
+        <Col lg={6} md={6} sm={24}>
           <TextField
             fullWidth
             name={"CNIC"}
-            label="CNIC"
+            label={searchData?.CNIC !== "" && "CNIC"}
+            placeholder={"CNIC"}
             size="small"
             autoComplete="off"
             value={searchData.CNIC}
@@ -768,38 +779,44 @@ const SearchNONAPIDispute = () => {
             minLength={13}
           />
         </Col>
-        <Col lg={6} md={6} sm={24} className="u-margin-top-22px">
+        <Col lg={6} md={6} sm={24}>
           <SelectBox
-            label="Select Case Status"
+            label={caseStatus?.length > 0 && "Select Case Status"}
+            placeholder="Select Case Status"
             option={caseStatusOptions}
             name="fk_csid"
             value={caseStatus}
             change={caseStatusHandler}
           />
         </Col>
-        <Col lg={6} md={6} sm={24} className="u-margin-top-22px">
+        <Col lg={6} md={6} sm={24}>
           <SelectBox
-            label="Select Fraud Type"
+            label={searchData?.Fraudtype !== "" && "Select Fraud Type"}
+            placeholder="Select Fraud Type"
             option={fraudType}
             name="Fraudtype"
             value={searchData.Fraudtype}
             change={fraudNameHandler}
           />
         </Col>
-        <Col lg={6} md={6} sm={24} className="u-margin-top-22px">
+      </Row>
+      <Row gutter={8} className="u-margin-top-22px">
+        <Col lg={6} md={6} sm={24}>
           <SelectBox
-            label="Select City"
+            label={cityValue?.length > 0 && "Select City"}
+            placeholder="Select City"
             option={city}
             value={cityValue}
             change={CityNameHandler}
             name="FK_CTID"
           />
         </Col>
-        <Col lg={6} md={6} sm={24} className="u-margin-top-22px">
+        <Col lg={6} md={6} sm={24}>
           <FormattedInputs
             fullWidth
             name="TransactionAmount"
-            Label="Total Dispute Amount"
+            Label={hasAmountValue ? "Total Dispute Amount" : ""}
+            placeholder={"Total Dispute Amount"}
             size="small"
             autoComplete="off"
             value={
@@ -811,9 +828,9 @@ const SearchNONAPIDispute = () => {
             change={(e) => handleSearch(e)}
           />
         </Col>
-        <Col lg={6} md={6} sm={24} className="u-margin-top-22px">
+        <Col lg={6} md={6} sm={24}>
           <StartToEndDate
-            label={"Case Received Date"}
+            label={hasDateValue ? "Case Received Date" : ""}
             width="100%!important"
             size="large"
             change={setDate}
@@ -831,33 +848,34 @@ const SearchNONAPIDispute = () => {
             DateRange={true}
           />
         </Col>
-        <Col lg={6} md={6} sm={24} className="u-margin-top-22px"></Col>
-        <Col lg={8} md={8} sm={24}></Col>
-        <Col
-          lg={4}
-          md={4}
-          sm={24}
-          className="u-margin-top-10px u-text-align-right"
-        >
+      </Row>
+
+      <Row gutter={8} className="u-margin-top-10px u-justify-content-center">
+        <Col lg={4} md={4} sm={24}>
           <Button
             text="Search"
-            icon={<Search />}
+            icon={
+              <i className="icon-size-zero">
+                <Search />
+              </i>
+            }
             applyClass="btnSecondarySolid2Search"
             size="small"
             click={handleSearchData}
           />
         </Col>
-        <Col lg={4} md={4} sm={24} className="u-margin-top-10px">
+        <Col lg={4} md={4} sm={24}>
           <Button
             text="Reset"
-            icon={<i className="icon-reset"></i>}
+            icon={<i className="icon-reset icon-size-zero"></i>}
             applyClass="btnSecondarySolidReset"
             size="small"
             click={resetData}
           />
         </Col>
-        <Col lg={8} md={8} sm={24}></Col>
-        <Col lg={24} md={22} sm={24} className="u-margin-top-1pct">
+      </Row>
+      <Row>
+        <Col lg={24} md={24} sm={24} className="u-margin-top-10px">
           <Table
             rows={investigationOfficer.SearchNonApiDisputesData}
             columns={columns}

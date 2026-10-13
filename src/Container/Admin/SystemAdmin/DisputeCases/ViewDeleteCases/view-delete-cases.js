@@ -163,7 +163,7 @@ const ViewDeleteCases = () => {
   const View = async (e, record) => {
     localStorage.setItem(
       "ReferenceNumber",
-      JSON.stringify(record.referenceNumber),
+      JSON.stringify(record.referenceNumber)
     );
     let Data = {
       CNICNumber: record.cnicNumber,
@@ -198,7 +198,7 @@ const ViewDeleteCases = () => {
       localStorage.setItem("fk_TTID", ttid);
       localStorage.setItem("fk_TTIDDelete", true);
       dispatch(
-        SearchTransactionDetailsADCByCNICAndReferenceNumber(Data2, flag),
+        SearchTransactionDetailsADCByCNICAndReferenceNumber(Data2, flag)
       );
       navigate("/Fraud/SystemAdmin/ViewCustomerDetailsADC");
     }
@@ -243,7 +243,7 @@ const ViewDeleteCases = () => {
     useState([]);
   const [transactionTypes, setTransactionTypes] = useState([]);
 
-  const transactionTypeHandler = (e, value) => {};
+  // const transactionTypeHandler = (e, value) => {};
 
   // For User Roles DropDown SetState
   useEffect(() => {
@@ -251,7 +251,7 @@ const ViewDeleteCases = () => {
     setTransactionTypes(
       transactionName.map((data, index) => {
         return data.ttName;
-      }),
+      })
     );
   }, [setupForms.TransactionTypesData]);
 
@@ -307,7 +307,7 @@ const ViewDeleteCases = () => {
   const update = (e, value) => {
     localStorage.setItem(
       "ReferenceNumber",
-      JSON.stringify(value.refrenceNumber),
+      JSON.stringify(value.refrenceNumber)
     );
     localStorage.setItem("cnic", value.cnicNumber);
     let data = {
@@ -494,9 +494,10 @@ const ViewDeleteCases = () => {
             name={"ReferenceNumber"}
             fullWidth
             autoComplete="off"
-            label="Reference Number"
+            label={searchData?.ReferenceNumber !== "" ? "Reference Number" : ""}
             size="small"
             value={searchData.ReferenceNumber}
+            placeholder={"Reference Number"}
             textLength={20}
             change={(e) => handleSearch(e)}
           />
@@ -505,17 +506,23 @@ const ViewDeleteCases = () => {
           <TextField
             fullWidth
             name={"CNIC"}
-            label="CNIC"
+            label={searchData?.CNIC !== "" ? "CNIC" : ""}
             size="small"
             autoComplete="off"
             value={searchData.CNIC}
+            placeholder={"CNIC"}
             textLength={13}
             change={(e) => handleSearch(e)}
           />
         </Col>
         <Col lg={6} md={6} sm={24} className="u-margin-top-22px">
           <StartToEndDate
-            label={"Case Received Date"}
+            label={
+              (State.from !== null && State.from !== "") ||
+              (State.to !== null && State.to !== "")
+                ? "Case Received Date"
+                : ""
+            }
             width="100%!important"
             size="large"
             change={setDate}
@@ -544,20 +551,27 @@ const ViewDeleteCases = () => {
             setSelected={setSelected}
             selectedUserRoleName={selectedTransactionTypeName}
             setSelectedUserRoleName={setSelectedTransactionTypeName}
-            lable="Transaction Type *"
-            change={transactionTypeHandler}
+            lable={
+              selectedTransactionTypeName.length !== 0 && "Transaction Type *"
+            }
+            // change={transactionTypeHandler}
             option={transactionTypes}
             name="TransactionTypeIDs"
+            placeholder={"Transaction Type *"}
             required
           />
         </Col>
-
-        <Col lg={8} md={8} sm={24}></Col>
+      </Row>
+      <Row className="u-margin-top-10px u-justify-content-center ">
         <Col lg={4} md={4} sm={24}>
           <Button
             text="Search"
-            icon={<Search />}
-            applyClass="btnSecondarySolid2Search"
+            icon={
+              <i className="icon-size-zero">
+                <Search />
+              </i>
+            }
+            applyClass="btnSecondarySolid2Search3"
             size="small"
             click={handleSearchData}
           />
@@ -565,14 +579,14 @@ const ViewDeleteCases = () => {
         <Col lg={4} md={4} sm={24}>
           <Button
             text="Reset"
-            icon={<i className="icon-reset"></i>}
+            icon={<i className="icon-reset icon-size-zero"></i>}
             applyClass="btnSecondarySolidReset"
             size="small"
             click={resetData}
           />
         </Col>
-        <Col lg={8} md={8} sm={24}></Col>
-
+      </Row>
+      <Row gutter={8}>
         <Col lg={24} md={22} sm={24} className="u-margin-top-1pct">
           <Table
             rows={setupForms.ViewDeleteDisputeCasesData}

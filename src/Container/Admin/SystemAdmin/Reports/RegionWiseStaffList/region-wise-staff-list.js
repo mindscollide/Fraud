@@ -1,28 +1,20 @@
 import React, { useState, useEffect } from "react";
 import { Typography, Row, Col } from "antd";
-import { PlusOutlined as AddIcon } from "@ant-design/icons";
 import { SearchOutlined as Search } from "@ant-design/icons";
-import { EditOutlined as Edit } from "@ant-design/icons";
-import { UndoOutlined as Restore } from "@ant-design/icons";
 import { DownloadOutlined } from "@ant-design/icons";
 import {
   Button,
-  Table,
   GroupedButtons,
   Modal,
-  TextField,
   Notification,
-  StartToEndDate,
   SelectBox,
 } from "../../../../../Components/Elements";
 import { useDispatch, useSelector } from "react-redux";
 import {
   GetBorrowerType,
   AddBorrowerType,
-  EditBorrowerType,
   DeleteBorrowerType,
   HideNotification,
-  SearchBorrowerType,
 } from "../../../../../store/actions/setup-forms-actions";
 const RegionWiseStaffList = () => {
   const { Title } = Typography;
@@ -42,6 +34,10 @@ const RegionWiseStaffList = () => {
     ID: null,
     WOFStatus: 4,
     Title: "",
+  });
+  const [region, setRegion] = useState("");
+  const [classificationofAdvance, setclassificationofAdvance] = useState({
+    RegionID: 0,
   });
   const add = () => {
     if (borrowerType.Title !== "") {
@@ -188,15 +184,47 @@ const RegionWiseStaffList = () => {
       dispatch(GetBorrowerType());
     }
   }, [setupForms.ShowNotification]);
+
+  const editUserDataHnaler = (e, val) => {
+    let name = e.target.name;
+    if (val !== undefined && val !== null) {
+      let RegionData = setupForms.RegionData;
+      if (
+        RegionData !== undefined &&
+        RegionData !== null &&
+        RegionData.length > 0
+      ) {
+        RegionData.map((data, index) => {
+          if (val === data.name) {
+            setclassificationofAdvance({
+              ...classificationofAdvance,
+              ["RegionID"]: data.pK_RID,
+            });
+            setRegion(data.name);
+          }
+        });
+      }
+    }
+  };
+  // reset state manage handler
+  const handleReset = () => {
+    setclassificationofAdvance({
+      RegionID: 0,
+    });
+    setRegion("");
+  };
   return (
     <>
       <Title level={3}>Region Wise Staff List</Title>
       <Row gutter={8}>
         <Col lg={8} md={8} sm={24}>
           <SelectBox
-            label="Select Region"
+            label={region !== "" && "Select Region"}
+            placeholder={"Select Region"}
             name="Region"
             propertyName={"Region"}
+            value={region}
+            change={editUserDataHnaler}
           />
         </Col>
         <Col lg={2} md={2} sm={24}></Col>
@@ -209,9 +237,10 @@ const RegionWiseStaffList = () => {
           />
           <Button
             text="Reset"
-            icon={<i className="icon-reset"></i>}
+            icon={<i className="icon-reset icon-size-zero"></i>}
             applyClass="btnSecondarySolidReset"
             size="small"
+            click={handleReset}
           />
         </Col>
         <Col md={10} lg={10} sm={24} className="u-margin-top-5pct"></Col>

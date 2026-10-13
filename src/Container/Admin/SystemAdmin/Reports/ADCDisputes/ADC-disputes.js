@@ -279,19 +279,28 @@ const ADCDisputes = () => {
             />
             <Button
               text="Reset"
-              icon={<i className="icon-reset"></i>}
+              icon={<i className="icon-reset icon-size-zero"></i>}
               applyClass="btnSecondarySolidReset"
               size="small"
             />
           </div>
         </Col>
 
-        <Col md={24} lg={24} sm={24} className="u-margin-top-5pct u-text-align-center">
+        <Col
+          md={24}
+          lg={24}
+          sm={24}
+          className="u-margin-top-5pct u-text-align-center"
+        >
           <div>
             <Button
               applyClass="btnDarkSolidm"
               text="Download Report"
-              icon={<DownloadOutlined />}
+              icon={
+                <i className="icon-size-zero">
+                  <DownloadOutlined />
+                </i>
+              }
             />
           </div>
         </Col>

@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { Typography, Row, Col } from "antd";
 import { PlusOutlined as AddIcon } from "@ant-design/icons";
-import { SearchOutlined as Search } from "@ant-design/icons";
+
 import { EditOutlined as Edit } from "@ant-design/icons";
-import { UndoOutlined as Restore } from "@ant-design/icons";
+
 import {
   Button,
   Table,
@@ -21,6 +21,7 @@ import {
   DeleteCaseDecision,
   EditCaseDecision,
 } from "../../../../../store/actions/setup-forms-actions";
+import styles from "../../Setup/systemAdmin.module.css";
 const CaseDecision = () => {
   const { Title } = Typography;
   const dispatch = useDispatch();
@@ -253,7 +254,8 @@ const CaseDecision = () => {
         <Col lg={18} md={18} sm={24}>
           <TextField
             fullWidth
-            label="Enter Case Decision"
+            label={caseDecision?.Name !== "" && "Enter Case Decision"}
+            placeholder={"Enter Case Decision *"}
             size="small"
             autoComplete="off"
             required
@@ -311,9 +313,10 @@ const CaseDecision = () => {
         {/* this data will be pass to modal when delete icon btn in the table  will be clicked */}
         {actions.delete && (
           <>
-            <div className="u-padding-40px u-display-flex u-justify-content-center">
+            <div className={styles.deleteModalMain}>
               <i className="icon-trash icon-size-two"></i>
-              <Title level={3} align="center">
+
+              <Title className={styles.deleteModalTitle} level={4}>
                 Are you sure you want to delete this?
               </Title>
             </div>

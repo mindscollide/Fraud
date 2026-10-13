@@ -1,15 +1,19 @@
 @font-face {
-  font-family: 'font-icon';
-  src:  url('fonts/font-icon.eot?uycojg');
-  src:  url('fonts/font-icon.eot?uycojg#iefix') format('embedded-opentype'),
-    url('fonts/font-icon.ttf?uycojg') format('truetype'),
-    url('fonts/font-icon.woff?uycojg') format('woff'),
-    url('fonts/font-icon.svg?uycojg#font-icon') format('svg');
+  font-family: "font-icon";
+  src: url("fonts/font-icon.eot?uycojg");
+  src: url("fonts/font-icon.eot?uycojg#iefix") format("embedded-opentype"),
+    url("fonts/font-icon.ttf?uycojg") format("truetype"),
+    url("fonts/font-icon.woff?uycojg") format("woff"),
+    url("fonts/font-icon.svg?uycojg#font-icon") format("svg");
   font-weight: normal;
   font-style: normal;
   font-display: block;
 }
 /* My Custom CSS Starts */
+
+.icon-size-zero {
+  font-size: 24px !important;
+}
 .icon-size-one {
   font-size: 30px !important;
 }
@@ -35,9 +39,10 @@
 .pdfRed {
   color: #ce2d31;
 }
-[class^="icon-"], [class*=" icon-"] {
+[class^="icon-"],
+[class*=" icon-"] {
   /* use !important to prevent issues with browser extensions that change fonts */
-  font-family: 'font-icon' !important;
+  font-family: "font-icon" !important;
   speak: never;
   font-style: normal;
   font-weight: normal;

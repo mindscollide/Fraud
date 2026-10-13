@@ -8,7 +8,6 @@ import {
 import {
   Button,
   TextField,
-  Notification,
   StartToEndDate,
   Loader,
   MultipleSelectCheckmarks,
@@ -16,6 +15,7 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { ADCReportExcel } from "../../../../store/actions/reports_actions";
 import { GetAllStatus } from "../../../../store/actions/setup-forms-actions";
+import styles from "../../investigationOfficer.module.css";
 
 const IOADCDisputes = () => {
   const { Title } = Typography;
@@ -139,7 +139,7 @@ const IOADCDisputes = () => {
     setStatus(
       statusName.map((data, index) => {
         return data.statusDescription;
-      }),
+      })
     );
   }, [setupForms.StatusData]);
 
@@ -198,7 +198,8 @@ const IOADCDisputes = () => {
             setSelected={setSelected}
             selectedUserRoleName={selectedStatusName}
             setSelectedUserRoleName={setSelectedStatusName}
-            lable="Dispute Status"
+            lable={selected?.length > 0 && "Dispute Status"}
+            placeholder={"Dispute Status"}
             option={status}
             name="CaseStatus"
             required
@@ -207,7 +208,8 @@ const IOADCDisputes = () => {
         <Col lg={8} md={8} sm={24}>
           <TextField
             fullWidth
-            label="HBL Account Number"
+            label={search.HBLAccountNumber !== "" && "HBL Account Number"}
+            placeholder={"HBL Account Number *"}
             size="small"
             autoComplete="off"
             required
@@ -220,7 +222,11 @@ const IOADCDisputes = () => {
         <Col lg={8} md={8} sm={24}>
           <TextField
             fullWidth
-            label="Beneficiary Account Number"
+            label={
+              search?.OtherBankAccountNumber !== "" &&
+              "Beneficiary Account Number"
+            }
+            placeholder={"Beneficiary Account Number *"}
             size="small"
             autoComplete="off"
             required
@@ -233,7 +239,8 @@ const IOADCDisputes = () => {
         <Col lg={8} md={8} sm={24} className="u-margin-top-22px">
           <TextField
             fullWidth
-            label="CNIC"
+            label={search?.CNIC !== "" && "CNIC"}
+            placeholder={"CNIC *"}
             size="small"
             autoComplete="off"
             name="CNIC"
@@ -245,7 +252,14 @@ const IOADCDisputes = () => {
         </Col>
         <Col lg={8} md={8} sm={24} className="u-margin-top-22px">
           <StartToEndDate
-            label={"Case Received Date"}
+            label={
+              ((State.FromDate !== null && State.FromDate !== "") ||
+                (State.ToDate !== null && State.FromDate !== "")) && (
+                <>
+                  Cash Received Date <span className={styles.required}>*</span>
+                </>
+              )
+            }
             width="100%!important"
             size="large"
             change={setDate}
@@ -267,7 +281,7 @@ const IOADCDisputes = () => {
           <div className="u-display-inline-block">
             <Button
               text="Reset"
-              icon={<i className="icon-reset"></i>}
+              icon={<i className="icon-reset icon-size-zero"></i>}
               applyClass="btnSecondarySolidReset"
               size="small"
               click={handleReset}
@@ -281,14 +295,16 @@ const IOADCDisputes = () => {
           sm={24}
           className="u-margin-top-5pct u-text-align-center"
         >
-          <div>
-            <Button
-              applyClass="btnDarkSolidm"
-              text="Download Report"
-              icon={<DownloadOutlined />}
-              click={downloadExcel}
-            />
-          </div>
+          <Button
+            applyClass="btnDarkSolidm"
+            text="Download Report"
+            icon={
+              <i className="icon-size-zero">
+                <DownloadOutlined />
+              </i>
+            }
+            click={downloadExcel}
+          />
         </Col>
       </Row>
       {reports.isLoading ? <Loader /> : null}

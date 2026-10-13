@@ -1,0 +1,13 @@
+.buttonSpacing {
+  display: flex;
+  gap: 5px;
+  justify-content: end;
+}
+.creaditCardDisputeDownloadBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.required {
+  color: red;
+}

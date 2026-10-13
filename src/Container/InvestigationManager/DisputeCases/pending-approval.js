@@ -1,6 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
 
-
 import { Typography, Radio, Tooltip, Row, Col } from "antd";
 
 import { useDispatch, useSelector } from "react-redux";
@@ -722,12 +721,15 @@ const PendingApprovals = () => {
     <>
       <Title level={4}>Pending Approvals</Title>
       <>
-        <Row gutter={16}>
-          <Col lg={4} md={4}></Col>
-          <Col lg={8} md={8}></Col>
-          <Col lg={8} md={8} className="SearchPendingApprovals u-text-align-right">
+        <Row gutter={16} className="u-justify-content-end">
+          <Col
+            lg={8}
+            md={8}
+            className="SearchPendingApprovals u-text-align-right"
+          >
             <InputWithBtn
-              label="Search"
+              label={searchData?.length > 0 ? "Search" : ""}
+              placeholder={"Search"}
               fullWidth
               textFieldSize="small"
               autoComplete="off"
@@ -742,12 +744,14 @@ const PendingApprovals = () => {
           <Col lg={4} md={4} sm={24}>
             <Button
               text="Reset"
-              icon={<i className="icon-reset"></i>}
+              icon={<i className="icon-reset icon-size-zero"></i>}
               applyClass="btnSecondarySolidResetw"
               size="small"
               click={resetData}
             />
           </Col>
+        </Row>
+        <Row gutter={16} className="u-margin-top-10px">
           <Col lg={24} md={24}>
             <Table
               rows={allPendingForApproval}
