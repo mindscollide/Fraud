@@ -33,6 +33,7 @@ import {
   getTransactionDetailsByCnicDebitCard,
   searchCustomerByCnic,
   getAllAccountsByCnic,
+  getAllCnicByAccountNumber,
   getIRISTransactionDetailsByTransactionId,
   searchTransactionDetailsByAccountNumber,
   searchDisputesByCnicAndReferenceNumber,
@@ -2090,6 +2091,7 @@ const SearchTransactionDetailsByAccountNumberInIRIS = (object) => {
               dispatch(accountNumberNotFoundModal(true));
             } else {
               localStorage.setItem("accountNumber", object.AccountNumber);
+              localStorage.setItem("dcIrisCnic", object.CNIC || "");
               dispatch(
                 GetTransactionDetailsByCnicDebitCardIRISSuccess(
                   response.data.responseResult
@@ -2108,6 +2110,52 @@ const SearchTransactionDetailsByAccountNumberInIRIS = (object) => {
           }
         } else {
           dispatch(GetTransactionDetailsByCnicDebitCardIRISFail(response.data));
+        }
+      })
+      .catch((response) => {
+        dispatch(SomeThingWentWrong(response));
+        dispatch(LOADERFALSE());
+      });
+  };
+};
+
+// Debit card account-number search: look up the CNIC for the account first,
+// then run the IRIS search (which needs the CNIC to find the customer)
+const SearchTransactionDetailsByAccountNumberWithCnicLookup = (object) => {
+  let token = JSON.parse(localStorage.getItem("token"));
+  return (dispatch) => {
+    dispatch(investigationOfficerInit());
+    let form = new FormData();
+    form.append("RequestMethod", getAllCnicByAccountNumber.RequestMethod);
+    form.append(
+      "RequestData",
+      JSON.stringify({ AccountNumber: object.AccountNumber })
+    );
+    axios({
+      method: "post",
+      url: InvestigationOfficerAPIDC,
+      data: form,
+      headers: { _token: token },
+    })
+      .then(async (response) => {
+        if (response.data.responseCode === 417) {
+          await dispatch(refreshToken());
+          dispatch(SearchTransactionDetailsByAccountNumberWithCnicLookup(object));
+        } else if (
+          response.data.responseCode === 200 &&
+          response.data.responseResult.isExecuted === true &&
+          response.data.responseResult.cniCs &&
+          response.data.responseResult.cniCs.length > 0
+        ) {
+          dispatch(
+            SearchTransactionDetailsByAccountNumberInIRIS({
+              ...object,
+              CNIC: response.data.responseResult.cniCs[0],
+            })
+          );
+        } else {
+          dispatch(accountNumberNotFoundModal(true));
+          dispatch(LOADERFALSE());
         }
       })
       .catch((response) => {
@@ -6224,6 +6272,7 @@ export {
   GetTransactionDetailsByAccountNumberADC,
   SearchTransactionDetailsByAccountNumberInIRISADC,
   SearchTransactionDetailsByAccountNumberInIRIS,
+  SearchTransactionDetailsByAccountNumberWithCnicLookup,
   RESETALLSTATE,
   HideNotification,
   GetTransactionDetailsByCnic,

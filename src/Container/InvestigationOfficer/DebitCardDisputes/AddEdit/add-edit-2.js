@@ -36,6 +36,7 @@ import {
   SearchTransactionDetailsByAccountNumber,
   GetTransactionDetailsByCnicDC,
   SearchTransactionDetailsByAccountNumberInIRIS,
+  SearchTransactionDetailsByAccountNumberWithCnicLookup,
   customerNotFoundModal,
   customerFoundModal,
   accountNumberFoundModal,
@@ -296,6 +297,7 @@ const AddEditDCDispute = () => {
     setFound(true);
     let Data = {
       AccountNumber: accountNumber,
+      CNIC: inputData,
       From: State.FromDate,
       To: State.ToDate,
     };
@@ -318,7 +320,7 @@ const AddEditDCDispute = () => {
     await dispatch(accountNumberFoundModal(false));
     await dispatch(accountNumberNotFoundModal(false));
 
-    dispatch(SearchTransactionDetailsByAccountNumberInIRIS(Data));
+    dispatch(SearchTransactionDetailsByAccountNumberWithCnicLookup(Data));
   };
 
   // For AccountNumber DropDown SetState

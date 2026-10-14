@@ -23,6 +23,7 @@ import {
   GetTransactionDetailsByAccountAndCnicDC,
   GetTransactionDetailsByCnicDC,
   SearchTransactionDetailsByAccountNumberInIRIS,
+  SearchTransactionDetailsByAccountNumberWithCnicLookup,
   customerNotFoundModal,
   customerFoundModal,
   accountNumberFoundModal,
@@ -217,7 +218,7 @@ const AddEditDebitCardDispute = () => {
     await dispatch(accountNumberFoundModal(false));
     await dispatch(accountNumberNotFoundModal(false));
 
-    dispatch(SearchTransactionDetailsByAccountNumberInIRIS(Data));
+    dispatch(SearchTransactionDetailsByAccountNumberWithCnicLookup(Data));
     // navigate("/Fraud/DebitCardDisputes/AddNewDispute");
   };
 
@@ -348,6 +349,7 @@ const AddEditDebitCardDispute = () => {
     localStorage.setItem("route", JSON.stringify(1));
     let Data = {
       AccountNumber: accountNumber,
+      CNIC: inputData,
       From: State.FromDate,
       To: State.ToDate,
     };

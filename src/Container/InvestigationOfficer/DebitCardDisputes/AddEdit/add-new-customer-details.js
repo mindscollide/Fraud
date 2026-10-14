@@ -503,6 +503,7 @@ const AddNewCustomerDetailsDC = () => {
         let UserDetails = JSON.parse(localStorage.getItem("State"));
         let Data1 = {
           AccountNumber: accountNumber,
+          CNIC: localStorage.getItem("dcIrisCnic"),
           From: UserDetails.FromDate,
           To: UserDetails.ToDate,
         };
