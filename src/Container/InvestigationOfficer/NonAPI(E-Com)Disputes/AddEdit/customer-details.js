@@ -305,6 +305,8 @@ const CustomerDetailsNONAPIDispute = () => {
   ];
   const addDisputeData = () => {
     localStorage.setItem("flag", JSON.stringify(1));
+    // raw CNIC (CNICNumber may be JSON-stringified) for the Add New screen's IRIS search
+    localStorage.setItem("cnic2", (cnic || "").replace(/"/g, ""));
     navigate("/Fraud/NONAPIDisputes/AddEditNONAPI");
   };
 

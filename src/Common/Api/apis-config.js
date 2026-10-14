@@ -668,6 +668,12 @@ const getAllAccountsByCnic = {
   RequestMethod: "ServiceManager.GetAllAccountsByCnic",
 };
 
+//GetAllCNICByAccountNumber (Debit Card - account-number search needs a CNIC)
+const getAllCnicByAccountNumber = {
+  _token: null,
+  RequestMethod: "ServiceManager.GetAllCNICByAccountNumber",
+};
+
 //GetIRISTransactionDetailsByTransactionId
 const getIRISTransactionDetailsByTransactionId = {
   _token: _token,
@@ -1386,6 +1392,7 @@ export {
   getTransactionDetailsByCnicDebitCard,
   searchCustomerByCnic,
   getAllAccountsByCnic,
+  getAllCnicByAccountNumber,
   getIRISTransactionDetailsByTransactionId,
   searchTransactionDetailsByAccountNumber,
   searchDisputesByCnicAndReferenceNumber,
