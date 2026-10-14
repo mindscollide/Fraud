@@ -171,6 +171,7 @@ const AddEditBBKDispute2 = () => {
     setIsCnicNo(false);
     setBtnStatus(true);
     setInputData("");
+
     dispatch(RESETALLSTATE());
   };
 
@@ -643,9 +644,7 @@ const AddEditBBKDispute2 = () => {
                         disable={btnStatusSelect}
                       />
                     </div>
-                    <div
-                      className="dateRangePicker u-margin-top-15px"
-                    >
+                    <div className="dateRangePicker u-margin-top-15px">
                       <StartToEndDate
                         DateRange={true}
                         size="large"
@@ -673,7 +672,13 @@ const AddEditBBKDispute2 = () => {
           <Col lg={6} md={6} sm={0} xs={0}></Col>
           <Col lg={6} md={6} sm={0} xs={0}></Col>
           <Col lg={12} md={12} sm={24} xs={24} className="u-display-flex">
-            <Col lg={24} md={24} sm={24} xs={24} className="u-text-align-center"></Col>
+            <Col
+              lg={24}
+              md={24}
+              sm={24}
+              xs={24}
+              className="u-text-align-center"
+            ></Col>
           </Col>
           <Col lg={6} md={6} sm={0} xs={0}></Col>
         </Row>
@@ -724,8 +729,16 @@ const AddEditBBKDispute2 = () => {
                 System will not create new record.
               </Title>
             </div>
-            <div className="u-margin-left-70px">
-              <GroupedButtons data={okayButtonProp} />
+            <div className="u-display-flex u-justify-content-center">
+              {/* <GroupedButtons data={okayButtonProp} /> */}
+              <Button
+                text="Ok"
+                type={"primary"}
+                size="large"
+                applyClass="btnBorderStyledBeach"
+                click={handleCancel}
+                // click= () => handleCancel(),
+              />
             </div>
           </>
         )}
@@ -775,8 +788,16 @@ const AddEditBBKDispute2 = () => {
                 System will not create new record.
               </Title>
             </div>
-            <div className="u-margin-left-70px">
-              <GroupedButtons data={okayButtonProp} />
+            <div className="u-display-flex u-justify-content-center">
+              {/* <GroupedButtons data={okayButtonProp} /> */}
+              <Button
+                text="Ok"
+                type={"primary"}
+                size="large"
+                applyClass="btnBorderStyledBeach"
+                click={handleCancel}
+                // click= () => handleCancel(),
+              />
             </div>
           </>
         )}
@@ -802,8 +823,16 @@ const AddEditBBKDispute2 = () => {
                 System will not create new record.
               </Title>
             </div>
-            <div className="u-margin-left-70px">
-              <GroupedButtons data={okayButtonProp} />
+            <div className="u-display-flex u-justify-content-center">
+              {/* <GroupedButtons data={okayButtonProp} /> */}
+              <Button
+                text="Ok"
+                type={"primary"}
+                size="large"
+                applyClass="btnBorderStyledBeach"
+                click={handleCancel}
+                // click= () => handleCancel(),
+              />
             </div>
           </>
         )}

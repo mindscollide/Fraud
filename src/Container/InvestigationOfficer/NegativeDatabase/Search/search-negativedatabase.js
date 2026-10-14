@@ -561,7 +561,7 @@ const SearchNegativeDatabase = () => {
         <Col lg={4} md={4} sm={24}>
           <Button
             text="Search"
-            icon={<Search />}
+            icon={<i className="icon-search icon-size-zero" />}
             applyClass="btnSecondarySolid2Search"
             size="small"
             click={(e) => handleSearch()}

@@ -807,14 +807,25 @@ const AddNewCustomerDetailsND = () => {
         open: true,
         message: "Case could not be saved",
       });
-    }else if(investigationOfficer.ResponseMessage === "Case could not be saved because IParty ID is not available against this CNIC"){
+    } else if (
+      investigationOfficer.ResponseMessage ===
+      "Case could not be saved because IParty ID is not available against this CNIC"
+    ) {
       setOpen({
         flag: true,
         message: investigationOfficer.ResponseMessage,
       });
     }
   }, [investigationOfficer]);
+  const hasValue = (v) =>
+    v !== undefined &&
+    v !== null &&
+    v !== "" &&
+    v !== -99999999999999999999 &&
+    !(Array.isArray(v) && v.length === 0);
 
+  // show the label only when the field has a value, otherwise "" (placeholder only)
+  const lbl = (value, text) => (hasValue(value) ? text : "");
   return (
     <>
       {investigationOfficer.Loading ? <Loader /> : null}
@@ -822,21 +833,15 @@ const AddNewCustomerDetailsND = () => {
         <Paper padding="1">
           <Row gutter={16}>
             <Col lg={18} md={18} sm={18} xs={24}>
-              <h1
-                className="u-font-size-18px u-margin-top-15px u-margin-left-20px u-color-21706d"
-              >
+              <h1 className="u-font-size-18px u-margin-top-15px u-margin-left-20px u-color-21706d">
                 Customer Details
               </h1>
             </Col>
             <Col lg={6} md={6} sm={6} xs={24} className="p-0 u-text-align-left">
-              <div
-                className="Level-Section u-padding-5px u-right-50px u-width-240px u-color-fff u-position-absolute u-background-color-04bbb4"
-              >
+              <div className="Level-Section u-padding-5px u-right-50px u-width-240px u-color-fff u-position-absolute u-background-color-04bbb4">
                 <div>
                   <i className="icon-card icon-size-one"></i>
-                  <div
-                    className="u-position-absolute u-right-75px u-top-5px"
-                  >
+                  <div className="u-position-absolute u-right-75px u-top-5px">
                     <span className="LevelHeading">CNIC Number</span>
                     <br />
                     <span className="SubHeading">{cnic}</span>
@@ -845,12 +850,16 @@ const AddNewCustomerDetailsND = () => {
               </div>
             </Col>
           </Row>
-          <div className="u-margin-top-30px" />
-          <Row gutter={16}>
+
+          <Row gutter={16} className="u-margin-top-22px">
             <Col lg={6} md={6} sm={24} xs={24}>
               <SelectBox
                 name="IndividualInvolved"
-                label="Select Individual Involved"
+                label={lbl(
+                  individualInvolvedTypeName,
+                  "Select Individual Involved"
+                )}
+                placeholder={"Select Individual Involved *"}
                 option={individualInvolvedType}
                 value={individualInvolvedTypeName}
                 change={individualNameHandler}
@@ -862,15 +871,17 @@ const AddNewCustomerDetailsND = () => {
                 name="ChannelType"
                 option={channelType}
                 value={channelTypeName}
+                label={lbl(channelTypeName, "Select Channel *")}
+                placeholder="Select Channel"
                 change={channelNameHandler}
-                label="Select Channel"
                 required
               />
             </Col>
             <Col lg={6} md={6} sm={24} xs={24}>
               <SelectBox
                 name="ForgedDocuments"
-                label="Select Type of Documents"
+                label={lbl(forgedDocumentsTypeName, "Select Type of Documents")}
+                placeholder="Select Type of Documents *"
                 option={forgedDocumentsType}
                 change={documentsNameHandler}
                 value={forgedDocumentsTypeName}
@@ -880,13 +891,16 @@ const AddNewCustomerDetailsND = () => {
             <Col lg={6} md={6} sm={24} xs={24}>
               <SelectBox
                 name="FraudNotAFraud"
-                label="Fraud / Not a Fraud"
+                label={lbl(fraudNotAFraudTypeName, "Fraud / Not a Fraud")}
+                placeholder="Fraud / Not a Fraud *"
                 option={fraudNotAFraudType}
                 change={fraudNotAFraudNameHandler}
                 value={fraudNotAFraudTypeName}
                 required
               />
             </Col>
+          </Row>
+          <Row gutter={16} className="u-margin-top-22px">
             <Col lg={6} md={6} sm={24} xs={24}>
               <TextField
                 name="CustomerName"
@@ -894,10 +908,10 @@ const AddNewCustomerDetailsND = () => {
                 autoComplete="off"
                 change={FDCustomerHandler}
                 size="small"
-                placeholder="Customer Name"
                 textLength={200}
                 required
-                label={"Customer Name"}
+                label={lbl(FDCustomer.CustomerName, "Customer Name")}
+                placeholder="Customer Name *"
                 fullWidth
               />
             </Col>
@@ -908,10 +922,10 @@ const AddNewCustomerDetailsND = () => {
                 autoComplete="off"
                 change={negHandler}
                 size="small"
-                placeholder="Old NIC"
                 textLength={13}
                 minLength={13}
-                label={"Old NIC"}
+                label={lbl(neg.OldNIC, "Old NIC")}
+                placeholder={"Old NIC"}
                 fullWidth
               />
             </Col>
@@ -922,23 +936,27 @@ const AddNewCustomerDetailsND = () => {
                 autoComplete="off"
                 size="small"
                 change={negHandler}
-                placeholder="Company Name"
                 textLength={200}
                 required
-                label={"Company Name"}
+                label={lbl(neg.CompanyName, "Company Name")}
+                placeholder={"Company Name *"}
                 fullWidth
               />
             </Col>
             <Col lg={6} md={6} sm={24} xs={24}>
               <SelectBox
                 name="CompanySegment"
-                label="Company Segment"
+                label={lbl(companySegmentTypeName, "Company Segment")}
+                placeholder="Company Segment *"
                 option={companySegmentType}
                 change={companySegmentHandler}
                 value={companySegmentTypeName}
                 required
               />
             </Col>
+          </Row>
+
+          <Row gutter={16} className="u-margin-top-22px">
             <Col lg={18} md={18} sm={24} xs={24}>
               <TextField
                 name="CompanyAddress"
@@ -946,9 +964,9 @@ const AddNewCustomerDetailsND = () => {
                 autoComplete="off"
                 change={negHandler}
                 size="small"
-                placeholder="Company Address"
                 required
-                label={"Company Address"}
+                label={lbl(neg.CompanyAddress, "Company Address")}
+                placeholder={"Company Address *"}
                 fullWidth
                 textLength={200}
               />
@@ -960,14 +978,17 @@ const AddNewCustomerDetailsND = () => {
                 autoComplete="off"
                 change={negHandler}
                 size="small"
-                placeholder="Office Phone"
                 required
                 textLength={11}
                 minLength={11}
-                label={"Office Phone"}
+                label={lbl(neg.OfficePhone, "Office Phone")}
+                placeholder="Office Phone *"
                 fullWidth
               />
             </Col>
+          </Row>
+
+          <Row gutter={16} className="u-margin-top-22px">
             <Col lg={18} md={18} sm={24} xs={24}>
               <TextField
                 name="ResidenceAddress"
@@ -975,10 +996,10 @@ const AddNewCustomerDetailsND = () => {
                 value={neg.ResidenceAddress}
                 autoComplete="off"
                 size="small"
-                placeholder="Residence Address"
                 required
                 textLength={200}
-                label={"Residence Address"}
+                label={lbl(neg.ResidenceAddress, "Residence Address")}
+                placeholder="Residence Address *"
                 fullWidth
               />
             </Col>
@@ -989,14 +1010,17 @@ const AddNewCustomerDetailsND = () => {
                 autoComplete="off"
                 change={negHandler}
                 size="small"
-                placeholder="Residence Phone"
                 required
                 textLength={11}
                 minLength={11}
-                label={"Residence Phone"}
+                label={lbl(neg.ResidencePhone, "Residence Phone")}
+                placeholder="Residence Phone *"
                 fullWidth
               />
             </Col>
+          </Row>
+
+          <Row gutter={16} className="u-margin-top-22px">
             <Col lg={8} md={8} sm={24} xs={24}>
               <TextField
                 name="MobileNumber"
@@ -1004,17 +1028,18 @@ const AddNewCustomerDetailsND = () => {
                 autoComplete="off"
                 change={negHandler}
                 size="small"
-                placeholder="Mobile No"
                 textLength={11}
                 minLength={11}
                 required
-                label={"Mobile No"}
+                label={lbl(neg.MobileNumber, "Mobile No")}
+                placeholder="Mobile No *"
                 fullWidth
               />
             </Col>
-            <Col lg={6} md={6} sm={24} xs={24}>
+            <Col lg={8} md={8} sm={24} xs={24}>
               <SelectBox
-                label="Select City"
+                label={lbl(cityValue, "Select City")}
+                placeholder="Select City"
                 option={city}
                 value={cityValue}
                 change={CityNameHandler}
@@ -1028,13 +1053,15 @@ const AddNewCustomerDetailsND = () => {
                 change={negHandler}
                 autoComplete="off"
                 value={neg.CityCode}
-                placeholder="City Code"
                 textLength={4}
                 required
-                label={"City Code"}
+                label={lbl(neg.CityCode, "City Code")}
+                placeholder="City Code *"
                 fullWidth
               />
             </Col>
+          </Row>
+          <Row gutter={16} className="u-margin-top-22px">
             <Col lg={8} md={8} sm={24} xs={24}>
               <TextField
                 name="Reference"
@@ -1042,8 +1069,8 @@ const AddNewCustomerDetailsND = () => {
                 autoComplete="off"
                 change={negHandler}
                 size="small"
-                placeholder="Reference #"
-                label={"Reference #"}
+                placeholder="Reference # *"
+                label={lbl(neg.Reference, "Reference #")}
                 fullWidth
                 disable
                 required
@@ -1056,12 +1083,15 @@ const AddNewCustomerDetailsND = () => {
                 autoComplete="off"
                 change={negHandler}
                 size="small"
-                placeholder="HBL Reference Number"
-                label={"HBL Reference Number"}
+                placeholder="HBL Reference Number "
+                label={lbl(neg.HBLReferenceNumber, "HBL Reference Number")}
                 fullWidth
                 textLength={1000}
               />
             </Col>
+          </Row>
+
+          <Row gutter={16} className="u-margin-top-22px">
             <Col lg={24} md={24} sm={24} xs={24}>
               {btnRole === false ? (
                 <InputWithBtn
@@ -1069,7 +1099,8 @@ const AddNewCustomerDetailsND = () => {
                   type="text"
                   name="comments"
                   size="small"
-                  label={"Comments"}
+                  placeholder={"Comments"}
+                  label={lbl(comments.Comment, "Comments")}
                   autoComplete="off"
                   value={comments.Comment}
                   textLength={200}
@@ -1106,7 +1137,7 @@ const AddNewCustomerDetailsND = () => {
             ListOfComments.map((item, ind) => (
               <div key={ind}>
                 <div className="u-margin-bottom-25px" />
-                <Row>
+                <Row gutter={16}>
                   <Col lg={8} md={8} sm={24} xs={24}>
                     <TextField
                       name="Comment"
@@ -1166,7 +1197,7 @@ const AddNewCustomerDetailsND = () => {
               </div>
             ))}
         </Paper>
-        <div className="u-margin-top-45px" />
+        <div className="u-margin-top-45px u-margin-bottom-22px" />
         <Row gutter={16} justify="center">
           <Col lg={4} md={4} sm={24}>
             <Button
