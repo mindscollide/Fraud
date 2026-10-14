@@ -5,3 +5,6 @@ FRUAD API DOCUMENTATION.docx
 
 # All markdown docs are local-machine only — never committed
 *.md
+
+# Postman collections are local-machine only — never committed
+*.postman_collection.json
