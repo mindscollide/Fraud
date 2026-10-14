@@ -125,6 +125,7 @@ const AddEditDebitCardDispute = () => {
     setIsCnicNo(true);
     setBtnStatus(true);
     setInputData("");
+    setInputDataAC("");
     setCnicFound(false);
     dispatch(RESETALLSTATE());
   };
@@ -135,6 +136,7 @@ const AddEditDebitCardDispute = () => {
     setIsCnicNo(false);
     setBtnStatus(true);
     setInputData("");
+    setInputDataAC("");
     dispatch(RESETALLSTATE());
   };
 
@@ -247,14 +249,14 @@ const AddEditDebitCardDispute = () => {
     // setIsModalVisible(false);
     // dispatch(RESETALLSTATE());
     if (inputData) {
-      dispatch(GetAllAccountsByCnic(inputData));
+      dispatch(GetAllAccountsByCnic({ object: inputData, setCnicFound }));
     }
     // dispatch(customerFoundModal(false));
     // dispatch(customerNotFoundModal(false));
     // dispatch(accountNumberFoundModal(false));
     // dispatch(accountNumberNotFoundModal(false));
     setBtnStatus(true);
-    setCnicFound(true);
+    // setCnicFound(true);
     // dispatch(GetTransactionDetailsByCnicDC(inputData));
     // setAccountNumber("");
   };
@@ -636,8 +638,16 @@ const AddEditDebitCardDispute = () => {
                 System will not create new record.
               </Title>
             </div>
-            <div className="u-margin-left-70px">
-              <GroupedButtons data={okayButtonProp} />
+            <div className="u-display-flex u-justify-content-center">
+              {/* <GroupedButtons data={okayButtonProp} /> */}
+              <Button
+                text="Ok"
+                type={"primary"}
+                size="large"
+                applyClass="btnBorderStyledBeach"
+                click={handleCancel}
+                // click= () => handleCancel(),
+              />
             </div>
           </>
         )}
@@ -689,8 +699,16 @@ const AddEditDebitCardDispute = () => {
               </Title>
               {/* <p>{investigationOfficer.ResponseMessage}</p> */}
             </div>
-            <div className="u-margin-left-70px">
-              <GroupedButtons data={okayButtonProp2} />
+            <div className="u-display-flex u-justify-content-center">
+              {/* <GroupedButtons data={okayButtonProp} /> */}
+              <Button
+                text="Ok"
+                type={"primary"}
+                size="large"
+                applyClass="btnBorderStyledBeach"
+                click={handleCancel}
+                // click= () => handleCancel(),
+              />
             </div>
           </>
         )}

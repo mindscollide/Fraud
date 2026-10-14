@@ -733,24 +733,29 @@ const PendingDeletionApprovals = () => {
     <>
       <Title level={4}>Pending Approvals</Title>
       <>
-        <Row gutter={[16, 0]} style={{ marginBottom: 10 }}>
-          <Col lg={12} md={12}></Col>
-          <Col lg={8} md={8} className="SearchPendingApprovals">
-            <InputWithBtn
-              fullWidth
-              label={searchData?.length > 0 ? "Search" : ""}
-              textFieldSize="small"
-              icon={<i className="icon-search icon-size-one"></i>}
-              name="PendingApprovals"
-              applyClass="search-cnic"
-              click={searchPendingDeletion}
-              onchange={pendingDeletionHandler}
-              value={searchData}
-              placeholder={"Search"}
-              autoComplete={"off"}
-            />
-          </Col>
-          <Col lg={4} md={4} sm={24}>
+        <Row className="u-margin-bottom-10px u-justify-content-end">
+          <Col
+            lg={12}
+            md={12}
+            sm={24}
+            className="u-display-flex u-justify-content-end u-gap-8px"
+          >
+            <div className="u-width-100pct">
+              <InputWithBtn
+                fullWidth
+                label={searchData?.length > 0 ? "Search" : ""}
+                textFieldSize="small"
+                icon={<i className="icon-search icon-size-one"></i>}
+                name="PendingApprovals"
+                applyClass="search-cnic"
+                click={searchPendingDeletion}
+                onchange={pendingDeletionHandler}
+                value={searchData}
+                placeholder={"Search"}
+                autoComplete={"off"}
+              />
+            </div>
+
             <Button
               text="Reset"
               icon={<i className="icon-reset icon-size-zero"></i>}
@@ -759,6 +764,7 @@ const PendingDeletionApprovals = () => {
               click={resetData}
             />
           </Col>
+          {/* <Col lg={4} md={4} sm={24}></Col> */}
         </Row>
         <Row>
           <Col lg={24} md={24}>

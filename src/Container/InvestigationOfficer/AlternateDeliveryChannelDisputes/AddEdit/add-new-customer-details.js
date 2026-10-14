@@ -198,7 +198,7 @@ const AddNewCustomerDetailsADC = () => {
 
   // uploadlist
   const [ListOfADCDisputeDocuments, setListOfADCDisputeDocuments] = useState(
-    [],
+    []
   );
 
   //   for current date
@@ -567,10 +567,10 @@ const AddNewCustomerDetailsADC = () => {
             var i = index;
             i = index + 1;
             return { ...item, key: i + "" };
-          },
+          }
         );
         setListOfTransactionDetailsAlreadyExsist(
-          GetTransactionDetailsByCNICArray,
+          GetTransactionDetailsByCNICArray
         );
       }
     }
@@ -582,7 +582,7 @@ const AddNewCustomerDetailsADC = () => {
     setSourceTypeName(
       nameSource.map((data, index) => {
         return data.name;
-      }),
+      })
     );
   }, [setupForms.SourceData]);
 
@@ -798,7 +798,7 @@ const AddNewCustomerDetailsADC = () => {
   // update transection data
   const update = (e, record) => {
     var objIndex = ListOfADCTransactionDetailsObjects.findIndex(
-      (obj) => obj.TransactionID === record.TransactionID,
+      (obj) => obj.TransactionID === record.TransactionID
     );
     // trsDetails, setTrsDetails
     setRecordIndex(objIndex);
@@ -1374,8 +1374,8 @@ const AddNewCustomerDetailsADC = () => {
             setTrsDetails,
             setTransactionIDError,
             setTIDErrMsg,
-            setSourceType,
-          ),
+            setSourceType
+          )
         );
       }
     } else {
@@ -1385,8 +1385,8 @@ const AddNewCustomerDetailsADC = () => {
           setTrsDetails,
           setTransactionIDError,
           setTIDErrMsg,
-          setSourceType,
-        ),
+          setSourceType
+        )
       );
     }
   };
@@ -1416,7 +1416,7 @@ const AddNewCustomerDetailsADC = () => {
   function ValidateIPaddress(ipaddress) {
     if (
       /^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/.test(
-        ipaddress,
+        ipaddress
       )
     ) {
       return true;
@@ -1711,7 +1711,7 @@ const AddNewCustomerDetailsADC = () => {
     setSourceOfIB(
       nameSourceOfIB.map((data, index) => {
         return data.name;
-      }),
+      })
     );
   }, [setupForms.SourceOfIBChannelCreationData]);
 
@@ -2515,7 +2515,7 @@ const AddNewCustomerDetailsADC = () => {
   // Delete Upload Document
   const deleteUploadDocument = (record) => {
     const filteredItems = ListOfADCDisputeDocuments.filter(
-      (item) => item !== record,
+      (item) => item !== record
     );
     setListOfADCDisputeDocuments(filteredItems);
   };
@@ -2809,7 +2809,7 @@ const AddNewCustomerDetailsADC = () => {
             });
           } else if (data.ADCDispute.FK_CDEID !== 0) {
             dispatch(
-              SaveAndApprovedADCDisputes(data, searchData, searchDataofdate),
+              SaveAndApprovedADCDisputes(data, searchData, searchDataofdate)
             );
             let newdata2 = [...ListOfADCTransactionDetailsObjects];
             let newIdex = [];
@@ -2870,7 +2870,7 @@ const AddNewCustomerDetailsADC = () => {
               });
             } else if (data.ADCDispute.FK_CDEID !== 0) {
               dispatch(
-                SaveAndApprovedADCDisputes(data, searchData, searchDataofdate),
+                SaveAndApprovedADCDisputes(data, searchData, searchDataofdate)
               );
             }
           } else {
@@ -2948,7 +2948,7 @@ const AddNewCustomerDetailsADC = () => {
     setCaseDecision(
       valueCaseDecision.map((data, index) => {
         return data.name;
-      }),
+      })
     );
   }, [setupForms.CaseDecisionData]);
 
@@ -2977,7 +2977,7 @@ const AddNewCustomerDetailsADC = () => {
     setCity(
       valueCity.map((data, index) => {
         return data.name;
-      }),
+      })
     );
   }, [setupForms.CityData]);
 
@@ -3734,7 +3734,7 @@ const AddNewCustomerDetailsADC = () => {
                     -99999999999999999999
                     ? null
                     : CommaFormter(
-                        ADCDisputes.ExpectedRecoveryFromHBLBeneficiary,
+                        ADCDisputes.ExpectedRecoveryFromHBLBeneficiary
                       )
                 }
                 change={ADCDisputeHandler}
@@ -3762,7 +3762,7 @@ const AddNewCustomerDetailsADC = () => {
                     -99999999999999999999
                     ? null
                     : CommaFormter(
-                        ADCDisputes.ExpectedRecoveryFromMemberBankBeneficiary,
+                        ADCDisputes.ExpectedRecoveryFromMemberBankBeneficiary
                       )
                 }
                 change={ADCDisputeHandler}

@@ -1677,7 +1677,7 @@ const SearchCustomerByCnic = (object) => {
   };
 };
 
-const GetAllAccountsByCnic = (object) => {
+const GetAllAccountsByCnic = ({ object, setCnicFound }) => {
   let token = JSON.parse(localStorage.getItem("token"));
   let Data = {
     CNIC: object,
@@ -1702,6 +1702,7 @@ const GetAllAccountsByCnic = (object) => {
         } else if (response.data.responseCode === 200) {
           if (response.data.responseResult.isExecuted === true) {
             dispatch(GetAllAccountsSuccess(response.data.responseResult));
+            setCnicFound(true);
           } else {
             dispatch(customerNotFoundModal(true));
             dispatch(
@@ -2383,9 +2384,7 @@ const GetTransactionDetailsByAccountNumber = (object) => {
                   response.data.responseResult
                 )
               );
-              navigate(
-                "/Fraud/DebitCardDisputes/CustomerDetailsForAccount"
-              );
+              navigate("/Fraud/DebitCardDisputes/CustomerDetailsForAccount");
             }
           } else {
             dispatch(accountNumberFoundModal(true));
@@ -2512,7 +2511,7 @@ const GetAllAccountsADCFail = (response) => {
   };
 };
 // for account search if dispute not found
-const GetAllAccountsByCnicADC = (object) => {
+const GetAllAccountsByCnicADC = ({ object, setCnicFound }) => {
   let token = JSON.parse(localStorage.getItem("token"));
   let Data = {
     CNIC: object,
@@ -2539,6 +2538,7 @@ const GetAllAccountsByCnicADC = (object) => {
             await dispatch(
               GetAllAccountsADCSuccess(response.data.responseResult)
             );
+            setCnicFound(true);
           } else {
             dispatch(customerNotFoundModal(true));
             dispatch(
@@ -4943,9 +4943,7 @@ const GetTransactionDetailsByCnicNONAPI = (object) => {
                 )
               );
               localStorage.setItem("CNICNumber", object.CNIC);
-              navigate(
-                "/Fraud/NONAPIDisputes/CustomerDetailsNONAPIDispute"
-              );
+              navigate("/Fraud/NONAPIDisputes/CustomerDetailsNONAPIDispute");
             }
           } else {
             localStorage.setItem("CNICNumber", object.CNIC);

@@ -86,17 +86,13 @@ const RequestListTemplate = ({ data }) => {
       <Paper padding="1" index={index}>
         <Row gutter={8}>
           <Col lg={6} md={6} sm={12} xs={12}>
-            <p className="m-0 u-color-b27706">
-              First Name
-            </p>
+            <p className="m-0 u-color-b27706">First Name</p>
           </Col>
           <Col lg={6} md={6} sm={12} xs={12}>
             <span className="mr-1">{item.firstName}</span>
           </Col>
           <Col lg={6} md={6} sm={12} xs={12}>
-            <p className="m-0 u-color-b27706">
-              Last Name
-            </p>
+            <p className="m-0 u-color-b27706">Last Name</p>
           </Col>
           <Col lg={6} md={6} sm={12} xs={12}>
             <span className="mr-1">{item.lastName}</span>
@@ -104,17 +100,13 @@ const RequestListTemplate = ({ data }) => {
         </Row>
         <Row gutter={8}>
           <Col lg={6} md={6} sm={12} xs={12}>
-            <p className="m-0 u-color-b27706">
-              Email
-            </p>
+            <p className="m-0 u-color-b27706">Email</p>
           </Col>
           <Col lg={6} md={6} sm={12} xs={12}>
             <span className="mr-1">{item.email}</span>
           </Col>
           <Col lg={6} md={6} sm={12} xs={12}>
-            <p className="m-0 u-color-b27706">
-              User Name
-            </p>
+            <p className="m-0 u-color-b27706">User Name</p>
           </Col>
           <Col lg={6} md={6} sm={12} xs={12}>
             <span className="mr-1">{item.loginID}</span>
@@ -122,9 +114,7 @@ const RequestListTemplate = ({ data }) => {
         </Row>
         <Row gutter={8}>
           <Col lg={6} md={6} sm={12} xs={12}>
-            <p className="m-0 u-color-b27706">
-              Role
-            </p>
+            <p className="m-0 u-color-b27706">Role</p>
           </Col>
           <Col lg={6} md={6} sm={12} xs={12}>
             <span className="mr-1">
@@ -146,9 +136,7 @@ const RequestListTemplate = ({ data }) => {
             </span>
           </Col>
           <Col lg={6} md={6} sm={12} xs={12}>
-            <p className="m-0 u-color-b27706">
-              Transaction Type
-            </p>
+            <p className="m-0 u-color-b27706">Transaction Type</p>
           </Col>
           <Col lg={6} md={6} sm={12} xs={12}>
             {item.transactionTypeIDs !== undefined &&
@@ -176,35 +164,27 @@ const RequestListTemplate = ({ data }) => {
             />
           </Col>
         </Row>
-        <div className="u-margin-top-20px" />
-        <Row gutter={8}>
-          <Col md={8} lg={8} sm={24}></Col>
-          <Col md={16} lg={16} sm={24}>
-            <div className="u-display-flex">
-              <div style={{ width: "20%" }}>
-                <Button
-                  applyClass="buttonPrimary3"
-                  text="Approve"
-                  icon={<i className="icon-check icon-size-one "></i>}
-                  click={() => goToSaveHandler(item, Approved)}
-                  disableBtn={btndisplay}
-                />
-              </div>
-              <div className="u-margin-0-5px-0-5px" />
-              <div style={{ width: "25%" }}>
-                <Button
-                  applyClass="btnBorderStyledRed"
-                  text="Reject"
-                  icon={<i className="icon-close icon-size-one"></i>}
-                  click={() => goToSaveHandler(item, Rejected)}
-                  disableBtn={btndisplay}
-                />
-              </div>
-            </div>
+        <Row gutter={8} className="u-margin-top-10px u-justify-content-center">
+          <Col md={4} lg={4} sm={24}>
+            <Button
+              applyClass="buttonPrimary3"
+              text="Approve"
+              icon={<i className="icon-check icon-size-one "></i>}
+              click={() => goToSaveHandler(item, Approved)}
+              disableBtn={btndisplay}
+            />
+          </Col>
+          <Col md={4} lg={4} sm={24}>
+            <Button
+              applyClass="btnBorderStyledRed"
+              text="Reject"
+              icon={<i className="icon-close icon-size-one"></i>}
+              click={() => goToSaveHandler(item, Rejected)}
+              disableBtn={btndisplay}
+            />
           </Col>
         </Row>
       </Paper>
-      <div className="u-margin-top-20px" />
     </>
   );
 };

@@ -334,7 +334,7 @@
 .buttonPrimaryLarge {
   border-radius: 0px !important;
   font-weight: 600 !important;
-  font-size: 15px !important;
+  /* font-size: 15px !important; */
   border-bottom-right-radius: 15px !important;
   border-bottom-left-radius: 0px !important;
   border-top-right-radius: 0px !important;
@@ -349,12 +349,14 @@
   background: linear-gradient(to right, #04908b 0%, #04bbb4 100%) !important;
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#04908b', endColorstr='#04bbb4',GradientType=1 ) !important;
   border-color: #0ba19b !important;
-  padding: 12px 30px !important;
+  padding: 10px 25px 10px 25px !important;
+
   /* font-size: 24px !important; */
   font-weight: 600 !important;
   color: #fff !important;
-  padding: 15px !important;
+  /* padding: 15px !important; */
   width: 100% !important;
+  height: 50px;
 }
 .buttonPrimaryLarge:hover {
   border-color: #0ba19b !important;
@@ -399,13 +401,14 @@
 .buttonPrimary3 {
   border-radius: 0px !important;
   font-weight: 600 !important;
-  font-size: 15px !important;
+  /* font-size: 15px !important; */
   border-bottom-right-radius: 15px !important;
   border-bottom-left-radius: 0px !important;
   border-top-right-radius: 0px !important;
   border-top-left-radius: 15px !important;
-  padding: 12px 30px !important;
+  padding: 10px 25px 10px 25px !important;
   /* font-size: 24px!important; */
+  width: 100% !important;
   font-weight: 600 !important;
   color: #fff !important;
   transition: all 0.3s ease-in !important;
@@ -420,8 +423,8 @@
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#014946', endColorstr='#00b2ac',GradientType=1 ) !important;
   border-color: #0ba19b !important;
   color: #fff !important;
-  padding: 12px !important;
   width: 100% !important;
+  height: 50px;
 }
 
 .buttonPrimary3:hover {
