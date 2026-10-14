@@ -60,6 +60,10 @@ const AddEditBBKDispute2 = () => {
   var cnic = localStorage.getItem("CNICNumber");
   var AccountNumber = localStorage.getItem("AccountNumber");
   var check = localStorage.getItem("flag");
+  // CNICNumber/inputData can hold a JSON-stringified CNIC (with quotes)
+  const rawCnic = (value) => (value || "").replace(/"/g, "");
+  // raw CNIC of the known customer, set before navigating here
+  const knownCnic = () => rawCnic(localStorage.getItem("cnic2"));
 
   const [cnicLogin, setCnicLogin] = useState({
     CNIC: "",
@@ -202,7 +206,14 @@ const AddEditBBKDispute2 = () => {
     await dispatch(customerNotFoundModal(false));
     await dispatch(accountNumberFoundModal(false));
     await dispatch(accountNumberNotFoundModal(false));
-    dispatch(SearchTransactionDetailsByAccountNumberInIRISNONAPI(inputData));
+    dispatch(
+      SearchTransactionDetailsByAccountNumberInIRISNONAPI({
+        AccountNumber: inputData,
+        CNIC: knownCnic(),
+        From: State.FromDate,
+        To: State.ToDate,
+      })
+    );
     dispatch(RESETALLSTATE());
   };
 
@@ -285,6 +296,7 @@ const AddEditBBKDispute2 = () => {
     setFound(true);
     let Data = {
       AccountNumber: accountNumber,
+      CNIC: rawCnic(inputData),
       From: State.FromDate,
       To: State.ToDate,
     };
@@ -299,6 +311,7 @@ const AddEditBBKDispute2 = () => {
     localStorage.setItem("route", JSON.stringify(2));
     let Data = {
       AccountNumber: AccountNumber,
+      CNIC: knownCnic(),
       From: State.FromDate,
       To: State.ToDate,
     };

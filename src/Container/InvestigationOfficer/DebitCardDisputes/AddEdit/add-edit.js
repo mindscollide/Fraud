@@ -20,136 +20,122 @@ import {
   RESETALLSTATE,
   GetTransactionDetailsByAccountNumber,
   GetAllAccountsByCnic,
+  GetAllCnicByAccountNumber,
   GetTransactionDetailsByAccountAndCnicDC,
-  GetTransactionDetailsByCnicDC,
   SearchTransactionDetailsByAccountNumberInIRIS,
-  SearchTransactionDetailsByAccountNumberWithCnicLookup,
-  customerNotFoundModal,
   customerFoundModal,
   accountNumberFoundModal,
   accountNumberNotFoundModal,
 } from "../../../../store/actions/investigation-officer-actions";
-import { HideNotification } from "../../../../store/actions/setup-forms-actions";
 
 const AddEditDebitCardDispute = () => {
   const { Title } = Typography;
-  const [btnStatus, setBtnStatus] = useState(true);
-  const [btnStatusSelect, setBtnStatusSelect] = useState(true);
-  const [found, setFound] = useState(false);
-  const [inputData, setInputData] = useState("");
-  const [btnClassCNIC, setBtnClassCNIC] = useState("btnDarkSolidEdit");
-  const [btnClassAccount, setBtnClassAccount] = useState("btnDarkSolid");
-  const [inputDataAC, setInputDataAC] = useState("");
-  const [inputDataACModal, setInputDataACModal] = useState("");
-  const [isCnicNo, setIsCnicNo] = useState(true);
-  const [cnicFound, setCnicFound] = useState(false);
-  const [accountFound, setAccountFound] = useState(false);
-  const [account, setAccount] = useState([]);
-  const [accountNumber, setAccountNumber] = useState([]);
   const state = useSelector((state) => state);
   const { investigationOfficer } = state;
   const dispatch = useDispatch();
+
+  const date2 = moment().format("YYYYMMDD");
+  const previousYearDate = moment().subtract(6, "months").format("YYYYMMDD");
+  const defaultDates = { FromDate: previousYearDate, ToDate: date2 };
+
+  // true = search by CNIC, false = search by Account Number
+  const [isCnicNo, setIsCnicNo] = useState(true);
+
+  // CNIC flow
+  const [inputData, setInputData] = useState("");
+  const [cnicFound, setCnicFound] = useState(false);
+  const [account, setAccount] = useState([]);
+  const [accountNumber, setAccountNumber] = useState("");
+  const [accountFound, setAccountFound] = useState(false);
+
+  // Account Number flow
+  const [inputDataAC, setInputDataAC] = useState("");
+  const [inputDataACModal, setInputDataACModal] = useState("");
+  const [cnicList, setCnicList] = useState([]);
+  const [selectedCnic, setSelectedCnic] = useState("");
+
+  const [btnStatus, setBtnStatus] = useState(true);
+
+  // Bumping clearDateSelect remounts the date pickers so they show a reset range
+  const [State, setState] = useState(defaultDates);
+  const [clearDateSelect, setDateClearSelect] = useState(0);
+
   const [open, setOpen] = useState({
     flag: false,
     message: "",
   });
 
-  // for rest all sate
   useEffect(() => {
     dispatch(RESETALLSTATE());
   }, []);
 
-  const [cnicLogin, setCnicLogin] = useState({
-    CNIC: "",
-    AccountNumber: "",
-  });
-
-  //Modal States
-  const [isModalVisible, setIsModalVisible] = useState(false);
-
-  const [actions, setAction] = useState({
-    cnicNumberNotFound: false,
-    accountNumbersNotFound: false,
-    add: false,
-  });
-
-  //   check data input for enable button for search
-  const cnicSectionHandler = (e) => {
-    const telNo = e.target.value;
-    const re = /^[0-9\b]+$/;
-    if (telNo === "" || re.test(telNo)) {
-      let Data = e.target.value;
-      if (Data.length === 13) {
-        setBtnStatus(false);
-        setInputData(Data);
-      } else if (Data.length < 13) {
-        setBtnStatus(true);
-      }
-      setInputData(Data);
-    }
+  // Clears everything that belongs to the searched CNIC (accounts, selection, date step)
+  const clearCnicResults = () => {
+    setCnicFound(false);
+    setAccount([]);
+    setAccountNumber("");
+    setAccountFound(false);
   };
 
-  // Selected Dropdown value
-  const accountNumberHandler = (e, value) => {
-    setAccountFound(false);
-    setBtnStatusSelect(false);
-    setAccountNumber(value);
-    let numberAccount = investigationOfficer.AccountsData;
-    numberAccount.map((data, index) => {
-      if (value === data) {
-        setCnicLogin({
-          ...cnicLogin,
-          ["AccountNumber"]: data,
-        });
-      }
-    });
+  // Clears the CNIC choices fetched for the searched account
+  const clearAccountResults = () => {
+    setCnicList([]);
+    setSelectedCnic("");
+  };
+
+  // Back to a blank page: closes every modal, clears the store and all inputs
+  const resetPage = () => {
+    dispatch(RESETALLSTATE());
+    clearCnicResults();
+    clearAccountResults();
+    setInputData("");
+    setInputDataAC("");
+    setInputDataACModal("");
+    setBtnStatus(true);
+    setState(defaultDates);
+    setDateClearSelect((key) => key + 1);
+  };
+
+  const cnicSectionHandler = (e) => {
+    const value = e.target.value;
+    if (value === "" || /^[0-9\b]+$/.test(value)) {
+      setInputData(value);
+      setBtnStatus(value.length !== 13);
+      // a different CNIC makes the previous account list stale
+      clearCnicResults();
+    }
   };
 
   const accountSectionHandler = (e) => {
-    const telNo = e.target.value;
-    const re = /^[0-9\b]+$/;
-    if (telNo === "" || re.test(telNo)) {
-      let Data = e.target.value;
-      if (Data.length >= 14) {
-        setBtnStatus(false);
-        setInputDataAC(Data);
-      } else if (Data.length < 14) {
-        setBtnStatus(true);
-      }
-      setInputDataAC(Data);
+    const value = e.target.value;
+    if (value === "" || /^[0-9\b]+$/.test(value)) {
+      setInputDataAC(value);
+      setBtnStatus(value.length < 14);
+      // a different account makes the previous CNIC list stale
+      clearAccountResults();
     }
   };
 
+  // Selected account from the dropdown (CNIC flow)
+  const accountNumberHandler = (e, value) => {
+    setAccountNumber(value || "");
+    setAccountFound(false);
+  };
+
+  // Selected CNIC from the dropdown (Account Number flow)
+  const cnicSelectHandler = (e, value) => {
+    setSelectedCnic(value || "");
+  };
+
   const changeSelectCnicNumber = () => {
-    setBtnClassAccount("btnDarkSolid");
-    setBtnClassCNIC("btnDarkSolidEdit");
+    resetPage();
     setIsCnicNo(true);
-    setBtnStatus(true);
-    setInputData("");
-    setInputDataAC("");
-    setCnicFound(false);
-    dispatch(RESETALLSTATE());
   };
 
   const changeSelectAccountNumber = () => {
-    setBtnClassAccount("btnDarkSolidEdit");
-    setBtnClassCNIC("btnDarkSolid");
+    resetPage();
     setIsCnicNo(false);
-    setBtnStatus(true);
-    setInputData("");
-    setInputDataAC("");
-    dispatch(RESETALLSTATE());
   };
-
-  //DataRangeHandler
-  const [clearDateSelect, setDateClearSelect] = useState("");
-  const date2 = moment().format("YYYYMMDD");
-  const previousYearDate = moment().subtract(6, "months").format("YYYYMMDD");
-
-  const [State, setState] = useState({
-    FromDate: previousYearDate,
-    ToDate: date2,
-  });
 
   const setDate = (e, val) => {
     if (
@@ -172,94 +158,90 @@ const AddEditDebitCardDispute = () => {
     }
   };
 
-  const newDataHAndler = async (e) => {
-    await dispatch(customerFoundModal(false));
-    setAccountFound(true);
-    setBtnStatusSelect(true);
-    // setFound(true);
-    // localStorage.setItem("State", JSON.stringify(State));
-    // localStorage.setItem("route", JSON.stringify(1));
-    // let Data = {
-    //   AccountNumber: accountNumber,
-    //   From: State.FromDate,
-    //   To: State.ToDate,
-    // };
-    // setInputDataACModal(accountNumber);
-    // dispatch(accountNumberFoundModal(false));
-    // dispatch(SearchTransactionDetailsByAccountNumberInIRIS(Data));
-    //
-    // setIsModalVisible(false);
-    // dispatch(RESETALLSTATE());
-    // if (inputData) {
-    //   dispatch(GetAllAccountsByCnic(inputData));
-    // }
-    // dispatch(customerFoundModal(false));
-    // dispatch(customerNotFoundModal(false));
-    // dispatch(accountNumberFoundModal(false));
-    // dispatch(accountNumberNotFoundModal(false));
-    // setBtnStatus(true);
-    // setCnicFound(true);
+  // ---- CNIC flow ----
+
+  const cnicSearchHandler = () => {
+    if (inputData) {
+      clearCnicResults();
+      dispatch(GetAllAccountsByCnic({ object: inputData, setCnicFound }));
+    }
   };
 
-  const newDataHAndlerForAccount = async (e) => {
-    setBtnStatus(true);
+  // Account picked from the dropdown: check Fraud DB for CNIC + account
+  const accountSearchHandler = () => {
+    if (inputData && accountNumber) {
+      dispatch(
+        GetTransactionDetailsByAccountAndCnicDC({
+          AccountNumber: accountNumber,
+          CNIC: inputData,
+        })
+      );
+    }
+  };
+
+  // Proceed: not in Fraud DB — lock the account and show the date range + Search for IRIS
+  const newDataHAndler = () => {
+    dispatch(customerFoundModal(false));
+    setAccountFound(true);
+  };
+
+  const searchHandlerForAccount = () => {
     localStorage.setItem("State", JSON.stringify(State));
-    let Data3 = { AccountNumber: inputData, Heading: "Account Number" };
+    localStorage.setItem("route", JSON.stringify(1));
+    let Data = {
+      AccountNumber: accountNumber,
+      CNIC: inputData,
+      From: State.FromDate,
+      To: State.ToDate,
+    };
+    setInputDataACModal(accountNumber);
+    dispatch(SearchTransactionDetailsByAccountNumberInIRIS(Data));
+  };
+
+  // ---- Account Number flow ----
+
+  const accountSearch2Handler = () => {
+    clearAccountResults();
+    setInputDataACModal(inputDataAC);
+    dispatch(GetTransactionDetailsByAccountNumber(inputDataAC));
+  };
+
+  // Proceed: not in Fraud DB — fetch the CNICs linked to this account so
+  // the user can pick one before searching IRIS
+  const newDataHAndlerForAccount = async () => {
+    dispatch(accountNumberFoundModal(false));
+    const cnics = await dispatch(GetAllCnicByAccountNumber(inputDataAC));
+    setCnicList(cnics || []);
+    if (cnics && cnics.length === 1) {
+      setSelectedCnic(cnics[0]);
+    }
+  };
+
+  // Search IRIS with the account + the CNIC picked from the dropdown
+  const searchHandlerForAccountCnic = () => {
+    if (!selectedCnic) return;
+    localStorage.setItem("State", JSON.stringify(State));
     localStorage.setItem("route", JSON.stringify(2));
     let Data = {
       AccountNumber: inputDataAC,
       From: State.FromDate,
       To: State.ToDate,
+      CNIC: selectedCnic,
     };
-    // setIsModalVisible(false);
-    // dispatch(RESETALLSTATE())
-    await dispatch(customerFoundModal(false));
-    await dispatch(customerNotFoundModal(false));
-    await dispatch(accountNumberFoundModal(false));
-    await dispatch(accountNumberNotFoundModal(false));
-
-    dispatch(SearchTransactionDetailsByAccountNumberWithCnicLookup(Data));
-    // navigate("/Fraud/DebitCardDisputes/AddNewDispute");
+    dispatch(SearchTransactionDetailsByAccountNumberInIRIS(Data));
   };
 
+  // ---- Modal buttons ----
+
+  // Discard / Ok on "CNIC not in IRIS": start over
   const handleCancel = () => {
-    dispatch(customerFoundModal(false));
-    dispatch(customerNotFoundModal(false));
-    dispatch(accountNumberFoundModal(false));
-    dispatch(accountNumberNotFoundModal(false));
-    setBtnStatus(true);
-    setInputData("");
-    setCnicFound(false);
-    setAccountNumber("");
-    setAccountFound(false);
-    setCnicLogin({
-      ...cnicLogin,
-      ["AccountNumber"]: "",
-    });
-    // setAccountFound(false);
-    dispatch(RESETALLSTATE());
+    resetPage();
   };
 
+  // Ok on "not found in IRIS": close it but keep the inputs so the
+  // user can change the date range / CNIC and search again
   const handleCancel2 = () => {
-    dispatch(accountNumberFoundModal(false));
     dispatch(accountNumberNotFoundModal(false));
-  };
-
-  //   check data input for enable button for search
-  const cnicSearchHandler = () => {
-    // setIsModalVisible(false);
-    // dispatch(RESETALLSTATE());
-    if (inputData) {
-      dispatch(GetAllAccountsByCnic({ object: inputData, setCnicFound }));
-    }
-    // dispatch(customerFoundModal(false));
-    // dispatch(customerNotFoundModal(false));
-    // dispatch(accountNumberFoundModal(false));
-    // dispatch(accountNumberNotFoundModal(false));
-    setBtnStatus(true);
-    // setCnicFound(true);
-    // dispatch(GetTransactionDetailsByCnicDC(inputData));
-    // setAccountNumber("");
   };
 
   const addButtonProps = {
@@ -316,114 +298,18 @@ const AddEditDebitCardDispute = () => {
       text: "",
     },
   };
-  const accountSearchHandler = () => {
-    if (inputData) {
-      let Data = {
-        AccountNumber: accountNumber,
-        CNIC: inputData,
-      };
-      dispatch(GetTransactionDetailsByAccountAndCnicDC(Data));
-    }
-    // setFound(true);
-    // localStorage.setItem("State", JSON.stringify(State));
-    // localStorage.setItem("route", JSON.stringify(1));
-    // let Data = {
-    //   AccountNumber: accountNumber,
-    //   From: State.FromDate,
-    //   To: State.ToDate,
-    // };
-    // setInputDataACModal(accountNumber);
-    // dispatch(accountNumberFoundModal(false));
-    // dispatch(SearchTransactionDetailsByAccountNumberInIRIS(Data));
-  };
-  const searchHandlerForAccount = () => {
-    // if (inputData) {
-    //   let Data = {
-    //     AccountNumber: accountNumber,
-    //     CNIC: inputData,
-    //   };
-    //   dispatch(GetTransactionDetailsByAccountAndCnicDC(Data));
-    // }
-    setFound(true);
-    localStorage.setItem("State", JSON.stringify(State));
-    localStorage.setItem("route", JSON.stringify(1));
-    let Data = {
-      AccountNumber: accountNumber,
-      CNIC: inputData,
-      From: State.FromDate,
-      To: State.ToDate,
-    };
-    setInputDataACModal(accountNumber);
-    dispatch(accountNumberFoundModal(false));
-    dispatch(SearchTransactionDetailsByAccountNumberInIRIS(Data));
-  };
 
-  const accountSearch2Handler = async () => {
-    setInputDataACModal(inputDataAC);
-    await dispatch(GetTransactionDetailsByAccountNumber(inputDataAC));
-    // dispatch(RESETALLSTATE());
-    setFound(true);
-  };
-
-  // For AccountNumber DropDown SetState
+  // The dropdown shows only once the CNIC search actually returned accounts
   useEffect(() => {
     let numberAccount = investigationOfficer.AccountsData;
-    if (
-      numberAccount !== undefined &&
-      numberAccount !== null &&
-      numberAccount.length > 0
-    ) {
-      setAccount(
-        numberAccount.map((data, index) => {
-          return data;
-        })
-      );
+    if (numberAccount && numberAccount.length > 0) {
+      setAccount(numberAccount);
+      setCnicFound(true);
+    } else {
+      setAccount([]);
+      setCnicFound(false);
     }
   }, [investigationOfficer.AccountsData]);
-
-  //Notification
-  useEffect(() => {}, [investigationOfficer.ShowNotification]);
-
-  //for rest all sate
-  useEffect(() => {
-    dispatch(RESETALLSTATE());
-  }, []);
-
-  // useEffect(() => {
-  //   if (State.FromDate && State.ToDate !== "" && accountNumber !== "") {
-  //     setBtnStatusSelect(false);
-  //   } else {
-  //     setBtnStatusSelect(true);
-  //   }
-  // }, [State]);
-
-  // useEffect(() => {
-  //   if (State.FromDate && State.ToDate !== "" && accountNumber !== "") {
-  //     setBtnStatusSelect(false);
-  //   } else {
-  //     setBtnStatusSelect(true);
-  //   }
-  // }, [accountNumber]);
-
-  // useEffect(() => {
-  //   if (accountNumber !== "") {
-  //     setBtnStatusSelect(false);
-  //   } else {
-  //     setBtnStatusSelect(true);
-  //   }
-  // }, [State]);
-
-  useEffect(() => {
-    if (accountNumber !== "") {
-      setBtnStatusSelect(false);
-    } else {
-      setBtnStatusSelect(true);
-    }
-  }, [accountNumber]);
-
-  useEffect(() => {
-    setCnicFound(false);
-  }, [investigationOfficer.CustomerNotFoundModal]);
 
   return (
     <>
@@ -439,7 +325,7 @@ const AddEditDebitCardDispute = () => {
           <Col lg={8} md={8} sm={0} xs={0}></Col>
           <Col lg={4} md={4} sm={24}>
             <Button
-              applyClass={btnClassCNIC}
+              applyClass={isCnicNo ? "btnDarkSolidEdit" : "btnDarkSolid"}
               text="CNIC Number"
               className="downloadButton"
               click={changeSelectCnicNumber}
@@ -447,7 +333,7 @@ const AddEditDebitCardDispute = () => {
           </Col>
           <Col lg={4} md={4} sm={24}>
             <Button
-              applyClass={btnClassAccount}
+              applyClass={isCnicNo ? "btnDarkSolid" : "btnDarkSolidEdit"}
               text="Account Number"
               className="downloadButton"
               click={changeSelectAccountNumber}
@@ -481,9 +367,6 @@ const AddEditDebitCardDispute = () => {
                     <div className="u-margin-top-15px">
                       <SelectBoxWithButton
                         icon={<i className="icon-search icon-size-one"></i>}
-                        // icon={
-                        //   <i className="icon-arrow-right icon-size-one"></i>
-                        // }
                         name="AccountNumber"
                         applyClass="account-number"
                         label={
@@ -498,7 +381,7 @@ const AddEditDebitCardDispute = () => {
                         click={accountSearchHandler}
                         change={accountNumberHandler}
                         value={accountNumber}
-                        disable={btnStatusSelect}
+                        disable={accountFound}
                       />
                     </div>
                     <div className="dateRangePicker u-margin-top-15px u-display-flex u-justify-content-space-between">
@@ -525,7 +408,7 @@ const AddEditDebitCardDispute = () => {
                       {accountFound ? (
                         <Col lg={4} md={4} sm={24}>
                           <Button
-                            applyClass={btnClassCNIC}
+                            applyClass="btnDarkSolidEdit"
                             text="Search"
                             className="downloadButton"
                             click={searchHandlerForAccount}
@@ -549,7 +432,6 @@ const AddEditDebitCardDispute = () => {
                   applyClass="search-cnic"
                   minLength={14}
                   textLength={14}
-                  // maxLength={14}
                   icon={<i className="icon-search icon-size-one"></i>}
                   disable={btnStatus}
                   value={inputDataAC}
@@ -577,6 +459,26 @@ const AddEditDebitCardDispute = () => {
                     required
                   />
                 </div>
+                {cnicList.length > 0 ? (
+                  <div className="u-margin-top-15px">
+                    <SelectBoxWithButton
+                      icon={<i className="icon-search icon-size-one"></i>}
+                      text="Search"
+                      name="CNIC"
+                      applyClass="account-number"
+                      label={selectedCnic !== "" && "Select CNIC"}
+                      placeholder={"Select CNIC"}
+                      textFieldSize="small"
+                      fullWidth
+                      autoComplete="off"
+                      required
+                      option={cnicList}
+                      click={searchHandlerForAccountCnic}
+                      change={cnicSelectHandler}
+                      value={selectedCnic}
+                    />
+                  </div>
+                ) : null}
               </>
             )}
           </Col>
@@ -594,14 +496,12 @@ const AddEditDebitCardDispute = () => {
           <Col lg={6} md={6} sm={0} xs={0}></Col>
         </Row>
       </>
-      {/* <Notification setOpen={setOpen} open={open.flag} message={open.message} /> */}
 
       <Modal
         closeModal={handleCancel}
         modalState={investigationOfficer.CustomerFoundModal}
         width={650}
       >
-        {/* this data will be pass to modal when Add Fraud Type btn will be clicked */}
         {investigationOfficer.CustomerFoundModal && (
           <>
             <div>
@@ -626,7 +526,6 @@ const AddEditDebitCardDispute = () => {
         width={650}
       >
         {/* Customer Not Found Modal */}
-        {/* this data will be pass to modal when Account Number is searched */}
         {investigationOfficer.CustomerNotFoundModal && (
           <>
             <div>
@@ -640,16 +539,8 @@ const AddEditDebitCardDispute = () => {
                 System will not create new record.
               </Title>
             </div>
-            <div className="u-display-flex u-justify-content-center">
-              {/* <GroupedButtons data={okayButtonProp} /> */}
-              <Button
-                text="Ok"
-                type={"primary"}
-                size="large"
-                applyClass="btnBorderStyledBeach"
-                click={handleCancel}
-                // click= () => handleCancel(),
-              />
+            <div className="u-margin-left-70px">
+              <GroupedButtons data={okayButtonProp} />
             </div>
           </>
         )}
@@ -660,7 +551,6 @@ const AddEditDebitCardDispute = () => {
         modalState={investigationOfficer.AccountNumberFoundModal}
         width={650}
       >
-        {/* this data will be pass to modal when Add Fraud Type btn will be clicked */}
         {investigationOfficer.AccountNumberFoundModal && (
           <>
             <div>
@@ -680,18 +570,15 @@ const AddEditDebitCardDispute = () => {
       </Modal>
 
       <Modal
-        closeModal={handleCancel}
+        closeModal={handleCancel2}
         modalState={investigationOfficer.AccountNumberNotFoundModal}
         width={650}
       >
-        {/* Customer Not Found Modal */}
-        {/* this data will be pass to modal when Account Number is searched */}
+        {/* Not found in IRIS / no CNIC for the account */}
         {investigationOfficer.AccountNumberNotFoundModal && (
           <>
             <div>
               <div className="NoRecordFound">
-                {/* <p>No records available for Account Number in IRIS.</p>
-                <span>{inputDataACModal}</span> */}
                 <p>{investigationOfficer.ResponseMessage}</p>
               </div>
             </div>
@@ -699,18 +586,9 @@ const AddEditDebitCardDispute = () => {
               <Title level={3} align="center">
                 System will not create new record.
               </Title>
-              {/* <p>{investigationOfficer.ResponseMessage}</p> */}
             </div>
-            <div className="u-display-flex u-justify-content-center">
-              {/* <GroupedButtons data={okayButtonProp} /> */}
-              <Button
-                text="Ok"
-                type={"primary"}
-                size="large"
-                applyClass="btnBorderStyledBeach"
-                click={handleCancel}
-                // click= () => handleCancel(),
-              />
+            <div className="u-margin-left-70px">
+              <GroupedButtons data={okayButtonProp2} />
             </div>
           </>
         )}

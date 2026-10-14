@@ -67,6 +67,10 @@ const AddEditDCDispute = () => {
   var cnic = localStorage.getItem("CNICNumber");
   var AccountNumber = localStorage.getItem("AccountNumber");
   var check = localStorage.getItem("flag");
+  // CNICNumber/inputData can hold a JSON-stringified CNIC (with quotes)
+  const rawCnic = (value) => (value || "").replace(/"/g, "");
+  // raw CNIC of the known customer, set before navigating here
+  const knownCnic = () => rawCnic(localStorage.getItem("cnic2"));
 
   const [cnicLogin, setCnicLogin] = useState({
     CNIC: "",
@@ -214,7 +218,14 @@ const AddEditDCDispute = () => {
     await dispatch(customerNotFoundModal(false));
     await dispatch(accountNumberFoundModal(false));
     await dispatch(accountNumberNotFoundModal(false));
-    dispatch(SearchTransactionDetailsByAccountNumberInIRIS(inputData));
+    dispatch(
+      SearchTransactionDetailsByAccountNumberInIRIS({
+        AccountNumber: inputData,
+        CNIC: knownCnic(),
+        From: State.FromDate,
+        To: State.ToDate,
+      })
+    );
     dispatch(RESETALLSTATE());
   };
 
@@ -297,7 +308,7 @@ const AddEditDCDispute = () => {
     setFound(true);
     let Data = {
       AccountNumber: accountNumber,
-      CNIC: inputData,
+      CNIC: rawCnic(inputData),
       From: State.FromDate,
       To: State.ToDate,
     };
@@ -312,6 +323,7 @@ const AddEditDCDispute = () => {
     localStorage.setItem("route", JSON.stringify(2));
     let Data = {
       AccountNumber: AccountNumber,
+      CNIC: knownCnic(),
       From: State.FromDate,
       To: State.ToDate,
     };
@@ -320,7 +332,12 @@ const AddEditDCDispute = () => {
     await dispatch(accountNumberFoundModal(false));
     await dispatch(accountNumberNotFoundModal(false));
 
-    dispatch(SearchTransactionDetailsByAccountNumberWithCnicLookup(Data));
+    // customer known: search with its CNIC; otherwise look the CNIC up first
+    if (Data.CNIC) {
+      dispatch(SearchTransactionDetailsByAccountNumberInIRIS(Data));
+    } else {
+      dispatch(SearchTransactionDetailsByAccountNumberWithCnicLookup(Data));
+    }
   };
 
   // For AccountNumber DropDown SetState

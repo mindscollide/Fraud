@@ -64,6 +64,10 @@ const AddEditACDispute = () => {
   var cnic = localStorage.getItem("CNICNumber");
   var AccountNumber = localStorage.getItem("AccountNumber");
   var check = localStorage.getItem("flag");
+  // CNICNumber/inputData can hold a JSON-stringified CNIC (with quotes)
+  const rawCnic = (value) => (value || "").replace(/"/g, "");
+  // raw CNIC of the known customer, set before navigating here
+  const knownCnic = () => rawCnic(localStorage.getItem("cnic2"));
 
   const [cnicLogin, setCnicLogin] = useState({
     CNIC: "",
@@ -205,7 +209,14 @@ const AddEditACDispute = () => {
     await dispatch(customerNotFoundModal(false));
     await dispatch(accountNumberFoundModal(false));
     await dispatch(accountNumberNotFoundModal(false));
-    dispatch(SearchTransactionDetailsByAccountNumberInIRISADC(inputData));
+    dispatch(
+      SearchTransactionDetailsByAccountNumberInIRISADC({
+        AccountNumber: inputData,
+        CNIC: knownCnic(),
+        From: State.FromDate,
+        To: State.ToDate,
+      })
+    );
     dispatch(RESETALLSTATE());
   };
 
@@ -284,6 +295,7 @@ const AddEditACDispute = () => {
     setFound(true);
     let Data = {
       AccountNumber: accountNumber,
+      CNIC: rawCnic(inputData),
       From: State.FromDate,
       To: State.ToDate,
     };
@@ -295,6 +307,7 @@ const AddEditACDispute = () => {
     localStorage.setItem("State", JSON.stringify(State));
     let Data = {
       AccountNumber: AccountNumber,
+      CNIC: knownCnic(),
       From: State.FromDate,
       To: State.ToDate,
     };

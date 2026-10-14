@@ -390,6 +390,7 @@ const AddNewCustomerDetailsNONAPI = () => {
         let UserDetails = JSON.parse(localStorage.getItem("State"));
         let Data1 = {
           AccountNumber: accountNumber,
+          CNIC: localStorage.getItem("npiIrisCnic"),
           From: UserDetails.FromDate,
           To: UserDetails.ToDate,
         };

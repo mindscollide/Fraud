@@ -22,11 +22,13 @@ import {
   GetAllAccountsByCnicNonAPI,
   GetTransactionDetailsByCnicNONAPI,
   SearchTransactionDetailsByAccountNumberInIRISNONAPI,
+  GetAllCnicByAccountNumber,
   customerNotFoundModal,
   customerFoundModal,
   accountNumberFoundModal,
   accountNumberNotFoundModal,
 } from "../../../../store/actions/investigation-officer-actions";
+import { InvestigationOfficerAPINONAPI } from "../../../../Common/Api/apis-end-points";
 import { HideNotification } from "../../../../store/actions/setup-forms-actions";
 
 const AddEditNONAPIDispute = () => {
@@ -51,6 +53,15 @@ const AddEditNONAPIDispute = () => {
     message: "",
   });
   const [accountFound, setAccountFound] = useState(false);
+
+  // Account Number flow: CNICs linked to the searched account (joint holders)
+  const [cnicList, setCnicList] = useState([]);
+  const [selectedCnic, setSelectedCnic] = useState("");
+
+  const clearAccountResults = () => {
+    setCnicList([]);
+    setSelectedCnic("");
+  };
   // for rest all sate
   useEffect(() => {
     dispatch(RESETALLSTATE());
@@ -115,6 +126,8 @@ const AddEditNONAPIDispute = () => {
         setBtnStatus(true);
       }
       setInputDataAC(Data);
+      // a different account makes the previous CNIC list stale
+      clearAccountResults();
     }
   };
 
@@ -125,6 +138,7 @@ const AddEditNONAPIDispute = () => {
     setBtnStatus(true);
     setInputData("");
     setInputDataAC("");
+    clearAccountResults();
     setCnicFound(false);
     dispatch(RESETALLSTATE());
   };
@@ -136,6 +150,7 @@ const AddEditNONAPIDispute = () => {
     setBtnStatus(true);
     setInputData("");
     setInputDataAC("");
+    clearAccountResults();
     dispatch(RESETALLSTATE());
   };
 
@@ -187,28 +202,30 @@ const AddEditNONAPIDispute = () => {
     // setCnicFound(true);
   };
 
-  const newDataHAndlerForAccount = async (e) => {
-    console.log("inputDatainputData", inputData);
-    // if (inputDataAC) {
-    //   console.log("inputDatainputData", inputData);
+  // Proceed: not in Fraud DB — fetch the CNICs linked to this account so
+  // the user can pick one before searching IRIS
+  const newDataHAndlerForAccount = async () => {
+    dispatch(accountNumberFoundModal(false));
+    const cnics = await dispatch(
+      GetAllCnicByAccountNumber(inputDataAC, InvestigationOfficerAPINONAPI)
+    );
+    setCnicList(cnics || []);
+    if (cnics && cnics.length === 1) {
+      setSelectedCnic(cnics[0]);
+    }
+  };
 
-    //   dispatch(GetAllAccountsByCnicNonAPI(inputData));
-    // }
-    setBtnStatus(true);
-    // setCnicFound(true);
-    setBtnStatus(true);
+  // Search IRIS with the account + the CNIC picked from the dropdown
+  const searchHandlerForAccountCnic = () => {
+    if (!selectedCnic) return;
     localStorage.setItem("State", JSON.stringify(State));
-    let Data3 = { AccountNumber: inputData, Heading: "Account Number" };
     localStorage.setItem("route", JSON.stringify(2));
     let Data = {
       AccountNumber: inputDataAC,
       From: State.FromDate,
       To: State.ToDate,
+      CNIC: selectedCnic,
     };
-    await dispatch(customerFoundModal(false));
-    await dispatch(customerNotFoundModal(false));
-    await dispatch(accountNumberFoundModal(false));
-    await dispatch(accountNumberNotFoundModal(false));
     dispatch(SearchTransactionDetailsByAccountNumberInIRISNONAPI(Data));
   };
 
@@ -223,6 +240,8 @@ const AddEditNONAPIDispute = () => {
     dispatch(RESETALLSTATE());
     setAccountNumber("");
     setAccountFound(false);
+    setInputDataAC("");
+    clearAccountResults();
   };
 
   const handleCancel2 = () => {
@@ -317,6 +336,7 @@ const AddEditNONAPIDispute = () => {
   };
 
   const accountSearch2Handler = async () => {
+    clearAccountResults();
     setInputDataACModal(inputDataAC);
     await dispatch(GetTransactionDetailsByAccountNumberNonApi(inputDataAC));
     setFound(true);
@@ -372,10 +392,10 @@ const AddEditNONAPIDispute = () => {
     localStorage.setItem("route", JSON.stringify(2));
     let Data = {
       AccountNumber: accountNumber,
+      CNIC: inputData,
       From: State.FromDate,
       To: State.ToDate,
     };
-    // console.log("asdasdasd", Data);
     await dispatch(customerFoundModal(false));
     await dispatch(customerNotFoundModal(false));
     await dispatch(accountNumberFoundModal(false));
@@ -530,6 +550,26 @@ const AddEditNONAPIDispute = () => {
                     required
                   />
                 </div>
+                {cnicList.length > 0 ? (
+                  <div className="u-margin-top-15px">
+                    <SelectBoxWithButton
+                      icon={<i className="icon-search icon-size-one"></i>}
+                      text="Search"
+                      name="CNIC"
+                      applyClass="account-number"
+                      label={selectedCnic !== "" && "Select CNIC"}
+                      placeholder={"Select CNIC"}
+                      textFieldSize="small"
+                      fullWidth
+                      autoComplete="off"
+                      required
+                      option={cnicList}
+                      click={searchHandlerForAccountCnic}
+                      change={(e, value) => setSelectedCnic(value || "")}
+                      value={selectedCnic}
+                    />
+                  </div>
+                ) : null}
               </>
             )}
           </Col>
