@@ -237,6 +237,7 @@ const AddNewCustomerDetailsADC = () => {
     IsDemographicChange: false,
     FromDateForPreIdentifiedData: DAtesSearch.FromDate,
     ToDateForPreIdentifiedData: DAtesSearch.ToDate,
+    CaseResolvedDate: "",
   });
 
   const [sourceOfIBName, setSourceOfIBName] = useState([]);
@@ -3012,6 +3013,19 @@ const AddNewCustomerDetailsADC = () => {
     }
   }, [investigationOfficer]);
 
+  // true when a field actually holds a value (treats "", null, undefined,
+  // empty arrays and the -99999999999999999999 "empty number" sentinel as empty)
+  const hasValue = (v) =>
+    v !== undefined &&
+    v !== null &&
+    v !== "" &&
+    v !== -99999999999999999999 &&
+    !(Array.isArray(v) && v.length === 0);
+
+  // show the label only when the field has a value, otherwise "" (placeholder only)
+  const lbl = (value, text) => (hasValue(value) ? text : "");
+
+  console.log(ADCDisputes, "ADCDisputesADCDisputes");
   return (
     <>
       <form onSubmit={(e) => goToSaveHandler(e)}>
@@ -3058,8 +3072,8 @@ const AddNewCustomerDetailsADC = () => {
               </Col>
             )}
           </Row>
-          <Row gutter={16}>
-            <Col lg={4} md={4} sm={24} xs={24}>
+          <Row gutter={16} className="u-margin-top-22px">
+            <Col lg={6} md={6} sm={24} xs={24}>
               <TextField
                 name=""
                 size="small"
@@ -3070,7 +3084,7 @@ const AddNewCustomerDetailsADC = () => {
               />
             </Col>
             {roleForheader !== 1 ? (
-              <Col lg={4} md={4} sm={24} xs={24}>
+              <Col lg={6} md={6} sm={24} xs={24}>
                 <TextField
                   name=""
                   size="small"
@@ -3096,7 +3110,8 @@ const AddNewCustomerDetailsADC = () => {
             </Col>
             <Col lg={6} md={6} sm={24} xs={24}>
               <SelectBox
-                label="Select City"
+                label={lbl(cityValue, "Select City")}
+                placeholder={"Select City"}
                 option={city}
                 value={cityValue}
                 change={CityNameHandler}
@@ -3104,6 +3119,8 @@ const AddNewCustomerDetailsADC = () => {
                 required
               />
             </Col>
+          </Row>
+          <Row>
             <Col lg={24} md={24} sm={24} className="u-margin-top-2pct">
               <div className="TransactionHeading">
                 System Fetched Transactions
@@ -3129,12 +3146,13 @@ const AddNewCustomerDetailsADC = () => {
               Manual Transactions
             </h1>
           </Col>
-          <Row gutter={16}>
+          <Row gutter={16} className="u-margin-top-22px">
             <Col lg={6} md={6} sm={24} xs={24}>
               <InputWithBtn
                 onchange={TransactionIDchangehandler}
                 isUpperCase={true}
-                label="Transaction ID *"
+                label={lbl(trsDetails.TransactionID, "Transaction ID *")}
+                placeholder={"Transaction ID *"}
                 fullWidth
                 helperText={TIDErrMsg}
                 textFieldSize="small"
@@ -3155,7 +3173,8 @@ const AddNewCustomerDetailsADC = () => {
                 name="HBLAccountNumber"
                 size="small"
                 autoComplete="off"
-                label={"HBL Account Number *"}
+                label={lbl(trsDetails.HBLAccountNumber, "HBL Account Number *")}
+                placeholder={"HBL Account Number *"}
                 value={trsDetails.HBLAccountNumber}
                 change={TransactionDeatilHandlerChange}
                 fullWidth
@@ -3169,7 +3188,11 @@ const AddNewCustomerDetailsADC = () => {
                 size="small"
                 autoComplete="off"
                 value={trsDetails.BeneficiaryAccountNumber}
-                label={"Beneficiary Account Number *"}
+                label={lbl(
+                  trsDetails.BeneficiaryAccountNumber,
+                  "Beneficiary Account Number *"
+                )}
+                placeholder={"Beneficiary Account Number *"}
                 change={TransactionDeatilHandlerChange}
                 fullWidth
                 textLength={14}
@@ -3181,18 +3204,25 @@ const AddNewCustomerDetailsADC = () => {
                 size="small"
                 autoComplete="off"
                 value={trsDetails.BeneficiaryBankName}
-                label={"Beneficiary Bank Name *"}
+                label={lbl(
+                  trsDetails.BeneficiaryBankName,
+                  "Beneficiary Bank Name *"
+                )}
+                placeholder={"Beneficiary Bank Name *"}
                 change={TransactionDeatilHandlerChange}
                 fullWidth
                 textLength={30}
               />
             </Col>
+          </Row>
+          <Row gutter={16} className="u-margin-top-22px">
             <Col lg={6} md={6} sm={24} xs={24}>
               <TextField
                 name="BranchCode"
                 size="small"
                 autoComplete="off"
-                label={"Branch Code *"}
+                label={lbl(trsDetails.BranchCode, "Branch Code *")}
+                placeholder={"Branch Code *"}
                 value={trsDetails.BranchCode}
                 change={TransactionDeatilHandlerChange}
                 fullWidth
@@ -3204,7 +3234,8 @@ const AddNewCustomerDetailsADC = () => {
                 name="BranchName"
                 size="small"
                 autoComplete="off"
-                label={"Branch Name *"}
+                label={lbl(trsDetails.BranchName, "Branch Name *")}
+                placeholder={"Branch Name *"}
                 value={trsDetails.BranchName}
                 change={TransactionDeatilHandlerChange}
                 fullWidth
@@ -3218,6 +3249,7 @@ const AddNewCustomerDetailsADC = () => {
                 width="100%"
                 DateRange
                 placeholder={"Transaction Date *"}
+                label={lbl(trsDetails.TransactionDate, "Transaction Date *")}
                 value={
                   trsDetails.TransactionDate
                     ? DateDisplayFormat(trsDetails.TransactionDate)
@@ -3232,15 +3264,22 @@ const AddNewCustomerDetailsADC = () => {
                 size="large"
                 width="100%"
                 placeholder={"Transaction Time *"}
+                label={lbl(trsDetails.TransactionTime, "Transaction Time *")}
                 value={trsDetails.TransactionTime}
                 change={TimeHandler}
               />
             </Col>
+          </Row>
+          <Row gutter={16} className="u-margin-top-22px">
             <Col lg={6} md={6} sm={24} xs={24}>
               <FormattedInputs
                 name="TransactionAmount"
                 size="small"
-                Label="Transaction Amount *"
+                Label={lbl(
+                  trsDetails.TransactionAmount,
+                  "Transaction Amount *"
+                )}
+                placeholder={"Transaction Amount *"}
                 autoComplete="off"
                 value={
                   trsDetails.TransactionAmount === null ||
@@ -3257,7 +3296,11 @@ const AddNewCustomerDetailsADC = () => {
                 name="DisputeAmount"
                 size="small"
                 autoComplete="off"
-                Label={"Exposure / Dispute Amount *"}
+                Label={lbl(
+                  trsDetails.DisputeAmount,
+                  "Exposure / Dispute Amount *"
+                )}
+                placeholder={"Exposure / Dispute Amount *"}
                 value={
                   trsDetails.DisputeAmount === null ||
                   trsDetails.DisputeAmount === -99999999999999999999
@@ -3268,36 +3311,41 @@ const AddNewCustomerDetailsADC = () => {
                 fullWidth
               />
             </Col>
-            <Col lg={6} md={6} sm={24} xs={24} className="u-margin-top-22px">
+            <Col lg={6} md={6} sm={24} xs={24}>
               <TextField
                 name="ApprovalCode"
                 size="small"
                 autoComplete="off"
-                label={"Approval Code *"}
+                label={lbl(trsDetails.ApprovalCode, "Approval Code *")}
+                placeholder={"Approval Code *"}
                 value={trsDetails.ApprovalCode}
                 change={TransactionDeatilHandlerChange}
                 fullWidth
                 textLength={20}
               />
             </Col>
-            <Col lg={6} md={6} sm={24} xs={24} className="u-margin-top-22px">
+            <Col lg={6} md={6} sm={24} xs={24}>
               <TextField
                 name="POSMode"
                 size="small"
                 autoComplete="off"
-                label={"Point Of Sale Mode *"}
+                label={lbl(trsDetails.POSMode, "Point Of Sale Mode *")}
+                placeholder={"Point Of Sale Mode *"}
                 value={trsDetails.POSMode}
                 change={TransactionDeatilHandlerChange}
                 fullWidth
                 textLength={50}
               />
             </Col>
+          </Row>
+          <Row gutter={16} className="u-margin-top-22px">
             <Col lg={6} md={6} sm={24} xs={24}>
               <TextField
                 name="MerchantID"
                 size="small"
                 autoComplete="off"
-                label={"Merchant ID *"}
+                label={lbl(trsDetails.MerchantID, "Merchant ID *")}
+                placeholder={"Merchant ID *"}
                 value={trsDetails.MerchantID}
                 fullWidth
                 change={TransactionDeatilHandlerChange}
@@ -3309,7 +3357,8 @@ const AddNewCustomerDetailsADC = () => {
                 name="MerchantCity"
                 size="small"
                 autoComplete="off"
-                label={"Merchant City *"}
+                label={lbl(trsDetails.MerchantCity, "Merchant City *")}
+                placeholder={"Merchant City *"}
                 value={trsDetails.MerchantCity}
                 fullWidth
                 change={TransactionDeatilHandlerChange}
@@ -3335,16 +3384,24 @@ const AddNewCustomerDetailsADC = () => {
                 name="MerchantCategoryCodeMCC"
                 size="small"
                 autoComplete="off"
-                label={"Merchant Category Code *"}
+                label={lbl(
+                  trsDetails.MerchantCategoryCodeMCC,
+                  "Merchant Category Code *"
+                )}
+                placeholder={"Merchant Category Code *"}
                 value={trsDetails.MerchantCategoryCodeMCC}
                 change={TransactionDeatilHandlerChange}
                 fullWidth
                 textLength={4}
               />
             </Col>
+          </Row>
+
+          <Row gutter={16} className="u-margin-top-22px">
             <Col lg={6} md={6} sm={24} xs={24}>
               <SelectBox
-                label="Source *"
+                label={lbl(SourceType, "Source *")}
+                placeholder={"Source *"}
                 option={sourceTypeName}
                 value={SourceType}
                 change={SourceNameHandler}
@@ -3356,7 +3413,8 @@ const AddNewCustomerDetailsADC = () => {
                 name="MobileNumber"
                 size="small"
                 autoComplete="off"
-                label={"Mobile # Culprit *"}
+                label={lbl(trsDetails.MobileNumber, "Mobile # Culprit *")}
+                placeholder={"Mobile # Culprit *"}
                 value={trsDetails.MobileNumber}
                 change={TransactionDeatilHandlerChange}
                 fullWidth
@@ -3368,7 +3426,8 @@ const AddNewCustomerDetailsADC = () => {
                 name="IMEINumber"
                 size="small"
                 autoComplete="off"
-                label={"IMEI # / MAC Address *"}
+                label={lbl(trsDetails.IMEINumber, "IMEI # / MAC Address *")}
+                placeholder={"IMEI # / MAC Address *"}
                 value={trsDetails.IMEINumber}
                 change={TransactionDeatilHandlerChange}
                 fullWidth
@@ -3380,14 +3439,25 @@ const AddNewCustomerDetailsADC = () => {
                 name="URL"
                 size="small"
                 autoComplete="off"
-                label={"URL / Website *"}
+                label={lbl(trsDetails.URL, "URL / Website *")}
+                placeholder={"URL / Website *"}
                 value={trsDetails.URL}
                 change={TransactionDeatilHandlerChange}
                 fullWidth
                 textLength={30}
               />
             </Col>
+          </Row>
+
+          <Row gutter={16} className="u-margin-top-22px">
             <Col lg={6} md={6} sm={24} xs={24}>
+              {lbl(
+                trsDetails.IPAddress,
+                <p className="PlaceholderCard">
+                  IP Address<span className="important"> *</span>
+                </p>
+              )}
+
               <InputMask
                 type="text"
                 className="CreditCardInputField"
@@ -3416,6 +3486,9 @@ const AddNewCustomerDetailsADC = () => {
                 onChange={TransactionDeatilHandlerChange}
               />
             </Col>
+          </Row>
+
+          <Row gutter={16} className="u-margin-top-22px">
             <Col
               lg={24}
               md={24}
@@ -3442,6 +3515,7 @@ const AddNewCustomerDetailsADC = () => {
               )}
             </Col>
           </Row>
+
           <div className="u-margin-top-20px" />
           <Col lg={24} md={24} sm={24} className="u-margin-top-2pct">
             <div className="TransactionHeading">
@@ -3466,10 +3540,11 @@ const AddNewCustomerDetailsADC = () => {
               Date
             </h1>
           </Col>
-          <Row gutter={8}>
-            <Col lg={4} md={4} sm={24} className="u-margin-top-22px">
+          <Row gutter={8} className="u-margin-top-22px">
+            <Col lg={4} md={4} sm={24}>
               <DatePicker
-                label={"Case Received Date"}
+                label={lbl(ADCDisputes.CaseReceivedDate, "Case Received Date")}
+                placeholder={"Case Received Date"}
                 size="large"
                 width="100%"
                 DateRange
@@ -3484,11 +3559,15 @@ const AddNewCustomerDetailsADC = () => {
                 // defaultValue="{moment()}"
               />
             </Col>
-            <Col lg={6} md={6} sm={24} className="u-margin-top-22px">
+            <Col lg={6} md={6} sm={24}>
               <TextField
                 fullWidth
                 autoComplete="off"
-                label="Case Received Channel"
+                label={lbl(
+                  ADCDisputes.CaseReceivedChannel,
+                  "Case Received Channel"
+                )}
+                placeholder={"Case Received Channel"}
                 value={ADCDisputes.CaseReceivedChannel}
                 name="CaseReceivedChannel"
                 change={ADCDisputeHandler}
@@ -3497,13 +3576,7 @@ const AddNewCustomerDetailsADC = () => {
                 textLength={20}
               />
             </Col>
-            <Col
-              lg={4}
-              md={4}
-              sm={24}
-              xs={24}
-              className="u-text-align-center u-margin-top-15px"
-            >
+            <Col lg={4} md={4} sm={24} xs={24} className="u-text-align-center">
               <label>
                 <b>Case Resolved</b>
               </label>
@@ -3522,11 +3595,12 @@ const AddNewCustomerDetailsADC = () => {
                 </Radio>
               </Radio.Group>
             </Col>
-            <Col lg={4} md={4} sm={24} className="u-margin-top-22px">
+            <Col lg={4} md={4} sm={24}>
               <DatePicker
                 size="large"
                 width="100%"
                 DateRange
+                label={lbl(ADCDisputes.CaseResolvedDate, "Case Resolved Date")}
                 placeholder={"Case Resolved Date"}
                 name="CaseResolvedDate"
                 value={
@@ -3538,11 +3612,18 @@ const AddNewCustomerDetailsADC = () => {
                 disable
               />
             </Col>
-            <Col lg={6} md={6} sm={24} className="u-margin-top-22px">
+          </Row>
+
+          <Row gutter={8} className="u-margin-top-22px">
+            <Col lg={6} md={6} sm={24}>
               <Paper ml="1.5">
                 <TextField
                   fullWidth
-                  label="Total Dispute Amount"
+                  label={lbl(
+                    ADCDisputes.TotalTransactionAmount,
+                    "Total Dispute Amount"
+                  )}
+                  placeholder={"Total Dispute Amount"}
                   value={
                     ADCDisputes.TotalTransactionAmount === null ||
                     ADCDisputes.TotalTransactionAmount === -99999999999999999999
@@ -3565,21 +3646,23 @@ const AddNewCustomerDetailsADC = () => {
               Closure Details
             </h1>
           </Col>
-          <Row gutter={8}>
-            <Col lg={6} md={6} sm={24} xs={24} className="u-margin-top-22px">
+          <Row gutter={8} className="u-margin-top-22px">
+            <Col lg={6} md={6} sm={24} xs={24}>
               <SelectBox
                 option={caseDecision}
-                label="Select Case Decision"
+                label={lbl(caseDecisionValue, "Select Case Decision")}
+                placeholder={"Select Case Decision"}
                 name="FK_CDEID"
                 value={caseDecisionValue}
                 change={CaseDecisionHandler}
               />
             </Col>
-            <Col lg={6} md={6} sm={24} xs={24} className="u-margin-top-22px">
+            <Col lg={6} md={6} sm={24} xs={24}>
               <TextField
                 fullWidth
                 autoComplete="off"
-                label="Event ID (SAS REF #)"
+                label={lbl(ADCDisputes.EventIDSAS, "Event ID (SAS REF #)")}
+                placeholder={"Event ID (SAS REF #)"}
                 size="small"
                 name="EventIDSAS"
                 value={ADCDisputes.EventIDSAS}
@@ -3587,10 +3670,11 @@ const AddNewCustomerDetailsADC = () => {
                 textLength={50}
               />
             </Col>
-            <Col lg={6} md={6} sm={24} xs={24} className="u-margin-top-22px">
+            <Col lg={6} md={6} sm={24} xs={24}>
               <TextField
                 fullWidth
-                label="Remarks"
+                label={lbl(ADCDisputes.Remarks, "Remarks")}
+                placeholder={"Remarks"}
                 size="small"
                 name="Remarks"
                 autoComplete="off"
@@ -3601,11 +3685,11 @@ const AddNewCustomerDetailsADC = () => {
             </Col>
             <Col lg={6} md={6} sm={24} xs={24}>
               <DatePicker
-                label={"Registration Date"}
+                label={lbl(ADCDisputes.RegistrationDate, "Registration Date")}
+                placeholder="Registration Date"
                 size="large"
                 width="100%"
                 DateRange
-                placeholder={"Registration Date"}
                 name="RegistrationDate"
                 change={DateHandler}
                 value={
@@ -3615,10 +3699,14 @@ const AddNewCustomerDetailsADC = () => {
                 }
               />
             </Col>
-            <Col lg={6} md={6} sm={24} xs={24} className="u-margin-top-22px">
+          </Row>
+
+          <Row gutter={8} className="u-margin-top-22px">
+            <Col lg={6} md={6} sm={24} xs={24}>
               <TextField
                 fullWidth
-                label="Aging"
+                label={lbl(ADCDisputes.Aging, "Aging")}
+                placeholder={"Aging"}
                 size="small"
                 name="Aging"
                 value={
@@ -3630,10 +3718,16 @@ const AddNewCustomerDetailsADC = () => {
                 disable
               />
             </Col>
-            <Col lg={6} md={6} sm={24} xs={24} className="u-margin-top-22px">
+            <Col lg={6} md={6} sm={24} xs={24}>
               <TextField
                 fullWidth
-                label="Case Closed TAT"
+                label={
+                  ADCDisputes.CaseClosedTAT !== null ||
+                  ADCDisputes.CaseClosedTAT !== -1
+                    ? "Case Closed TAT"
+                    : ""
+                }
+                placeholder={"Case Closed TAT"}
                 size="small"
                 name="CaseClosedTAT"
                 value={
@@ -3649,7 +3743,8 @@ const AddNewCustomerDetailsADC = () => {
             <Col lg={6} md={6} sm={24} xs={24}>
               <FormattedInputs
                 fullWidth
-                Label="Expected Recovery"
+                Label={lbl(ADCDisputes.ExpectedRecovery, "Expected Recovery")}
+                placeholder={"Expected Recovery"}
                 size="small"
                 name="ExpectedRecovery"
                 autoComplete="off"
@@ -3664,7 +3759,7 @@ const AddNewCustomerDetailsADC = () => {
               />
             </Col>
 
-            <Col lg={6} md={6} sm={24} xs={24} className="u-margin-top-10px">
+            <Col lg={6} md={6} sm={24} xs={24} className="u-text-align-center">
               <label>
                 <b>Demographic Change</b>
               </label>
@@ -3678,7 +3773,9 @@ const AddNewCustomerDetailsADC = () => {
                 <Radio value={false}>No</Radio>
               </Radio.Group>
             </Col>
-            <Col lg={6} md={6} sm={24} xs={24} className="u-margin-top-10px">
+          </Row>
+          <Row gutter={8} className="u-margin-top-22px u-text-align-center">
+            <Col lg={6} md={6} sm={24} xs={24}>
               <label>
                 <b>Flexi Loan</b>
               </label>
@@ -3692,10 +3789,11 @@ const AddNewCustomerDetailsADC = () => {
                 <Radio value={false}>No</Radio>
               </Radio.Group>
             </Col>
-            <Col lg={6} md={6} sm={24} xs={24} className="u-margin-top-22px">
+            <Col lg={6} md={6} sm={24} xs={24}>
               <TextField
                 fullWidth
-                label="P-II information"
+                label={lbl(ADCDisputes.PII, "P-II information")}
+                placeholder={"P-II information"}
                 size="small"
                 name="PII"
                 autoComplete="off"
@@ -3704,10 +3802,14 @@ const AddNewCustomerDetailsADC = () => {
                 textLength={50}
               />
             </Col>
-            <Col lg={6} md={6} sm={24} xs={24} className="u-margin-top-22px">
+            <Col lg={6} md={6} sm={24} xs={24}>
               <TextField
                 fullWidth
-                label="Customer Clamied Information"
+                label={lbl(
+                  ADCDisputes.CustomerClamiedInformation,
+                  "Customer Clamied Information"
+                )}
+                placeholder={"Customer Clamied Information"}
                 size="small"
                 autoComplete="off"
                 name="CustomerClamiedInformation"
@@ -3719,16 +3821,14 @@ const AddNewCustomerDetailsADC = () => {
             <Col lg={6} md={6} sm={24} xs={24}>
               <FormattedInputs
                 fullWidth
-                Label="Expected Recovery From HBL"
+                Label={lbl(
+                  ADCDisputes.ExpectedRecoveryFromHBLBeneficiary,
+                  "Expected Recovery From HBL"
+                )}
+                placeholder={"Expected Recovery From HBL"}
                 size="small"
                 autoComplete="off"
                 name="ExpectedRecoveryFromHBLBeneficiary"
-                // value={
-                //   ADCDisputes.ExpectedRecoveryFromHBLBeneficiary === null ||
-                //     ADCDisputes.ExpectedRecoveryFromHBLBeneficiary === -1
-                //     ? null
-                //     : ADCDisputes.ExpectedRecoveryFromHBLBeneficiary
-                // }
                 value={
                   ADCDisputes.ExpectedRecoveryFromHBLBeneficiary === null ||
                   ADCDisputes.ExpectedRecoveryFromHBLBeneficiary ===
@@ -3742,20 +3842,19 @@ const AddNewCustomerDetailsADC = () => {
                 required
               />
             </Col>
+          </Row>
+          <Row gutter={8} className="u-margin-top-22px">
             <Col lg={6} md={6} sm={24} xs={24}>
               <FormattedInputs
                 fullWidth
-                Label="Expected Recovery From Member Bank"
+                Label={lbl(
+                  ADCDisputes.ExpectedRecoveryFromMemberBankBeneficiary,
+                  "Expected Recovery From Member Bank"
+                )}
+                placeholder={"Expected Recovery From Member Bank"}
                 size="small"
                 autoComplete="off"
                 name="ExpectedRecoveryFromMemberBankBeneficiary"
-                // value={
-                //   ADCDisputes.ExpectedRecoveryFromMemberBankBeneficiary ===
-                //     null ||
-                //     ADCDisputes.ExpectedRecoveryFromMemberBankBeneficiary === -1
-                //     ? null
-                //     : ADCDisputes.ExpectedRecoveryFromMemberBankBeneficiary
-                // }
                 value={
                   ADCDisputes.ExpectedRecoveryFromMemberBankBeneficiary ===
                     null ||
@@ -3770,7 +3869,7 @@ const AddNewCustomerDetailsADC = () => {
                 required
               />
             </Col>
-            <Col lg={6} md={6} sm={24} xs={24} className="u-margin-top-5px">
+            <Col lg={6} md={6} sm={24} xs={24} className="u-text-align-center">
               <label>
                 <b>Customer / Beneficiary SIM Blocked</b>
               </label>
@@ -3784,10 +3883,11 @@ const AddNewCustomerDetailsADC = () => {
                 <Radio value={false}>No</Radio>
               </Radio.Group>
             </Col>
-            <Col lg={6} md={6} sm={24} xs={24} className="u-margin-top-10px">
+            <Col lg={6} md={6} sm={24} xs={24}>
               <TextField
                 fullWidth
-                label="Fund Layered A/c #"
+                label={lbl(ADCDisputes.FundLayeredAC, "Fund Layered A/c #")}
+                placeholder={"Fund Layered A/c #"}
                 size="small"
                 autoComplete="off"
                 name="FundLayeredAC"
@@ -3796,7 +3896,7 @@ const AddNewCustomerDetailsADC = () => {
                 textLength={14}
               />
             </Col>
-            <Col lg={6} md={6} sm={24} xs={24} className="u-margin-top-10px">
+            <Col lg={6} md={6} sm={24} xs={24} className="u-text-align-center">
               <label>
                 <b>iOS / Android</b>
               </label>
@@ -3811,10 +3911,17 @@ const AddNewCustomerDetailsADC = () => {
                 <Radio value={3}>Web</Radio>
               </Radio.Group>
             </Col>
-            <Col lg={6} md={6} sm={24} xs={24} className="u-margin-top-10px">
+          </Row>
+
+          <Row gutter={8} className="u-margin-top-22px">
+            <Col lg={6} md={6} sm={24} xs={24}>
               <SelectBox
                 option={sourceOfIB}
-                label="Select Source of IB Channel Creation"
+                label={lbl(
+                  sourceOfIBName,
+                  "Select Source of IB Channel Creation"
+                )}
+                placeholder={"Select Source of IB Channel Creation"}
                 name="FK_SIBCCID"
                 value={sourceOfIBName}
                 change={SourceOfIBNameHandler}
@@ -3827,7 +3934,7 @@ const AddNewCustomerDetailsADC = () => {
         <Paper padding="1">
           <Col lg={18} md={18} sm={18} xs={24}>
             <h1 className="u-font-size-18px u-margin-top-15px u-margin-left-20px u-color-21706d">
-              File Upload{" "}
+              File Upload
               <span className="FileUploadNote">
                 Allowed File Formats (Images, Word Documents, Excel, PDF and
                 Text)
@@ -3862,8 +3969,8 @@ const AddNewCustomerDetailsADC = () => {
             </Col>
           </Row>
         </Paper>
-        <div className="u-margin-top-25px" />
-        <Row gutter={16} justify="center">
+        <div className="u-margin-top-25px " />
+        <Row gutter={16} justify="center" className="u-margin-bottom-22px">
           <Col lg={4} md={4} sm={24}>
             <Button
               text="Save"
@@ -3880,7 +3987,7 @@ const AddNewCustomerDetailsADC = () => {
               text="Save & Send For Approval"
               type="submit"
               icon={<i className="icon-sent icon-size-one"></i>}
-              applyClass="buttonPrimary2"
+              applyClass="buttonPrimary3"
               size="large"
               click={() => setsaveValue(2)}
             />

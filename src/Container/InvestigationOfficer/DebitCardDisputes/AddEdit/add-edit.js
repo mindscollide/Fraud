@@ -539,8 +539,16 @@ const AddEditDebitCardDispute = () => {
                 System will not create new record.
               </Title>
             </div>
-            <div className="u-margin-left-70px">
-              <GroupedButtons data={okayButtonProp} />
+            <div className="u-display-flex u-justify-content-center">
+              {/* <GroupedButtons data={okayButtonProp} /> */}
+              <Button
+                text="Ok"
+                type={"primary"}
+                size="large"
+                applyClass="btnBorderStyledBeach"
+                click={handleCancel}
+                // click= () => handleCancel(),
+              />
             </div>
           </>
         )}
@@ -587,8 +595,16 @@ const AddEditDebitCardDispute = () => {
                 System will not create new record.
               </Title>
             </div>
-            <div className="u-margin-left-70px">
-              <GroupedButtons data={okayButtonProp2} />
+            <div className="u-display-flex u-justify-content-center">
+              {/* <GroupedButtons data={okayButtonProp} /> */}
+              <Button
+                text="Ok"
+                type={"primary"}
+                size="large"
+                applyClass="btnBorderStyledBeach"
+                click={handleCancel}
+                // click= () => handleCancel(),
+              />
             </div>
           </>
         )}
