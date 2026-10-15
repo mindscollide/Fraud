@@ -1,6 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
 
-
 import { PlusOutlined as AddIcon } from "@ant-design/icons";
 
 import { Typography, Radio, Space, Empty, Tooltip, Row, Col } from "antd";
@@ -1020,9 +1019,7 @@ const ViewCustomerDetailsNONAPI = () => {
       <Paper padding="1">
         <Row gutter={16}>
           <Col lg={18} md={18} sm={18} xs={24}>
-            <h1
-              className="u-font-size-18px u-margin-top-15px u-margin-left-20px u-color-21706d"
-            >
+            <h1 className="u-font-size-18px u-margin-top-15px u-margin-left-20px u-color-21706d">
               Customer Details
             </h1>
           </Col>
@@ -1121,9 +1118,7 @@ const ViewCustomerDetailsNONAPI = () => {
       <div className="u-margin-top-20px" />
       <Paper padding="1">
         <Col lg={18} md={18} sm={18} xs={24}>
-          <h1
-            className="u-font-size-18px u-margin-top-15px u-margin-left-20px u-color-21706d"
-          >
+          <h1 className="u-font-size-18px u-margin-top-15px u-margin-left-20px u-color-21706d">
             Date
           </h1>
         </Col>
@@ -1154,7 +1149,13 @@ const ViewCustomerDetailsNONAPI = () => {
               disable
             />
           </Col>
-          <Col lg={4} md={4} sm={24} xs={24} className="u-text-align-center u-margin-top-15px">
+          <Col
+            lg={4}
+            md={4}
+            sm={24}
+            xs={24}
+            className="u-text-align-center u-margin-top-15px"
+          >
             <label>
               <b>Case Resolved</b>
             </label>
@@ -1209,14 +1210,18 @@ const ViewCustomerDetailsNONAPI = () => {
       <div className="u-margin-top-20px" />
       <Paper padding="1">
         <Col lg={18} md={18} sm={18} xs={24} className="u-margin-bottom-20px">
-          <h1
-            className="u-font-size-18px u-margin-top-15px u-margin-left-20px u-color-21706d"
-          >
+          <h1 className="u-font-size-18px u-margin-top-15px u-margin-left-20px u-color-21706d">
             Closure Details
           </h1>
         </Col>
         <Row gutter={8}>
-          <Col lg={6} md={6} sm={24} xs={24} className="u-text-align-center u-margin-top-15px">
+          <Col
+            lg={6}
+            md={6}
+            sm={24}
+            xs={24}
+            className="u-text-align-center u-margin-top-15px"
+          >
             <label>
               <b>TC 40 Reporting</b>
             </label>
@@ -1250,7 +1255,13 @@ const ViewCustomerDetailsNONAPI = () => {
               disable
             />
           </Col>
-          <Col lg={6} md={6} sm={24} xs={24} className="u-text-align-center u-margin-top-15px">
+          <Col
+            lg={6}
+            md={6}
+            sm={24}
+            xs={24}
+            className="u-text-align-center u-margin-top-15px"
+          >
             <label>
               <b>Point Of Compromise Identified</b>
             </label>
@@ -1328,9 +1339,7 @@ const ViewCustomerDetailsNONAPI = () => {
       <div className="u-margin-top-25px" />
       <Paper padding="1">
         <Col lg={18} md={18} sm={18} xs={24}>
-          <h1
-            className="u-font-size-18px u-margin-top-15px u-margin-left-20px u-color-21706d"
-          >
+          <h1 className="u-font-size-18px u-margin-top-15px u-margin-left-20px u-color-21706d">
             Files Upload
           </h1>
         </Col>

@@ -13,15 +13,11 @@ import {
   DatePicker,
   TimePicker,
   Button,
-  FancyBox,
-  ConsolidateBox,
   Notification,
   Table,
-  Message,
   Loader,
   FormattedInputs,
   // Upload,
-  uploadButton,
   Modal,
   GroupedButtons,
 } from "../../../../Components/Elements";
@@ -57,7 +53,6 @@ import {
   TimeDisplayFormat,
   removeDashesFromDate,
 } from "../../../../Common/Functions/date-formatter";
-import { Header } from "antd/lib/layout/layout";
 
 const AddNewCustomerDetailsNONAPI = () => {
   var cnic = localStorage.getItem("CNICNumber");
@@ -218,7 +213,7 @@ const AddNewCustomerDetailsNONAPI = () => {
 
   // uploadlist
   const [ListOfNPIDisputeDocuments, setListOfNPIDisputeDocuments] = useState(
-    [],
+    []
   );
 
   //   for current date
@@ -469,10 +464,10 @@ const AddNewCustomerDetailsNONAPI = () => {
           var i = index;
           i = index + 1;
           return { ...item, key: i + "" };
-        },
+        }
       );
       setListOfTransactionDetailsAlreadyExsist(
-        GetTransactionDetailsByCNICArray,
+        GetTransactionDetailsByCNICArray
       );
     }
   }, [investigationOfficer.GetTransactionDetailsByCnicNONAPIexistData]);
@@ -512,7 +507,7 @@ const AddNewCustomerDetailsNONAPI = () => {
     setSourceTypeName(
       nameSource.map((data, index) => {
         return data.name;
-      }),
+      })
     );
   }, [setupForms.SourceData]);
 
@@ -523,7 +518,7 @@ const AddNewCustomerDetailsNONAPI = () => {
       setFraudType(
         nameFraud.map((data, index) => {
           return data.name;
-        }),
+        })
       );
     }
   }, [setupForms.FraudTypeData]);
@@ -1056,7 +1051,7 @@ const AddNewCustomerDetailsNONAPI = () => {
   // update transection data
   const update = (e, record) => {
     var objIndex = ListOfNPITransactionDetailsObjects.findIndex(
-      (obj) => obj.TransactionID === record.TransactionID,
+      (obj) => obj.TransactionID === record.TransactionID
     );
     // trsDetails, setTrsDetails
     setRecordIndex(objIndex);
@@ -1342,8 +1337,8 @@ const AddNewCustomerDetailsNONAPI = () => {
             setTransactionIDError,
             setTIDErrMsg,
             setSourceType,
-            setTransactionCurrencyCodeValue,
-          ),
+            setTransactionCurrencyCodeValue
+          )
         );
       }
     } else {
@@ -1354,8 +1349,8 @@ const AddNewCustomerDetailsNONAPI = () => {
           setTransactionIDError,
           setTIDErrMsg,
           setSourceType,
-          setTransactionCurrencyCodeValue,
-        ),
+          setTransactionCurrencyCodeValue
+        )
       );
     }
   };
@@ -2546,7 +2541,7 @@ const AddNewCustomerDetailsNONAPI = () => {
   // Delete Upload Document
   const deleteUploadDocument = (record) => {
     const filteredItems = ListOfNPIDisputeDocuments.filter(
-      (item) => item !== record,
+      (item) => item !== record
     );
     setListOfNPIDisputeDocuments(filteredItems);
   };
@@ -2671,7 +2666,7 @@ const AddNewCustomerDetailsNONAPI = () => {
               ToDate: "",
             };
             await dispatch(
-              SaveNonApiDisputes(data, searchData, searchDataofdate),
+              SaveNonApiDisputes(data, searchData, searchDataofdate)
             );
             let newdata2 = [...ListOfNPITransactionDetailsObjects];
             let newIdex = [];
@@ -2829,7 +2824,7 @@ const AddNewCustomerDetailsNONAPI = () => {
               ToDate: "",
             };
             await dispatch(
-              SaveAndApproveNonApiDisputes(data, searchData, searchDataofdate),
+              SaveAndApproveNonApiDisputes(data, searchData, searchDataofdate)
             );
             let newdata2 = [...ListOfNPITransactionDetailsObjects];
             let newIdex = [];
@@ -2883,11 +2878,7 @@ const AddNewCustomerDetailsNONAPI = () => {
                 ToDate: "",
               };
               dispatch(
-                SaveAndApproveNonApiDisputes(
-                  data,
-                  searchData,
-                  searchDataofdate,
-                ),
+                SaveAndApproveNonApiDisputes(data, searchData, searchDataofdate)
               );
             } else {
               setOpen({
@@ -3038,7 +3029,7 @@ const AddNewCustomerDetailsNONAPI = () => {
     setTransactionCurrencyCode(
       valuetransactionCurrencyCode.map((data, index) => {
         return data.description;
-      }),
+      })
     );
   }, [setupForms.TransactionCurrencyCodeData]);
 
@@ -3066,7 +3057,7 @@ const AddNewCustomerDetailsNONAPI = () => {
     setCity(
       valueCity.map((data, index) => {
         return data.name;
-      }),
+      })
     );
   }, [setupForms.CityData]);
 
@@ -3099,6 +3090,17 @@ const AddNewCustomerDetailsNONAPI = () => {
       });
     }
   }, [investigationOfficer]);
+  // true when a field actually holds a value (treats "", null, undefined,
+  // empty arrays and the -99999999999999999999 "empty number" sentinel as empty)
+  const hasValue = (v) =>
+    v !== undefined &&
+    v !== null &&
+    v !== "" &&
+    v !== -99999999999999999999 &&
+    !(Array.isArray(v) && v.length === 0);
+
+  // show the label only when the field has a value, otherwise "" (placeholder only)
+  const lbl = (value, text) => (hasValue(value) ? text : "");
 
   return (
     <>
@@ -3148,14 +3150,15 @@ const AddNewCustomerDetailsNONAPI = () => {
               </Col>
             )}
           </Row>
-          <Row gutter={16}>
+
+          <Row gutter={16} className="u-margin-bottom-22px">
             <Col lg={4} md={4} sm={24} xs={24}>
               <TextField
                 name=""
                 size="small"
                 placeholder="Reference#"
                 disable
-                label={"Reference #"}
+                label={lbl("Reference #")}
                 fullWidth
               />
             </Col>
@@ -3164,10 +3167,10 @@ const AddNewCustomerDetailsNONAPI = () => {
                 <TextField
                   name=""
                   size="small"
-                  placeholder="Customer Name"
                   disable
                   value={FDCustomer.CNICNumber}
-                  label={"CNIC"}
+                  label={lbl(FDCustomer.CNICNumber, "CNIC")}
+                  placeholder={"CNIC"}
                   fullWidth
                 />
               </Col>
@@ -3179,13 +3182,14 @@ const AddNewCustomerDetailsNONAPI = () => {
                 placeholder="Customer Name"
                 disable
                 value={customerDetails.customerName}
-                label={"Customer Name"}
+                label={lbl(customerDetails.customerName, "Customer Name")}
                 fullWidth
               />
             </Col>
-            <Col lg={4} md={4} sm={24} xs={24}>
+            <Col lg={6} md={6} sm={24} xs={24}>
               <SelectBox
-                label="Select City"
+                label={lbl(cityValue, "Select City")}
+                placeholder={"Select City"}
                 option={city}
                 value={cityValue}
                 change={CityNameHandler}
@@ -3224,9 +3228,12 @@ const AddNewCustomerDetailsNONAPI = () => {
                 required
               />
             </Col>
+          </Row>
+          <Row gutter={16} className="u-margin-bottom-22px">
             <Col lg={6} md={6} sm={24} xs={24}>
               <SelectBox
-                label="Select Fraud Type"
+                label={lbl(fraudTypeName, "Select Fraud Type")}
+                placeholder={"Select Fraud Type"}
                 option={fraudType}
                 name="Fraudtype"
                 value={fraudTypeName}
@@ -3234,6 +3241,8 @@ const AddNewCustomerDetailsNONAPI = () => {
                 required
               />
             </Col>
+          </Row>
+          <Row>
             <Col lg={24} md={24} sm={24} className="u-margin-top-2pct">
               <div className="TransactionHeading">
                 System Fetched Transactions
@@ -3259,12 +3268,13 @@ const AddNewCustomerDetailsNONAPI = () => {
               Manual Transactions
             </h1>
           </Col>
-          <Row gutter={16}>
+          <Row gutter={16} className="u-margin-bottom-22px">
             <Col lg={6} md={6} sm={24} xs={24}>
               <InputWithBtn
                 onchange={TransactionIDchangehandler}
                 isUpperCase={true}
-                label="Transaction ID *"
+                label={lbl(trsDetails.TransactionID, "Transaction ID *")}
+                placeholder={"Transaction ID *"}
                 fullWidth
                 helperText={TIDErrMsg}
                 textFieldSize="small"
@@ -3285,7 +3295,8 @@ const AddNewCustomerDetailsNONAPI = () => {
                 name="HBLAccountNumber"
                 size="small"
                 autoComplete="off"
-                label={"HBL Account Number *"}
+                label={lbl(trsDetails.HBLAccountNumber, "HBL Account Number *")}
+                placeholder={"HBL Account Number *"}
                 value={trsDetails.HBLAccountNumber}
                 change={TransactionDeatilHandlerChange}
                 fullWidth
@@ -3299,7 +3310,11 @@ const AddNewCustomerDetailsNONAPI = () => {
                 size="small"
                 autoComplete="off"
                 value={trsDetails.OtherBankAccountNumber}
-                label={"Other Bank Account Number *"}
+                label={lbl(
+                  trsDetails.OtherBankAccountNumber,
+                  "Other Bank Account Number *"
+                )}
+                placeholder={"Other Bank Account Number *"}
                 change={TransactionDeatilHandlerChange}
                 fullWidth
                 textLength={14}
@@ -3310,19 +3325,23 @@ const AddNewCustomerDetailsNONAPI = () => {
                 name="OtherBankBranchCode"
                 size="small"
                 autoComplete="off"
-                label={"Branch Code *"}
+                label={lbl(trsDetails.OtherBankBranchCode, "Branch Code *")}
+                placeholder={"Branch Code *"}
                 value={trsDetails.OtherBankBranchCode}
                 change={TransactionDeatilHandlerChange}
                 fullWidth
                 textLength={4}
               />
             </Col>
-            <Col lg={6} md={6} sm={24} xs={24} className="u-margin-top-22px">
+          </Row>
+          <Row gutter={16} className="u-margin-bottom-22px">
+            <Col lg={6} md={6} sm={24} xs={24}>
               <TextField
                 name="OtherBankBranchName"
                 size="small"
                 autoComplete="off"
-                label={"Branch Name *"}
+                label={lbl(trsDetails.OtherBankBranchName, "Branch Name *")}
+                placeholder={"Branch Name *"}
                 value={trsDetails.OtherBankBranchName}
                 change={TransactionDeatilHandlerChange}
                 fullWidth
@@ -3331,12 +3350,12 @@ const AddNewCustomerDetailsNONAPI = () => {
             </Col>
             <Col lg={6} md={6} sm={24} xs={24}>
               <DatePicker
-                label={"Transaction Date *"}
+                label={lbl(trsDetails.TransactionDate, "Transaction Date *")}
+                placeholder={"Transaction Date *"}
                 name="TransactionDate"
                 size="large"
                 width="100%"
                 DateRange
-                placeholder={"Transaction Date *"}
                 value={
                   trsDetails.TransactionDate
                     ? DateDisplayFormat(trsDetails.TransactionDate)
@@ -3347,11 +3366,11 @@ const AddNewCustomerDetailsNONAPI = () => {
             </Col>
             <Col lg={6} md={6} sm={24} xs={24}>
               <TimePicker
-                label={"Transaction Time *"}
+                label={lbl(trsDetails.TransactionTime, "Transaction Time *")}
+                placeholder={"Transaction Time *"}
                 name="TransactionTime"
                 size="large"
                 width="100%"
-                placeholder={"Transaction Time *"}
                 value={trsDetails.TransactionTime}
                 change={TimeHandler}
               />
@@ -3368,11 +3387,15 @@ const AddNewCustomerDetailsNONAPI = () => {
                 textLength={(999, 999, 999, 999, 999, 999, 999)}
                 size="small"
                 autoComplete="off"
-                Label={"Potential Save *"}
+                Label={lbl(trsDetails.PotentialSave, "Potential Save *")}
+                placeholder={"Potential Save *"}
                 fullWidth
                 change={TransactionDeatilHandlerChange}
               />
             </Col>
+          </Row>
+
+          <Row gutter={16} className="u-margin-bottom-22px">
             <Col lg={6} md={6} sm={24} xs={24}>
               <FormattedInputs
                 name="TransactionAmount"
@@ -3385,7 +3408,11 @@ const AddNewCustomerDetailsNONAPI = () => {
                 textLength={(999, 999, 999, 999, 999, 999, 999)}
                 size="small"
                 autoComplete="off"
-                Label={"Transaction Amount *"}
+                Label={lbl(
+                  trsDetails.TransactionAmount,
+                  "Transaction Amount *"
+                )}
+                placeholder={"Transaction Amount *"}
                 fullWidth
                 change={TransactionDeatilHandlerChange}
               />
@@ -3419,14 +3446,22 @@ const AddNewCustomerDetailsNONAPI = () => {
                 textLength={(999, 999, 999, 999, 999, 999, 999)}
                 size="small"
                 autoComplete="off"
-                Label={"Exposure / Dispute Amount *"}
+                Label={lbl(
+                  trsDetails.DisputeAmount,
+                  "Exposure / Dispute Amount *"
+                )}
+                placeholder={"Exposure / Dispute Amount *"}
                 fullWidth
                 change={TransactionDeatilHandlerChange}
               />
             </Col>
-            <Col lg={6} md={6} sm={24} xs={24} className="u-margin-top-22px">
+            <Col lg={6} md={6} sm={24} xs={24}>
               <SelectBox
-                label="Select Transaction Currency Code"
+                label={lbl(
+                  transactionCurrencyCodeValue,
+                  "Select Transaction Currency Code"
+                )}
+                placeholder={"Select Transaction Currency Code"}
                 option={transactionCurrencyCode}
                 value={transactionCurrencyCodeValue}
                 change={transactionCurrencyCodeHandler}
@@ -3443,24 +3478,29 @@ const AddNewCustomerDetailsNONAPI = () => {
                 textLength={6}
               /> */}
             </Col>
-            <Col lg={6} md={6} sm={24} xs={24} className="u-margin-top-22px">
+            <Col lg={6} md={6} sm={24} xs={24}>
               <TextField
                 name="ApprovalCode"
                 size="small"
                 autoComplete="off"
-                label={"Approval Code *"}
+                label={lbl(trsDetails.ApprovalCode, "Approval Code *")}
+                placeholder={"Approval Code *"}
                 value={trsDetails.ApprovalCode}
                 change={TransactionDeatilHandlerChange}
                 fullWidth
                 textLength={6}
               />
             </Col>
+          </Row>
+
+          <Row gutter={16} className="u-margin-bottom-22px">
             <Col lg={6} md={6} sm={24} xs={24}>
               <TextField
                 name="Response"
                 size="small"
                 autoComplete="off"
-                label={"Response *"}
+                label={lbl(trsDetails.Response, "Response *")}
+                placeholder={"Response *"}
                 value={trsDetails.Response}
                 change={TransactionDeatilHandlerChange}
                 fullWidth
@@ -3472,7 +3512,8 @@ const AddNewCustomerDetailsNONAPI = () => {
                 name="POSMode"
                 size="small"
                 autoComplete="off"
-                label={"Point Of Sale Mode *"}
+                label={lbl(trsDetails.POSMode, "Point Of Sale Mode *")}
+                placeholder={"Point Of Sale Mode *"}
                 value={trsDetails.POSMode}
                 change={TransactionDeatilHandlerChange}
                 fullWidth
@@ -3484,7 +3525,8 @@ const AddNewCustomerDetailsNONAPI = () => {
                 name="MerchantName"
                 size="small"
                 autoComplete="off"
-                label={"Merchant Name *"}
+                label={lbl(trsDetails.MerchantName, "Merchant Name *")}
+                placeholder={"Merchant Name *"}
                 value={trsDetails.MerchantName}
                 change={TransactionDeatilHandlerChange}
                 fullWidth
@@ -3496,18 +3538,23 @@ const AddNewCustomerDetailsNONAPI = () => {
                 name="MerchantID"
                 size="small"
                 autoComplete="off"
-                label={"Merchant ID *"}
+                label={lbl(trsDetails.MerchantID, "Merchant ID *")}
+                placeholder={"Merchant ID *"}
                 value={trsDetails.MerchantID}
                 change={TransactionDeatilHandlerChange}
                 fullWidth
                 textLength={6}
               />
             </Col>
+          </Row>
+
+          <Row gutter={16} className="u-margin-bottom-22px">
             <Col lg={6} md={6} sm={24} xs={24}>
               <TextField
                 name="MerchantCity"
                 size="small"
-                label={"Merchant City *"}
+                label={lbl(trsDetails.MerchantCity, "Merchant City *")}
+                placeholder={"Merchant City *"}
                 autoComplete="off"
                 value={trsDetails.MerchantCity}
                 fullWidth
@@ -3534,7 +3581,8 @@ const AddNewCustomerDetailsNONAPI = () => {
                 name="CategoryCodeMCC"
                 size="small"
                 autoComplete="off"
-                label={"Merchant Category Code *"}
+                label={lbl(trsDetails.CategoryCodeMCC, "Cateogy Code *")}
+                placeholder={"Cateogy Code *"}
                 value={trsDetails.CategoryCodeMCC}
                 change={TransactionDeatilHandlerChange}
                 fullWidth
@@ -3546,16 +3594,21 @@ const AddNewCustomerDetailsNONAPI = () => {
                 name="ARN"
                 size="small"
                 autoComplete="off"
-                label={"Approval Reference Number *"}
+                label={lbl(trsDetails.ARN, "Approval Reference Number *")}
+                placeholder={"Approval Reference Number *"}
                 change={TransactionDeatilHandlerChange}
                 value={trsDetails.ARN}
                 fullWidth
                 textLength={50}
               />
             </Col>
+          </Row>
+
+          <Row gutter={16} className="u-margin-bottom-22px">
             <Col lg={6} md={6} sm={24} xs={24}>
               <SelectBox
-                label="Source *"
+                label={lbl(SourceType, "Source *")}
+                placeholder={"Source *"}
                 option={sourceTypeName}
                 value={SourceType}
                 change={SourceNameHandler}
@@ -3567,7 +3620,8 @@ const AddNewCustomerDetailsNONAPI = () => {
                 name="AcquirerID"
                 size="small"
                 autoComplete="off"
-                label={"Acquirer ID *"}
+                label={lbl(trsDetails.AcquirerID, "Acquirer ID *")}
+                placeholder={"Acquirer ID *"}
                 value={trsDetails.AcquirerID}
                 change={TransactionDeatilHandlerChange}
                 fullWidth
@@ -3579,7 +3633,11 @@ const AddNewCustomerDetailsNONAPI = () => {
                 name="AcquirerTerminalID"
                 size="small"
                 autoComplete="off"
-                label={"Acquirer Terminal ID *"}
+                label={lbl(
+                  trsDetails.AcquirerTerminalID,
+                  "Acquirer Terminal ID *"
+                )}
+                placeholder={"Acquirer Terminal ID *"}
                 textLength={6}
                 value={
                   trsDetails.AcquirerTerminalID === ""
@@ -3594,7 +3652,11 @@ const AddNewCustomerDetailsNONAPI = () => {
               <TextField
                 name="AcquirerInstitution"
                 size="small"
-                label={"Acquirer Institution *"}
+                label={lbl(
+                  trsDetails.AcquirerInstitution,
+                  "Acquirer Institution *"
+                )}
+                placeholder={"Acquirer Institution *"}
                 autoComplete="off"
                 value={trsDetails.AcquirerInstitution}
                 change={TransactionDeatilHandlerChange}
@@ -3602,6 +3664,9 @@ const AddNewCustomerDetailsNONAPI = () => {
                 textLength={50}
               />
             </Col>
+          </Row>
+
+          <Row gutter={16} className="u-margin-bottom-22px">
             <Col
               lg={24}
               md={24}
@@ -3628,6 +3693,7 @@ const AddNewCustomerDetailsNONAPI = () => {
               )}
             </Col>
           </Row>
+
           <div className="u-margin-top-20px" />
           <Col lg={24} md={24} sm={24} className="u-margin-top-2pct">
             <div className="TransactionHeading">
@@ -3652,10 +3718,11 @@ const AddNewCustomerDetailsNONAPI = () => {
               Date
             </h1>
           </Col>
-          <Row gutter={8}>
-            <Col lg={4} md={4} sm={24} className="u-margin-top-22px">
+          <Row gutter={8} className="u-margin-top-22px">
+            <Col lg={4} md={4} sm={24}>
               <DatePicker
-                label={"Case Received Date"}
+                label={lbl(NPIDisputes.CaseReceivedDate, "Case Received Date")}
+                placeholder={"Case Received Date"}
                 size="large"
                 width="100%"
                 DateRange
@@ -3670,10 +3737,14 @@ const AddNewCustomerDetailsNONAPI = () => {
                 // defaultValue="{moment()}"
               />
             </Col>
-            <Col lg={6} md={6} sm={24} className="u-margin-top-22px">
+            <Col lg={6} md={6} sm={24}>
               <TextField
                 fullWidth
-                label="Case Received Channel"
+                label={lbl(
+                  NPIDisputes.CaseReceivedChannel,
+                  "Case Received Channel"
+                )}
+                placeholder={"Case Received Channel"}
                 autoComplete="off"
                 value={NPIDisputes.CaseReceivedChannel}
                 name="CaseReceivedChannel"
@@ -3683,13 +3754,7 @@ const AddNewCustomerDetailsNONAPI = () => {
                 textLength={20}
               />
             </Col>
-            <Col
-              lg={4}
-              md={4}
-              sm={24}
-              xs={24}
-              className="u-text-align-center u-margin-top-15px"
-            >
+            <Col lg={4} md={4} sm={24} xs={24} className="u-text-align-center">
               <label>
                 <b>Case Resolved</b>
               </label>
@@ -3708,11 +3773,12 @@ const AddNewCustomerDetailsNONAPI = () => {
                 </Radio>
               </Radio.Group>
             </Col>
-            <Col lg={4} md={4} sm={24} className="u-margin-top-22px">
+            <Col lg={4} md={4} sm={24}>
               <DatePicker
                 size="large"
                 width="100%"
                 DateRange
+                label={lbl(NPIDisputes.CaseResolvedDate, "Case Resolved Date")}
                 placeholder={"Case Resolved Date"}
                 name="CaseResolvedDate"
                 value={
@@ -3724,11 +3790,15 @@ const AddNewCustomerDetailsNONAPI = () => {
                 disable
               />
             </Col>
-            <Col lg={6} md={6} sm={24} className="u-margin-top-22px">
+            <Col lg={6} md={6} sm={24}>
               <Paper ml="1.5">
                 <TextField
                   fullWidth
-                  label="Total Dispute Amount"
+                  label={lbl(
+                    NPIDisputes.TotalTransactionAmount,
+                    "Total Dispute Amount"
+                  )}
+                  placeholder={"Total Dispute Amount"}
                   value={
                     NPIDisputes.TotalTransactionAmount === null ||
                     NPIDisputes.TotalTransactionAmount === -99999999999999999999
@@ -3751,14 +3821,8 @@ const AddNewCustomerDetailsNONAPI = () => {
               Closure Details
             </h1>
           </Col>
-          <Row gutter={8}>
-            <Col
-              lg={6}
-              md={6}
-              sm={24}
-              xs={24}
-              className="u-text-align-center u-margin-top-15px"
-            >
+          <Row gutter={8} className="u-margin-top-22px">
+            <Col lg={6} md={6} sm={24} xs={24} className="u-text-align-center">
               <label>
                 <b>TC 40 Reporting</b>
               </label>
@@ -3774,7 +3838,10 @@ const AddNewCustomerDetailsNONAPI = () => {
             </Col>
             <Col lg={6} md={6} sm={24}>
               <DatePicker
-                label={"TC40 Reporting Date"}
+                label={lbl(
+                  NPIDisputes.TC40ReportingDate,
+                  "TC 40 Reporting Date"
+                )}
                 disable={isTC40ReportingDate}
                 size="large"
                 width="100%"
@@ -3789,13 +3856,7 @@ const AddNewCustomerDetailsNONAPI = () => {
                 change={DateHandler}
               />
             </Col>
-            <Col
-              lg={6}
-              md={6}
-              sm={24}
-              xs={24}
-              className="u-text-align-center u-margin-top-15px"
-            >
+            <Col lg={6} md={6} sm={24} xs={24} className="u-text-align-center">
               <label>
                 <b>Point Of Compromise Identified</b>
               </label>
@@ -3809,11 +3870,15 @@ const AddNewCustomerDetailsNONAPI = () => {
                 <Radio value={false}>No</Radio>
               </Radio.Group>
             </Col>
-            <Col lg={6} md={6} sm={24} xs={24} className="u-margin-top-22px">
+            <Col lg={6} md={6} sm={24} xs={24}>
               <TextField
                 disable={pOC}
                 fullWidth
-                label="Point Of Compromise Identified"
+                label={lbl(
+                  NPIDisputes.POCIdentified,
+                  "Point Of Compromise Identified"
+                )}
+                placeholder={"Point Of Compromise Identified"}
                 size="small"
                 name="POCIdentified"
                 value={NPIDisputes.POCIdentified}
@@ -3822,10 +3887,14 @@ const AddNewCustomerDetailsNONAPI = () => {
                 textLength={100}
               />
             </Col>
-            <Col lg={6} md={6} sm={24} xs={24} className="u-margin-top-15px">
+          </Row>
+
+          <Row gutter={8} className="u-margin-top-22px">
+            <Col lg={6} md={6} sm={24} xs={24}>
               <TextField
                 fullWidth
-                label="Remarks"
+                label={lbl(NPIDisputes.Remarks, "Remarks")}
+                placeholder={"Remarks"}
                 autoComplete="off"
                 size="small"
                 name="Remarks"
@@ -3834,10 +3903,11 @@ const AddNewCustomerDetailsNONAPI = () => {
                 textLength={50}
               />
             </Col>
-            <Col lg={6} md={6} sm={24} xs={24} className="u-margin-top-15px">
+            <Col lg={6} md={6} sm={24} xs={24}>
               <TextField
                 fullWidth
-                label="Event ID (SAS REF #)"
+                label={lbl(NPIDisputes.EventIDSAS, "Event ID (SAS REF #)")}
+                placeholder={"Event ID (SAS REF #)"}
                 size="small"
                 name="EventIDSAS"
                 autoComplete="off"
@@ -3846,10 +3916,11 @@ const AddNewCustomerDetailsNONAPI = () => {
                 textLength={50}
               />
             </Col>
-            <Col lg={6} md={6} sm={24} xs={24} className="u-margin-top-15px">
+            <Col lg={6} md={6} sm={24} xs={24}>
               <TextField
                 fullWidth
-                label="Aging"
+                label={lbl(NPIDisputes.Aging, "Aging")}
+                placeholder={"Aging"}
                 size="small"
                 name="Aging"
                 value={
@@ -3861,10 +3932,11 @@ const AddNewCustomerDetailsNONAPI = () => {
                 disable
               />
             </Col>
-            <Col lg={6} md={6} sm={24} xs={24} className="u-margin-top-15px">
+            <Col lg={6} md={6} sm={24} xs={24}>
               <TextField
                 fullWidth
-                label="Case Closed TAT"
+                label={lbl(NPIDisputes.CaseClosedTAT, "Case Closed TAT")}
+                placeholder={"Case Closed TAT"}
                 size="small"
                 name="CaseClosedTAT"
                 value={
@@ -3915,7 +3987,7 @@ const AddNewCustomerDetailsNONAPI = () => {
           </Row>
         </Paper>
         <div className="u-margin-top-25px" />
-        <Row gutter={16} justify="center">
+        <Row gutter={16} justify="center" className="u-margin-bottom-22px">
           <Col lg={4} md={4} sm={24}>
             <Button
               text="Save"
@@ -3932,7 +4004,7 @@ const AddNewCustomerDetailsNONAPI = () => {
               text="Save & Send For Approval"
               type="submit"
               icon={<i className="icon-sent icon-size-one"></i>}
-              applyClass="buttonPrimary2"
+              applyClass="buttonPrimary3"
               size="large"
               click={() => setsaveValue(2)}
             />

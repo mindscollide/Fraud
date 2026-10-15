@@ -3025,7 +3025,6 @@ const AddNewCustomerDetailsADC = () => {
   // show the label only when the field has a value, otherwise "" (placeholder only)
   const lbl = (value, text) => (hasValue(value) ? text : "");
 
-  console.log(ADCDisputes, "ADCDisputesADCDisputes");
   return (
     <>
       <form onSubmit={(e) => goToSaveHandler(e)}>

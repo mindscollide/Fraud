@@ -207,7 +207,7 @@ const EditNONAPIDispute = () => {
 
   // uploadlist
   const [ListOfNPIDisputeDocuments, setListOfNPIDisputeDocuments] = useState(
-    [],
+    []
   );
 
   //   for current date
@@ -411,7 +411,7 @@ const EditNONAPIDispute = () => {
     setCity(
       valueCity.map((data, index) => {
         return data.name;
-      }),
+      })
     );
   }, [setupForms.CityData]);
 
@@ -447,7 +447,7 @@ const EditNONAPIDispute = () => {
     setSourceTypeName(
       nameSource.map((data, index) => {
         return data.name;
-      }),
+      })
     );
   }, [setupForms.SourceData]);
 
@@ -832,7 +832,7 @@ const EditNONAPIDispute = () => {
         return { ...item, key: i + "" };
       });
       setListOfTransactionDetailsAlreadyExsist(
-        GetTransactionDetailsByCNICArray,
+        GetTransactionDetailsByCNICArray
       );
     }
   }, [
@@ -858,7 +858,7 @@ const EditNONAPIDispute = () => {
       setFraudType(
         nameFraud.map((data, index) => {
           return data.name;
-        }),
+        })
       );
     }
   }, [setupForms.FraudTypeData]);
@@ -922,7 +922,7 @@ const EditNONAPIDispute = () => {
   // update transection data
   const update = (e, record) => {
     var objIndex = ListOfNPITransactionDetailsObjects.findIndex(
-      (obj) => obj.TransactionID === record.TransactionID,
+      (obj) => obj.TransactionID === record.TransactionID
     );
     // trsDetails, setTrsDetails
     setRecordIndex(objIndex);
@@ -1552,8 +1552,8 @@ const EditNONAPIDispute = () => {
             setTransactionIDError,
             setTIDErrMsg,
             setSourceType,
-            setTransactionCurrencyCodeValue,
-          ),
+            setTransactionCurrencyCodeValue
+          )
         );
       }
     } else {
@@ -1564,8 +1564,8 @@ const EditNONAPIDispute = () => {
           setTransactionIDError,
           setTIDErrMsg,
           setSourceType,
-          setTransactionCurrencyCodeValue,
-        ),
+          setTransactionCurrencyCodeValue
+        )
       );
     }
   };
@@ -2533,7 +2533,7 @@ const EditNONAPIDispute = () => {
         obj.DisplayFileName === record.DisplayFileName &&
         obj.PK_NAPIDDID === record.PK_NAPIDDID &&
         obj.FK_NAPIDID === record.FK_NAPIDID &&
-        obj.FK_GSSUserID === record.FK_GSSUserID,
+        obj.FK_GSSUserID === record.FK_GSSUserID
     );
     var temp = [];
     ListOfNPIDisputeDocuments.map((data, index) => {
@@ -2559,7 +2559,7 @@ const EditNONAPIDispute = () => {
   const getFilter = () => {
     let filteredItems = ListOfNPIDisputeDocuments;
     filteredItems = ListOfNPIDisputeDocuments.filter(
-      (item) => item.DisplayFileName !== "",
+      (item) => item.DisplayFileName !== ""
     );
     return filteredItems;
   };
@@ -2713,8 +2713,8 @@ const EditNONAPIDispute = () => {
                   searchData,
                   searchDataofdate,
                   DataForGlobal,
-                  DataForGlobalDate,
-                ),
+                  DataForGlobalDate
+                )
               );
               setAddInedx([]);
             } else {
@@ -2793,8 +2793,8 @@ const EditNONAPIDispute = () => {
                 searchData,
                 searchDataofdate,
                 DataForGlobal,
-                DataForGlobalDate,
-              ),
+                DataForGlobalDate
+              )
             );
           }
         }
@@ -2911,8 +2911,8 @@ const EditNONAPIDispute = () => {
                 searchData,
                 searchDataofdate,
                 DataForGlobal,
-                DataForGlobalDate,
-              ),
+                DataForGlobalDate
+              )
             );
             setAddInedx([]);
           } else {
@@ -3044,8 +3044,8 @@ const EditNONAPIDispute = () => {
                   searchData,
                   searchDataofdate,
                   DataForGlobal,
-                  DataForGlobalDate,
-                ),
+                  DataForGlobalDate
+                )
               );
               setAddInedx([]);
             } else {
@@ -3124,8 +3124,8 @@ const EditNONAPIDispute = () => {
                 searchData,
                 searchDataofdate,
                 DataForGlobal,
-                DataForGlobalDate,
-              ),
+                DataForGlobalDate
+              )
             );
             // }
           }
@@ -3245,8 +3245,8 @@ const EditNONAPIDispute = () => {
                 searchData,
                 searchDataofdate,
                 DataForGlobal,
-                DataForGlobalDate,
-              ),
+                DataForGlobalDate
+              )
             );
             setAddInedx([]);
           } else {
@@ -3481,7 +3481,7 @@ const EditNONAPIDispute = () => {
     setTransactionCurrencyCode(
       valuetransactionCurrencyCode.map((data, index) => {
         return data.description;
-      }),
+      })
     );
   }, [setupForms.TransactionCurrencyCodeData]);
 
