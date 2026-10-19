@@ -24,9 +24,20 @@ const CustomDatePicker = ({
   };
   return (
     <>
-      {required ? <i className="u-font-size-0_7rem u-color-red">*</i> : null}
-      <div className={`${label ? styles.wrapper : undefined} u-display-flex u-align-items-center`}>
-        {label ? <span className={styles.floatingLabel}>{label}</span> : null}
+      <div
+        className={`${
+          label ? styles.wrapper : undefined
+        } u-display-flex u-align-items-center`}
+      >
+        {label ? (
+          <span className={styles.floatingLabel}>
+            {label}
+
+            {required ? (
+              <i className="u-font-size-0_7rem u-color-red"> *</i>
+            ) : null}
+          </span>
+        ) : null}
         <DatePicker
           disabledDate={DateRange ? disabledDate : false}
           disabled={disable}
