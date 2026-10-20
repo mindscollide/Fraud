@@ -433,8 +433,8 @@ const AddEditADCDispute = () => {
                 <InputWithBtn
                   isUpperCase={true}
                   onchange={cnicSectionHandler}
-                  label={inputData !== "" && "Enter CNIC"}
-                  placeholder={"Enter CNIC"}
+                  label={inputData !== "" && "Enter CNIC Number"}
+                  placeholder={"Enter CNIC Number *"}
                   fullWidth
                   autoComplete="off"
                   textFieldSize="small"
@@ -458,7 +458,7 @@ const AddEditADCDispute = () => {
                         label={
                           accountNumber?.length > 0 && "Select Account Number"
                         }
-                        placeholder={"Select Account Number"}
+                        placeholder={"Select Account Number *"}
                         textFieldSize="small"
                         fullWidth
                         autoComplete="off"
@@ -467,11 +467,11 @@ const AddEditADCDispute = () => {
                         click={accountSearchHandler}
                         change={accountNumberHandler}
                         value={accountNumber}
-                        disable={btnStatusSelect}
+                        // disable={btnStatusSelect}
                       />
                     </div>
                     <div className="dateRangePicker u-margin-top-15px u-display-flex u-justify-content-space-between">
-                      {accountFound ? (
+                      {/* {accountFound ? (
                         <StartToEndDate
                           DateRange={true}
                           size="large"
@@ -490,7 +490,7 @@ const AddEditADCDispute = () => {
                           className="DatePickerDC"
                           required
                         />
-                      ) : null}
+                      ) : null} */}
                       {accountFound ? (
                         <Col lg={4} md={4} sm={24}>
                           <Button
@@ -511,7 +511,7 @@ const AddEditADCDispute = () => {
                   isUpperCase={true}
                   onchange={accountSectionHandler}
                   label={inputDataAC !== "" && "Enter Account Number"}
-                  placeholder={"Enter Account Number"}
+                  placeholder={"Enter Account Number *"}
                   fullWidth
                   textFieldSize="small"
                   applyClass="search-cnic"
@@ -526,7 +526,7 @@ const AddEditADCDispute = () => {
                   name="AccountNumber"
                   click={accountSearch2Handler}
                 />
-                <div className="dateRangePicker">
+                {/* <div className="dateRangePicker">
                   <StartToEndDate
                     DateRange={true}
                     size="large"
@@ -545,7 +545,7 @@ const AddEditADCDispute = () => {
                     className="DatePickerDC"
                     required
                   />
-                </div>
+                </div> */}
                 {cnicList.length > 0 ? (
                   <div className="u-margin-top-15px">
                     <SelectBoxWithButton

@@ -430,7 +430,7 @@ const AddEditDCDispute = () => {
                   isUpperCase={true}
                   onchange={cnicSectionHandler}
                   label={inputData !== "" && "Enter CNIC"}
-                  placeholder={"Enter CNIC"}
+                  placeholder={"Enter CNIC Number *"}
                   fullWidth
                   textFieldSize="small"
                   autoComplete="off"
@@ -469,7 +469,7 @@ const AddEditDCDispute = () => {
                       />
                     </div>
                     <div className="u-margin-top-20px" />
-                    <StartToEndDate
+                    {/* <StartToEndDate
                       size="large"
                       change={setDate}
                       key={clearDateSelect}
@@ -486,7 +486,7 @@ const AddEditDCDispute = () => {
                       className="DatePickerDC"
                       DateRange={true}
                       required
-                    />
+                    /> */}
                   </>
                 ) : null}
               </>
@@ -510,7 +510,7 @@ const AddEditDCDispute = () => {
                   click={accountSearch2Handler}
                 />
                 <div className="u-margin-top-20px" />
-                <StartToEndDate
+                {/* <StartToEndDate
                   size="large"
                   change={setDate}
                   key={clearDateSelect}
@@ -527,7 +527,7 @@ const AddEditDCDispute = () => {
                   }
                   className="DatePickerDC"
                   required
-                />
+                /> */}
               </>
             )}
           </Col>

@@ -402,8 +402,8 @@ const AddEditACDispute = () => {
                 <InputWithBtn
                   isUpperCase={true}
                   onchange={cnicSectionHandler}
-                  label={inputData !== "" && "Enter CNIC"}
-                  placeholder={"Enter CNIC"}
+                  label={inputData !== "" && "Enter CNIC Number"}
+                  placeholder={"Enter CNIC Number *"}
                   fullWidth
                   autoComplete="off"
                   textFieldSize="small"
@@ -427,7 +427,7 @@ const AddEditACDispute = () => {
                         name="AccountNumber"
                         applyClass="account-number"
                         label={accountNumber !== "" && "Select Account Number"}
-                        placeholder={"Select Account Number"}
+                        placeholder={"Select Account Number *"}
                         textFieldSize="small"
                         fullWidth
                         autoComplete="off"
@@ -440,7 +440,7 @@ const AddEditACDispute = () => {
                       />
                     </div>
                     <div className="u-margin-top-20px" />
-                    <StartToEndDate
+                    {/* <StartToEndDate
                       size="large"
                       change={setDate}
                       key={clearDateSelect}
@@ -457,7 +457,7 @@ const AddEditACDispute = () => {
                       className="DatePickerDC"
                       DateRange={true}
                       required
-                    />
+                    /> */}
                   </>
                 ) : null}
               </>
@@ -467,7 +467,7 @@ const AddEditACDispute = () => {
                   isUpperCase={true}
                   onchange={accountSectionHandler}
                   label={inputData !== "" && "Enter Account Number"}
-                  placeholder={"Enter Account Number"}
+                  placeholder={"Enter Account Number *"}
                   fullWidth
                   textFieldSize="small"
                   applyClass="search-cnic"
@@ -482,7 +482,7 @@ const AddEditACDispute = () => {
                   click={accountSearch2Handler}
                 />
                 <div className="u-margin-top-20px" />
-                <StartToEndDate
+                {/* <StartToEndDate
                   size="large"
                   change={setDate}
                   key={clearDateSelect}
@@ -499,7 +499,7 @@ const AddEditACDispute = () => {
                   }
                   className="DatePickerDC"
                   required
-                />
+                /> */}
               </>
             )}
           </Col>

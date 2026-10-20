@@ -347,8 +347,8 @@ const AddEditDebitCardDispute = () => {
                 <InputWithBtn
                   isUpperCase={true}
                   onchange={cnicSectionHandler}
-                  label={inputData !== "" && "Enter CNIC"}
-                  placeholder={"Enter CNIC"}
+                  label={inputData !== "" && "Enter CNIC Number"}
+                  placeholder={"Enter CNIC Number *"}
                   fullWidth
                   autoComplete="off"
                   textFieldSize="small"
@@ -372,7 +372,7 @@ const AddEditDebitCardDispute = () => {
                         label={
                           accountNumber?.length > 0 && "Select Account Number"
                         }
-                        placeholder={"Select Account Number"}
+                        placeholder={"Select Account Number *"}
                         textFieldSize="small"
                         fullWidth
                         autoComplete="off"
@@ -385,7 +385,7 @@ const AddEditDebitCardDispute = () => {
                       />
                     </div>
                     <div className="dateRangePicker u-margin-top-15px u-display-flex u-justify-content-space-between">
-                      {accountFound ? (
+                      {/* {accountFound ? (
                         <StartToEndDate
                           size="large"
                           change={setDate}
@@ -404,7 +404,7 @@ const AddEditDebitCardDispute = () => {
                           DateRange={true}
                           required
                         />
-                      ) : null}
+                      ) : null} */}
                       {accountFound ? (
                         <Col lg={4} md={4} sm={24}>
                           <Button
@@ -439,7 +439,7 @@ const AddEditDebitCardDispute = () => {
                   name="AccountNumber"
                   click={accountSearch2Handler}
                 />
-                <div className="dateRangePicker">
+                {/* <div className="dateRangePicker">
                   <StartToEndDate
                     size="large"
                     DateRange
@@ -458,7 +458,7 @@ const AddEditDebitCardDispute = () => {
                     className="DatePickerDC"
                     required
                   />
-                </div>
+                </div> */}
                 {cnicList.length > 0 ? (
                   <div className="u-margin-top-15px">
                     <SelectBoxWithButton
