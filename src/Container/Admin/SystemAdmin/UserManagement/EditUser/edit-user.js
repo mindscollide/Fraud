@@ -261,21 +261,21 @@ const EditUser = () => {
       dataIndex: "userLDAPAccount",
       key: "userLDAPAccount",
       align: "center",
-      width: "20%",
+      width: "10%",
     },
     {
       title: "First Name",
       dataIndex: "firstName",
       key: "firstName",
       align: "center",
-      width: "20%",
+      width: "10%",
     },
     {
       title: "Last Name",
       dataIndex: "lastName",
       key: "lastName",
       align: "center",
-      width: "20%",
+      width: "10%",
     },
     {
       title: "Role",
@@ -301,7 +301,7 @@ const EditUser = () => {
         </>
       ),
       align: "center",
-      width: "20%",
+      width: "15%",
     },
 
     {
@@ -309,7 +309,7 @@ const EditUser = () => {
       dataIndex: "transactionTypes",
       key: "transactionTypes",
       align: "center",
-      width: "60%",
+      width: "30%",
       render: (text) => userRoleshandler(text),
     },
     {
@@ -317,7 +317,7 @@ const EditUser = () => {
       dataIndex: "regionID",
       key: "regionID",
       align: "center",
-      width: "60%",
+      width: "10%",
       render: (text) => userRegionhandler(text),
     },
     {
@@ -325,7 +325,7 @@ const EditUser = () => {
       dataIndex: "fK_GSSUserStatusID",
       key: "fK_GSSUserStatusID",
       align: "center",
-      width: "20%",
+      width: "5%",
 
       render: (text) => (
         <>
@@ -353,7 +353,7 @@ const EditUser = () => {
       dataIndex: "edit",
       key: "edit",
       align: "center",
-      width: "20%",
+      width: "5%",
       render: (text, record) => (
         <div
           onClick={(e) => edit(e, record)}
@@ -599,7 +599,7 @@ const EditUser = () => {
           <Table
             rows={row}
             columns={columns}
-            scroll={{ x: "max-content" }}
+            scroll={{ x: "1300" }}
             pagination={{
               defaultPageSize: 10,
               showSizeChanger: true,
