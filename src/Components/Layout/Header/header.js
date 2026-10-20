@@ -120,7 +120,7 @@ const Header = ({ Notification, title, UserDetails }) => {
         gets Notification: true from UserSelection() in routingData.js, so
         this is the only reachable notification bell in the app */}
         {Notification !== null && Notification === true ? (
-          <Tooltip placement="bottom" title="Notification">
+          <Tooltip placement="bottom">
             <div className="notify">
               <Dropdown
                 open={menuOpen}
