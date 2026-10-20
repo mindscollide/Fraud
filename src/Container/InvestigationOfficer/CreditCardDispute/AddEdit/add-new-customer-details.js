@@ -493,7 +493,6 @@ const AddNewCustomerDetails = () => {
       name !== "MerchantName" &&
       name !== "AcquirerName" &&
       name !== "MerchantCity" &&
-      name !== "POSMode" &&
       (value !== "" || value === false)
     ) {
       if (name !== "ON_OFF_US") {
@@ -534,20 +533,23 @@ const AddNewCustomerDetails = () => {
         ...CreditCardTransactionDetailsObjects,
         [name]: "",
       });
-    } else if (name === "POSMode" && value !== "") {
-      var valueCheck = value.replace(/[^\d-]/g, "");
-      if (valueCheck != "") {
-        setCreditCardTransactionDetailsObjects({
-          ...CreditCardTransactionDetailsObjects,
-          [name]: valueCheck,
-        });
-      }
-    } else if (name === "POSMode" && value === "") {
-      setCreditCardTransactionDetailsObjects({
-        ...CreditCardTransactionDetailsObjects,
-        [name]: "",
-      });
-    } else if (
+    }
+
+    // else if (name === "POSMode" && value !== "") {
+    //   var valueCheck = value.replace(/[^\d-]/g, "");
+    //   if (valueCheck != "") {
+    //     setCreditCardTransactionDetailsObjects({
+    //       ...CreditCardTransactionDetailsObjects,
+    //       [name]: valueCheck,
+    //     });
+    //   }
+    // } else if (name === "POSMode" && value === "") {
+    //   setCreditCardTransactionDetailsObjects({
+    //     ...CreditCardTransactionDetailsObjects,
+    //     [name]: "",
+    //   });
+    // }
+    else if (
       (name === "TransactionBilledAmount" || name === "TransactionAmountPKR") &&
       value !== "" &&
       value !== -99999999999999999999
@@ -1782,8 +1784,8 @@ const AddNewCustomerDetails = () => {
   return (
     <>
       <form onSubmit={(e) => goToSaveHandler(e)}>
-        <Paper padding="1">
-          <Row gutter={16}>
+        <Paper>
+          <Row>
             <Col lg={18} md={18}>
               <h1 className="u-font-size-18px u-margin-top-15px u-margin-left-20px u-color-21706d">
                 Customer Details
@@ -1806,101 +1808,103 @@ const AddNewCustomerDetails = () => {
               </div>
             </Col>
           </Row>
-          <Row gutter={16} className="u-margin-top-22px">
-            <Col lg={6} md={6} sm={24} xs={24}>
-              {CardDetails.CardNumber !== "" && (
-                <p className="PlaceholderCard">
-                  Card Number<span className="important">*</span>
-                </p>
-              )}
-              <InputMask
-                type="text"
-                className="CreditCardInputField"
-                name="CardNumber"
-                autoComplete="off"
-                placeholder="Card Number"
-                autoFocus
-                value={
-                  CardDetails.CardNumber === 0 ? null : CardDetails.CardNumber
-                }
-                mask="9999 XXXX XXXX 9999"
-                maskPlaceholder="____ XXXX XXXX ____"
-                onChange={CardDetailsHandler}
-                textLength={16}
-                min={16}
-                required
-              />
-            </Col>
-            <Col lg={6} md={6} sm={24} xs={24}>
-              <TextField
-                name=""
-                size="small"
-                disable
-                label=""
-                placeholder={"Reference #"}
-                fullWidth
-              />
-            </Col>
-            <Col lg={6} md={6} sm={24} xs={24}>
-              <TextField
-                size="small"
-                label={lbl(FDCustomer.CustomerName, "Customer Name")}
-                placeholder={"Customer Name"}
-                value={FDCustomer.CustomerName}
-                autoComplete="off"
-                fullWidth
-                textLength={100}
-                name="CustomerName"
-                change={FDCustomerHandler}
-                required
-                type="text"
-              />
-            </Col>
-            <Col lg={6} md={6} sm={24} xs={24}>
-              <SelectBox
-                label={lbl(cityValue, "Select City")}
-                placeholder={"Select City"}
-                option={city}
-                value={cityValue}
-                change={CityNameHandler}
-                name="FK_CTID"
-                required
-              />
-            </Col>
-          </Row>
-          <Row gutter={16} className="u-margin-top-22px">
-            <Col lg={6} md={6} sm={24} xs={24}>
-              <FormattedInputs
-                size="small"
-                Label={lbl(CCDispute.CreditCardLimit, "Credit Limit")}
-                placeholder={"Credit Limit"}
-                autoComplete="off"
-                value={
-                  CCDispute.CreditCardLimit === null ||
-                  CCDispute.CreditCardLimit === -99999999999999999999
-                    ? null
-                    : CCDispute.CreditCardLimit
-                }
-                fullWidth
-                change={CCDisputeHandler}
-                name="CreditCardLimit"
-                required
-                max={15}
-                min={15}
-              />
-            </Col>
-            <Col lg={6} md={6} sm={24} xs={24}>
-              <SelectBox
-                option={fraudType}
-                label={lbl(fraudTypeName, "Select Fraud Type")}
-                placeholder={"Select Fraud Type"}
-                name="FK_FTID"
-                value={fraudTypeName}
-                change={fraudNameHandler}
-                required
-              />
-            </Col>
-          </Row>
+          <div className="u-padding-y-20px u-padding-x-10px">
+            <Row gutter={16}>
+              <Col lg={6} md={6} sm={24} xs={24}>
+                {CardDetails.CardNumber !== "" && (
+                  <p className="PlaceholderCard">
+                    Card Number<span className="important"> *</span>
+                  </p>
+                )}
+                <InputMask
+                  type="text"
+                  className="CreditCardInputField"
+                  name="CardNumber"
+                  autoComplete="off"
+                  placeholder="Card Number"
+                  autoFocus
+                  value={
+                    CardDetails.CardNumber === 0 ? null : CardDetails.CardNumber
+                  }
+                  mask="9999 XXXX XXXX 9999"
+                  maskPlaceholder="____ XXXX XXXX ____"
+                  onChange={CardDetailsHandler}
+                  textLength={16}
+                  min={16}
+                  required
+                />
+              </Col>
+              <Col lg={6} md={6} sm={24} xs={24}>
+                <TextField
+                  name=""
+                  size="small"
+                  disable
+                  label=""
+                  placeholder={"Reference #"}
+                  fullWidth
+                />
+              </Col>
+              <Col lg={6} md={6} sm={24} xs={24}>
+                <TextField
+                  size="small"
+                  label={lbl(FDCustomer.CustomerName, "Customer Name")}
+                  placeholder={"Customer Name"}
+                  value={FDCustomer.CustomerName}
+                  autoComplete="off"
+                  fullWidth
+                  textLength={100}
+                  name="CustomerName"
+                  change={FDCustomerHandler}
+                  required
+                  type="text"
+                />
+              </Col>
+              <Col lg={6} md={6} sm={24} xs={24}>
+                <SelectBox
+                  label={lbl(cityValue, "Select City")}
+                  placeholder={"Select City *"}
+                  option={city}
+                  value={cityValue}
+                  change={CityNameHandler}
+                  name="FK_CTID"
+                  required
+                />
+              </Col>
+            </Row>
+            <Row gutter={16} className="u-margin-top-22px">
+              <Col lg={6} md={6} sm={24} xs={24}>
+                <FormattedInputs
+                  size="small"
+                  Label={lbl(CCDispute.CreditCardLimit, "Credit Limit")}
+                  placeholder={"Credit Limit *"}
+                  autoComplete="off"
+                  value={
+                    CCDispute.CreditCardLimit === null ||
+                    CCDispute.CreditCardLimit === -99999999999999999999
+                      ? null
+                      : CCDispute.CreditCardLimit
+                  }
+                  fullWidth
+                  change={CCDisputeHandler}
+                  name="CreditCardLimit"
+                  required
+                  max={15}
+                  min={15}
+                />
+              </Col>
+              <Col lg={6} md={6} sm={24} xs={24}>
+                <SelectBox
+                  option={fraudType}
+                  label={lbl(fraudTypeName, "Select Fraud Type")}
+                  placeholder={"Select Fraud Type *"}
+                  name="FK_FTID"
+                  value={fraudTypeName}
+                  change={fraudNameHandler}
+                  required
+                />
+              </Col>
+            </Row>
+          </div>
         </Paper>
         <div className="u-margin-top-20px" />
         <Paper padding="1">
@@ -2104,7 +2108,7 @@ const AddNewCustomerDetails = () => {
             </Col>
             <Col lg={6} md={6} sm={24} xs={24} className="u-text-align-center">
               <label>
-                <b>On Us / Off Us *</b>
+                <b>On Us / Off Us</b>
               </label>
               <br />
               <Radio.Group
@@ -2488,7 +2492,7 @@ const AddNewCustomerDetails = () => {
               <FormattedInputs
                 fullWidth
                 Label={lbl(CCDispute.Recovery, "Recovery")}
-                placeholder={"Recovery"}
+                placeholder={"Recovery *"}
                 size="small"
                 autoComplete="off"
                 name="Recovery"
