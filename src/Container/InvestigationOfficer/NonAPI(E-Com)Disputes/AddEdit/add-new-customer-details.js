@@ -1392,11 +1392,10 @@ const AddNewCustomerDetailsNONAPI = () => {
       name !== "MerchantName" &&
       name !== "MerchantID" &&
       name !== "MerchantCity" &&
-      name !== "CategoryCodeMCC" &&
-      name !== "AcquirerID" &&
+      // name !== "CategoryCodeMCC" &&
+      // name !== "AcquirerID" &&
       name !== "AcquirerTerminalID" &&
       name !== "POSMode" &&
-      name !== "ApprovalCode" &&
       name !== "ON_OFF_US" &&
       (value !== "" || value === false)
     ) {
@@ -1499,33 +1498,36 @@ const AddNewCustomerDetailsNONAPI = () => {
         ...trsDetails,
         [name]: "",
       });
-    } else if (name === "CategoryCodeMCC" && value !== "") {
-      var valueCheck = value.replace(/[^\d-]/g, "");
-      if (valueCheck != "") {
-        setTrsDetails({
-          ...trsDetails,
-          [name]: valueCheck,
-        });
-      }
-    } else if (name === "CategoryCodeMCC" && value === "") {
-      setTrsDetails({
-        ...trsDetails,
-        [name]: "",
-      });
-    } else if (name === "AcquirerID" && value !== "") {
-      var valueCheck = value.replace(/[^\d-]/g, "");
-      if (valueCheck != "") {
-        setTrsDetails({
-          ...trsDetails,
-          [name]: valueCheck,
-        });
-      }
-    } else if (name === "AcquirerID" && value === "") {
-      setTrsDetails({
-        ...trsDetails,
-        [name]: "",
-      });
-    } else if (name === "AcquirerTerminalID" && value !== "") {
+    }
+    // else if (name === "CategoryCodeMCC" && value !== "") {
+    //   var valueCheck = value.replace(/[^\d-]/g, "");
+    //   if (valueCheck != "") {
+    //     setTrsDetails({
+    //       ...trsDetails,
+    //       [name]: valueCheck,
+    //     });
+    //   }
+    // } else if (name === "CategoryCodeMCC" && value === "") {
+    //   setTrsDetails({
+    //     ...trsDetails,
+    //     [name]: "",
+    //   });
+    // }
+    // else if (name === "AcquirerID" && value !== "") {
+    //   var valueCheck = value.replace(/[^\d-]/g, "");
+    //   if (valueCheck != "") {
+    //     setTrsDetails({
+    //       ...trsDetails,
+    //       [name]: valueCheck,
+    //     });
+    //   }
+    // } else if (name === "AcquirerID" && value === "") {
+    //   setTrsDetails({
+    //     ...trsDetails,
+    //     [name]: "",
+    //   });
+    // }
+    else if (name === "AcquirerTerminalID" && value !== "") {
       var valueCheck = value.replace(/[^\d-]/g, "");
       if (valueCheck != "") {
         setTrsDetails({
@@ -3248,7 +3250,8 @@ const AddNewCustomerDetailsNONAPI = () => {
                 System Fetched Transactions
               </div>
               <Table
-                rowSelection={rowSelection}
+                className={"iris-custom-table"}
+                rowSelection={{ ...rowSelection, columnWidth: 50 }}
                 rows={listOfTransactionDetailsAlreadyExsist}
                 columns={columns}
                 scroll={{ x: "max-content" }}
@@ -3488,7 +3491,7 @@ const AddNewCustomerDetailsNONAPI = () => {
                 value={trsDetails.ApprovalCode}
                 change={TransactionDeatilHandlerChange}
                 fullWidth
-                textLength={6}
+                textLength={7}
               />
             </Col>
           </Row>
@@ -3564,7 +3567,7 @@ const AddNewCustomerDetailsNONAPI = () => {
             </Col>
             <Col lg={6} md={6} sm={24} xs={24} className="u-text-align-center">
               <label>
-                <b>On Us / Off Us *</b>
+                <b>On Us / Off Us</b>
               </label>
               <br />
               <Radio.Group
@@ -3581,12 +3584,15 @@ const AddNewCustomerDetailsNONAPI = () => {
                 name="CategoryCodeMCC"
                 size="small"
                 autoComplete="off"
-                label={lbl(trsDetails.CategoryCodeMCC, "Cateogy Code *")}
-                placeholder={"Cateogy Code *"}
+                label={lbl(
+                  trsDetails.CategoryCodeMCC,
+                  "Merchant Category Code *"
+                )}
+                placeholder={"Merchant Category Code *"}
                 value={trsDetails.CategoryCodeMCC}
                 change={TransactionDeatilHandlerChange}
                 fullWidth
-                textLength={6}
+                textLength={7}
               />
             </Col>
             <Col lg={6} md={6} sm={24} xs={24}>
@@ -3625,7 +3631,7 @@ const AddNewCustomerDetailsNONAPI = () => {
                 value={trsDetails.AcquirerID}
                 change={TransactionDeatilHandlerChange}
                 fullWidth
-                textLength={6}
+                textLength={12}
               />
             </Col>
             <Col lg={6} md={6} sm={24} xs={24}>

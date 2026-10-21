@@ -1495,12 +1495,11 @@ const AddNewCustomerDetailsDC = () => {
       name !== "TransactionAmountOtherCurrency" &&
       name !== "DisputeAmount" &&
       name !== "MerchantName" &&
-      name !== "MerchantID" &&
+      // name !== "MerchantID" &&
       name !== "MerchantCity" &&
-      name !== "CategoryCodeMCC" &&
+      // name !== "CategoryCodeMCC" &&
       name !== "AcquirerID" &&
       name !== "AcquirerTerminalID" &&
-      name !== "POSMode" &&
       name !== "ON_OFF_US" &&
       (value !== "" || value === false)
     ) {
@@ -1525,20 +1524,22 @@ const AddNewCustomerDetailsDC = () => {
           [name]: valueCheck.trimStart(),
         });
       }
-    } else if (name === "POSMode" && value !== "") {
-      var valueCheck = value.replace(/[^\d-]/g, "");
-      if (valueCheck != "") {
-        setTrsDetails({
-          ...trsDetails,
-          [name]: valueCheck,
-        });
-      }
-    } else if (name === "POSMode" && value === "") {
-      setTrsDetails({
-        ...trsDetails,
-        [name]: "",
-      });
-    } else if (name === "OtherBankAccountNumber" && value !== "") {
+    }
+    // else if (name === "POSMode" && value !== "") {
+    //   var valueCheck = value.replace(/[^\d-]/g, "");
+    //   if (valueCheck != "") {
+    //     setTrsDetails({
+    //       ...trsDetails,
+    //       [name]: valueCheck,
+    //     });
+    //   }
+    // } else if (name === "POSMode" && value === "") {
+    //   setTrsDetails({
+    //     ...trsDetails,
+    //     [name]: "",
+    //   });
+    // }
+    else if (name === "OtherBankAccountNumber" && value !== "") {
       var valueCheck = value.replace(/[^\d-]/g, "");
       if (valueCheck != "") {
         setTrsDetails({
@@ -1564,33 +1565,36 @@ const AddNewCustomerDetailsDC = () => {
         ...trsDetails,
         [name]: "",
       });
-    } else if (name === "MerchantID" && value !== "") {
-      var valueCheck = value.replace(/[^\d-]/g, "");
-      if (valueCheck != "") {
-        setTrsDetails({
-          ...trsDetails,
-          [name]: valueCheck,
-        });
-      }
-    } else if (name === "MerchantID" && value === "") {
-      setTrsDetails({
-        ...trsDetails,
-        [name]: "",
-      });
-    } else if (name === "CategoryCodeMCC" && value !== "") {
-      var valueCheck = value.replace(/[^\d-]/g, "");
-      if (valueCheck != "") {
-        setTrsDetails({
-          ...trsDetails,
-          [name]: valueCheck,
-        });
-      }
-    } else if (name === "CategoryCodeMCC" && value === "") {
-      setTrsDetails({
-        ...trsDetails,
-        [name]: "",
-      });
-    } else if (name === "AcquirerID" && value !== "") {
+    }
+    // else if (name === "MerchantID" && value !== "") {
+    //   var valueCheck = value.replace(/[^\d-]/g, "");
+    //   if (valueCheck != "") {
+    //     setTrsDetails({
+    //       ...trsDetails,
+    //       [name]: valueCheck,
+    //     });
+    //   }
+    // } else if (name === "MerchantID" && value === "") {
+    //   setTrsDetails({
+    //     ...trsDetails,
+    //     [name]: "",
+    //   });
+    // }
+    // else if (name === "CategoryCodeMCC" && value !== "") {
+    //   var valueCheck = value.replace(/[^\d-]/g, "");
+    //   if (valueCheck != "") {
+    //     setTrsDetails({
+    //       ...trsDetails,
+    //       [name]: valueCheck,
+    //     });
+    //   }
+    // } else if (name === "CategoryCodeMCC" && value === "") {
+    //   setTrsDetails({
+    //     ...trsDetails,
+    //     [name]: "",
+    //   });
+    // }
+    else if (name === "AcquirerID" && value !== "") {
       var valueCheck = value.replace(/[^\d-]/g, "");
       if (valueCheck != "") {
         setTrsDetails({
@@ -3470,7 +3474,11 @@ const AddNewCustomerDetailsDC = () => {
                 System Fetched Transactions
               </div>
               <Table
-                rowSelection={rowSelection}
+                rowSelection={{
+                  ...rowSelection,
+                  columnWidth: 50,
+                }}
+                className="iris-custom-table"
                 rows={listOfTransactionDetailsAlreadyExsist}
                 columns={columns}
                 scroll={{ x: "max-content" }}
@@ -3677,6 +3685,7 @@ const AddNewCustomerDetailsDC = () => {
                   trsDetails.DisputeAmount,
                   "Exposure / Dispute Amount *"
                 )}
+                placeholder={"Exposure / Dispute Amount *"}
                 fullWidth
                 change={TransactionDeatilHandlerChange}
               />
@@ -3716,7 +3725,7 @@ const AddNewCustomerDetailsDC = () => {
                 value={trsDetails.ApprovalCode}
                 change={TransactionDeatilHandlerChange}
                 fullWidth
-                textLength={6}
+                textLength={7}
               />
             </Col>
             <Col lg={6} md={6} sm={24} xs={24}>
@@ -3742,7 +3751,7 @@ const AddNewCustomerDetailsDC = () => {
                 value={trsDetails.POSMode}
                 change={TransactionDeatilHandlerChange}
                 fullWidth
-                textLength={6}
+                textLength={30}
               />
             </Col>
             <Col lg={6} md={6} sm={24} xs={24}>
@@ -3770,7 +3779,7 @@ const AddNewCustomerDetailsDC = () => {
                 value={trsDetails.MerchantID}
                 change={TransactionDeatilHandlerChange}
                 fullWidth
-                textLength={6}
+                textLength={20}
               />
             </Col>
             <Col lg={6} md={6} sm={24} xs={24}>
@@ -3813,7 +3822,7 @@ const AddNewCustomerDetailsDC = () => {
                 value={trsDetails.CategoryCodeMCC}
                 change={TransactionDeatilHandlerChange}
                 fullWidth
-                textLength={6}
+                textLength={7}
               />
             </Col>
             <Col lg={6} md={6} sm={24} xs={24}>
@@ -4206,7 +4215,7 @@ const AddNewCustomerDetailsDC = () => {
           </Row>
 
           <Row gutter={8} className="u-margin-top-22px">
-            <Col lg={6} md={6} sm={24} xs={24}>
+            <Col lg={8} md={8} sm={24} xs={24}>
               <FormattedInputs
                 name="CustomerLiability"
                 value={
@@ -4225,7 +4234,7 @@ const AddNewCustomerDetailsDC = () => {
                 change={DCDisputeHandler}
               />
             </Col>
-            <Col lg={6} md={6} sm={24} xs={24}>
+            <Col lg={8} md={8} sm={24} xs={24}>
               <TextField
                 fullWidth
                 label={lbl(DCDisputes.Remarks, "Remarks")}
@@ -4238,7 +4247,7 @@ const AddNewCustomerDetailsDC = () => {
                 textLength={50}
               />
             </Col>
-            <Col lg={6} md={6} sm={24} xs={24}>
+            <Col lg={8} md={8} sm={24} xs={24}>
               <TextField
                 fullWidth
                 label={lbl(DCDisputes.EventIDSAS, "Event ID (SAS REF #)")}
@@ -4251,10 +4260,13 @@ const AddNewCustomerDetailsDC = () => {
                 textLength={50}
               />
             </Col>
+          </Row>
+          <Row gutter={8} className="u-margin-top-22px">
             <Col lg={6} md={6} sm={24} xs={24}>
               <TextField
                 fullWidth
                 label={lbl(DCDisputes.Aging, "Aging")}
+                placeholder={"Aging"}
                 size="small"
                 name="Aging"
                 value={
@@ -4266,8 +4278,6 @@ const AddNewCustomerDetailsDC = () => {
                 disable
               />
             </Col>
-          </Row>
-          <Row gutter={8} className="u-margin-top-22px">
             <Col lg={6} md={6} sm={24} xs={24}>
               <TextField
                 fullWidth

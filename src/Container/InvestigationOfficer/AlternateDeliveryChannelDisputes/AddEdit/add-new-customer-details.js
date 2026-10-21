@@ -650,6 +650,14 @@ const AddNewCustomerDetailsADC = () => {
       render: (text) => DateDisplayFormat(text),
     },
     {
+      title: "Transaction Time",
+      dataIndex: "transactionTime",
+      key: "transactionTime",
+      align: "center",
+      width: "220px",
+      render: (text) => TimeDisplayFormat(text),
+    },
+    {
       title: "Transaction Amount",
       dataIndex: "transactionAmount",
       key: "transactionAmount",
@@ -663,14 +671,7 @@ const AddNewCustomerDetailsADC = () => {
         }
       },
     },
-    {
-      title: "Transaction Time",
-      dataIndex: "transactionTime",
-      key: "transactionTime",
-      align: "center",
-      width: "220px",
-      render: (text) => TimeDisplayFormat(text),
-    },
+
     {
       title: "Exposure / Dispute Amount",
       dataIndex: "disputeAmount",
@@ -892,6 +893,14 @@ const AddNewCustomerDetailsADC = () => {
       render: (text) => DateDisplayFormat(text),
     },
     {
+      title: "Transaction Time",
+      dataIndex: "TransactionTime",
+      key: "TransactionTime",
+      align: "center",
+      width: "220px",
+      render: (text) => TimeDisplayFormat(text),
+    },
+    {
       title: "Transaction Amount",
       dataIndex: "TransactionAmount",
       key: "TransactionAmount",
@@ -905,14 +914,7 @@ const AddNewCustomerDetailsADC = () => {
         }
       },
     },
-    {
-      title: "Transaction Time",
-      dataIndex: "TransactionTime",
-      key: "TransactionTime",
-      align: "center",
-      width: "220px",
-      render: (text) => TimeDisplayFormat(text),
-    },
+
     {
       title: "Exposure / Dispute Amount",
       dataIndex: "DisputeAmount",
@@ -1461,8 +1463,9 @@ const AddNewCustomerDetailsADC = () => {
       name !== "BranchCode" &&
       name !== "DisputeAmount" &&
       name !== "TransactionAmount" &&
+      name !== "MerchantCity" &&
       // name !=="ApprovalCode" &&
-      name !== "MerchantID" &&
+      // name !== "MerchantID" &&
       name !== "MerchantCategoryCodeMCC" &&
       name !== "MobileNumber" &&
       name !== "IMEINumber" &&
@@ -1479,7 +1482,11 @@ const AddNewCustomerDetailsADC = () => {
         ...trsDetails,
         [name]: value,
       });
-    } else if (name === "BeneficiaryBankName" && value !== "") {
+    } else if (
+      name === "MerchantName" ||
+      name === "MerchantCity" ||
+      (name === "BeneficiaryBankName" && value !== "")
+    ) {
       var valueCheck = value.replace(/[^a-zA-Z ]/g, "");
       if (valueCheck != "") {
         setTrsDetails({
@@ -1518,20 +1525,22 @@ const AddNewCustomerDetailsADC = () => {
         ...trsDetails,
         [name]: "",
       });
-    } else if (name === "MerchantID" && value !== "") {
-      var valueCheck = value.replace(/[^\d-]/g, "");
-      if (valueCheck != "") {
-        setTrsDetails({
-          ...trsDetails,
-          [name]: valueCheck,
-        });
-      }
-    } else if (name === "MerchantID" && value === "") {
-      setTrsDetails({
-        ...trsDetails,
-        [name]: "",
-      });
-    } else if (name === "MerchantCategoryCodeMCC" && value !== "") {
+    }
+    // else if (name === "MerchantID" && value !== "") {
+    //   var valueCheck = value.replace(/[^\d-]/g, "");
+    //   if (valueCheck != "") {
+    //     setTrsDetails({
+    //       ...trsDetails,
+    //       [name]: valueCheck,
+    //     });
+    //   }
+    // } else if (name === "MerchantID" && value === "") {
+    //   setTrsDetails({
+    //     ...trsDetails,
+    //     [name]: "",
+    //   });
+    // }
+    else if (name === "MerchantCategoryCodeMCC" && value !== "") {
       var valueCheck = value.replace(/[^\d-]/g, "");
       if (valueCheck != "") {
         setTrsDetails({
@@ -3125,7 +3134,8 @@ const AddNewCustomerDetailsADC = () => {
                   System Fetched Transactions
                 </div>
                 <Table
-                  rowSelection={rowSelection}
+                  className={"iris-custom-table"}
+                  rowSelection={{ ...rowSelection, columnWidth: 50 }}
                   rows={listOfTransactionDetailsAlreadyExsist}
                   columns={columns}
                   scroll={{ x: "max-content" }}
@@ -3321,7 +3331,7 @@ const AddNewCustomerDetailsADC = () => {
                 value={trsDetails.ApprovalCode}
                 change={TransactionDeatilHandlerChange}
                 fullWidth
-                textLength={20}
+                textLength={7}
               />
             </Col>
             <Col lg={6} md={6} sm={24} xs={24}>
@@ -3334,7 +3344,7 @@ const AddNewCustomerDetailsADC = () => {
                 value={trsDetails.POSMode}
                 change={TransactionDeatilHandlerChange}
                 fullWidth
-                textLength={50}
+                textLength={30}
               />
             </Col>
           </Row>
@@ -3349,7 +3359,7 @@ const AddNewCustomerDetailsADC = () => {
                 value={trsDetails.MerchantID}
                 fullWidth
                 change={TransactionDeatilHandlerChange}
-                textLength={14}
+                textLength={20}
               />
             </Col>
             <Col lg={6} md={6} sm={24} xs={24}>
@@ -3362,7 +3372,7 @@ const AddNewCustomerDetailsADC = () => {
                 value={trsDetails.MerchantCity}
                 fullWidth
                 change={TransactionDeatilHandlerChange}
-                textLength={50}
+                textLength={30}
               />
             </Col>
             <Col lg={6} md={6} sm={24} xs={24} className="u-text-align-center">
@@ -3541,7 +3551,7 @@ const AddNewCustomerDetailsADC = () => {
             </h1>
           </Col>
           <Row gutter={8} className="u-margin-top-22px">
-            <Col lg={4} md={4} sm={24}>
+            <Col lg={5} md={5} sm={24}>
               <DatePicker
                 label={lbl(ADCDisputes.CaseReceivedDate, "Case Received Date")}
                 placeholder={"Case Received Date"}
@@ -3559,7 +3569,7 @@ const AddNewCustomerDetailsADC = () => {
                 // defaultValue="{moment()}"
               />
             </Col>
-            <Col lg={6} md={6} sm={24}>
+            <Col lg={5} md={5} sm={24}>
               <TextField
                 fullWidth
                 autoComplete="off"
@@ -3595,7 +3605,7 @@ const AddNewCustomerDetailsADC = () => {
                 </Radio>
               </Radio.Group>
             </Col>
-            <Col lg={4} md={4} sm={24}>
+            <Col lg={5} md={5} sm={24}>
               <DatePicker
                 size="large"
                 width="100%"
@@ -3612,10 +3622,7 @@ const AddNewCustomerDetailsADC = () => {
                 disable
               />
             </Col>
-          </Row>
-
-          <Row gutter={8} className="u-margin-top-22px">
-            <Col lg={6} md={6} sm={24}>
+            <Col lg={5} md={5} sm={24}>
               <Paper ml="1.5">
                 <TextField
                   fullWidth
@@ -3638,6 +3645,8 @@ const AddNewCustomerDetailsADC = () => {
               </Paper>
             </Col>
           </Row>
+
+          <Row gutter={8} className="u-margin-top-22px"></Row>
         </Paper>
         <div className="u-margin-top-20px" />
         <Paper padding="1">
