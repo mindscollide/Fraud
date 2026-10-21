@@ -16,6 +16,7 @@ import { useNavigate } from "react-router-dom";
 import { disableGoBack } from "../../../store/actions/ui-actions";
 import { makeTabActive } from "../../../store/actions/ui-actions";
 const Header = ({ Notification, title, UserDetails }) => {
+  console.log(Notification, "NotificationNotification");
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const state = useSelector((state) => state);

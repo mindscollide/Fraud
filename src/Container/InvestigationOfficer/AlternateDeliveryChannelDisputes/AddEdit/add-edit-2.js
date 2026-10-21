@@ -164,8 +164,8 @@ const AddEditACDispute = () => {
   const previousYearDate = moment().subtract(6, "months").format("YYYYMMDD");
 
   const [State, setState] = useState({
-    FromDate: previousYearDate,
-    ToDate: date2,
+    FromDate: "",
+    ToDate: "",
   });
 
   const setDate = (e, val) => {
@@ -400,7 +400,6 @@ const AddEditACDispute = () => {
             {isCnicNo ? (
               <>
                 <InputWithBtn
-                  isUpperCase={true}
                   onchange={cnicSectionHandler}
                   label={inputData !== "" && "Enter CNIC Number"}
                   placeholder={"Enter CNIC Number *"}
@@ -464,7 +463,6 @@ const AddEditACDispute = () => {
             ) : (
               <>
                 <InputWithBtn
-                  isUpperCase={true}
                   onchange={accountSectionHandler}
                   label={inputData !== "" && "Enter Account Number"}
                   placeholder={"Enter Account Number *"}
@@ -482,7 +480,7 @@ const AddEditACDispute = () => {
                   click={accountSearch2Handler}
                 />
                 <div className="u-margin-top-20px" />
-                {/* <StartToEndDate
+                <StartToEndDate
                   size="large"
                   change={setDate}
                   key={clearDateSelect}
@@ -499,7 +497,7 @@ const AddEditACDispute = () => {
                   }
                   className="DatePickerDC"
                   required
-                /> */}
+                />
               </>
             )}
           </Col>

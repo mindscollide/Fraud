@@ -345,7 +345,6 @@ const AddEditDebitCardDispute = () => {
             {isCnicNo ? (
               <>
                 <InputWithBtn
-                  isUpperCase={true}
                   onchange={cnicSectionHandler}
                   label={inputData !== "" && "Enter CNIC Number"}
                   placeholder={"Enter CNIC Number *"}
@@ -422,7 +421,6 @@ const AddEditDebitCardDispute = () => {
             ) : (
               <>
                 <InputWithBtn
-                  isUpperCase={true}
                   onchange={accountSectionHandler}
                   label={inputDataAC !== "" && "Enter Account Number"}
                   placeholder={"Enter Account Number"}

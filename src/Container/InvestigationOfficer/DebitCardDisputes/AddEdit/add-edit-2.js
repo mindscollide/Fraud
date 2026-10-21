@@ -427,7 +427,6 @@ const AddEditDCDispute = () => {
             {isCnicNo ? (
               <>
                 <InputWithBtn
-                  isUpperCase={true}
                   onchange={cnicSectionHandler}
                   label={inputData !== "" && "Enter CNIC"}
                   placeholder={"Enter CNIC Number *"}
@@ -493,7 +492,6 @@ const AddEditDCDispute = () => {
             ) : (
               <>
                 <InputWithBtn
-                  isUpperCase={true}
                   onchange={accountSectionHandler}
                   label="Enter Account Number"
                   fullWidth

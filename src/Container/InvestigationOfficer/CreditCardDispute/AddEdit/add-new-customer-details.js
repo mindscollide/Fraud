@@ -2050,7 +2050,7 @@ const AddNewCustomerDetails = () => {
                 fullWidth
                 change={CCTDOHandler}
                 type="text"
-                textLength={6}
+                textLength={7}
               />
             </Col>
             <Col lg={6} md={6} sm={24} xs={24}>

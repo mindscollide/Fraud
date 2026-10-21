@@ -134,7 +134,7 @@ const AddEditADCDispute = () => {
   //DataRangeHandler
   const [clearDateSelect, setDateClearSelect] = useState("");
   const date2 = moment().format("YYYYMMDD");
-  const previousYearDate = moment().subtract(6, "months").format("YYYYMMDD");
+  const previousYearDate = moment().subtract(12, "months").format("YYYYMMDD");
 
   const [State, setState] = useState({
     FromDate: previousYearDate,
@@ -431,7 +431,6 @@ const AddEditADCDispute = () => {
             {isCnicNo ? (
               <>
                 <InputWithBtn
-                  isUpperCase={true}
                   onchange={cnicSectionHandler}
                   label={inputData !== "" && "Enter CNIC Number"}
                   placeholder={"Enter CNIC Number *"}
@@ -452,7 +451,9 @@ const AddEditADCDispute = () => {
                   <>
                     <div className="u-margin-top-15px">
                       <SelectBoxWithButton
-                        icon={<i className="icon-search icon-size-one"></i>}
+                        icon={
+                          <i className="icon-arrow-right icon-size-one"></i>
+                        }
                         name="AccountNumber"
                         applyClass="account-number"
                         label={
@@ -467,11 +468,16 @@ const AddEditADCDispute = () => {
                         click={accountSearchHandler}
                         change={accountNumberHandler}
                         value={accountNumber}
-                        // disable={btnStatusSelect}
+                        disableButton={
+                          accountNumber == null ||
+                          accountNumber === "" ||
+                          (Array.isArray(accountNumber) &&
+                            accountNumber.length === 0)
+                        }
                       />
                     </div>
                     <div className="dateRangePicker u-margin-top-15px u-display-flex u-justify-content-space-between">
-                      {/* {accountFound ? (
+                      {accountFound ? (
                         <StartToEndDate
                           DateRange={true}
                           size="large"
@@ -490,7 +496,7 @@ const AddEditADCDispute = () => {
                           className="DatePickerDC"
                           required
                         />
-                      ) : null} */}
+                      ) : null}
                       {accountFound ? (
                         <Col lg={4} md={4} sm={24}>
                           <Button
@@ -498,6 +504,12 @@ const AddEditADCDispute = () => {
                             text="Search"
                             className="downloadButton"
                             click={searchHandlerForAccount}
+                            disableBtn={
+                              State.ToDate === null ||
+                              State.ToDate === "" ||
+                              State.FromDate === null ||
+                              State.FromDate === ""
+                            }
                           />
                         </Col>
                       ) : null}
@@ -508,7 +520,6 @@ const AddEditADCDispute = () => {
             ) : (
               <>
                 <InputWithBtn
-                  isUpperCase={true}
                   onchange={accountSectionHandler}
                   label={inputDataAC !== "" && "Enter Account Number"}
                   placeholder={"Enter Account Number *"}
@@ -526,7 +537,7 @@ const AddEditADCDispute = () => {
                   name="AccountNumber"
                   click={accountSearch2Handler}
                 />
-                {/* <div className="dateRangePicker">
+                <div className="dateRangePicker">
                   <StartToEndDate
                     DateRange={true}
                     size="large"
@@ -545,7 +556,7 @@ const AddEditADCDispute = () => {
                     className="DatePickerDC"
                     required
                   />
-                </div> */}
+                </div>
                 {cnicList.length > 0 ? (
                   <div className="u-margin-top-15px">
                     <SelectBoxWithButton

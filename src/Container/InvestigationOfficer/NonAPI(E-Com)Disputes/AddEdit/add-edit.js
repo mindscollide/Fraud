@@ -160,8 +160,8 @@ const AddEditNONAPIDispute = () => {
   const previousYearDate = moment().subtract(6, "months").format("YYYYMMDD");
 
   const [State, setState] = useState({
-    FromDate: previousYearDate,
-    ToDate: date2,
+    FromDate: "",
+    ToDate: "",
   });
 
   const setDate = (e, val) => {
@@ -375,7 +375,7 @@ const AddEditNONAPIDispute = () => {
   // }, [State]);
 
   useEffect(() => {
-    if (State.FromDate && State.ToDate !== "" && accountNumber !== "") {
+    if (accountNumber !== "") {
       setBtnStatusSelect(false);
     } else {
       setBtnStatusSelect(true);
@@ -437,10 +437,9 @@ const AddEditNONAPIDispute = () => {
             {isCnicNo ? (
               <>
                 <InputWithBtn
-                  isUpperCase={true}
                   onchange={cnicSectionHandler}
-                  label={inputData !== "" && "Enter CNIC"}
-                  placeholder={"Enter CNIC"}
+                  label={inputData !== "" && "Enter CNIC Number"}
+                  placeholder={"Enter CNIC Number *"}
                   fullWidth
                   textFieldSize="small"
                   autoComplete="off"
@@ -471,7 +470,7 @@ const AddEditNONAPIDispute = () => {
                         click={accountSearchHandler}
                         change={accountNumberHandler}
                         value={accountNumber}
-                        disable={btnStatusSelect}
+                        // disable={btnStatusSelect}
                       />
                     </div>
 
@@ -513,10 +512,9 @@ const AddEditNONAPIDispute = () => {
             ) : (
               <>
                 <InputWithBtn
-                  isUpperCase={true}
                   onchange={accountSectionHandler}
                   label={inputDataAC !== "" && "Enter Account Number"}
-                  placeholder={"Enter Account Number"}
+                  placeholder={"Enter Account Number *"}
                   fullWidth
                   textFieldSize="small"
                   applyClass="search-cnic"

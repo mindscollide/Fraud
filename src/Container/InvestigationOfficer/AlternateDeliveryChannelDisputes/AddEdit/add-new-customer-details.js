@@ -3024,13 +3024,12 @@ const AddNewCustomerDetailsADC = () => {
 
   // show the label only when the field has a value, otherwise "" (placeholder only)
   const lbl = (value, text) => (hasValue(value) ? text : "");
-
   return (
     <>
       <form onSubmit={(e) => goToSaveHandler(e)}>
-        <Paper padding="1">
-          <Row gutter={16} className="u-margin-bottom-15px">
-            <Col lg={18} md={18} sm={18} xs={24}>
+        <Paper>
+          <Row>
+            <Col lg={18} md={18}>
               <h1 className="u-font-size-18px u-margin-top-15px u-margin-left-20px u-color-21706d">
                 Customer Details
               </h1>
@@ -3071,72 +3070,74 @@ const AddNewCustomerDetailsADC = () => {
               </Col>
             )}
           </Row>
-          <Row gutter={16} className="u-margin-top-22px">
-            <Col lg={6} md={6} sm={24} xs={24}>
-              <TextField
-                name=""
-                size="small"
-                placeholder="Reference#"
-                disable
-                label={"Reference #"}
-                fullWidth
-              />
-            </Col>
-            {roleForheader !== 1 ? (
+          <div className="u-padding-y-20px u-padding-x-10px">
+            <Row gutter={16}>
+              <Col lg={6} md={6} sm={24} xs={24}>
+                <TextField
+                  name=""
+                  size="small"
+                  placeholder="Reference#"
+                  disable
+                  label={"Reference #"}
+                  fullWidth
+                />
+              </Col>
+              {roleForheader !== 1 ? (
+                <Col lg={6} md={6} sm={24} xs={24}>
+                  <TextField
+                    name=""
+                    size="small"
+                    placeholder="Customer Name"
+                    disable
+                    value={customerDetails.cnicNumber}
+                    label={"CNIC"}
+                    fullWidth
+                  />
+                </Col>
+              ) : null}
               <Col lg={6} md={6} sm={24} xs={24}>
                 <TextField
                   name=""
                   size="small"
                   placeholder="Customer Name"
                   disable
-                  value={customerDetails.cnicNumber}
-                  label={"CNIC"}
+                  value={customerDetails.customerName}
+                  label={"Customer Name"}
                   fullWidth
+                  textLength={50}
                 />
               </Col>
-            ) : null}
-            <Col lg={6} md={6} sm={24} xs={24}>
-              <TextField
-                name=""
-                size="small"
-                placeholder="Customer Name"
-                disable
-                value={customerDetails.customerName}
-                label={"Customer Name"}
-                fullWidth
-                textLength={50}
-              />
-            </Col>
-            <Col lg={6} md={6} sm={24} xs={24}>
-              <SelectBox
-                label={lbl(cityValue, "Select City")}
-                placeholder={"Select City"}
-                option={city}
-                value={cityValue}
-                change={CityNameHandler}
-                name="CMCity"
-                required
-              />
-            </Col>
-          </Row>
-          <Row>
-            <Col lg={24} md={24} sm={24} className="u-margin-top-2pct">
-              <div className="TransactionHeading">
-                System Fetched Transactions
-              </div>
-              <Table
-                rowSelection={rowSelection}
-                rows={listOfTransactionDetailsAlreadyExsist}
-                columns={columns}
-                scroll={{ x: "max-content" }}
-                pagination={{
-                  defaultPageSize: 100,
-                  showSizeChanger: true,
-                  pageSizeOptions: ["30", "40", "50", "100", "200"],
-                }}
-              />
-            </Col>
-          </Row>
+              <Col lg={6} md={6} sm={24} xs={24}>
+                <SelectBox
+                  label={lbl(cityValue, "Select City")}
+                  placeholder={"Select City"}
+                  option={city}
+                  value={cityValue}
+                  change={CityNameHandler}
+                  name="CMCity"
+                  required
+                />
+              </Col>
+            </Row>
+            <Row className="u-margin-top-22px">
+              <Col lg={24} md={24} sm={24} className="u-margin-top-2pct">
+                <div className="TransactionHeading">
+                  System Fetched Transactions
+                </div>
+                <Table
+                  rowSelection={rowSelection}
+                  rows={listOfTransactionDetailsAlreadyExsist}
+                  columns={columns}
+                  scroll={{ x: "max-content" }}
+                  pagination={{
+                    defaultPageSize: 100,
+                    showSizeChanger: true,
+                    pageSizeOptions: ["30", "40", "50", "100", "200"],
+                  }}
+                />
+              </Col>
+            </Row>
+          </div>
         </Paper>
         <div className="u-margin-top-20px" />
         <Paper padding="1">
@@ -3799,6 +3800,7 @@ const AddNewCustomerDetailsADC = () => {
                 value={ADCDisputes.PII}
                 change={ADCDisputeHandler}
                 textLength={50}
+                required
               />
             </Col>
             <Col lg={6} md={6} sm={24} xs={24}>
