@@ -2103,7 +2103,7 @@ const AddNewCustomerDetails = () => {
                 fullWidth
                 change={CCTDOHandler}
                 type="text"
-                textLength={100}
+                textLength={30}
               />
             </Col>
             <Col lg={6} md={6} sm={24} xs={24} className="u-text-align-center">
