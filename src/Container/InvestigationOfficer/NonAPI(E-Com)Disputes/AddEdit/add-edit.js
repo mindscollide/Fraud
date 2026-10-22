@@ -530,6 +530,27 @@ const AddEditNONAPIDispute = () => {
                   name="AccountNumber"
                   click={accountSearch2Handler}
                 />
+
+                {cnicList.length > 0 ? (
+                  <div className="u-margin-top-15px">
+                    <SelectBoxWithButton
+                      icon={<i className="icon-arrow-right icon-size-one"></i>}
+                      name="CNIC"
+                      applyClass="account-number"
+                      label={selectedCnic !== "" && "Select CNIC"}
+                      placeholder={"Select CNIC"}
+                      textFieldSize="small"
+                      fullWidth
+                      autoComplete="off"
+                      required
+                      option={cnicList}
+                      click={searchHandlerForAccountCnic}
+                      change={(e, value) => setSelectedCnic(value || "")}
+                      value={selectedCnic}
+                    />
+                  </div>
+                ) : null}
+
                 <div className="dateRangePicker">
                   <StartToEndDate
                     size="large"
@@ -550,26 +571,6 @@ const AddEditNONAPIDispute = () => {
                     required
                   />
                 </div>
-                {cnicList.length > 0 ? (
-                  <div className="u-margin-top-15px">
-                    <SelectBoxWithButton
-                      icon={<i className="icon-search icon-size-one"></i>}
-                      text="Search"
-                      name="CNIC"
-                      applyClass="account-number"
-                      label={selectedCnic !== "" && "Select CNIC"}
-                      placeholder={"Select CNIC"}
-                      textFieldSize="small"
-                      fullWidth
-                      autoComplete="off"
-                      required
-                      option={cnicList}
-                      click={searchHandlerForAccountCnic}
-                      change={(e, value) => setSelectedCnic(value || "")}
-                      value={selectedCnic}
-                    />
-                  </div>
-                ) : null}
               </>
             )}
           </Col>

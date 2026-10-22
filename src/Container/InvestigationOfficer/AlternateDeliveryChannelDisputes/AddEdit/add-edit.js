@@ -53,6 +53,7 @@ const AddEditADCDispute = () => {
     message: "",
   });
   const [accountFound, setAccountFound] = useState(false);
+  const [accountFoundAccTab, setAccountFoundAccTab] = useState(false);
 
   // Account Number flow: CNICs linked to the searched account (joint holders)
   const [cnicList, setCnicList] = useState([]);
@@ -565,26 +566,28 @@ const AddEditADCDispute = () => {
                     />
                   </div>
                 ) : null}
-                <div className="dateRangePicker">
-                  <StartToEndDate
-                    DateRange={true}
-                    size="large"
-                    change={setDate}
-                    key={clearDateSelect}
-                    startvalue={
-                      State.FromDate !== null && State.FromDate !== ""
-                        ? DateDisplayFormat(State.FromDate)
-                        : null
-                    }
-                    endvalue={
-                      State.ToDate !== null && State.ToDate !== ""
-                        ? DateDisplayFormat(State.ToDate)
-                        : null
-                    }
-                    className="DatePickerDC"
-                    required
-                  />
-                </div>
+                {accountFound && (
+                  <div className="dateRangePicker">
+                    <StartToEndDate
+                      DateRange={true}
+                      size="large"
+                      change={setDate}
+                      key={clearDateSelect}
+                      startvalue={
+                        State.FromDate !== null && State.FromDate !== ""
+                          ? DateDisplayFormat(State.FromDate)
+                          : null
+                      }
+                      endvalue={
+                        State.ToDate !== null && State.ToDate !== ""
+                          ? DateDisplayFormat(State.ToDate)
+                          : null
+                      }
+                      className="DatePickerDC"
+                      required
+                    />
+                  </div>
+                )}
               </>
             )}
           </Col>
