@@ -3045,7 +3045,7 @@ const AddNewCustomerDetailsADC = () => {
       <form onSubmit={(e) => goToSaveHandler(e)}>
         <Paper>
           <Row>
-            <Col lg={18} md={18}>
+            <Col lg={18} md={18} sm={18} xs={24}>
               <h1 className="u-font-size-18px u-margin-top-15px u-margin-left-20px u-color-21706d">
                 Customer Details
               </h1>
@@ -3054,6 +3054,8 @@ const AddNewCustomerDetailsADC = () => {
               <Col
                 lg={6}
                 md={6}
+                sm={6}
+                xs={24}
                 className="u-padding-0 u-margin-0 u-position-relative u-text-align-left"
               >
                 <div className="Level-Section">

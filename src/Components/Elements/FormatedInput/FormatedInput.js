@@ -68,7 +68,7 @@ export const FormattedInputs = ({
             change({
               target: {
                 name: name,
-                value: values.value,
+                value: values?.value,
               },
             });
           }}

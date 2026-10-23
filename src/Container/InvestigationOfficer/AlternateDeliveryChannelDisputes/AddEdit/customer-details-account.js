@@ -71,7 +71,7 @@ const CustomerDetailsADCAccount = () => {
     useState([]);
 
   const [transactionDetailsAccount, setTransactionDetailsAccount] = useState(
-    [],
+    []
   );
 
   const [cityValue, setCityValue] = useState("");
@@ -113,7 +113,7 @@ const CustomerDetailsADCAccount = () => {
         });
       }
       setAllTransactionDetailsByAccount(
-        investigationOfficer.GetTransactionDetailsByAccountADCData,
+        investigationOfficer.GetTransactionDetailsByAccountADCData
       );
     }
   }, [investigationOfficer.GetTransactionDetailsByAccountADCData]);
@@ -162,7 +162,7 @@ const CustomerDetailsADCAccount = () => {
   const View = (e, value) => {
     localStorage.setItem(
       "RefrenceNumber",
-      JSON.stringify(value.refrenceNumber),
+      JSON.stringify(value.refrenceNumber)
     );
     let Data = {
       CNICNumber: customer.cnicNumber,
@@ -177,7 +177,7 @@ const CustomerDetailsADCAccount = () => {
     localStorage.setItem("cnic2", customer.cnicNumber);
     localStorage.setItem(
       "ReferenceNumber",
-      JSON.stringify(value.refrenceNumber),
+      JSON.stringify(value.refrenceNumber)
     );
     localStorage.setItem("accountNumber", JSON.stringify(value.accountNumber));
     let data = {
@@ -366,6 +366,7 @@ const CustomerDetailsADCAccount = () => {
             <Col lg={6} md={6} sm={24} xs={24}>
               <SelectBox
                 label="City"
+                placeholder={"City"}
                 value={cityValue}
                 name="fK_CTID"
                 disable={true}
