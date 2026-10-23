@@ -198,20 +198,18 @@ const NDRrecord = () => {
             selectedUserRoleName={selectedStatusName}
             setSelectedUserRoleName={setSelectedStatusName}
             lable={selected?.length > 0 && "Dispute Status"}
-            placeholder={"Dispute Status *"}
+            placeholder={"Dispute Status"}
             option={status}
             name="CaseStatus"
-            required
           />
         </Col>
         <Col lg={8} md={8} sm={24}>
           <TextField
             fullWidth
             label={search?.CustomerName !== "" && "Customer Name"}
-            placeholder={"Customer Name *"}
+            placeholder={"Customer Name"}
             size="small"
             autoComplete="off"
-            required
             name="CustomerName"
             value={search.CustomerName}
             textLength={14}
@@ -222,10 +220,9 @@ const NDRrecord = () => {
           <TextField
             fullWidth
             label={search?.MobileNumber !== "" && "Mobile Number"}
-            placeholder={"Mobile Number *"}
+            placeholder={"Mobile Number"}
             size="small"
             autoComplete="off"
-            required
             name="MobileNumber"
             value={search.MobileNumber}
             textLength={11}
@@ -236,14 +233,13 @@ const NDRrecord = () => {
           <TextField
             fullWidth
             label={search?.CNIC !== "" && "CNIC"}
-            placeholder={"CNIC *"}
+            placeholder={"CNIC"}
             size="small"
             autoComplete="off"
             name="CNIC"
             value={search.CNIC}
             textLength={13}
             change={handleSerach}
-            required
           />
         </Col>
         <Col lg={8} md={8} sm={24} className="u-margin-top-22px">

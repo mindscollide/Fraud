@@ -53,7 +53,6 @@ const AddEditADCDispute = () => {
     message: "",
   });
   const [accountFound, setAccountFound] = useState(false);
-  const [accountFoundAccTab, setAccountFoundAccTab] = useState(false);
 
   // Account Number flow: CNICs linked to the searched account (joint holders)
   const [cnicList, setCnicList] = useState([]);
@@ -539,55 +538,58 @@ const AddEditADCDispute = () => {
                   click={accountSearch2Handler}
                 />
                 {cnicList.length > 0 ? (
-                  <div className="u-margin-top-15px">
-                    <SelectBoxWithButton
-                      icon={<i className="icon-arrow-right icon-size-one"></i>}
-                      // text="Search"
-                      name="CNIC"
-                      applyClass="account-number"
-                      label={selectedCnic !== "" && "Select CNIC"}
-                      placeholder={"Select CNIC"}
-                      textFieldSize="small"
-                      fullWidth
-                      autoComplete="off"
-                      required
-                      option={cnicList}
-                      click={searchHandlerForAccountCnic}
-                      change={(e, value) => setSelectedCnic(value || "")}
-                      value={selectedCnic}
-                      disableButton={
-                        selectedCnic === null ||
-                        selectedCnic === "" ||
-                        State.FromDate === null ||
-                        State.FromDate === "" ||
-                        State.ToDate === null ||
-                        State.ToDate === ""
-                      }
-                    />
-                  </div>
+                  <>
+                    <div className="u-margin-top-15px">
+                      <SelectBoxWithButton
+                        icon={
+                          <i className="icon-arrow-right icon-size-one"></i>
+                        }
+                        // text="Search"
+                        name="CNIC"
+                        applyClass="account-number"
+                        label={selectedCnic !== "" && "Select CNIC"}
+                        placeholder={"Select CNIC"}
+                        textFieldSize="small"
+                        fullWidth
+                        autoComplete="off"
+                        required
+                        option={cnicList}
+                        click={searchHandlerForAccountCnic}
+                        change={(e, value) => setSelectedCnic(value || "")}
+                        value={selectedCnic}
+                        disableButton={
+                          selectedCnic === null ||
+                          selectedCnic === "" ||
+                          State.FromDate === null ||
+                          State.FromDate === "" ||
+                          State.ToDate === null ||
+                          State.ToDate === ""
+                        }
+                      />
+                    </div>
+
+                    <div className="dateRangePicker">
+                      <StartToEndDate
+                        DateRange={true}
+                        size="large"
+                        change={setDate}
+                        key={clearDateSelect}
+                        startvalue={
+                          State.FromDate !== null && State.FromDate !== ""
+                            ? DateDisplayFormat(State.FromDate)
+                            : null
+                        }
+                        endvalue={
+                          State.ToDate !== null && State.ToDate !== ""
+                            ? DateDisplayFormat(State.ToDate)
+                            : null
+                        }
+                        className="DatePickerDC"
+                        required
+                      />
+                    </div>
+                  </>
                 ) : null}
-                {accountFound && (
-                  <div className="dateRangePicker">
-                    <StartToEndDate
-                      DateRange={true}
-                      size="large"
-                      change={setDate}
-                      key={clearDateSelect}
-                      startvalue={
-                        State.FromDate !== null && State.FromDate !== ""
-                          ? DateDisplayFormat(State.FromDate)
-                          : null
-                      }
-                      endvalue={
-                        State.ToDate !== null && State.ToDate !== ""
-                          ? DateDisplayFormat(State.ToDate)
-                          : null
-                      }
-                      className="DatePickerDC"
-                      required
-                    />
-                  </div>
-                )}
               </>
             )}
           </Col>

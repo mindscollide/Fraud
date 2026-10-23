@@ -2205,7 +2205,7 @@ const AddNewCustomerDetails = () => {
                 fullWidth
                 change={CCTDOHandler}
                 type="text"
-                textLength={12}
+                textLength={50}
               />
             </Col>
           </Row>

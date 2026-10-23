@@ -200,20 +200,18 @@ const IOBBKonnectDisputes = () => {
             selectedUserRoleName={selectedStatusName}
             setSelectedUserRoleName={setSelectedStatusName}
             lable={selected?.length > 0 && "Dispute Status"}
-            placeholder={"Dispute Status *"}
+            placeholder={"Dispute Status"}
             option={status}
             name="CaseStatus"
-            required
           />
         </Col>
         <Col lg={8} md={8} sm={24}>
           <TextField
             fullWidth
             label={search?.HBLAccountNumber !== "" && "HBL Account Number"}
-            placeholder={"HBL Account Number *"}
+            placeholder={"HBL Account Number"}
             size="small"
             autoComplete="off"
-            required
             name="HBLAccountNumber"
             value={search.HBLAccountNumber}
             textLength={14}
@@ -227,10 +225,9 @@ const IOBBKonnectDisputes = () => {
               search?.OtherBankAccountNumber !== "" &&
               "Other Bank Account Number"
             }
-            placeholder={"Other Bank Account Number *"}
+            placeholder={"Other Bank Account Number"}
             size="small"
             autoComplete="off"
-            required
             name="OtherBankAccountNumber"
             value={search.OtherBankAccountNumber}
             textLength={14}
@@ -241,14 +238,13 @@ const IOBBKonnectDisputes = () => {
           <TextField
             fullWidth
             label={search?.CNIC !== "" && "CNIC"}
-            placeholder={"CNIC *"}
+            placeholder={"CNIC"}
             size="small"
             autoComplete="off"
             name="CNIC"
             value={search.CNIC}
             textLength={13}
             change={handleSerach}
-            required
           />
         </Col>
         <Col lg={8} md={8} sm={24} className="u-margin-top-22px">

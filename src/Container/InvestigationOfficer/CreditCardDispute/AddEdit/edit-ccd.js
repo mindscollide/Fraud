@@ -305,7 +305,7 @@ const EditCreditCardDispute = () => {
       let data = { CNICNumber: CNICNumber, ReferenceNumber: ReferenceNumber };
       if (performance.navigation.type === performance.navigation.TYPE_RELOAD) {
         await dispatch(
-          GetCreditCardDisputesForEditByCnicAndRefrenceNumber(data),
+          GetCreditCardDisputesForEditByCnicAndRefrenceNumber(data)
         );
       }
       await dispatch(GetCreditCardDisputesForEditByCnicAndRefrenceNumber(data));
@@ -1028,7 +1028,7 @@ const EditCreditCardDispute = () => {
         obj.DisplayFileName === record.DisplayFileName &&
         obj.PK_CCDDID === record.PK_CCDDID &&
         obj.FK_CCDID === record.FK_CCDID &&
-        obj.FK_GSSUserID === record.FK_GSSUserID,
+        obj.FK_GSSUserID === record.FK_GSSUserID
     );
     var temp = [];
     ListOfCreditCardDisputeDocuments.map((data, index) => {
@@ -1057,7 +1057,7 @@ const EditCreditCardDispute = () => {
   const getFilter = () => {
     let filteredItems = ListOfCreditCardDisputeDocuments;
     filteredItems = ListOfCreditCardDisputeDocuments.filter(
-      (item) => item.DisplayFileName !== "",
+      (item) => item.DisplayFileName !== ""
     );
     return filteredItems;
   };
@@ -1088,7 +1088,7 @@ const EditCreditCardDispute = () => {
 
   const update = (e, record) => {
     var objIndex = ListOfCreditCardTransactionDetailsObjects.findIndex(
-      (obj) => obj.TransactionID === record.TransactionID,
+      (obj) => obj.TransactionID === record.TransactionID
     );
     setRecordIndex(objIndex);
     setRecords(record);
@@ -1258,7 +1258,7 @@ const EditCreditCardDispute = () => {
             ListOfCreditCardDisputeDocuments,
           };
           let flagForGlobalDispute = localStorage.getItem(
-            "FlagForGlobalDispute",
+            "FlagForGlobalDispute"
           );
           localStorage.setItem("FlagForGlobalDispute", flagForGlobalDispute);
           dispatch(UpdateCreditCardDisputeDetails(data));
@@ -1293,7 +1293,7 @@ const EditCreditCardDispute = () => {
             });
           } else if (data.CCDispute.FK_CDEID !== 0) {
             let flagForGlobalDispute = localStorage.getItem(
-              "FlagForGlobalDispute",
+              "FlagForGlobalDispute"
             );
             localStorage.setItem("FlagForGlobalDispute", flagForGlobalDispute);
             dispatch(UpdateAndApproveCreditCardDisputeDetails(data));
@@ -1679,7 +1679,7 @@ const EditCreditCardDispute = () => {
     setCity(
       valueCity.map((data, index) => {
         return data.name;
-      }),
+      })
     );
   }, [setupForms.CityData]);
 
@@ -1721,7 +1721,7 @@ const EditCreditCardDispute = () => {
     setFraudType(
       nameFraud.map((data, index) => {
         return data.name;
-      }),
+      })
     );
   }, [setupForms.FraudTypeData]);
 
@@ -1770,7 +1770,7 @@ const EditCreditCardDispute = () => {
     setCaseDecision(
       valueCaseDecision.map((data, index) => {
         return data.name;
-      }),
+      })
     );
   }, [setupForms.CaseDecisionData]);
 
@@ -1786,13 +1786,25 @@ const EditCreditCardDispute = () => {
       }
     });
   }, [setupForms.CaseDecisionData]);
+  const hasValue = (v) =>
+    v !== undefined &&
+    v !== null &&
+    v !== "" &&
+    v !== -99999999999999999999 &&
+    !(Array.isArray(v) && v.length === 0);
+
+  // show the label only when the field has a value, otherwise "" (placeholder only)
+  const lbl = (value, text) => (hasValue(value) ? text : "");
+
+  // for read-only numeric fields where 0 also means "empty"
+  const nonZero = (v) => (v === 0 ? null : v);
 
   return (
     <>
       <Title level={3}>Edit Credit Card Disputes</Title>
       <form onSubmit={(e) => goToSaveHandler(e)}>
-        <Paper padding="1">
-          <Row gutter={16}>
+        <Paper>
+          <Row>
             <Col lg={18} md={18}>
               <h1 className="u-font-size-18px u-margin-top-15px u-margin-left-20px u-color-21706d">
                 Customer Details
@@ -1801,7 +1813,7 @@ const EditCreditCardDispute = () => {
             <Col
               lg={6}
               md={6}
-              className="u-padding-0 u-position-relative u-text-align-left"
+              className="u-padding-0 u-margin-0 u-position-relative u-text-align-left"
             >
               <div className="Level-Section">
                 <div>
@@ -1815,92 +1827,101 @@ const EditCreditCardDispute = () => {
               </div>
             </Col>
           </Row>
-          <Row gutter={16}>
-            <Col lg={6} md={6} sm={24} xs={24} className="u-margin-top-22px">
-              <p className="PlaceholderCard">
-                Card Number<span className="important">*</span>
-              </p>
-              <InputMask
-                type="text"
-                className="CreditCardInputField"
-                name="CardNumber"
-                autoFocus
-                value={
-                  CardDetails.CardNumber === 0 ? null : CardDetails.CardNumber
-                }
-                mask="9999 XXXX XXXX 9999"
-                maskPlaceholder="____ XXXX XXXX ____"
-                onChange={CardDetailsHandler}
-                textLength={16}
-                min={16}
-                required
-              />
-            </Col>
 
-            <Col lg={6} md={6} sm={24} xs={24} className="u-margin-top-22px">
-              <TextField
-                name="RefrenceNumber"
-                size="small"
-                value={CCDispute.RefrenceNumber}
-                disable
-                label={"Reference #"}
-                fullWidth
-              />
-            </Col>
+          <div className="u-padding-y-20px u-padding-x-10px">
+            <Row gutter={16}>
+              <Col lg={6} md={6} sm={24} xs={24}>
+                <p className="PlaceholderCard">
+                  Card Number<span className="important"> *</span>
+                </p>
+                <InputMask
+                  type="text"
+                  className="CreditCardInputField"
+                  name="CardNumber"
+                  autoFocus
+                  value={
+                    CardDetails.CardNumber === 0 ? null : CardDetails.CardNumber
+                  }
+                  mask="9999 XXXX XXXX 9999"
+                  maskPlaceholder="____ XXXX XXXX ____"
+                  onChange={CardDetailsHandler}
+                  textLength={16}
+                  min={16}
+                  required
+                />
+              </Col>
 
-            <Col lg={6} md={6} sm={24} xs={24} className="u-margin-top-22px">
-              <TextField
-                size="small"
-                value={FDCustomer.CustomerName}
-                label="Customer Name"
-                autoComplete="off"
-                fullWidth
-                textLength={100}
-                name="CustomerName"
-                change={FDCustomerHandler}
-                required
-              />
-            </Col>
-            <Col lg={6} md={6} sm={24} xs={24} className="u-margin-top-22px">
-              <SelectBox
-                label="Select City"
-                option={city}
-                value={cityValue}
-                change={CityNameHandler}
-                name="FK_CTID"
-                required
-              />
-            </Col>
+              <Col lg={6} md={6} sm={24} xs={24}>
+                <TextField
+                  name="RefrenceNumber"
+                  size="small"
+                  value={CCDispute.RefrenceNumber}
+                  disable
+                  label={lbl(CCDispute.RefrenceNumber, "Reference #")}
+                  placeholder={"Reference #"}
+                  fullWidth
+                />
+              </Col>
 
-            <Col lg={6} md={6} sm={24} xs={24}>
-              <FormattedInputs
-                textLength={(999, 999, 999, 999, 999, 999, 999)}
-                size="small"
-                Label="Credit Limit"
-                value={
-                  CCDispute.CreditCardLimit === null ||
-                  CCDispute.CreditCardLimit === -99999999999999999999
-                    ? null
-                    : CCDispute.CreditCardLimit
-                }
-                fullWidth
-                change={CCDisputeHandler}
-                required
-                name="CreditCardLimit"
-              />
-            </Col>
+              <Col lg={6} md={6} sm={24} xs={24}>
+                <TextField
+                  size="small"
+                  value={FDCustomer.CustomerName}
+                  label={lbl(FDCustomer.CustomerName, "Customer Name *")}
+                  placeholder={"Customer Name *"}
+                  autoComplete="off"
+                  fullWidth
+                  textLength={100}
+                  name="CustomerName"
+                  change={FDCustomerHandler}
+                  required
+                />
+              </Col>
+              <Col lg={6} md={6} sm={24} xs={24}>
+                <SelectBox
+                  label={lbl(cityValue, "Select City *")}
+                  placeholder={"Select City *"}
+                  option={city}
+                  value={cityValue}
+                  change={CityNameHandler}
+                  name="FK_CTID"
+                  required
+                />
+              </Col>
+            </Row>
+            <Row gutter={16} className="u-margin-top-22px">
+              <Col lg={6} md={6} sm={24}>
+                <FormattedInputs
+                  textLength={(999, 999, 999, 999, 999, 999, 999)}
+                  size="small"
+                  Label={lbl(CCDispute.CreditCardLimit, "Credit Limit *")}
+                  placeholder={"Credit Limit *"}
+                  value={
+                    CCDispute.CreditCardLimit === null ||
+                    CCDispute.CreditCardLimit === -99999999999999999999
+                      ? null
+                      : CCDispute.CreditCardLimit
+                  }
+                  fullWidth
+                  change={CCDisputeHandler}
+                  required
+                  name="CreditCardLimit"
+                />
+              </Col>
 
-            <Col lg={6} md={6} sm={24} xs={24} className="u-margin-top-21px">
-              <SelectBox
-                option={fraudType}
-                label="Fraud Type"
-                name="FK_FTID"
-                value={fraudTypeName}
-                change={fraudNameHandler}
-                required
-              />
-            </Col>
-          </Row>
+              <Col lg={6} md={6} sm={24} xs={24}>
+                <SelectBox
+                  option={fraudType}
+                  label={lbl(fraudTypeName, "Fraud Type *")}
+                  placeholder={"Fraud Type *"}
+                  name="FK_FTID"
+                  value={fraudTypeName}
+                  change={fraudNameHandler}
+                  required
+                />
+              </Col>
+            </Row>
+          </div>
         </Paper>
         <div className="u-margin-top-20px" />
         <Paper padding="1">
@@ -1909,30 +1930,30 @@ const EditCreditCardDispute = () => {
               Transaction Details
             </h1>
           </Col>
-          <Row gutter={16}>
-            <Col
-              lg={6}
-              md={6}
-              sm={24}
-              xs={24}
-              className="u-position-relative u-margin-top-20px"
-            >
-              <div className="u-margin-top-20px" />
+
+          <Row gutter={16} className="u-margin-top-22px">
+            <Col lg={6} md={6} sm={24} xs={24}>
               <TextField
                 name="TransactionID"
                 value={CreditCardTransactionDetailsObjects.TransactionID}
                 size="small"
                 autoComplete="off"
-                label={"Transaction ID *"}
+                label={lbl(
+                  CreditCardTransactionDetailsObjects.TransactionID,
+                  "Transaction ID *"
+                )}
+                placeholder={"Transaction ID *"}
                 fullWidth
                 change={CCTDOHandler}
                 textLength={20}
               ></TextField>
             </Col>
             <Col lg={6} md={6} sm={24} xs={24}>
-              <div className="u-margin-top-20px" />
               <DatePicker
-                label={"Select Transaction Date *"}
+                label={lbl(
+                  CreditCardTransactionDetailsObjects.TransactionDate,
+                  "Select Transaction Date *"
+                )}
                 name="TransactionDate"
                 size="large"
                 width="100%"
@@ -1941,7 +1962,7 @@ const EditCreditCardDispute = () => {
                 value={
                   CreditCardTransactionDetailsObjects.TransactionDate
                     ? DateDisplayFormat(
-                        CreditCardTransactionDetailsObjects.TransactionDate,
+                        CreditCardTransactionDetailsObjects.TransactionDate
                       )
                     : null
                 }
@@ -1949,9 +1970,11 @@ const EditCreditCardDispute = () => {
               />
             </Col>
             <Col lg={6} md={6} sm={24} xs={24}>
-              <div className="u-margin-top-20px" />
               <TimePicker
-                label={"Select Transaction Time *"}
+                label={lbl(
+                  CreditCardTransactionDetailsObjects.TransactionTime,
+                  "Select Transaction Time *"
+                )}
                 name="TransactionTime"
                 size="large"
                 width="100%"
@@ -1961,7 +1984,7 @@ const EditCreditCardDispute = () => {
                 change={TimeHandler}
               />
             </Col>
-            <Col lg={6} md={6} sm={24} xs={24} className="u-margin-top-20px">
+            <Col lg={6} md={6} sm={24} xs={24}>
               <FormattedInputs
                 name="TransactionAmountPKR"
                 value={
@@ -1971,16 +1994,22 @@ const EditCreditCardDispute = () => {
                     -99999999999999999999
                     ? null
                     : NumberFormater(
-                        CreditCardTransactionDetailsObjects.TransactionAmountPKR,
+                        CreditCardTransactionDetailsObjects.TransactionAmountPKR
                       )
                 }
                 textLength={(999, 999, 999, 999, 999, 999, 999)}
                 size="small"
-                Label={"Transaction Amount PKR *"}
+                Label={lbl(
+                  CreditCardTransactionDetailsObjects.TransactionAmountPKR,
+                  "Transaction Amount PKR *"
+                )}
+                placeholder={"Transaction Amount PKR *"}
                 fullWidth
                 change={CCTDOHandler}
               />
             </Col>
+          </Row>
+          <Row gutter={16} className="u-margin-top-22px">
             <Col lg={6} md={6} sm={24} xs={24}>
               <FormattedInputs
                 name="TransactionBilledAmount"
@@ -1994,19 +2023,26 @@ const EditCreditCardDispute = () => {
                 }
                 textLength={(999, 999, 999, 999, 999, 999, 999)}
                 size="small"
-                Label={"Transaction Billed Amount *"}
+                Label={lbl(
+                  CreditCardTransactionDetailsObjects.TransactionBilledAmount,
+                  "Transaction Billed Amount *"
+                )}
+                placeholder={"Transaction Billed Amount *"}
                 fullWidth
                 change={CCTDOHandler}
               />
             </Col>
             <Col lg={6} md={6} sm={24} xs={24}>
-              <div className="u-margin-top-22px" />
               <TextField
                 name="ApprovalCode"
                 value={CreditCardTransactionDetailsObjects.ApprovalCode}
                 size="small"
                 autoComplete="off"
-                label={"Approval Code *"}
+                label={lbl(
+                  CreditCardTransactionDetailsObjects.ApprovalCode,
+                  "Approval Code *"
+                )}
+                placeholder={"Approval Code *"}
                 fullWidth
                 change={CCTDOHandler}
                 type="text"
@@ -2014,13 +2050,16 @@ const EditCreditCardDispute = () => {
               />
             </Col>
             <Col lg={6} md={6} sm={24} xs={24}>
-              <div className="u-margin-top-22px" />
               <TextField
                 name="POSMode"
                 value={CreditCardTransactionDetailsObjects.POSMode}
                 size="small"
                 autoComplete="off"
-                label={"Point Of Sale Mode *"}
+                label={lbl(
+                  CreditCardTransactionDetailsObjects.POSMode,
+                  "Point Of Sale Mode *"
+                )}
+                placeholder={"Point Of Sale Mode *"}
                 fullWidth
                 change={CCTDOHandler}
                 type="text"
@@ -2028,12 +2067,15 @@ const EditCreditCardDispute = () => {
               />
             </Col>
             <Col lg={6} md={6} sm={24} xs={24}>
-              <div className="u-margin-top-22px" />
               <TextField
                 name="MerchantName"
                 value={CreditCardTransactionDetailsObjects.MerchantName}
                 size="small"
-                label={"Merchant Name *"}
+                label={lbl(
+                  CreditCardTransactionDetailsObjects.MerchantName,
+                  "Merchant Name *"
+                )}
+                placeholder={"Merchant Name *"}
                 fullWidth
                 autoComplete="off"
                 change={CCTDOHandler}
@@ -2041,13 +2083,19 @@ const EditCreditCardDispute = () => {
                 textLength={100}
               />
             </Col>
+          </Row>
+          <Row gutter={16} className="u-margin-top-22px">
             <Col lg={6} md={6} sm={24} xs={24}>
               <TextField
                 name="MerchantNumber"
                 value={CreditCardTransactionDetailsObjects.MerchantNumber}
                 size="small"
                 autoComplete="off"
-                label={"Merchant Number *"}
+                label={lbl(
+                  CreditCardTransactionDetailsObjects.MerchantNumber,
+                  "Merchant Number *"
+                )}
+                placeholder={"Merchant Number *"}
                 fullWidth
                 change={CCTDOHandler}
                 type="text"
@@ -2059,7 +2107,11 @@ const EditCreditCardDispute = () => {
                 name="MerchantCity"
                 value={CreditCardTransactionDetailsObjects.MerchantCity}
                 size="small"
-                label={"Merchant City *"}
+                label={lbl(
+                  CreditCardTransactionDetailsObjects.MerchantCity,
+                  "Merchant City *"
+                )}
+                placeholder={"Merchant City *"}
                 autoComplete="off"
                 fullWidth
                 change={CCTDOHandler}
@@ -2069,7 +2121,7 @@ const EditCreditCardDispute = () => {
             </Col>
             <Col lg={6} md={6} sm={24} xs={24} className="u-text-align-center">
               <label>
-                <b>On Us / Off Us *</b>
+                <b>On Us / Off Us</b>
               </label>
               <br />
               <Radio.Group
@@ -2088,19 +2140,29 @@ const EditCreditCardDispute = () => {
                 value={CreditCardTransactionDetailsObjects.CategoryCodeMCC}
                 size="small"
                 autoComplete="off"
-                label={"Merchant Category Code *"}
+                label={lbl(
+                  CreditCardTransactionDetailsObjects.CategoryCodeMCC,
+                  "Merchant Category Code *"
+                )}
+                placeholder={"Merchant Category Code *"}
                 fullWidth
                 change={CCTDOHandler}
                 type="text"
                 textLength={7}
               />
             </Col>
+          </Row>
+          <Row gutter={16} className="u-margin-top-22px">
             <Col lg={6} md={6} sm={24} xs={24}>
               <TextField
                 name="POS_ATM"
                 value={CreditCardTransactionDetailsObjects.POS_ATM}
                 size="small"
-                label={"POS/ATM *"}
+                label={lbl(
+                  CreditCardTransactionDetailsObjects.POS_ATM,
+                  "POS/ATM *"
+                )}
+                placeholder={"POS/ATM *"}
                 autoComplete="off"
                 fullWidth
                 change={CCTDOHandler}
@@ -2113,7 +2175,11 @@ const EditCreditCardDispute = () => {
                 name="AcquirerName"
                 value={CreditCardTransactionDetailsObjects.AcquirerName}
                 size="small"
-                label={"Acquirer Name *"}
+                label={lbl(
+                  CreditCardTransactionDetailsObjects.AcquirerName,
+                  "Acquirer Name *"
+                )}
+                placeholder={"Acquirer Name *"}
                 autoComplete="off"
                 fullWidth
                 change={CCTDOHandler}
@@ -2126,7 +2192,11 @@ const EditCreditCardDispute = () => {
                 name="AcquirerID"
                 value={CreditCardTransactionDetailsObjects.AcquirerID}
                 size="small"
-                label={"Acquirer ID *"}
+                label={lbl(
+                  CreditCardTransactionDetailsObjects.AcquirerID,
+                  "Acquirer ID *"
+                )}
+                placeholder={"Acquirer ID *"}
                 autoComplete="off"
                 fullWidth
                 change={CCTDOHandler}
@@ -2139,14 +2209,21 @@ const EditCreditCardDispute = () => {
                 name="ARN"
                 value={CreditCardTransactionDetailsObjects.ARN}
                 size="small"
-                label={"Approval Reference Number *"}
+                label={lbl(
+                  CreditCardTransactionDetailsObjects.ARN,
+                  "Approval Reference Number *"
+                )}
+                placeholder={"Approval Reference Number *"}
                 autoComplete="off"
                 fullWidth
                 change={CCTDOHandler}
                 type="text"
-                textLength={12}
+                textLength={50}
               />
             </Col>
+          </Row>
+
+          <Row gutter={16} className="u-margin-top-22px">
             <Col
               lg={24}
               md={24}
@@ -2174,7 +2251,7 @@ const EditCreditCardDispute = () => {
             </Col>
           </Row>
           <div className="u-margin-top-20px" />
-          <Col lg={24} md={24} sm={24} className="u-margin-top-2pct">
+          <Col lg={24} md={24} sm={24}>
             <div className="TransactionHeading">Transaction Details</div>
             <Table
               rows={ListOfCreditCardTransactionDetailsObjects}
@@ -2196,10 +2273,11 @@ const EditCreditCardDispute = () => {
             </h1>
           </Col>
 
-          <Row gutter={8}>
-            <Col lg={4} md={4} sm={24} className="u-margin-top-22px">
+          <Row gutter={16} className="u-margin-top-22px">
+            <Col lg={4} md={4} sm={24}>
               <DatePicker
-                label={"Case Received Date"}
+                label={lbl(CCDispute.CaseReceivedDate, "Case Received Date")}
+                placeholder={"Case Received Date"}
                 disable={true}
                 size="large"
                 width="100%"
@@ -2214,10 +2292,14 @@ const EditCreditCardDispute = () => {
               />
             </Col>
 
-            <Col lg={6} md={6} sm={24} className="u-margin-top-22px">
+            <Col lg={6} md={6} sm={24}>
               <TextField
                 fullWidth
-                label="Case Received Channel"
+                label={lbl(
+                  CCDispute.CaseReceivedChannel,
+                  "Case Received Channel"
+                )}
+                placeholder={"Case Received Channel"}
                 value={CCDispute.CaseReceivedChannel}
                 size="small"
                 autoComplete="off"
@@ -2227,13 +2309,7 @@ const EditCreditCardDispute = () => {
               />
             </Col>
 
-            <Col
-              lg={4}
-              md={4}
-              sm={24}
-              xs={24}
-              className="u-text-align-center u-margin-top-15px"
-            >
+            <Col lg={4} md={4} sm={24} xs={24} className="u-text-align-center">
               <label>
                 <b>Case Resolved</b>
               </label>
@@ -2255,7 +2331,7 @@ const EditCreditCardDispute = () => {
 
             <Col lg={4} md={4} sm={24}>
               <DatePicker
-                label={"Case Resolved Date"}
+                label={lbl(CCDispute.CaseResolvedDate, "Case Resolved Date")}
                 size="large"
                 width="100%"
                 DateRange
@@ -2271,11 +2347,15 @@ const EditCreditCardDispute = () => {
               />
             </Col>
 
-            <Col lg={6} md={6} sm={24} className="u-margin-top-22px">
+            <Col lg={6} md={6} sm={24}>
               <Paper ml="1.5">
                 <TextField
                   fullWidth
-                  label="Total Billed Amount"
+                  label={lbl(
+                    CCDispute.TotalTransactionAmount,
+                    "Total Billed Amount"
+                  )}
+                  placeholder={"Total Billed Amount"}
                   value={
                     CCDispute.TotalTransactionAmount === null ||
                     CCDispute.TotalTransactionAmount === -99999999999999999999
@@ -2298,14 +2378,8 @@ const EditCreditCardDispute = () => {
               Other Details
             </h1>
           </Col>
-          <Row gutter={8}>
-            <Col
-              lg={4}
-              md={4}
-              sm={24}
-              xs={24}
-              className="u-text-align-center u-margin-top-10px"
-            >
+          <Row gutter={16} className="u-margin-top-22px">
+            <Col lg={4} md={4} sm={24} xs={24} className="u-text-align-center">
               <label>
                 <b>TC 40 Reporting</b>
               </label>
@@ -2321,7 +2395,10 @@ const EditCreditCardDispute = () => {
             </Col>
             <Col lg={8} md={8} sm={24}>
               <DatePicker
-                label={"Select TC 40 Reporting Date"}
+                label={lbl(
+                  CCDispute.TC40ReportingDate,
+                  "Select TC 40 Reporting Date"
+                )}
                 disable={isTC40ReportingDate}
                 size="large"
                 width="100%"
@@ -2336,13 +2413,7 @@ const EditCreditCardDispute = () => {
                 change={DateHandler}
               />
             </Col>
-            <Col
-              lg={4}
-              md={4}
-              sm={24}
-              xs={24}
-              className="u-text-align-center u-margin-top-10px"
-            >
+            <Col lg={4} md={4} sm={24} xs={24} className="u-text-align-center">
               <label>
                 <b>Safe Reporting</b>
               </label>
@@ -2358,7 +2429,10 @@ const EditCreditCardDispute = () => {
             </Col>
             <Col lg={8} md={8} sm={24}>
               <DatePicker
-                label={"Select Safe Reporting Date"}
+                label={lbl(
+                  CCDispute.SafeReportingDate,
+                  "Select Safe Reporting Date"
+                )}
                 disable={safeReportingDate}
                 size="large"
                 width="100%"
@@ -2382,11 +2456,12 @@ const EditCreditCardDispute = () => {
               Closure Details
             </h1>
           </Col>
-          <Row gutter={8}>
+          <Row gutter={16} className="u-margin-top-22px">
             <Col lg={6} md={6} sm={24} xs={24}>
               <SelectBox
                 option={caseDecision}
-                label="Select Case Decision"
+                label={lbl(caseDecisionValue, "Select Case Decision")}
+                placeholder={"Select Case Decision"}
                 name="FK_CDEID"
                 value={caseDecisionValue}
                 change={CaseDecisionHandler}
@@ -2409,7 +2484,11 @@ const EditCreditCardDispute = () => {
             <Col lg={12} md={12} sm={24} xs={24}>
               <TextField
                 fullWidth
-                label="Point Of Compromise Identified"
+                label={lbl(
+                  CCDispute.POCIdentified,
+                  "Point Of Compromise Identified"
+                )}
+                placeholder={"Point Of Compromise Identified"}
                 size="small"
                 name="POCIdentified"
                 value={CCDispute.POCIdentified}
@@ -2419,10 +2498,13 @@ const EditCreditCardDispute = () => {
                 required={CCDispute.IsPOC}
               />
             </Col>
+          </Row>
+          <Row gutter={16} className="u-margin-top-22px">
             <Col lg={6} md={6} sm={24} xs={24}>
               <FormattedInputs
                 fullWidth
-                Label="Recovery"
+                Label={lbl(CCDispute.Recovery, "Recovery")}
+                placeholder={"Recovery *"}
                 size="small"
                 name="Recovery"
                 value={
@@ -2436,10 +2518,11 @@ const EditCreditCardDispute = () => {
                 textLength={(999, 999, 999, 999, 999, 999, 999)}
               />
             </Col>
-            <Col lg={6} md={6} sm={24} xs={24} className="u-margin-top-22px">
+            <Col lg={6} md={6} sm={24} xs={24}>
               <TextField
                 fullWidth
-                label="Event ID SAS"
+                label={lbl(CCDispute.EventIdSAS, "Event ID SAS")}
+                placeholder={"Event ID SAS"}
                 size="small"
                 autoComplete="off"
                 name="EventIdSAS"
@@ -2448,10 +2531,11 @@ const EditCreditCardDispute = () => {
                 textLength={50}
               />
             </Col>
-            <Col lg={6} md={6} sm={24} xs={24} className="u-margin-top-22px">
+            <Col lg={6} md={6} sm={24} xs={24}>
               <TextField
                 fullWidth
-                label="Aging"
+                label={lbl(nonZero(CCDispute.Aging), "Aging")}
+                placeholder={"Aging"}
                 size="small"
                 name="Aging"
                 value={
@@ -2464,10 +2548,11 @@ const EditCreditCardDispute = () => {
                 disable={true}
               />
             </Col>
-            <Col lg={6} md={6} sm={24} xs={24} className="u-margin-top-22px">
+            <Col lg={6} md={6} sm={24} xs={24}>
               <TextField
                 fullWidth
-                label="Case Closed TAT"
+                label={lbl(nonZero(CCDispute.CaseClosedTAT), "Case Closed TAT")}
+                placeholder={"Case Closed TAT"}
                 size="small"
                 name="CaseClosedTAT"
                 value={
@@ -2519,7 +2604,7 @@ const EditCreditCardDispute = () => {
           </Row>
         </Paper>
         <div className="u-margin-top-25px" />
-        <Row gutter={16} justify="center">
+        <Row gutter={16} justify="center" className="u-margin-bottom-20px">
           <Col lg={4} md={4} sm={24}>
             <Button
               text="Save"
@@ -2536,7 +2621,7 @@ const EditCreditCardDispute = () => {
               text="Save & Send For Approval"
               type="submit"
               icon={<i className="icon-sent icon-size-one"></i>}
-              applyClass="buttonPrimary2"
+              applyClass="buttonPrimary3"
               size="large"
               click={() => setsaveValue(2)}
             />

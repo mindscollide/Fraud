@@ -475,8 +475,8 @@ const AddNewCustomerDetailsADC = () => {
       name === "CaseReceivedChannel" ||
       name === "EventIDSAS" ||
       name === "Remarks" ||
-      name === "CustomerClamiedInformation" ||
-      name === "PII"
+      name === "CustomerClamiedInformation"
+      // name === "PII"
     ) {
       let spREmove = value.replace(/[^a-zA-Z0-9 ]/g, "");
       if (spREmove !== "") {
@@ -1463,12 +1463,12 @@ const AddNewCustomerDetailsADC = () => {
       name !== "BranchCode" &&
       name !== "DisputeAmount" &&
       name !== "TransactionAmount" &&
-      name !== "MerchantCity" &&
+      // name !== "MerchantCity" &&
       // name !=="ApprovalCode" &&
       // name !== "MerchantID" &&
-      name !== "MerchantCategoryCodeMCC" &&
+      // name !== "MerchantCategoryCodeMCC" &&
       name !== "MobileNumber" &&
-      name !== "IMEINumber" &&
+      // name !== "IMEINumber" &&
       name !== "ON_OFF_US" &&
       name !== "IPAddress" &&
       (value !== "" || value === false)
@@ -1483,9 +1483,10 @@ const AddNewCustomerDetailsADC = () => {
         [name]: value,
       });
     } else if (
-      name === "MerchantName" ||
-      name === "MerchantCity" ||
-      (name === "BeneficiaryBankName" && value !== "")
+      (name === "MerchantName" ||
+        name === "MerchantCity" ||
+        name === "BeneficiaryBankName") &&
+      value !== ""
     ) {
       var valueCheck = value.replace(/[^a-zA-Z ]/g, "");
       if (valueCheck != "") {
@@ -1494,7 +1495,10 @@ const AddNewCustomerDetailsADC = () => {
           [name]: valueCheck,
         });
       }
-    } else if (name === "BeneficiaryBankName" && value === "") {
+    } else if (
+      (name === "BeneficiaryBankName" || name === "MerchantCity") &&
+      value === ""
+    ) {
       setTrsDetails({
         ...trsDetails,
         [name]: "",
@@ -1540,20 +1544,21 @@ const AddNewCustomerDetailsADC = () => {
     //     [name]: "",
     //   });
     // }
-    else if (name === "MerchantCategoryCodeMCC" && value !== "") {
-      var valueCheck = value.replace(/[^\d-]/g, "");
-      if (valueCheck != "") {
-        setTrsDetails({
-          ...trsDetails,
-          [name]: valueCheck,
-        });
-      }
-    } else if (name === "MerchantCategoryCodeMCC" && value === "") {
-      setTrsDetails({
-        ...trsDetails,
-        [name]: "",
-      });
-    } else if (name === "MobileNumber" && value !== "") {
+    // else if (name === "MerchantCategoryCodeMCC" && value !== "") {
+    //   var valueCheck = value.replace(/[^\d-]/g, "");
+    //   if (valueCheck != "") {
+    //     setTrsDetails({
+    //       ...trsDetails,
+    //       [name]: valueCheck,
+    //     });
+    //   }
+    // } else if (name === "MerchantCategoryCodeMCC" && value === "") {
+    //   setTrsDetails({
+    //     ...trsDetails,
+    //     [name]: "",
+    //   });
+    // }
+    else if (name === "MobileNumber" && value !== "") {
       var valueCheck = value.replace(/[^\d]/g, "");
       if (valueCheck != "") {
         setTrsDetails({
@@ -1566,20 +1571,22 @@ const AddNewCustomerDetailsADC = () => {
         ...trsDetails,
         [name]: "",
       });
-    } else if (name === "IMEINumber" && value !== "") {
-      var valueCheck = value.replace(/[^\d-]/g, "");
-      if (valueCheck != "") {
-        setTrsDetails({
-          ...trsDetails,
-          [name]: valueCheck,
-        });
-      }
-    } else if (name === "IMEINumber" && value === "") {
-      setTrsDetails({
-        ...trsDetails,
-        [name]: "",
-      });
-    } else if (
+    }
+    // else if (name === "IMEINumber" && value !== "") {
+    //   var valueCheck = value.replace(/[^\d-]/g, "");
+    //   if (valueCheck != "") {
+    //     setTrsDetails({
+    //       ...trsDetails,
+    //       [name]: valueCheck,
+    //     });
+    //   }
+    // } else if (name === "IMEINumber" && value === "") {
+    //   setTrsDetails({
+    //     ...trsDetails,
+    //     [name]: "",
+    //   });
+    // }
+    else if (
       (name === "TransactionAmount" || name === "DisputeAmount") &&
       value !== "" &&
       value !== -99999999999999999999
@@ -3402,7 +3409,7 @@ const AddNewCustomerDetailsADC = () => {
                 value={trsDetails.MerchantCategoryCodeMCC}
                 change={TransactionDeatilHandlerChange}
                 fullWidth
-                textLength={4}
+                textLength={7}
               />
             </Col>
           </Row>
@@ -3441,7 +3448,7 @@ const AddNewCustomerDetailsADC = () => {
                 value={trsDetails.IMEINumber}
                 change={TransactionDeatilHandlerChange}
                 fullWidth
-                textLength={15}
+                textLength={17}
               />
             </Col>
             <Col lg={6} md={6} sm={24} xs={24}>
@@ -3454,7 +3461,7 @@ const AddNewCustomerDetailsADC = () => {
                 value={trsDetails.URL}
                 change={TransactionDeatilHandlerChange}
                 fullWidth
-                textLength={30}
+                textLength={40}
               />
             </Col>
           </Row>

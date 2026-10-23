@@ -157,11 +157,11 @@ const AddEditNONAPIDispute = () => {
   //DataRangeHandler
   const [clearDateSelect, setDateClearSelect] = useState("");
   const date2 = moment().format("YYYYMMDD");
-  const previousYearDate = moment().subtract(6, "months").format("YYYYMMDD");
+  const previousYearDate = moment().subtract(12, "months").format("YYYYMMDD");
 
   const [State, setState] = useState({
-    FromDate: "",
-    ToDate: "",
+    FromDate: previousYearDate,
+    ToDate: date2,
   });
 
   const setDate = (e, val) => {
@@ -532,45 +532,49 @@ const AddEditNONAPIDispute = () => {
                 />
 
                 {cnicList.length > 0 ? (
-                  <div className="u-margin-top-15px">
-                    <SelectBoxWithButton
-                      icon={<i className="icon-arrow-right icon-size-one"></i>}
-                      name="CNIC"
-                      applyClass="account-number"
-                      label={selectedCnic !== "" && "Select CNIC"}
-                      placeholder={"Select CNIC"}
-                      textFieldSize="small"
-                      fullWidth
-                      autoComplete="off"
-                      required
-                      option={cnicList}
-                      click={searchHandlerForAccountCnic}
-                      change={(e, value) => setSelectedCnic(value || "")}
-                      value={selectedCnic}
-                    />
-                  </div>
-                ) : null}
+                  <>
+                    <div className="u-margin-top-15px">
+                      <SelectBoxWithButton
+                        icon={
+                          <i className="icon-arrow-right icon-size-one"></i>
+                        }
+                        name="CNIC"
+                        applyClass="account-number"
+                        label={selectedCnic !== "" && "Select CNIC"}
+                        placeholder={"Select CNIC"}
+                        textFieldSize="small"
+                        fullWidth
+                        autoComplete="off"
+                        required
+                        option={cnicList}
+                        click={searchHandlerForAccountCnic}
+                        change={(e, value) => setSelectedCnic(value || "")}
+                        value={selectedCnic}
+                      />
+                    </div>
 
-                <div className="dateRangePicker">
-                  <StartToEndDate
-                    size="large"
-                    DateRange
-                    change={setDate}
-                    key={clearDateSelect}
-                    startvalue={
-                      State.FromDate !== null && State.FromDate !== ""
-                        ? DateDisplayFormat(State.FromDate)
-                        : null
-                    }
-                    endvalue={
-                      State.ToDate !== null && State.ToDate !== ""
-                        ? DateDisplayFormat(State.ToDate)
-                        : null
-                    }
-                    className="DatePickerDC"
-                    required
-                  />
-                </div>
+                    <div className="dateRangePicker">
+                      <StartToEndDate
+                        size="large"
+                        DateRange
+                        change={setDate}
+                        key={clearDateSelect}
+                        startvalue={
+                          State.FromDate !== null && State.FromDate !== ""
+                            ? DateDisplayFormat(State.FromDate)
+                            : null
+                        }
+                        endvalue={
+                          State.ToDate !== null && State.ToDate !== ""
+                            ? DateDisplayFormat(State.ToDate)
+                            : null
+                        }
+                        className="DatePickerDC"
+                        required
+                      />
+                    </div>
+                  </>
+                ) : null}
               </>
             )}
           </Col>

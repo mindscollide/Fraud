@@ -2,6 +2,7 @@ import * as React from "react";
 import { Select, Checkbox } from "antd";
 import styles from "../../floating-label.module.css";
 import { useState } from "react";
+import { DownOutlined } from "@ant-design/icons";
 
 export default function MultipleSelectCheckmarks({
   setSelectedUserRoleName,
@@ -43,6 +44,7 @@ export default function MultipleSelectCheckmarks({
         mode="multiple"
         size="large"
         value={selectedUserRoleName}
+        suffixIcon={null}
         onChange={(newValue) => {
           setSelected(newValue);
           setDeselectClicked(false);
@@ -127,6 +129,17 @@ export default function MultipleSelectCheckmarks({
           </div>
         )}
         placeholder={placeholder}
+      />
+      <DownOutlined
+        style={{
+          position: "absolute",
+          right: 11,
+          top: "50%",
+          transform: "translateY(-50%)",
+          fontSize: 12,
+          color: "rgba(0,0,0,0.25)",
+          pointerEvents: "none", // clicks go through to the Select
+        }}
       />
     </div>
   );

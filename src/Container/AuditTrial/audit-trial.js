@@ -227,6 +227,7 @@ const AuditTrail = () => {
             value={searchData.ReferenceNumber}
             change={(e) => handleSearch(e)}
             autoComplete="off"
+            textLength={13}
             size="small"
           />
         </Col>
@@ -239,6 +240,7 @@ const AuditTrail = () => {
             value={searchData.CustomerName}
             change={(e) => handleSearch(e)}
             size="small"
+            textLength={100}
             autoComplete="off"
           />
         </Col>
