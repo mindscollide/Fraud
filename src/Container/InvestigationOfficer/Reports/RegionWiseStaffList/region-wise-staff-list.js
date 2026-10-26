@@ -71,7 +71,7 @@ const IORegionWiseStaffList = () => {
       <Row gutter={8}>
         <Col lg={8} md={8} sm={24}>
           <SelectBox
-            label={region !== "" ? "Select Region" : ""}
+            label={region ? "Select Region" : ""}
             placeholder={"Select Region"}
             name="SelectRegion"
             option={userRegion}

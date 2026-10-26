@@ -213,7 +213,7 @@ const EditADCDispute = () => {
 
   // uploadlist
   const [ListOfADCDisputeDocuments, setListOfADCDisputeDocuments] = useState(
-    [],
+    []
   );
 
   //   for current date
@@ -539,7 +539,7 @@ const EditADCDispute = () => {
     setCity(
       valueCity.map((data, index) => {
         return data.name;
-      }),
+      })
     );
   }, [setupForms.CityData]);
 
@@ -562,7 +562,7 @@ const EditADCDispute = () => {
     setSourceTypeName(
       nameSource.map((data, index) => {
         return data.name;
-      }),
+      })
     );
   }, [setupForms.SourceData]);
 
@@ -779,7 +779,7 @@ const EditADCDispute = () => {
   // update transection data
   const update = (e, record) => {
     var objIndex = ListOfADCTransactionDetailsObjects.findIndex(
-      (obj) => obj.TransactionID === record.TransactionID,
+      (obj) => obj.TransactionID === record.TransactionID
     );
     // trsDetails, setTrsDetails
     setRecordIndex(objIndex);
@@ -1247,8 +1247,8 @@ const EditADCDispute = () => {
             setTrsDetails,
             setTransactionIDError,
             setTIDErrMsg,
-            setSourceType,
-          ),
+            setSourceType
+          )
         );
       }
     } else {
@@ -1258,8 +1258,8 @@ const EditADCDispute = () => {
           setTrsDetails,
           setTransactionIDError,
           setTIDErrMsg,
-          setSourceType,
-        ),
+          setSourceType
+        )
       );
     }
   };
@@ -2353,7 +2353,7 @@ const EditADCDispute = () => {
         obj.FK_ADCID === record.FK_ADCID &&
         obj.FK_GSSUserID === record.FK_GSSUserID &&
         obj.PK_ADCDDID === record.PK_ADCDDID &&
-        obj.DisplayFileName === record.DisplayFileName,
+        obj.DisplayFileName === record.DisplayFileName
     );
     var temp = [];
     ListOfADCDisputeDocuments.map((data, index) => {
@@ -2380,7 +2380,7 @@ const EditADCDispute = () => {
   const getFilter = () => {
     let filteredItems = ListOfADCDisputeDocuments;
     filteredItems = ListOfADCDisputeDocuments.filter(
-      (item) => item.DisplayFileName !== "",
+      (item) => item.DisplayFileName !== ""
     );
     return filteredItems;
   };
@@ -2425,7 +2425,7 @@ const EditADCDispute = () => {
   //  FOR SAVE
   const goToSaveHandler = async (e) => {
     var ReferenceNumbersave = JSON.parse(
-      localStorage.getItem("ReferenceNumber"),
+      localStorage.getItem("ReferenceNumber")
     );
     e.preventDefault();
     if (saveValue === 1) {
@@ -2542,8 +2542,8 @@ const EditADCDispute = () => {
               searchData,
               searchDataofdate,
               DataForGlobal,
-              DataForGlobalDate,
-            ),
+              DataForGlobalDate
+            )
           );
           setAddInedx([]);
         } else {
@@ -2625,8 +2625,8 @@ const EditADCDispute = () => {
               searchData,
               searchDataofdate,
               DataForGlobal,
-              DataForGlobalDate,
-            ),
+              DataForGlobalDate
+            )
           );
         }
       } else if (listOfTransactionDetailsAlreadyExsist.length > 0) {
@@ -2742,8 +2742,8 @@ const EditADCDispute = () => {
               searchData,
               searchDataofdate,
               DataForGlobal,
-              DataForGlobalDate,
-            ),
+              DataForGlobalDate
+            )
           );
           setAddInedx([]);
         } else {
@@ -2876,8 +2876,8 @@ const EditADCDispute = () => {
                 searchData,
                 searchDataofdate,
                 DataForGlobal,
-                DataForGlobalDate,
-              ),
+                DataForGlobalDate
+              )
             );
           }
           setAddInedx([]);
@@ -2966,8 +2966,8 @@ const EditADCDispute = () => {
                 searchData,
                 searchDataofdate,
                 DataForGlobal,
-                DataForGlobalDate,
-              ),
+                DataForGlobalDate
+              )
             );
           }
         }
@@ -3088,8 +3088,8 @@ const EditADCDispute = () => {
                 searchData,
                 searchDataofdate,
                 DataForGlobal,
-                DataForGlobalDate,
-              ),
+                DataForGlobalDate
+              )
             );
           }
           setAddInedx([]);
@@ -3194,7 +3194,7 @@ const EditADCDispute = () => {
     setSourceOfIB(
       nameSourceOfIB.map((data, index) => {
         return data.name;
-      }),
+      })
     );
   }, [setupForms.SourceOfIBChannelCreationData]);
 
@@ -3249,7 +3249,7 @@ const EditADCDispute = () => {
     setCaseDecision(
       valueCaseDecision.map((data, index) => {
         return data.name;
-      }),
+      })
     );
   }, [setupForms.CaseDecisionData]);
 
@@ -3350,10 +3350,10 @@ const EditADCDispute = () => {
           var i = index;
           i = index + 1;
           return { ...item, key: i + "" };
-        },
+        }
       );
       setListOfTransactionDetailsAlreadyExsist(
-        GetTransactionDetailsByCNICArray,
+        GetTransactionDetailsByCNICArray
       );
     }
     if (adcDisputesDetail !== undefined && adcDisputesDetail !== null) {
@@ -3420,8 +3420,8 @@ const EditADCDispute = () => {
   return (
     <>
       <form onSubmit={(e) => goToSaveHandler(e)}>
-        <Paper padding="1">
-          <Row gutter={16} className="u-margin-bottom-15px">
+        <Paper>
+          <Row>
             <Col lg={18} md={18} sm={18} xs={24}>
               <h1 className="u-font-size-18px u-margin-top-15px u-margin-left-20px u-color-21706d">
                 Customer Details
@@ -3446,57 +3446,61 @@ const EditADCDispute = () => {
               </div>
             </Col>
           </Row>
-          <Row gutter={16}>
-            <Col lg={6} md={6} sm={24} xs={24}>
-              <TextField
-                name=""
-                size="small"
-                placeholder="Reference#"
-                value={ADCDisputes.RefrenceNumber}
-                disable
-                label={"Reference #"}
-                fullWidth
-              />
-            </Col>
-            <Col lg={6} md={6} sm={24} xs={24}>
-              <TextField
-                name=""
-                size="small"
-                placeholder="Customer Name"
-                disable
-                value={customerDetails.customerName}
-                label={"Customer Name"}
-                fullWidth
-                textLength={50}
-              />
-            </Col>
-            <Col lg={6} md={6} sm={24} xs={24}>
-              <SelectBox
-                label="Select City"
-                option={city}
-                value={cityValue}
-                change={CityNameHandler}
-                name="FK_CTID"
-                required
-              />
-            </Col>
-            <Col lg={24} md={24} sm={24} className="u-margin-top-2pct">
-              <div className="TransactionHeading">
-                System Fetched Transactions
-              </div>
-              <Table
-                rowSelection={rowSelection}
-                rows={listOfTransactionDetailsAlreadyExsist}
-                columns={columns}
-                scroll={{ x: "max-content" }}
-                pagination={{
-                  defaultPageSize: 100,
-                  showSizeChanger: true,
-                  pageSizeOptions: ["30", "40", "50", "100", "200"],
-                }}
-              />
-            </Col>
-          </Row>
+          <div className="u-padding-y-20px u-padding-x-10px">
+            <Row gutter={16}>
+              <Col lg={6} md={6} sm={24} xs={24}>
+                <TextField
+                  name=""
+                  size="small"
+                  placeholder="Reference #"
+                  value={ADCDisputes.RefrenceNumber}
+                  disable
+                  label={ADCDisputes.RefrenceNumber !== "" ? "Reference #" : ""}
+                  fullWidth
+                />
+              </Col>
+              <Col lg={6} md={6} sm={24} xs={24}>
+                <TextField
+                  name=""
+                  size="small"
+                  placeholder="Customer Name"
+                  disable
+                  value={customerDetails.customerName}
+                  label={"Customer Name"}
+                  fullWidth
+                  textLength={50}
+                />
+              </Col>
+              <Col lg={6} md={6} sm={24} xs={24}>
+                <SelectBox
+                  label="Select City"
+                  option={city}
+                  value={cityValue}
+                  change={CityNameHandler}
+                  name="FK_CTID"
+                  required
+                />
+              </Col>
+            </Row>
+            <Row className="u-margin-top-22px">
+              <Col lg={24} md={24} sm={24}>
+                <div className="TransactionHeading">
+                  System Fetched Transactions
+                </div>
+                <Table
+                  rowSelection={rowSelection}
+                  rows={listOfTransactionDetailsAlreadyExsist}
+                  columns={columns}
+                  scroll={{ x: "max-content" }}
+                  pagination={{
+                    defaultPageSize: 100,
+                    showSizeChanger: true,
+                    pageSizeOptions: ["30", "40", "50", "100", "200"],
+                  }}
+                />
+              </Col>
+            </Row>
+          </div>
         </Paper>
         <div className="u-margin-top-20px" />
         <Paper padding="1">
@@ -3505,7 +3509,7 @@ const EditADCDispute = () => {
               Manual Transactions
             </h1>
           </Col>
-          <Row gutter={16}>
+          <Row gutter={16} className="u-margin-top-22px">
             <Col lg={6} md={6} sm={24} xs={24}>
               <InputWithBtn
                 onchange={TransactionIDchangehandler}
@@ -3567,6 +3571,8 @@ const EditADCDispute = () => {
                 textLength={30}
               />
             </Col>
+          </Row>
+          <Row gutter={16} className="u-margin-top-22px">
             <Col lg={6} md={6} sm={24} xs={24}>
               <TextField
                 name="BranchCode"
@@ -3618,6 +3624,8 @@ const EditADCDispute = () => {
                 change={TimeHandler}
               />
             </Col>
+          </Row>
+          <Row gutter={16} className="u-margin-top-22px">
             <Col lg={6} md={6} sm={24} xs={24}>
               <FormattedInputs
                 name="TransactionAmount"
@@ -3650,7 +3658,7 @@ const EditADCDispute = () => {
                 autoComplete="off"
               />
             </Col>
-            <Col lg={6} md={6} sm={24} xs={24} className="u-margin-top-22px">
+            <Col lg={6} md={6} sm={24} xs={24}>
               <TextField
                 name="ApprovalCode"
                 size="small"
@@ -3662,7 +3670,7 @@ const EditADCDispute = () => {
                 textLength={20}
               />
             </Col>
-            <Col lg={6} md={6} sm={24} xs={24} className="u-margin-top-22px">
+            <Col lg={6} md={6} sm={24} xs={24}>
               <TextField
                 name="POSMode"
                 size="small"
@@ -3674,6 +3682,9 @@ const EditADCDispute = () => {
                 textLength={50}
               />
             </Col>
+          </Row>
+
+          <Row gutter={16} className="u-margin-top-22px">
             <Col lg={6} md={6} sm={24} xs={24}>
               <TextField
                 name="MerchantID"
@@ -3703,7 +3714,7 @@ const EditADCDispute = () => {
 
             <Col lg={6} md={6} sm={24} xs={24} className="u-text-align-center">
               <label>
-                <b>On Us / Off Us *</b>
+                <b>On Us / Off Us</b>
               </label>
               <br />
               <Radio.Group
@@ -3731,6 +3742,9 @@ const EditADCDispute = () => {
                 textLength={4}
               />
             </Col>
+          </Row>
+
+          <Row gutter={16} className="u-margin-top-22px">
             <Col lg={6} md={6} sm={24} xs={24}>
               <SelectBox
                 label="Source *"
@@ -3780,6 +3794,8 @@ const EditADCDispute = () => {
                 textLength={30}
               />
             </Col>
+          </Row>
+          <Row gutter={16} className="u-margin-top-22px">
             <Col lg={6} md={6} sm={24} xs={24}>
               <InputMask
                 type="text"
@@ -3809,6 +3825,9 @@ const EditADCDispute = () => {
                 onChange={TransactionDeatilHandlerChange}
               />
             </Col>
+          </Row>
+
+          <Row gutter={16} className="u-margin-top-22px">
             <Col
               lg={24}
               md={24}
@@ -3859,8 +3878,8 @@ const EditADCDispute = () => {
               Date
             </h1>
           </Col>
-          <Row gutter={8}>
-            <Col lg={4} md={4} sm={24} className="u-margin-top-22px">
+          <Row gutter={8} className="u-margin-top-22px">
+            <Col lg={4} md={4} sm={24}>
               <DatePicker
                 label={"Case Received Date"}
                 size="large"
@@ -3876,7 +3895,7 @@ const EditADCDispute = () => {
                 disable={true}
               />
             </Col>
-            <Col lg={6} md={6} sm={24} className="u-margin-top-22px">
+            <Col lg={6} md={6} sm={24}>
               <TextField
                 fullWidth
                 label="Case Received Channel"
@@ -3889,13 +3908,7 @@ const EditADCDispute = () => {
                 textLength={20}
               />
             </Col>
-            <Col
-              lg={4}
-              md={4}
-              sm={24}
-              xs={24}
-              className="u-text-align-center u-margin-top-15px"
-            >
+            <Col lg={4} md={4} sm={24} xs={24} className="u-text-align-center">
               <label>
                 <b>Case Resolved</b>
               </label>
@@ -3914,7 +3927,7 @@ const EditADCDispute = () => {
                 </Radio>
               </Radio.Group>
             </Col>
-            <Col lg={4} md={4} sm={24} className="u-margin-top-22px">
+            <Col lg={4} md={4} sm={24}>
               <DatePicker
                 size="large"
                 width="100%"
@@ -3930,24 +3943,22 @@ const EditADCDispute = () => {
                 disable
               />
             </Col>
-            <Col lg={6} md={6} sm={24} className="u-margin-top-22px">
-              <Paper ml="1.5">
-                <TextField
-                  fullWidth
-                  label="Total Dispute Amount"
-                  value={
-                    ADCDisputes.TotalTransactionAmount === null ||
-                    ADCDisputes.TotalTransactionAmount === -99999999999999999999
-                      ? null
-                      : CommaFormter(ADCDisputes.TotalTransactionAmount)
-                  }
-                  size="small"
-                  textLength={30}
-                  name="TotalTransactionAmount"
-                  disable={true}
-                  autoComplete="off"
-                />
-              </Paper>
+            <Col lg={6} md={6} sm={24}>
+              <TextField
+                fullWidth
+                label="Total Dispute Amount"
+                value={
+                  ADCDisputes.TotalTransactionAmount === null ||
+                  ADCDisputes.TotalTransactionAmount === -99999999999999999999
+                    ? null
+                    : CommaFormter(ADCDisputes.TotalTransactionAmount)
+                }
+                size="small"
+                textLength={30}
+                name="TotalTransactionAmount"
+                disable={true}
+                autoComplete="off"
+              />
             </Col>
           </Row>
         </Paper>
@@ -3958,8 +3969,8 @@ const EditADCDispute = () => {
               Closure Details
             </h1>
           </Col>
-          <Row gutter={8}>
-            <Col lg={6} md={6} sm={24} xs={24} className="u-margin-top-22px">
+          <Row gutter={16} className="u-margin-top-22px">
+            <Col lg={6} md={6} sm={24} xs={24}>
               <SelectBox
                 option={caseDecision}
                 label="Select Case Decision"
@@ -3968,7 +3979,7 @@ const EditADCDispute = () => {
                 change={CaseDecisionHandler}
               />
             </Col>
-            <Col lg={6} md={6} sm={24} xs={24} className="u-margin-top-22px">
+            <Col lg={6} md={6} sm={24} xs={24}>
               <TextField
                 fullWidth
                 label="Event ID (SAS REF #)"
@@ -3980,7 +3991,7 @@ const EditADCDispute = () => {
                 textLength={50}
               />
             </Col>
-            <Col lg={6} md={6} sm={24} xs={24} className="u-margin-top-22px">
+            <Col lg={6} md={6} sm={24} xs={24}>
               <TextField
                 fullWidth
                 label="Remarks"
@@ -4008,7 +4019,10 @@ const EditADCDispute = () => {
                 }
               />
             </Col>
-            <Col lg={6} md={6} sm={24} xs={24} className="u-margin-top-22px">
+          </Row>
+
+          <Row gutter={16} className="u-margin-top-22px">
+            <Col lg={6} md={6} sm={24} xs={24}>
               <TextField
                 fullWidth
                 label="Aging"
@@ -4023,7 +4037,7 @@ const EditADCDispute = () => {
                 disable
               />
             </Col>
-            <Col lg={6} md={6} sm={24} xs={24} className="u-margin-top-22px">
+            <Col lg={6} md={6} sm={24} xs={24}>
               <TextField
                 fullWidth
                 label="Case Closed TAT"
@@ -4058,7 +4072,7 @@ const EditADCDispute = () => {
               />
             </Col>
 
-            <Col lg={6} md={6} sm={24} xs={24} className="u-margin-top-10px">
+            <Col lg={6} md={6} sm={24} xs={24}>
               <label>
                 <b>Demographic Change</b>
               </label>
@@ -4072,7 +4086,10 @@ const EditADCDispute = () => {
                 <Radio value={false}>No</Radio>
               </Radio.Group>
             </Col>
-            <Col lg={6} md={6} sm={24} xs={24} className="u-margin-top-10px">
+          </Row>
+
+          <Row gutter={16} className="u-margin-top-22px">
+            <Col lg={6} md={6} sm={24} xs={24}>
               <label>
                 <b>Flexi Loan</b>
               </label>
@@ -4086,7 +4103,7 @@ const EditADCDispute = () => {
                 <Radio value={false}>No</Radio>
               </Radio.Group>
             </Col>
-            <Col lg={6} md={6} sm={24} xs={24} className="u-margin-top-22px">
+            <Col lg={6} md={6} sm={24} xs={24}>
               <TextField
                 fullWidth
                 label="P-II information"
@@ -4098,7 +4115,7 @@ const EditADCDispute = () => {
                 textLength={50}
               />
             </Col>
-            <Col lg={6} md={6} sm={24} xs={24} className="u-margin-top-22px">
+            <Col lg={6} md={6} sm={24} xs={24}>
               <TextField
                 fullWidth
                 label="Customer Clamied Information"
@@ -4127,6 +4144,9 @@ const EditADCDispute = () => {
                 required
               />
             </Col>
+          </Row>
+
+          <Row gutter={16} className="u-margin-top-22px">
             <Col lg={6} md={6} sm={24} xs={24}>
               <FormattedInputs
                 fullWidth
@@ -4145,7 +4165,7 @@ const EditADCDispute = () => {
                 required
               />
             </Col>
-            <Col lg={6} md={6} sm={24} xs={24} className="u-margin-top-5px">
+            <Col lg={6} md={6} sm={24} xs={24}>
               <label>
                 <b>Customer / Beneficiary SIM Blocked</b>
               </label>
@@ -4159,7 +4179,7 @@ const EditADCDispute = () => {
                 <Radio value={false}>No</Radio>
               </Radio.Group>
             </Col>
-            <Col lg={6} md={6} sm={24} xs={24} className="u-margin-top-10px">
+            <Col lg={6} md={6} sm={24} xs={24}>
               <TextField
                 fullWidth
                 label="Fund Layered A/c #"
@@ -4171,7 +4191,7 @@ const EditADCDispute = () => {
                 textLength={14}
               />
             </Col>
-            <Col lg={6} md={6} sm={24} xs={24} className="u-margin-top-10px">
+            <Col lg={6} md={6} sm={24} xs={24}>
               <label>
                 <b>iOS / Android</b>
               </label>
@@ -4186,7 +4206,10 @@ const EditADCDispute = () => {
                 <Radio value={3}>Web</Radio>
               </Radio.Group>
             </Col>
-            <Col lg={6} md={6} sm={24} xs={24} className="u-margin-top-10px">
+          </Row>
+
+          <Row gutter={16} className="u-margin-top-22px">
+            <Col lg={6} md={6} sm={24} xs={24}>
               <SelectBox
                 option={sourceOfIB}
                 label="Select Source of IB Channel Creation"
@@ -4235,7 +4258,7 @@ const EditADCDispute = () => {
           </Row>
         </Paper>
         <div className="u-margin-top-25px" />
-        <Row gutter={16} justify="center">
+        <Row gutter={16} justify="center" className="u-margin-bottom-20px">
           <Col lg={4} md={4} sm={24}>
             <Button
               text="Save"
@@ -4252,7 +4275,7 @@ const EditADCDispute = () => {
               text="Save & Send For Approval"
               type="submit"
               icon={<i className="icon-sent icon-size-one"></i>}
-              applyClass="buttonPrimary2"
+              applyClass="buttonPrimary3"
               size="large"
               click={() => setsaveValue(2)}
             />

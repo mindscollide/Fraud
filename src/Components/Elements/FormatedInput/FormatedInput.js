@@ -26,7 +26,9 @@ export const FormattedInputs = ({
       {label ? (
         <b className="u-font-size-0_7rem">
           {label}
-          {required ? <i className="u-font-size-0_7rem u-color-red">*</i> : null}
+          {required ? (
+            <i className="u-font-size-0_7rem u-color-red">*</i>
+          ) : null}
         </b>
       ) : null}
       <div className={Label ? styles.wrapper : undefined}>
@@ -44,6 +46,7 @@ export const FormattedInputs = ({
             this migration and was fragile). */}
         <NumberFormat
           customInput={Input}
+          required={required ? true : false}
           thousandsGroupStyle="thousand"
           decimalSeparator="."
           thousandSeparator={true}
@@ -65,7 +68,7 @@ export const FormattedInputs = ({
             change({
               target: {
                 name: name,
-                value: values.value,
+                value: values?.value,
               },
             });
           }}

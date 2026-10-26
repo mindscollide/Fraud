@@ -272,9 +272,9 @@ const ApprovalReasons = () => {
             fullWidth
             autoComplete="off"
             label={
-              approvalReasonsReason?.Reason !== "" && "Enter Approval Reasons"
+              approvalReasonsReason?.Reason !== "" && "Enter Approval Reason"
             }
-            placeholder={"Enter Approval Reasons *"}
+            placeholder={"Enter Approval Reason"}
             change={handleChange}
             value={approvalReasonsReason.Reason}
             size="small"

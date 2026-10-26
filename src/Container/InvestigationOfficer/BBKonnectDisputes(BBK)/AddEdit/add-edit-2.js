@@ -506,7 +506,6 @@ const AddEditBBKDispute2 = () => {
             {isCnicNo ? (
               <>
                 <InputWithBtn
-                  isUpperCase={true}
                   onchange={cnicSectionHandler}
                   label="Enter CNIC"
                   fullWidth
@@ -568,7 +567,6 @@ const AddEditBBKDispute2 = () => {
             ) : isAccountNo ? (
               <>
                 <InputWithBtn
-                  isUpperCase={true}
                   onchange={accountSectionHandler}
                   label="Enter Account Number"
                   fullWidth
@@ -607,7 +605,6 @@ const AddEditBBKDispute2 = () => {
             ) : (
               <>
                 <InputWithBtn
-                  isUpperCase={true}
                   onchange={mobileSectionHandler}
                   label="Enter Mobile Number"
                   fullWidth

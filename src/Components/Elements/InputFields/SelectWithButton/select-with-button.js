@@ -33,6 +33,7 @@ const SelectBoxWithButton = memo(
     focus,
     propertyName,
     disable,
+    disableButton,
     applyClass,
     text,
     click,
@@ -92,14 +93,16 @@ const SelectBoxWithButton = memo(
         <Button
           onClick={click}
           size="large"
-          disabled={disable ? true : false}
+          disabled={disableButton ? true : false}
           type="primary"
           className={styles[`${applyClass}`]}
         >
           {/* See Button/button.js — antd only auto-spaces its own icon
               components via CSS, not the plain <i className="icon-..."> font
               icons this app passes here. */}
-          <span style={{ display: "inline-flex", alignItems: "center", gap: 8 }}>
+          <span
+            style={{ display: "inline-flex", alignItems: "center", gap: 8 }}
+          >
             {icon ? icon : null}
             {text ? <span>{text}</span> : null}
           </span>

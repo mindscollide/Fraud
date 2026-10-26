@@ -101,6 +101,10 @@
   margin: 0;
 }
 
+.u-margin-22px {
+  margin: 22px;
+}
+
 .u-margin-0-5px-0-5px {
   margin: 0 5px 0 5px;
 }
@@ -267,6 +271,15 @@
 .u-padding-top-20px {
   padding-top: 20px;
 }
+.u-padding-y-20px {
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.u-padding-x-10px {
+  padding-left: 10px !important;
+  padding-right: 10px !important;
+}
 
 .u-position-absolute {
   position: absolute;
@@ -325,4 +338,7 @@
 }
 .u-gap-8px {
   gap: 8px;
+}
+.u-margin-bottom-22px {
+  margin-bottom: 22px;
 }
