@@ -60,7 +60,10 @@ const SelectBox = memo(
     };
 
     return (
-      <div className={label ? styles.wrapper : undefined}>
+      <div
+        className={label ? styles.wrapper : undefined}
+        style={{ position: "relative" }}
+      >
         {label ? (
           <span className={styles.floatingLabel}>
             {label}
@@ -88,6 +91,23 @@ const SelectBox = memo(
             (opt?.label ?? "").toLowerCase().includes(input.toLowerCase())
           }
         />
+        {required ? (
+          <input
+            tabIndex={-1}
+            required
+            value={isEmptyValue || selectedIndex === -1 ? "" : "1"}
+            onChange={() => {}}
+            style={{
+              position: "absolute",
+              bottom: 0,
+              left: 0,
+              width: "100%",
+              height: 1,
+              opacity: 0,
+              pointerEvents: "none",
+            }}
+          />
+        ) : null}
       </div>
     );
   }

@@ -442,6 +442,7 @@ const SearchDisputeIM = () => {
         }
       },
     },
+
     {
       title: "View Status History",
       dataIndex: "key",
@@ -585,12 +586,11 @@ const SearchDisputeIM = () => {
             setSelected={setSelected}
             selectedUserRoleName={selectedTransactionTypeName}
             setSelectedUserRoleName={setSelectedTransactionTypeName}
-            lable={selected?.length > 0 ? "Transaction Type *" : ""}
-            placeholder={"Transaction Type *"}
+            lable={selected?.length > 0 ? "Transaction Type" : ""}
+            placeholder={"Transaction Type"}
             change={transactionTypeHandler}
             option={transactionTypes}
             name="TransactionTypeIDs"
-            required
           />
         </Col>
         <Col lg={8} md={8} sm={24}>

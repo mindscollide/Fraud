@@ -1,5 +1,6 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { notification } from "antd";
+import { CloseOutlined } from "@ant-design/icons";
 
 const Message = {
   success: "success",
@@ -30,16 +31,12 @@ const Notification = ({ setOpen, open, message }) => {
         message,
         placement: "topRight",
         duration: 2,
-        // The original MUI Alert always rendered with a hardcoded teal
-        // "success" background regardless of its severity="error" prop
-        // (a pre-existing bug — the classes.BackGroundSucces override always
-        // won) — preserved exactly rather than "corrected" to show red.
-        // className (not just style) is needed because antd's own
-        // .ant-notification-notice-message rule sets an explicit text color
-        // that would otherwise win over an inherited one from style={}.
+        closeIcon: <CloseOutlined />,
         className: "app-teal-notification",
         style: {
           backgroundColor: "#078480",
+          height: "40px",
+          padding: 0,
         },
         onClose: handleClose,
       });

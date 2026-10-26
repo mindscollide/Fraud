@@ -2140,7 +2140,9 @@ const SearchTransactionDetailsByAccountNumberWithCnicLookup = (object) => {
       .then(async (response) => {
         if (response.data.responseCode === 417) {
           await dispatch(refreshToken());
-          dispatch(SearchTransactionDetailsByAccountNumberWithCnicLookup(object));
+          dispatch(
+            SearchTransactionDetailsByAccountNumberWithCnicLookup(object)
+          );
         } else if (
           response.data.responseCode === 200 &&
           response.data.responseResult.isExecuted === true &&
@@ -2177,7 +2179,10 @@ const GetAllCnicByAccountNumber = (
     dispatch(investigationOfficerInit());
     let form = new FormData();
     form.append("RequestMethod", getAllCnicByAccountNumber.RequestMethod);
-    form.append("RequestData", JSON.stringify({ AccountNumber: accountNumber }));
+    form.append(
+      "RequestData",
+      JSON.stringify({ AccountNumber: accountNumber })
+    );
     return axios({
       method: "post",
       url: url,
@@ -3445,7 +3450,10 @@ const GetTransactionDetailsByAccountNumberADCFail = (response) => {
 };
 
 //For Dispute through account
-const GetTransactionDetailsByAccountNumberADC = (object) => {
+const GetTransactionDetailsByAccountNumberADC = ({
+  object,
+  setAccountFoundAccTab,
+}) => {
   let navigate = Helper.navigate;
   let token = JSON.parse(localStorage.getItem("token"));
   let Data = {
@@ -3474,6 +3482,8 @@ const GetTransactionDetailsByAccountNumberADC = (object) => {
           dispatch(GetTransactionDetailsByAccountNumberADC(object));
         } else if (response.data.responseCode === 200) {
           if (response.data.responseResult.isExecuted === true) {
+            setAccountFoundAccTab(true);
+
             dispatch(RESETALLSTATE());
             // dispatch(GetTransactionDetailsByAccountNumberDebitSuccess(response.data.responseResult));
             if (
@@ -3490,6 +3500,7 @@ const GetTransactionDetailsByAccountNumberADC = (object) => {
                   response.data.responseResult
                 )
               );
+
               navigate("/Fraud/ADCD/CustomerDetailsADCAccount");
             }
           } else {

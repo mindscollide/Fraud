@@ -26,6 +26,41 @@ import {
 } from "../../../../../store/actions/setup-forms-actions";
 import { SearchOutlined as Search } from "@ant-design/icons";
 
+// Display labels for transaction types returned by the API
+const TRANSACTION_TYPE_LABELS_BY_ID = {
+  1: "Credit Card Dispute",
+  2: "Debit Card Dispute",
+  3: "Alternate Delivery Channel Disputes",
+  4: "Non-API Dispute",
+  5: "BB Konnect Disputes",
+  6: "Negative Database",
+};
+
+const TRANSACTION_TYPE_LABELS_BY_NAME = {
+  CreditCardDispute: "Credit Card Dispute",
+  DebitCardDispute: "Debit Card Dispute",
+  AlternateDeliveryChannelDisputes: "Alternate Delivery Channel Disputes",
+  NonAPIDispute: "Non-API Dispute",
+  BBKonnect: "BB Konnect Disputes",
+  NegativeDatabase: "Negative Database",
+};
+
+// Fallback for any new type: "SomeNewType" -> "Some New Type"
+const splitPascalCase = (str = "") =>
+  str
+    .replace(/([a-z])([A-Z])/g, "$1 $2")
+    .replace(/([A-Z]+)([A-Z][a-z])/g, "$1 $2")
+    .trim();
+
+const getTransactionLabel = (item) => {
+  if (!item) return "";
+  return (
+    TRANSACTION_TYPE_LABELS_BY_ID[item.transactionTypeID] ||
+    TRANSACTION_TYPE_LABELS_BY_NAME[item.transactionName] ||
+    splitPascalCase(item.transactionName)
+  );
+};
+
 const EditUser = () => {
   const { Title } = Typography;
   const state = useSelector((state) => state);
@@ -105,24 +140,19 @@ const EditUser = () => {
 
   // for edit user
   const editUserDataHnaler = (e, val) => {
-    let name = e.target.name;
-    if (val !== undefined && val !== null) {
-      let RegionData = setupForms.RegionData;
-      if (
-        RegionData !== undefined &&
-        RegionData !== null &&
-        RegionData.length > 0
-      ) {
-        RegionData.map((data, index) => {
-          if (val === data.name) {
-            setclassificationofAdvance({
-              ...classificationofAdvance,
-              ["RegionID"]: data.pK_RID,
-            });
-            setRegion(data.name);
-          }
-        });
-      }
+    // Supports both (e, value) and plain e.target.value signatures.
+    // Non-string values (e.g. from the multi-select) are ignored.
+    const picked = typeof val === "string" ? val : e?.target?.value;
+    if (typeof picked !== "string") return;
+    const selectedRegion = (setupForms.RegionData || []).find(
+      (data) => data.name === picked
+    );
+    if (selectedRegion) {
+      setclassificationofAdvance((prev) => ({
+        ...prev,
+        RegionID: selectedRegion.pK_RID,
+      }));
+      setRegion(selectedRegion.name);
     }
   };
   // Foe Save Edit user details
@@ -164,6 +194,9 @@ const EditUser = () => {
     setAction({ add: false, edit: false, status: false, update: false });
     setIsModalVisible(false);
     setForm({ LoginID: "", SelectRole: 0, SelectStaus: 0 });
+    setRegion("");
+    setSelected([]);
+    setSelectedTransactionTypeName([]);
   };
 
   const handleProceed = () => {
@@ -174,22 +207,14 @@ const EditUser = () => {
     setSelectedTransactionTypeName([]);
   };
 
-  // for region maping
+  // Formats the Transaction Types column:
+  // "Credit Card Dispute, Debit Card Dispute, ..."
   const userRoleshandler = (text) => {
-    if (text !== undefined && text !== null) {
-      let tem = [];
-      text.map((data, index) => {
-        let n = data.transactionName;
-        if (tem === []) {
-          tem = [n];
-        } else {
-          tem = [...tem, n];
-        }
-      });
-      return tem.join(", ");
-    } else {
-      return "";
-    }
+    if (!Array.isArray(text) || text.length === 0) return "";
+    return text
+      .map((item) => getTransactionLabel(item))
+      .filter(Boolean)
+      .join(", ");
   };
 
   const roleChangeHandler = (e, val) => {
@@ -224,45 +249,33 @@ const EditUser = () => {
   }, [setupForms.TransactionTypesData]);
 
   const userRegionhandler = (text) => {
-    let RegionData = setupForms.RegionData;
-    if (
-      text !== undefined &&
-      text !== null &&
-      RegionData !== undefined &&
-      RegionData !== null &&
-      RegionData.length > 0
-    ) {
-      return RegionData.map((data, index) => {
-        if (data.pK_RID === text) {
-          return data.name;
-        } else {
-          return "";
-        }
-      });
-    }
+    const match = (setupForms.RegionData || []).find(
+      (data) => data.pK_RID === text
+    );
+    return match ? match.name : "";
   };
 
   const columns = [
     {
-      title: "LoginID",
+      title: "Login ID",
       dataIndex: "userLDAPAccount",
       key: "userLDAPAccount",
       align: "center",
-      width: "20%",
+      width: "10%",
     },
     {
       title: "First Name",
       dataIndex: "firstName",
       key: "firstName",
       align: "center",
-      width: "20%",
+      width: "10%",
     },
     {
       title: "Last Name",
       dataIndex: "lastName",
       key: "lastName",
       align: "center",
-      width: "20%",
+      width: "10%",
     },
     {
       title: "Role",
@@ -288,15 +301,15 @@ const EditUser = () => {
         </>
       ),
       align: "center",
-      width: "20%",
+      width: "15%",
     },
 
     {
-      title: "Transaction Name",
+      title: "Transaction Types",
       dataIndex: "transactionTypes",
       key: "transactionTypes",
       align: "center",
-      width: "60%",
+      width: "30%",
       render: (text) => userRoleshandler(text),
     },
     {
@@ -304,7 +317,7 @@ const EditUser = () => {
       dataIndex: "regionID",
       key: "regionID",
       align: "center",
-      width: "60%",
+      width: "10%",
       render: (text) => userRegionhandler(text),
     },
     {
@@ -312,7 +325,7 @@ const EditUser = () => {
       dataIndex: "fK_GSSUserStatusID",
       key: "fK_GSSUserStatusID",
       align: "center",
-      width: "20%",
+      width: "5%",
 
       render: (text) => (
         <>
@@ -340,7 +353,7 @@ const EditUser = () => {
       dataIndex: "edit",
       key: "edit",
       align: "center",
-      width: "20%",
+      width: "5%",
       render: (text, record) => (
         <div
           onClick={(e) => edit(e, record)}
@@ -393,39 +406,19 @@ const EditUser = () => {
   };
 
   const edit = (e, record) => {
-    let RegionData = setupForms.RegionData;
-    if (
-      RegionData !== undefined &&
-      RegionData !== null &&
-      RegionData.length > 0
-    ) {
-      RegionData.map((data, index) => {
-        if (record.regionID === data.pK_RID) {
-          setRegion(data.name);
-        }
-      });
-    }
-    let transactionTypes = record.transactionTypes;
-    if (transactionTypes !== null && transactionTypes !== undefined) {
-      if (transactionTypes.length > 0) {
-        let temp = [];
-        record.transactionTypes.map((name, index) => {
-          let Username = name.transactionName;
-          temp = [...temp, Username];
-        });
-        setSelected(temp);
-      }
-    }
-    let tem2 = [];
-    let dataUser = setupForms.TransactionTypesData;
-    dataUser.map((name, index) => {
-      selectedTransactionTypeName.map((id, index) => {
-        if (name.ttName === id) {
-          let pkID = name.pK_TTID;
-          tem2 = [...tem2, pkID];
-        }
-      });
-    });
+    // Region: always reset, so a previous user's region never carries over
+    const currentRegion = (setupForms.RegionData || []).find(
+      (data) => data.pK_RID === record.regionID
+    );
+    setRegion(currentRegion ? currentRegion.name : "");
+
+    // Transaction types: always reset, then seed from this record
+    const recordTypes = Array.isArray(record.transactionTypes)
+      ? record.transactionTypes
+      : [];
+    setSelected(recordTypes.map((t) => t.transactionName));
+    setSelectedTransactionTypeName([]);
+
     setForm({ ...form, ["LoginID"]: record.userID });
     showModal();
     setclassificationofAdvance({
@@ -433,7 +426,9 @@ const EditUser = () => {
       UserIdToEdit: record.userID,
       email: record.userLDAPAccount,
       RegionID: record.regionID,
-      TransactionType: tem2,
+      // IDs come from the record itself, so changing only the region
+      // doesn't send an empty / stale transaction type list.
+      TransactionType: recordTypes.map((t) => t.transactionTypeID),
     });
     setAction({ ...actions, edit: !actions.edit });
   };
@@ -481,29 +476,18 @@ const EditUser = () => {
 
   // Selected Dropdown value
   useEffect(() => {
-    let tem = [];
-    let dataUser = setupForms.TransactionTypesData;
-    dataUser.map((name, index) => {
-      selectedTransactionTypeName.map((id, index) => {
-        if (name.ttName === id) {
-          let pkID = name.pK_TTID;
-          tem = [...tem, pkID];
-        }
-      });
+    // Empty means "nothing changed / modal reset": keep the IDs seeded in edit()
+    if (selectedTransactionTypeName.length === 0) return;
+    const ids = [];
+    (setupForms.TransactionTypesData || []).forEach((item) => {
+      if (selectedTransactionTypeName.includes(item.ttName)) {
+        ids.push(item.pK_TTID);
+      }
     });
-    let tem2 = [];
-    dataUser.map((name, index) => {
-      selectedTransactionTypeName.map((id, index) => {
-        if (name.ttName === id) {
-          let pkID = name.pK_TTID;
-          tem2 = [...tem2, pkID];
-        }
-      });
-    });
-    setclassificationofAdvance({
-      ...classificationofAdvance,
-      ["TransactionType"]: tem2,
-    });
+    setclassificationofAdvance((prev) => ({
+      ...prev,
+      TransactionType: ids,
+    }));
   }, [selectedTransactionTypeName]);
   // User data Responce
   useEffect(() => {
@@ -615,7 +599,7 @@ const EditUser = () => {
           <Table
             rows={row}
             columns={columns}
-            scroll={{ x: "max-content" }}
+            scroll={{ x: "1300" }}
             pagination={{
               defaultPageSize: 10,
               showSizeChanger: true,

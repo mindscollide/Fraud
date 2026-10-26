@@ -272,9 +272,9 @@ const RejectionReasons = () => {
           <TextField
             fullWidth
             label={
-              rejectionReasonsReason?.Reason !== "" && "Enter Rejection Reasons"
+              rejectionReasonsReason?.Reason !== "" && "Enter Rejection Reason"
             }
-            placeholder={"Enter Rejection Reasons *"}
+            placeholder={"Enter Rejection Reason"}
             change={handleChange}
             autoComplete="off"
             value={rejectionReasonsReason.Reason}

@@ -157,7 +157,7 @@ const AddEditNONAPIDispute = () => {
   //DataRangeHandler
   const [clearDateSelect, setDateClearSelect] = useState("");
   const date2 = moment().format("YYYYMMDD");
-  const previousYearDate = moment().subtract(6, "months").format("YYYYMMDD");
+  const previousYearDate = moment().subtract(12, "months").format("YYYYMMDD");
 
   const [State, setState] = useState({
     FromDate: previousYearDate,
@@ -375,7 +375,7 @@ const AddEditNONAPIDispute = () => {
   // }, [State]);
 
   useEffect(() => {
-    if (State.FromDate && State.ToDate !== "" && accountNumber !== "") {
+    if (accountNumber !== "") {
       setBtnStatusSelect(false);
     } else {
       setBtnStatusSelect(true);
@@ -437,10 +437,9 @@ const AddEditNONAPIDispute = () => {
             {isCnicNo ? (
               <>
                 <InputWithBtn
-                  isUpperCase={true}
                   onchange={cnicSectionHandler}
-                  label={inputData !== "" && "Enter CNIC"}
-                  placeholder={"Enter CNIC"}
+                  label={inputData !== "" && "Enter CNIC Number"}
+                  placeholder={"Enter CNIC Number *"}
                   fullWidth
                   textFieldSize="small"
                   autoComplete="off"
@@ -458,7 +457,9 @@ const AddEditNONAPIDispute = () => {
                   <>
                     <div className="u-margin-top-15px">
                       <SelectBoxWithButton
-                        icon={<i className="icon-search icon-size-one"></i>}
+                        icon={
+                          <i className="icon-arrow-right icon-size-one"></i>
+                        }
                         name="AccountNumber"
                         applyClass="account-number"
                         label={accountNumber !== "" && "Select Account Number"}
@@ -471,7 +472,7 @@ const AddEditNONAPIDispute = () => {
                         click={accountSearchHandler}
                         change={accountNumberHandler}
                         value={accountNumber}
-                        disable={btnStatusSelect}
+                        // disable={btnStatusSelect}
                       />
                     </div>
 
@@ -513,10 +514,9 @@ const AddEditNONAPIDispute = () => {
             ) : (
               <>
                 <InputWithBtn
-                  isUpperCase={true}
                   onchange={accountSectionHandler}
                   label={inputDataAC !== "" && "Enter Account Number"}
-                  placeholder={"Enter Account Number"}
+                  placeholder={"Enter Account Number *"}
                   fullWidth
                   textFieldSize="small"
                   applyClass="search-cnic"
@@ -530,45 +530,50 @@ const AddEditNONAPIDispute = () => {
                   name="AccountNumber"
                   click={accountSearch2Handler}
                 />
-                <div className="dateRangePicker">
-                  <StartToEndDate
-                    size="large"
-                    DateRange
-                    change={setDate}
-                    key={clearDateSelect}
-                    startvalue={
-                      State.FromDate !== null && State.FromDate !== ""
-                        ? DateDisplayFormat(State.FromDate)
-                        : null
-                    }
-                    endvalue={
-                      State.ToDate !== null && State.ToDate !== ""
-                        ? DateDisplayFormat(State.ToDate)
-                        : null
-                    }
-                    className="DatePickerDC"
-                    required
-                  />
-                </div>
+
                 {cnicList.length > 0 ? (
-                  <div className="u-margin-top-15px">
-                    <SelectBoxWithButton
-                      icon={<i className="icon-search icon-size-one"></i>}
-                      text="Search"
-                      name="CNIC"
-                      applyClass="account-number"
-                      label={selectedCnic !== "" && "Select CNIC"}
-                      placeholder={"Select CNIC"}
-                      textFieldSize="small"
-                      fullWidth
-                      autoComplete="off"
-                      required
-                      option={cnicList}
-                      click={searchHandlerForAccountCnic}
-                      change={(e, value) => setSelectedCnic(value || "")}
-                      value={selectedCnic}
-                    />
-                  </div>
+                  <>
+                    <div className="u-margin-top-15px">
+                      <SelectBoxWithButton
+                        icon={
+                          <i className="icon-arrow-right icon-size-one"></i>
+                        }
+                        name="CNIC"
+                        applyClass="account-number"
+                        label={selectedCnic !== "" && "Select CNIC"}
+                        placeholder={"Select CNIC"}
+                        textFieldSize="small"
+                        fullWidth
+                        autoComplete="off"
+                        required
+                        option={cnicList}
+                        click={searchHandlerForAccountCnic}
+                        change={(e, value) => setSelectedCnic(value || "")}
+                        value={selectedCnic}
+                      />
+                    </div>
+
+                    <div className="dateRangePicker">
+                      <StartToEndDate
+                        size="large"
+                        DateRange
+                        change={setDate}
+                        key={clearDateSelect}
+                        startvalue={
+                          State.FromDate !== null && State.FromDate !== ""
+                            ? DateDisplayFormat(State.FromDate)
+                            : null
+                        }
+                        endvalue={
+                          State.ToDate !== null && State.ToDate !== ""
+                            ? DateDisplayFormat(State.ToDate)
+                            : null
+                        }
+                        className="DatePickerDC"
+                        required
+                      />
+                    </div>
+                  </>
                 ) : null}
               </>
             )}

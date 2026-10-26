@@ -427,10 +427,9 @@ const AddEditDCDispute = () => {
             {isCnicNo ? (
               <>
                 <InputWithBtn
-                  isUpperCase={true}
                   onchange={cnicSectionHandler}
                   label={inputData !== "" && "Enter CNIC"}
-                  placeholder={"Enter CNIC"}
+                  placeholder={"Enter CNIC Number *"}
                   fullWidth
                   textFieldSize="small"
                   autoComplete="off"
@@ -469,7 +468,7 @@ const AddEditDCDispute = () => {
                       />
                     </div>
                     <div className="u-margin-top-20px" />
-                    <StartToEndDate
+                    {/* <StartToEndDate
                       size="large"
                       change={setDate}
                       key={clearDateSelect}
@@ -486,14 +485,13 @@ const AddEditDCDispute = () => {
                       className="DatePickerDC"
                       DateRange={true}
                       required
-                    />
+                    /> */}
                   </>
                 ) : null}
               </>
             ) : (
               <>
                 <InputWithBtn
-                  isUpperCase={true}
                   onchange={accountSectionHandler}
                   label="Enter Account Number"
                   fullWidth
@@ -510,7 +508,7 @@ const AddEditDCDispute = () => {
                   click={accountSearch2Handler}
                 />
                 <div className="u-margin-top-20px" />
-                <StartToEndDate
+                {/* <StartToEndDate
                   size="large"
                   change={setDate}
                   key={clearDateSelect}
@@ -527,7 +525,7 @@ const AddEditDCDispute = () => {
                   }
                   className="DatePickerDC"
                   required
-                />
+                /> */}
               </>
             )}
           </Col>
@@ -591,8 +589,16 @@ const AddEditDCDispute = () => {
                 System will not create new record.
               </Title>
             </div>
-            <div className="u-margin-left-70px">
-              <GroupedButtons data={okayButtonProp} />
+            <div className="u-display-flex u-justify-content-center">
+              {/* <GroupedButtons data={okayButtonProp} /> */}
+              <Button
+                text="Ok"
+                type={"primary"}
+                size="large"
+                applyClass="btnBorderStyledBeach"
+                click={handleCancel}
+                // click= () => handleCancel(),
+              />
             </div>
           </>
         )}
@@ -642,8 +648,16 @@ const AddEditDCDispute = () => {
                 System will not create new record.
               </Title>
             </div>
-            <div className="u-margin-left-70px">
-              <GroupedButtons data={okayButtonProp} />
+            <div className="u-display-flex u-justify-content-center">
+              {/* <GroupedButtons data={okayButtonProp} /> */}
+              <Button
+                text="Ok"
+                type={"primary"}
+                size="large"
+                applyClass="btnBorderStyledBeach"
+                click={handleCancel}
+                // click= () => handleCancel(),
+              />
             </div>
           </>
         )}

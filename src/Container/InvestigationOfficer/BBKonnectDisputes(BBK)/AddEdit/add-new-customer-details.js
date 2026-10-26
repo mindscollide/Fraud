@@ -574,10 +574,10 @@ const AddNewCustomerDetailsBBK = () => {
           var i = index;
           i = index + 1;
           return { ...item, key: i + "" };
-        },
+        }
       );
       setListOfTransactionDetailsAlreadyExsist(
-        GetTransactionDetailsByCNICArray,
+        GetTransactionDetailsByCNICArray
       );
     }
   }, [investigationOfficer.GetTransactionDetailsByAccountNumberBBKexsitData]);
@@ -602,7 +602,7 @@ const AddNewCustomerDetailsBBK = () => {
     setSourceTypeName(
       nameSource.map((data, index) => {
         return data.name;
-      }),
+      })
     );
   }, [setupForms.SourceData]);
 
@@ -628,7 +628,7 @@ const AddNewCustomerDetailsBBK = () => {
       setFraudType(
         nameFraud.map((data, index) => {
           return data.name;
-        }),
+        })
       );
     }
   }, [setupForms.FraudTypeData]);
@@ -823,7 +823,7 @@ const AddNewCustomerDetailsBBK = () => {
   // update transection data
   const update = (e, record) => {
     var objIndex = TransactionDetails.findIndex(
-      (obj) => obj.TransactionID === record.TransactionID,
+      (obj) => obj.TransactionID === record.TransactionID
     );
     // trsDetails, setTrsDetails
     setRecordIndex(objIndex);
@@ -1305,7 +1305,7 @@ const AddNewCustomerDetailsBBK = () => {
     setTransactionCurrencyCode(
       valuetransactionCurrencyCode.map((data, index) => {
         return data.description;
-      }),
+      })
     );
   }, [setupForms.TransactionCurrencyCodeData]);
 
@@ -1356,8 +1356,8 @@ const AddNewCustomerDetailsBBK = () => {
             setTransactionIDError,
             setTIDErrMsg,
             setSourceType,
-            setTransactionCurrencyCodeValue,
-          ),
+            setTransactionCurrencyCodeValue
+          )
         );
       }
     } else {
@@ -1368,8 +1368,8 @@ const AddNewCustomerDetailsBBK = () => {
           setTransactionIDError,
           setTIDErrMsg,
           setSourceType,
-          setTransactionCurrencyCodeValue,
-        ),
+          setTransactionCurrencyCodeValue
+        )
       );
     }
   };
@@ -2451,7 +2451,7 @@ const AddNewCustomerDetailsBBK = () => {
     setCaseDecision(
       valueCaseDecision.map((data, index) => {
         return data.name;
-      }),
+      })
     );
   }, [setupForms.CaseDecisionData]);
 
@@ -2731,7 +2731,7 @@ const AddNewCustomerDetailsBBK = () => {
               });
             } else if (data.DisputeDetails.FK_CDEID !== 0) {
               await dispatch(
-                SaveAndApprovedBBKDisputes(data, searchData, searchDataofdate),
+                SaveAndApprovedBBKDisputes(data, searchData, searchDataofdate)
               );
               let newdata2 = [...TransactionDetails];
               let newIdex = [];
@@ -2790,11 +2790,7 @@ const AddNewCustomerDetailsBBK = () => {
                 });
               } else if (data.DisputeDetails.FK_CDEID !== 0) {
                 dispatch(
-                  SaveAndApprovedBBKDisputes(
-                    data,
-                    searchData,
-                    searchDataofdate,
-                  ),
+                  SaveAndApprovedBBKDisputes(data, searchData, searchDataofdate)
                 );
               }
             } else {
@@ -2922,7 +2918,7 @@ const AddNewCustomerDetailsBBK = () => {
     setCity(
       valueCity.map((data, index) => {
         return data.name;
-      }),
+      })
     );
   }, [setupForms.CityData]);
 
@@ -2955,6 +2951,17 @@ const AddNewCustomerDetailsBBK = () => {
       });
     }
   }, [investigationOfficer]);
+  // true when a field actually holds a value (treats "", null, undefined,
+  // empty arrays and the -99999999999999999999 "empty number" sentinel as empty)
+  const hasValue = (v) =>
+    v !== undefined &&
+    v !== null &&
+    v !== "" &&
+    v !== -99999999999999999999 &&
+    !(Array.isArray(v) && v.length === 0);
+
+  // show the label only when the field has a value, otherwise "" (placeholder only)
+  const lbl = (value, text) => (hasValue(value) ? text : "");
 
   return (
     <>
@@ -2962,7 +2969,7 @@ const AddNewCustomerDetailsBBK = () => {
         <Paper padding="1">
           <Row gutter={16} className="u-margin-bottom-15px">
             <Col lg={18} md={18} sm={18} xs={24}>
-              <h1 className="u-font-size-18px u-margin-top-15px u-margin-left-20px u-color-21706d">
+              <h1 className="u-font-size-18px u-margin-left-20px u-color-21706d">
                 Customer Details
               </h1>
             </Col>
@@ -3036,14 +3043,15 @@ const AddNewCustomerDetailsBBK = () => {
                 size="small"
                 placeholder="Customer Name"
                 value={customerDetails.customerName}
-                label={"Customer Name"}
+                label={lbl(customerDetails.customerName, "Customer Name")}
                 fullWidth
                 disable
               />
             </Col>
             <Col lg={6} md={6} sm={24} xs={24}>
               <SelectBox
-                label="Select City"
+                label={lbl(cityValue, "Select City")}
+                placeholder={"Select City"}
                 option={city}
                 value={cityValue}
                 change={CityNameHandler}
@@ -3053,7 +3061,8 @@ const AddNewCustomerDetailsBBK = () => {
             </Col>
             <Col lg={6} md={6} sm={24} xs={24}>
               <SelectBox
-                label="Select Fraud Type"
+                label={lbl(fraudTypeName, "Select Fraud Type")}
+                placeholder={"Select Fraud Type"}
                 option={fraudType}
                 name="Fraudtype"
                 value={fraudTypeName}
@@ -3061,6 +3070,9 @@ const AddNewCustomerDetailsBBK = () => {
                 required
               />
             </Col>
+          </Row>
+
+          <Row gutter={16}>
             <Col lg={24} md={24} sm={24} className="u-margin-top-2pct">
               <div className="TransactionHeading">
                 System Fetched Transactions
@@ -3086,12 +3098,13 @@ const AddNewCustomerDetailsBBK = () => {
               Manual Transactions
             </h1>
           </Col>
-          <Row gutter={16}>
-            <Col lg={6} md={6} sm={24} xs={24} className="u-margin-top-22px">
+          <Row gutter={16} className="u-margin-top-22px">
+            <Col lg={6} md={6} sm={24} xs={24}>
               <InputWithBtn
                 onchange={TransactionIDchangehandler}
                 isUpperCase={true}
-                label="Transaction ID*"
+                label={lbl(trsDetails.TransactionID, "Transaction ID *")}
+                placeholder={"Transaction ID *"}
                 fullWidth
                 autoComplete="off"
                 helperText={TIDErrMsg}
@@ -3106,26 +3119,31 @@ const AddNewCustomerDetailsBBK = () => {
                 click={tranSearchHandler}
               />
             </Col>
-            <Col lg={6} md={6} sm={24} xs={24} className="u-margin-top-22px">
+            <Col lg={6} md={6} sm={24} xs={24}>
               <TextField
                 name="OtherBankAccountNumber"
                 size="small"
                 autoComplete="off"
                 value={trsDetails.OtherBankAccountNumber}
-                label={"Other Bank Account Number*"}
+                label={lbl(
+                  trsDetails.OtherBankAccountNumber,
+                  "Other Bank Account Number *"
+                )}
+                placeholder={"Other Bank Account Number *"}
                 // textLength={4}
                 change={TransactionDeatilHandlerChange}
                 fullWidth
                 textLength={14}
               />
             </Col>
-            <Col lg={6} md={6} sm={24} xs={24} className="u-margin-top-22px">
+            <Col lg={6} md={6} sm={24} xs={24}>
               <TextField
                 name="HBLAccountNumber"
                 size="small"
                 autoComplete="off"
                 value={trsDetails.HBLAccountNumber}
-                label={"HBL Account Number*"}
+                label={lbl(trsDetails.HBLAccountNumber, "HBL Account Number *")}
+                placeholder={"HBL Account Number *"}
                 // textLength={4}
                 change={TransactionDeatilHandlerChange}
                 fullWidth
@@ -3133,27 +3151,30 @@ const AddNewCustomerDetailsBBK = () => {
                 disable
               />
             </Col>
-            <Col lg={6} md={6} sm={24} xs={24} className="u-margin-top-22px">
+            <Col lg={6} md={6} sm={24} xs={24}>
               <TextField
                 name="MobileNumber"
                 size="small"
                 autoComplete="off"
                 value={trsDetails.MobileNumber}
-                label={"Mobile Number*"}
-                // textLength={4}
+                label={lbl(trsDetails.MobileNumber, "Mobile Number *")}
+                placeholder={"Mobile Number *"}
                 change={TransactionDeatilHandlerChange}
                 fullWidth
                 textLength={11}
               />
             </Col>
+          </Row>
+
+          <Row gutter={16} className="u-margin-top-22px">
             <Col lg={6} md={6} sm={24} xs={24}>
               <DatePicker
-                label={"Transaction Date"}
+                label={lbl(trsDetails.TransactionDate, "Transaction Date")}
                 name="TransactionDate"
                 size="large"
                 width="100%"
                 DateRange
-                placeholder={"Transaction Date*"}
+                placeholder={"Transaction Date *"}
                 value={
                   trsDetails.TransactionDate
                     ? DateDisplayFormat(trsDetails.TransactionDate)
@@ -3164,23 +3185,27 @@ const AddNewCustomerDetailsBBK = () => {
             </Col>
             <Col lg={6} md={6} sm={24} xs={24}>
               <TimePicker
-                label={"Transaction Time"}
+                label={lbl(trsDetails.TransactionTime, "Transaction Time")}
+                required
                 name="TransactionTime"
                 size="large"
                 width="100%"
-                placeholder={"Transaction Time*"}
+                placeholder={"Transaction Time *"}
                 value={trsDetails.TransactionTime}
                 change={TimeHandler}
               />
             </Col>
             <Col lg={6} md={6} sm={24} xs={24}>
               <DatePicker
-                label={"Transaction Posting Date"}
+                label={lbl(
+                  trsDetails.TransactionPostingDate,
+                  "Transaction Posting Date"
+                )}
+                placeholder={"Transaction Posting Date *"}
                 name="TransactionPostingDate"
                 size="large"
                 width="100%"
                 DateRange
-                placeholder={"Transaction Posting Date*"}
                 value={
                   trsDetails.TransactionPostingDate
                     ? DateDisplayFormat(trsDetails.TransactionPostingDate)
@@ -3201,11 +3226,15 @@ const AddNewCustomerDetailsBBK = () => {
                 textLength={(999, 999, 999, 999, 999, 999, 999)}
                 size="small"
                 autoComplete="off"
-                Label={"Potential Save*"}
+                Label={lbl(trsDetails.PotentialSave, "Potential Save")}
+                placeholder={"Potential Save *"}
                 fullWidth
                 change={TransactionDeatilHandlerChange}
+                required
               />
             </Col>
+          </Row>
+          <Row gutter={16} className="u-margin-top-22px">
             <Col lg={6} md={6} sm={24} xs={24}>
               <FormattedInputs
                 name="TransactionAmount"
@@ -3218,7 +3247,9 @@ const AddNewCustomerDetailsBBK = () => {
                 textLength={(999, 999, 999, 999, 999, 999, 999)}
                 size="small"
                 autoComplete="off"
-                Label={"Transaction Amount*"}
+                Label={lbl(trsDetails.TransactionAmount, "Transaction Amount")}
+                placeholder={"Transaction Amount *"}
+                required
                 fullWidth
                 change={TransactionDeatilHandlerChange}
               />
@@ -3235,38 +3266,53 @@ const AddNewCustomerDetailsBBK = () => {
                 textLength={(999, 999, 999, 999, 999, 999, 999)}
                 size="small"
                 autoComplete="off"
-                Label={"Exposure / Dispute Amount*"}
+                Label={lbl(
+                  trsDetails.DisputeAmount,
+                  "Exposure / Dispute Amount"
+                )}
+                placeholder={"Exposure / Dispute Amount *"}
                 fullWidth
                 change={TransactionDeatilHandlerChange}
                 // disable={true}
+                required
               />
             </Col>
-            <Col lg={6} md={6} sm={24} xs={24} className="u-margin-top-22px">
+            <Col lg={6} md={6} sm={24} xs={24}>
               <SelectBox
-                label="Select Transaction Currency Code"
+                label={lbl(
+                  transactionCurrencyCodeValue,
+                  "Select Transaction Currency Code"
+                )}
+                placeholder={"Select Transaction Currency Code"}
                 option={transactionCurrencyCode}
                 value={transactionCurrencyCodeValue}
                 change={transactionCurrencyCodeHandler}
                 name="TransactionCurrencyCode"
               />
             </Col>
-            <Col lg={6} md={6} sm={24} xs={24} className="u-margin-top-22px">
+            <Col lg={6} md={6} sm={24} xs={24}>
               <TextField
                 name="Response"
                 size="small"
-                label={"Response*"}
+                label={lbl(trsDetails.Response, "Response")}
+                placeholder={"Response *"}
                 autoComplete="off"
                 value={trsDetails.Response}
                 change={TransactionDeatilHandlerChange}
                 fullWidth
                 textLength={50}
+                required
               />
             </Col>
+          </Row>
+
+          <Row gutter={16} className="u-margin-top-22px">
             <Col lg={6} md={6} sm={24} xs={24}>
               <TextField
                 name="TransactionMode"
                 size="small"
-                label={"Transaction Mode*"}
+                label={lbl(trsDetails.TransactionMode, "Transaction Mode")}
+                placeholder={"Transaction Mode *"}
                 autoComplete="off"
                 value={trsDetails.TransactionMode}
                 change={TransactionDeatilHandlerChange}
@@ -3279,22 +3325,28 @@ const AddNewCustomerDetailsBBK = () => {
                 name="TransactionCity"
                 size="small"
                 autoComplete="off"
-                label={"Transaction City *"}
+                label={lbl(trsDetails.TransactionCity, "Transaction City")}
+                placeholder={"Transaction City *"}
                 value={trsDetails.TransactionCity}
                 change={TransactionDeatilHandlerChange}
                 fullWidth
                 textLength={50}
+                required
               />
             </Col>
             <Col lg={6} md={6} sm={24} xs={24}>
               <SelectBox
-                label="Source*"
+                label={lbl(SourceType, "Source")}
+                placeholder={"Source *"}
                 option={sourceTypeName}
                 value={SourceType}
                 change={SourceNameHandler}
                 name="SourceType"
+                required
               />
             </Col>
+          </Row>
+          <Row gutter={16} className="u-margin-top-22px">
             <Col
               lg={24}
               md={24}
@@ -3345,10 +3397,11 @@ const AddNewCustomerDetailsBBK = () => {
               Date
             </h1>
           </Col>
-          <Row gutter={8}>
-            <Col lg={4} md={4} sm={24} className="u-margin-top-22px">
+          <Row gutter={16} className="u-margin-top-22px">
+            <Col lg={4} md={4} sm={24}>
               <DatePicker
-                label={"Case Received Date"}
+                label={lbl(BBKDispute.CaseReceivedDate, "Case Received Date")}
+                placeholder={"Case Received Date *"}
                 size="large"
                 width="100%"
                 DateRange
@@ -3360,12 +3413,17 @@ const AddNewCustomerDetailsBBK = () => {
                 }
                 change={BBKDisputeHandler}
                 disable={true}
+                required
               />
             </Col>
-            <Col lg={6} md={6} sm={24} className="u-margin-top-22px">
+            <Col lg={6} md={6} sm={24}>
               <TextField
                 fullWidth
-                label="Case Received Channel"
+                label={lbl(
+                  BBKDispute.CaseReceivedChannel,
+                  "Case Received Channel"
+                )}
+                placeholder={"Case Received Channel"}
                 autoComplete="off"
                 value={BBKDispute.CaseReceivedChannel}
                 name="CaseReceivedChannel"
@@ -3373,15 +3431,10 @@ const AddNewCustomerDetailsBBK = () => {
                 type="text"
                 size="small"
                 textLength={20}
+                required
               />
             </Col>
-            <Col
-              lg={4}
-              md={4}
-              sm={24}
-              xs={24}
-              className="u-text-align-center u-margin-top-15px"
-            >
+            <Col lg={4} md={4} sm={24} xs={24} className="u-text-align-center">
               <label>
                 <b>Case Resolved</b>
               </label>
@@ -3400,7 +3453,7 @@ const AddNewCustomerDetailsBBK = () => {
                 </Radio>
               </Radio.Group>
             </Col>
-            <Col lg={4} md={4} sm={24} className="u-margin-top-22px">
+            <Col lg={6} md={6} sm={24}>
               <DatePicker
                 size="large"
                 width="100%"
@@ -3416,7 +3469,7 @@ const AddNewCustomerDetailsBBK = () => {
                 disable
               />
             </Col>
-            <Col lg={6} md={6} sm={24} className="u-margin-top-22px">
+            <Col lg={4} md={4} sm={24}>
               <Paper ml="1.5">
                 <TextField
                   fullWidth
@@ -3434,13 +3487,10 @@ const AddNewCustomerDetailsBBK = () => {
                 />
               </Paper>
             </Col>
-            <Col
-              lg={4}
-              md={4}
-              sm={24}
-              xs={24}
-              className="u-margin-top-17px u-text-align-center"
-            >
+          </Row>
+
+          <Row gutter={16} className="u-margin-top-22px">
+            <Col lg={4} md={4} sm={24} xs={24} className=" u-text-align-center">
               <label>
                 <b className="u-font-size-0_7rem">Initial Block</b>
               </label>
@@ -3454,9 +3504,12 @@ const AddNewCustomerDetailsBBK = () => {
                 <Radio value={false}>No</Radio>
               </Radio.Group>
             </Col>
-            <Col lg={4} md={4} sm={24}>
+            <Col lg={5} md={5} sm={24}>
               <DatePicker
-                label={"Initial Blocking Date"}
+                label={lbl(
+                  BBKDispute.InitialBlockingDate,
+                  "Initial Blocking Date"
+                )}
                 disable={isInitialDate}
                 size="large"
                 width="100%"
@@ -3469,12 +3522,11 @@ const AddNewCustomerDetailsBBK = () => {
                     : null
                 }
                 change={BBKDisputeHandler}
-                required={BBKDispute.IsInitialBlock}
               />
             </Col>
-            <Col lg={4} md={4} sm={24}>
+            <Col lg={5} md={5} sm={24}>
               <DatePicker
-                label={"Case Initiated Date"}
+                label={lbl(BBKDispute.CaseInitiatedDate, "Case Initiated Date")}
                 size="large"
                 width="100%"
                 DateRange
@@ -3486,16 +3538,19 @@ const AddNewCustomerDetailsBBK = () => {
                     : null
                 }
                 change={BBKDisputeHandler}
-                required={true}
               />
             </Col>
-            <Col lg={4} md={4} sm={24}>
+
+            <Col lg={5} md={5} sm={24}>
               <DatePicker
-                label={"Customer Dispute Date"}
+                label={lbl(
+                  BBKDispute.CustomerDisputeDate,
+                  "Customer Dispute Date"
+                )}
+                placeholder={"Customer Dispute Date"}
                 size="large"
                 width="100%"
                 DateRange
-                placeholder={"Customer Dispute Date"}
                 name="CustomerDisputeDate"
                 value={
                   BBKDispute.CustomerDisputeDate
@@ -3503,12 +3558,11 @@ const AddNewCustomerDetailsBBK = () => {
                     : null
                 }
                 change={BBKDisputeHandler}
-                required={true}
               />
             </Col>
-            <Col lg={4} md={4} sm={24}>
+            <Col lg={5} md={5} sm={24}>
               <DatePicker
-                label={"Case Detection Date"}
+                label={lbl(BBKDispute.CaseDetectionDate, "Case Detection Date")}
                 size="large"
                 width="100%"
                 DateRange
@@ -3520,10 +3574,13 @@ const AddNewCustomerDetailsBBK = () => {
                     : null
                 }
                 change={BBKDisputeHandler}
-                required={true}
               />
             </Col>
           </Row>
+          {/* 
+          <Row gutter={16} className="u-margin-top-22px">
+         
+          </Row> */}
         </Paper>
         <div className="u-margin-top-20px" />
         <Paper padding="1">
@@ -3532,11 +3589,12 @@ const AddNewCustomerDetailsBBK = () => {
               Closure Details
             </h1>
           </Col>
-          <Row gutter={8}>
-            <Col lg={6} md={6} sm={24} xs={24} className="u-margin-top-22px">
+          <Row gutter={16} className="u-margin-top-22px">
+            <Col lg={6} md={6} sm={24} xs={24}>
               <SelectBox
                 option={caseDecision}
-                label="Select Case Decision"
+                label={lbl(caseDecisionValue, "Select Case Decision")}
+                placeholder={"Select Case Decision"}
                 name="FK_CDEID"
                 value={caseDecisionValue}
                 change={CaseDecisionHandler}
@@ -3554,7 +3612,11 @@ const AddNewCustomerDetailsBBK = () => {
                 textLength={(999, 999, 999, 999, 999, 999, 999)}
                 size="small"
                 autoComplete="off"
-                Label={"In Favor Of Customer"}
+                Label={lbl(
+                  BBKDispute.InFavorOfCustomer,
+                  "In Favor Of Customer"
+                )}
+                placeholder={"In Favor Of Customer"}
                 fullWidth
                 change={BBKDisputeHandler}
                 required
@@ -3572,7 +3634,8 @@ const AddNewCustomerDetailsBBK = () => {
                 textLength={(999, 999, 999, 999, 999, 999, 999)}
                 size="small"
                 autoComplete="off"
-                Label={"Customer Liability"}
+                Label={lbl(BBKDispute.CustomerLiability, "Customer Liability")}
+                placeholder={"Customer Liability"}
                 fullWidth
                 change={BBKDisputeHandler}
                 required
@@ -3590,12 +3653,16 @@ const AddNewCustomerDetailsBBK = () => {
                 textLength={(999, 999, 999, 999, 999, 999, 999)}
                 size="small"
                 autoComplete="off"
-                Label={"Other"}
+                Label={lbl(BBKDispute.Other, "Other")}
+                placeholder={"Other"}
                 fullWidth
                 change={BBKDisputeHandler}
                 required
               />
             </Col>
+          </Row>
+
+          <Row gutter={16} className="u-margin-top-22px">
             <Col lg={6} md={6} sm={24} xs={24}>
               <FormattedInputs
                 name="Insurance"
@@ -3608,7 +3675,8 @@ const AddNewCustomerDetailsBBK = () => {
                 textLength={(999, 999, 999, 999, 999, 999, 999)}
                 size="small"
                 autoComplete="off"
-                Label={"Insurance"}
+                Label={lbl(BBKDispute.Insurance, "Insurance")}
+                placeholder={"Insurance"}
                 fullWidth
                 change={BBKDisputeHandler}
                 required
@@ -3626,16 +3694,18 @@ const AddNewCustomerDetailsBBK = () => {
                 textLength={(999, 999, 999, 999, 999, 999, 999)}
                 size="small"
                 autoComplete="off"
-                Label={"Internally"}
+                Label={lbl(BBKDispute.Internally, "Internally")}
+                placeholder={"Internally"}
                 fullWidth
                 change={BBKDisputeHandler}
                 required
               />
             </Col>
-            <Col lg={6} md={6} sm={24} xs={24} className="u-margin-top-22px">
+            <Col lg={6} md={6} sm={24} xs={24}>
               <TextField
                 fullWidth
-                label="Analyst Name"
+                label={lbl(BBKDispute.AnalystName, "Analyst Name")}
+                placeholder={"Analyst Name"}
                 size="small"
                 name="AnalystName"
                 autoComplete="off"
@@ -3644,13 +3714,7 @@ const AddNewCustomerDetailsBBK = () => {
                 textLength={50}
               />
             </Col>
-            <Col
-              lg={6}
-              md={6}
-              sm={24}
-              xs={24}
-              className="u-margin-top-15px u-text-align-center"
-            >
+            <Col lg={6} md={6} sm={24} xs={24} className="u-text-align-center">
               <label>
                 <b>Tracking Sheet Attached</b>
               </label>
@@ -3664,10 +3728,14 @@ const AddNewCustomerDetailsBBK = () => {
                 <Radio value={false}>No</Radio>
               </Radio.Group>
             </Col>
-            <Col lg={6} md={6} sm={24} xs={24} className="u-margin-top-22px">
+          </Row>
+
+          <Row gutter={16} className="u-margin-top-22px">
+            <Col lg={6} md={6} sm={24} xs={24}>
               <TextField
                 fullWidth
-                label="Remarks"
+                label={lbl(BBKDispute.Remarks, "Remarks")}
+                placeholder={"Remarks"}
                 size="small"
                 autoComplete="off"
                 name="Remarks"
@@ -3676,10 +3744,11 @@ const AddNewCustomerDetailsBBK = () => {
                 textLength={50}
               />
             </Col>
-            <Col lg={6} md={6} sm={24} xs={24} className="u-margin-top-22px">
+            <Col lg={6} md={6} sm={24} xs={24}>
               <TextField
                 fullWidth
-                label="Aging"
+                label={lbl(BBKDispute.Aging, "Aging")}
+                placeholder={"Aging"}
                 size="small"
                 name="Aging"
                 value={
@@ -3691,10 +3760,11 @@ const AddNewCustomerDetailsBBK = () => {
                 disable
               />
             </Col>
-            <Col lg={6} md={6} sm={24} xs={24} className="u-margin-top-22px">
+            <Col lg={6} md={6} sm={24} xs={24}>
               <TextField
                 fullWidth
-                label="Case Closed TAT"
+                label={lbl(BBKDispute.CaseClosedTAT, "Case Closed TAT")}
+                placeholder={"Case Closed TAT"}
                 size="small"
                 name="CaseClosedTAT"
                 value={
@@ -3720,7 +3790,7 @@ const AddNewCustomerDetailsBBK = () => {
               </span>
             </h1>
           </Col>
-          <Row gutter={8}>
+          <Row gutter={16} className="u-margin-top-22px">
             <Col md={24} lg={24} sm={24} className="u-text-align-left">
               <CustomUpload
                 change={getFileHandler}
@@ -3729,6 +3799,9 @@ const AddNewCustomerDetailsBBK = () => {
                 }}
               />
             </Col>
+          </Row>
+
+          <Row gutter={16} className="u-margin-top-22px">
             <div className="u-margin-top-5pct" />
             <Col lg={24} md={24} sm={24} className="u-margin-top-2pct">
               <Table
@@ -3745,7 +3818,7 @@ const AddNewCustomerDetailsBBK = () => {
           </Row>
         </Paper>
         <div className="u-margin-top-25px" />
-        <Row gutter={16} justify="center">
+        <Row gutter={16} justify="center" className="u-margin-bottom-22px">
           <Col lg={4} md={4} sm={24}>
             <Button
               text="Save"
@@ -3762,7 +3835,7 @@ const AddNewCustomerDetailsBBK = () => {
               text="Save & Send For Approval"
               type="submit"
               icon={<i className="icon-sent icon-size-one"></i>}
-              applyClass="buttonPrimary2"
+              applyClass="buttonPrimary3"
               size="large"
               click={() => setsaveValue(2)}
             />

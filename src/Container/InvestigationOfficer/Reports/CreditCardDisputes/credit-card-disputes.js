@@ -192,14 +192,13 @@ const IOCreditCardDisputes = () => {
           <TextField
             fullWidth
             label={search?.CNIC !== "" && "CNIC"}
-            placeholder={"CNIC *"}
+            placeholder={"CNIC"}
             autoComplete="off"
             size="small"
             name="CNIC"
             value={search.CNIC}
             textLength={13}
             change={handleSerach}
-            required
           />
         </Col>
         <Col lg={8} md={8} sm={24}>

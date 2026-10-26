@@ -10,9 +10,11 @@ const CustomTable = ({
   scroll,
   rowSelection,
   id,
+  className,
 }) => {
   return (
     <Table
+      className={className}
       rowClassName="rowColor"
       rowSelection={rowSelection}
       columns={columns}

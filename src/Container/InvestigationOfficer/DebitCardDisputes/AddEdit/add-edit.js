@@ -345,10 +345,9 @@ const AddEditDebitCardDispute = () => {
             {isCnicNo ? (
               <>
                 <InputWithBtn
-                  isUpperCase={true}
                   onchange={cnicSectionHandler}
-                  label={inputData !== "" && "Enter CNIC"}
-                  placeholder={"Enter CNIC"}
+                  label={inputData !== "" && "Enter CNIC Number"}
+                  placeholder={"Enter CNIC Number *"}
                   fullWidth
                   autoComplete="off"
                   textFieldSize="small"
@@ -366,13 +365,15 @@ const AddEditDebitCardDispute = () => {
                   <>
                     <div className="u-margin-top-15px">
                       <SelectBoxWithButton
-                        icon={<i className="icon-search icon-size-one"></i>}
+                        icon={
+                          <i className="icon-arrow-right icon-size-one"></i>
+                        }
                         name="AccountNumber"
                         applyClass="account-number"
                         label={
                           accountNumber?.length > 0 && "Select Account Number"
                         }
-                        placeholder={"Select Account Number"}
+                        placeholder={"Select Account Number *"}
                         textFieldSize="small"
                         fullWidth
                         autoComplete="off"
@@ -381,11 +382,11 @@ const AddEditDebitCardDispute = () => {
                         click={accountSearchHandler}
                         change={accountNumberHandler}
                         value={accountNumber}
-                        disable={accountFound}
+                        // disable={accountFound}
                       />
                     </div>
                     <div className="dateRangePicker u-margin-top-15px u-display-flex u-justify-content-space-between">
-                      {accountFound ? (
+                      {/* {accountFound ? (
                         <StartToEndDate
                           size="large"
                           change={setDate}
@@ -404,7 +405,7 @@ const AddEditDebitCardDispute = () => {
                           DateRange={true}
                           required
                         />
-                      ) : null}
+                      ) : null} */}
                       {accountFound ? (
                         <Col lg={4} md={4} sm={24}>
                           <Button
@@ -422,7 +423,6 @@ const AddEditDebitCardDispute = () => {
             ) : (
               <>
                 <InputWithBtn
-                  isUpperCase={true}
                   onchange={accountSectionHandler}
                   label={inputDataAC !== "" && "Enter Account Number"}
                   placeholder={"Enter Account Number"}
@@ -439,7 +439,7 @@ const AddEditDebitCardDispute = () => {
                   name="AccountNumber"
                   click={accountSearch2Handler}
                 />
-                <div className="dateRangePicker">
+                {/* <div className="dateRangePicker">
                   <StartToEndDate
                     size="large"
                     DateRange
@@ -458,7 +458,7 @@ const AddEditDebitCardDispute = () => {
                     className="DatePickerDC"
                     required
                   />
-                </div>
+                </div> */}
                 {cnicList.length > 0 ? (
                   <div className="u-margin-top-15px">
                     <SelectBoxWithButton
@@ -539,8 +539,16 @@ const AddEditDebitCardDispute = () => {
                 System will not create new record.
               </Title>
             </div>
-            <div className="u-margin-left-70px">
-              <GroupedButtons data={okayButtonProp} />
+            <div className="u-display-flex u-justify-content-center">
+              {/* <GroupedButtons data={okayButtonProp} /> */}
+              <Button
+                text="Ok"
+                type={"primary"}
+                size="large"
+                applyClass="btnBorderStyledBeach"
+                click={handleCancel}
+                // click= () => handleCancel(),
+              />
             </div>
           </>
         )}
@@ -587,8 +595,16 @@ const AddEditDebitCardDispute = () => {
                 System will not create new record.
               </Title>
             </div>
-            <div className="u-margin-left-70px">
-              <GroupedButtons data={okayButtonProp2} />
+            <div className="u-display-flex u-justify-content-center">
+              {/* <GroupedButtons data={okayButtonProp} /> */}
+              <Button
+                text="Ok"
+                type={"primary"}
+                size="large"
+                applyClass="btnBorderStyledBeach"
+                click={handleCancel}
+                // click= () => handleCancel(),
+              />
             </div>
           </>
         )}

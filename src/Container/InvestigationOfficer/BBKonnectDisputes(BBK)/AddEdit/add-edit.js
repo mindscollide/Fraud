@@ -177,7 +177,7 @@ const AddEditBBKDispute = () => {
   const [clearDateSelect, setDateClearSelect] = useState("");
   const current = new Date();
   const date2 = moment().format("YYYYMMDD");
-  const previousYearDate = moment().subtract(6, "months").format("YYYYMMDD");
+  const previousYearDate = moment().subtract(12, "months").format("YYYYMMDD");
 
   const [State, setState] = useState({
     FromDate: previousYearDate,
@@ -571,10 +571,9 @@ const AddEditBBKDispute = () => {
             {isCnicNo ? (
               <>
                 <InputWithBtn
-                  isUpperCase={true}
                   onchange={cnicSectionHandler}
-                  label={inputData !== "" ? "Enter CNIC" : ""}
-                  placeholder={"Enter CNIC *"}
+                  label={inputData !== "" ? "Enter CNIC Number" : ""}
+                  placeholder={"Enter CNIC Number *"}
                   fullWidth
                   autoComplete="off"
                   textFieldSize="small"
@@ -592,7 +591,9 @@ const AddEditBBKDispute = () => {
                   <>
                     <div className="u-margin-top-15px">
                       <SelectBoxWithButton
-                        icon={<i className="icon-search icon-size-one"></i>}
+                        icon={
+                          <i className="icon-arrow-right icon-size-one"></i>
+                        }
                         name="AccountNumber"
                         applyClass="account-number"
                         label={
@@ -607,7 +608,13 @@ const AddEditBBKDispute = () => {
                         click={accountSearchHandler}
                         change={accountNumberHandler}
                         value={accountNumber}
-                        disable={btnStatusSelect}
+                        // disable={btnStatusSelect}
+                        disableButton={
+                          accountNumber == null ||
+                          accountNumber === "" ||
+                          (Array.isArray(accountNumber) &&
+                            accountNumber.length === 0)
+                        }
                       />
                     </div>
                     <div className="dateRangePicker u-margin-top-15px u-display-flex u-justify-content-space-between">
@@ -638,6 +645,11 @@ const AddEditBBKDispute = () => {
                             text="Search"
                             className="downloadButton"
                             click={searchHandlerForAccount}
+                            disableBtn={
+                              (State.ToDate === null && State.ToDate === "") ||
+                              State.ToDate === null ||
+                              State.ToDate === ""
+                            }
                           />
                         </Col>
                       ) : null}
@@ -648,7 +660,6 @@ const AddEditBBKDispute = () => {
             ) : isAccountNo ? (
               <>
                 <InputWithBtn
-                  isUpperCase={true}
                   onchange={accountSectionHandler}
                   label={inputDataAC !== "" && "Enter Account Number"}
                   placeholder={"Enter Account Number *"}
@@ -690,7 +701,6 @@ const AddEditBBKDispute = () => {
             ) : (
               <>
                 <InputWithBtn
-                  isUpperCase={true}
                   onchange={mobileSectionHandler}
                   label={inputDataMobile !== "" && "Enter Mobile Number"}
                   placeholder={"Enter Mobile Number *"}

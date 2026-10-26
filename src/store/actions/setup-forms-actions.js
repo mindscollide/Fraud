@@ -2605,7 +2605,7 @@ const SaveFraudType = (object) => {
 const GetAllFraudType = (flag) => {
   let token = JSON.parse(localStorage.getItem("token"));
   return (dispatch) => {
-    // dispatch(setupFormInit());
+    dispatch(setupFormInit());
     let form = new FormData();
     form.append("RequestMethod", allFraudType.RequestMethod);
     axios({
@@ -2623,6 +2623,8 @@ const GetAllFraudType = (flag) => {
         } else if (response.data.responseCode === 200) {
           if (response.data.responseResult.isExecuted === true) {
             dispatch(FraudSuccess(response.data.responseResult));
+            dispatch(LOADERFALSE());
+
             if (flag === true) {
             } else {
             }

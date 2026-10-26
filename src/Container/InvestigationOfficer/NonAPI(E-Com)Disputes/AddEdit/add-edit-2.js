@@ -410,10 +410,9 @@ const AddEditBBKDispute2 = () => {
             {isCnicNo ? (
               <>
                 <InputWithBtn
-                  isUpperCase={true}
                   onchange={cnicSectionHandler}
-                  label={inputData !== "" && "Enter CNIC"}
-                  placeholder={"Enter CNIC"}
+                  label={inputData !== "" && "Enter CNIC Number *"}
+                  placeholder={"Enter CNIC Number *"}
                   autoComplete="off"
                   fullWidth
                   textFieldSize="small"
@@ -474,10 +473,9 @@ const AddEditBBKDispute2 = () => {
             ) : (
               <>
                 <InputWithBtn
-                  isUpperCase={true}
                   onchange={accountSectionHandler}
                   label={inputData !== "" && "Enter Account Number"}
-                  placeholder={"Enter Account Number"}
+                  placeholder={"Enter Account Number *"}
                   fullWidth
                   textFieldSize="small"
                   applyClass="search-cnic"

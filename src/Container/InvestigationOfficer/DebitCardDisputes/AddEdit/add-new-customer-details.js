@@ -591,10 +591,10 @@ const AddNewCustomerDetailsDC = () => {
           var i = index;
           i = index + 1;
           return { ...item, key: i + "" };
-        },
+        }
       );
       setListOfTransactionDetailsAlreadyExsist(
-        GetTransactionDetailsByCNICArray,
+        GetTransactionDetailsByCNICArray
       );
     }
   }, [investigationOfficer.GetTransactionDetailsByCnicDCexsitData]);
@@ -634,7 +634,7 @@ const AddNewCustomerDetailsDC = () => {
     setSourceTypeName(
       nameSource.map((data, index) => {
         return data.name;
-      }),
+      })
     );
   }, [setupForms.SourceData]);
 
@@ -645,7 +645,7 @@ const AddNewCustomerDetailsDC = () => {
       setFraudType(
         nameFraud.map((data, index) => {
           return data.name;
-        }),
+        })
       );
     }
   }, [setupForms.FraudTypeData]);
@@ -1154,7 +1154,7 @@ const AddNewCustomerDetailsDC = () => {
   // update transection data
   const update = (e, record) => {
     var objIndex = ListOfDebitCardTransactionDetailsObjects.findIndex(
-      (obj) => obj.TransactionID === record.TransactionID,
+      (obj) => obj.TransactionID === record.TransactionID
     );
     setRecordIndex(objIndex);
     setRecords(record);
@@ -1451,8 +1451,8 @@ const AddNewCustomerDetailsDC = () => {
             setTransactionIDError,
             setTIDErrMsg,
             setSourceType,
-            setTransactionCurrencyCodeValue,
-          ),
+            setTransactionCurrencyCodeValue
+          )
         );
       }
     } else {
@@ -1463,8 +1463,8 @@ const AddNewCustomerDetailsDC = () => {
           setTransactionIDError,
           setTIDErrMsg,
           setSourceType,
-          setTransactionCurrencyCodeValue,
-        ),
+          setTransactionCurrencyCodeValue
+        )
       );
     }
   };
@@ -1495,12 +1495,11 @@ const AddNewCustomerDetailsDC = () => {
       name !== "TransactionAmountOtherCurrency" &&
       name !== "DisputeAmount" &&
       name !== "MerchantName" &&
-      name !== "MerchantID" &&
+      // name !== "MerchantID" &&
       name !== "MerchantCity" &&
-      name !== "CategoryCodeMCC" &&
+      // name !== "CategoryCodeMCC" &&
       name !== "AcquirerID" &&
       name !== "AcquirerTerminalID" &&
-      name !== "POSMode" &&
       name !== "ON_OFF_US" &&
       (value !== "" || value === false)
     ) {
@@ -1525,20 +1524,22 @@ const AddNewCustomerDetailsDC = () => {
           [name]: valueCheck.trimStart(),
         });
       }
-    } else if (name === "POSMode" && value !== "") {
-      var valueCheck = value.replace(/[^\d-]/g, "");
-      if (valueCheck != "") {
-        setTrsDetails({
-          ...trsDetails,
-          [name]: valueCheck,
-        });
-      }
-    } else if (name === "POSMode" && value === "") {
-      setTrsDetails({
-        ...trsDetails,
-        [name]: "",
-      });
-    } else if (name === "OtherBankAccountNumber" && value !== "") {
+    }
+    // else if (name === "POSMode" && value !== "") {
+    //   var valueCheck = value.replace(/[^\d-]/g, "");
+    //   if (valueCheck != "") {
+    //     setTrsDetails({
+    //       ...trsDetails,
+    //       [name]: valueCheck,
+    //     });
+    //   }
+    // } else if (name === "POSMode" && value === "") {
+    //   setTrsDetails({
+    //     ...trsDetails,
+    //     [name]: "",
+    //   });
+    // }
+    else if (name === "OtherBankAccountNumber" && value !== "") {
       var valueCheck = value.replace(/[^\d-]/g, "");
       if (valueCheck != "") {
         setTrsDetails({
@@ -1564,33 +1565,36 @@ const AddNewCustomerDetailsDC = () => {
         ...trsDetails,
         [name]: "",
       });
-    } else if (name === "MerchantID" && value !== "") {
-      var valueCheck = value.replace(/[^\d-]/g, "");
-      if (valueCheck != "") {
-        setTrsDetails({
-          ...trsDetails,
-          [name]: valueCheck,
-        });
-      }
-    } else if (name === "MerchantID" && value === "") {
-      setTrsDetails({
-        ...trsDetails,
-        [name]: "",
-      });
-    } else if (name === "CategoryCodeMCC" && value !== "") {
-      var valueCheck = value.replace(/[^\d-]/g, "");
-      if (valueCheck != "") {
-        setTrsDetails({
-          ...trsDetails,
-          [name]: valueCheck,
-        });
-      }
-    } else if (name === "CategoryCodeMCC" && value === "") {
-      setTrsDetails({
-        ...trsDetails,
-        [name]: "",
-      });
-    } else if (name === "AcquirerID" && value !== "") {
+    }
+    // else if (name === "MerchantID" && value !== "") {
+    //   var valueCheck = value.replace(/[^\d-]/g, "");
+    //   if (valueCheck != "") {
+    //     setTrsDetails({
+    //       ...trsDetails,
+    //       [name]: valueCheck,
+    //     });
+    //   }
+    // } else if (name === "MerchantID" && value === "") {
+    //   setTrsDetails({
+    //     ...trsDetails,
+    //     [name]: "",
+    //   });
+    // }
+    // else if (name === "CategoryCodeMCC" && value !== "") {
+    //   var valueCheck = value.replace(/[^\d-]/g, "");
+    //   if (valueCheck != "") {
+    //     setTrsDetails({
+    //       ...trsDetails,
+    //       [name]: valueCheck,
+    //     });
+    //   }
+    // } else if (name === "CategoryCodeMCC" && value === "") {
+    //   setTrsDetails({
+    //     ...trsDetails,
+    //     [name]: "",
+    //   });
+    // }
+    else if (name === "AcquirerID" && value !== "") {
       var valueCheck = value.replace(/[^\d-]/g, "");
       if (valueCheck != "") {
         setTrsDetails({
@@ -2700,7 +2704,7 @@ const AddNewCustomerDetailsDC = () => {
   // Delete Upload Document
   const deleteUploadDocument = (record) => {
     const filteredItems = ListOfDebitCardDisputeDocuments.filter(
-      (item) => item !== record,
+      (item) => item !== record
     );
     setListOfDebitCreditCardDisputeDocuments(filteredItems);
   };
@@ -2820,7 +2824,7 @@ const AddNewCustomerDetailsDC = () => {
               ToDate: "",
             };
             await dispatch(
-              SaveDebitCardDisputes(data, searchData, searchDataofdate),
+              SaveDebitCardDisputes(data, searchData, searchDataofdate)
             );
             let newdata2 = [...ListOfDebitCardTransactionDetailsObjects];
             let newIdex = [];
@@ -2875,7 +2879,7 @@ const AddNewCustomerDetailsDC = () => {
                 ToDate: "",
               };
               dispatch(
-                SaveDebitCardDisputes(data, searchData, searchDataofdate),
+                SaveDebitCardDisputes(data, searchData, searchDataofdate)
               );
               setAddInedx([]);
             } else {
@@ -2999,8 +3003,8 @@ const AddNewCustomerDetailsDC = () => {
                 SaveAndApprovedDebitCardDisputes(
                   data,
                   searchData,
-                  searchDataofdate,
-                ),
+                  searchDataofdate
+                )
               );
               let newdata2 = [...ListOfDebitCardTransactionDetailsObjects];
               let newIdex = [];
@@ -3065,8 +3069,8 @@ const AddNewCustomerDetailsDC = () => {
                   SaveAndApprovedDebitCardDisputes(
                     data,
                     searchData,
-                    searchDataofdate,
-                  ),
+                    searchDataofdate
+                  )
                 );
               }
             } else {
@@ -3216,7 +3220,7 @@ const AddNewCustomerDetailsDC = () => {
     setCaseDecision(
       valueCaseDecision.map((data, index) => {
         return data.name;
-      }),
+      })
     );
   }, [setupForms.CaseDecisionData]);
 
@@ -3252,7 +3256,7 @@ const AddNewCustomerDetailsDC = () => {
     setTransactionCurrencyCode(
       valuetransactionCurrencyCode.map((data, index) => {
         return data.description;
-      }),
+      })
     );
   }, [setupForms.TransactionCurrencyCodeData]);
 
@@ -3281,7 +3285,7 @@ const AddNewCustomerDetailsDC = () => {
     setCity(
       valueCity.map((data, index) => {
         return data.name;
-      }),
+      })
     );
   }, [setupForms.CityData]);
 
@@ -3315,6 +3319,16 @@ const AddNewCustomerDetailsDC = () => {
       });
     }
   }, [investigationOfficer]);
+  const hasValue = (v) =>
+    v !== undefined &&
+    v !== null &&
+    v !== "" &&
+    v !== -99999999999999999999 &&
+    v !== "-99999999999999999999" &&
+    !(Array.isArray(v) && v.length === 0);
+
+  // show the label only when the field has a value, otherwise "" (placeholder only)
+  const lbl = (value, text) => (hasValue(value) ? text : "");
 
   return (
     <>
@@ -3365,7 +3379,7 @@ const AddNewCustomerDetailsDC = () => {
             )}
           </Row>
           <Row gutter={16}>
-            <Col lg={4} md={4} sm={24} xs={24}>
+            <Col lg={6} md={6} sm={24} xs={24}>
               <TextField
                 name=""
                 size="small"
@@ -3376,32 +3390,33 @@ const AddNewCustomerDetailsDC = () => {
               />
             </Col>
             {roleForheader !== 1 ? (
-              <Col lg={4} md={4} sm={24} xs={24}>
+              <Col lg={6} md={6} sm={24} xs={24}>
                 <TextField
                   name=""
                   size="small"
-                  placeholder="Customer Name"
+                  placeholder="CNIC"
                   disable
                   value={FDCustomer.CNICNumber}
-                  label={"CNIC"}
+                  label={lbl(FDCustomer.CNICNumber, "CNIC")}
                   fullWidth
                 />
               </Col>
             ) : null}
-            <Col lg={4} md={4} sm={24} xs={24}>
+            <Col lg={6} md={6} sm={24} xs={24}>
               <TextField
                 name=""
                 size="small"
-                placeholder="Customer Name"
                 disable
                 value={customerDetails.customerName}
-                label={"Customer Name"}
+                label={lbl(customerDetails.customerName, "Customer Name")}
+                placeholder="Customer Name"
                 fullWidth
               />
             </Col>
-            <Col lg={4} md={4} sm={24} xs={24}>
+            <Col lg={6} md={6} sm={24} xs={24}>
               <SelectBox
-                label="Select City"
+                label={lbl(cityValue, "Select City")}
+                placeholder="Select City"
                 option={city}
                 value={cityValue}
                 change={CityNameHandler}
@@ -3422,9 +3437,11 @@ const AddNewCustomerDetailsDC = () => {
                 required
               /> */}
             </Col>
+          </Row>
+          <Row gutter={16} className="u-margin-top-20px">
             <Col lg={6} md={6} sm={24} xs={24}>
               <p className="PlaceholderCard">
-                Card Number<span className="important">*</span>
+                Card Number<span className="important"> *</span>
               </p>
               <InputMask
                 type="text"
@@ -3443,7 +3460,8 @@ const AddNewCustomerDetailsDC = () => {
             </Col>
             <Col lg={6} md={6} sm={24} xs={24}>
               <SelectBox
-                label="Select Fraud Type"
+                label={lbl(fraudTypeName, "Select Fraud Type")}
+                placeholder={"Select Fraud Type"}
                 option={fraudType}
                 name="Fraudtype"
                 value={fraudTypeName}
@@ -3456,7 +3474,11 @@ const AddNewCustomerDetailsDC = () => {
                 System Fetched Transactions
               </div>
               <Table
-                rowSelection={rowSelection}
+                rowSelection={{
+                  ...rowSelection,
+                  columnWidth: 50,
+                }}
+                className="iris-custom-table"
                 rows={listOfTransactionDetailsAlreadyExsist}
                 columns={columns}
                 scroll={{ x: "max-content" }}
@@ -3476,12 +3498,13 @@ const AddNewCustomerDetailsDC = () => {
               Manual Transactions
             </h1>
           </Col>
-          <Row gutter={16}>
+          <Row gutter={16} className="u-margin-top-22px">
             <Col lg={6} md={6} sm={24} xs={24}>
               <InputWithBtn
                 onchange={TransactionIDchangehandler}
                 isUpperCase={true}
-                label="Transaction ID *"
+                label={lbl(trsDetails.TransactionID, "Transaction ID *")}
+                placeholder={"Transaction ID *"}
                 autoComplete="off"
                 fullWidth
                 helperText={TIDErrMsg}
@@ -3489,7 +3512,7 @@ const AddNewCustomerDetailsDC = () => {
                 applyClass="search"
                 textLength={20}
                 minLength={20}
-                icon={<i className="icon-search icon-size-one"></i>}
+                icon={<i className="icon-search icon-size-zero"></i>}
                 // required
                 error={TransactionIDError}
                 value={trsDetails.TransactionID}
@@ -3502,7 +3525,8 @@ const AddNewCustomerDetailsDC = () => {
                 name="HBLAccountNumber"
                 size="small"
                 autoComplete="off"
-                label={"HBL Account Number *"}
+                label={lbl(trsDetails.HBLAccountNumber, "HBL Account Number *")}
+                placeholder={"HBL Account Number *"}
                 value={trsDetails.HBLAccountNumber}
                 change={TransactionDeatilHandlerChange}
                 fullWidth
@@ -3515,7 +3539,11 @@ const AddNewCustomerDetailsDC = () => {
                 name="OtherBankAccountNumber"
                 size="small"
                 value={trsDetails.OtherBankAccountNumber}
-                label={"Other Bank Account Number *"}
+                label={lbl(
+                  trsDetails.OtherBankAccountNumber,
+                  "Other Bank Account Number *"
+                )}
+                placeholder={"Other Bank Account Number *"}
                 change={TransactionDeatilHandlerChange}
                 autoComplete="off"
                 fullWidth
@@ -3526,7 +3554,8 @@ const AddNewCustomerDetailsDC = () => {
               <TextField
                 name="OtherBankBranchCode"
                 size="small"
-                label={"Branch Code *"}
+                label={lbl(trsDetails.OtherBankBranchCode, "Branch Code *")}
+                placeholder={"Branch Code *"}
                 autoComplete="off"
                 value={trsDetails.OtherBankBranchCode}
                 change={TransactionDeatilHandlerChange}
@@ -3534,11 +3563,14 @@ const AddNewCustomerDetailsDC = () => {
                 textLength={4}
               />
             </Col>
-            <Col lg={6} md={6} sm={24} xs={24} className="u-margin-top-22px">
+          </Row>
+          <Row gutter={16} className="u-margin-top-22px">
+            <Col lg={6} md={6} sm={24} xs={24}>
               <TextField
                 name="OtherBankBranchName"
                 size="small"
-                label={"Branch Name *"}
+                label={lbl(trsDetails.OtherBankBranchName, "Branch Name *")}
+                placeholder={"Branch Name *"}
                 autoComplete="off"
                 value={trsDetails.OtherBankBranchName}
                 change={TransactionDeatilHandlerChange}
@@ -3548,12 +3580,12 @@ const AddNewCustomerDetailsDC = () => {
             </Col>
             <Col lg={6} md={6} sm={24} xs={24}>
               <DatePicker
-                label={"Transaction Date *"}
+                label={lbl(trsDetails.TransactionDate, "Transaction Date *")}
+                placeholder={"Transaction Date *"}
                 name="TransactionDate"
                 size="large"
                 width="100%"
                 DateRange
-                placeholder={"Transaction Date *"}
                 value={
                   trsDetails.TransactionDate
                     ? DateDisplayFormat(trsDetails.TransactionDate)
@@ -3564,11 +3596,11 @@ const AddNewCustomerDetailsDC = () => {
             </Col>
             <Col lg={6} md={6} sm={24} xs={24}>
               <TimePicker
-                label={"Transaction Time *"}
+                label={lbl(trsDetails.TransactionTime, "Transaction Time *")}
+                placeholder={"Transaction Time *"}
                 name="TransactionTime"
                 size="large"
                 width="100%"
-                placeholder={"Transaction Time *"}
                 value={trsDetails.TransactionTime}
                 change={TimeHandler}
               />
@@ -3585,11 +3617,14 @@ const AddNewCustomerDetailsDC = () => {
                 }
                 textLength={(999, 999, 999, 999, 999, 999, 999)}
                 size="small"
-                Label={"Potential Save *"}
+                Label={lbl(trsDetails.PotentialSave, "Potential Save *")}
+                placeholder={"Potential Save *"}
                 fullWidth
                 change={TransactionDeatilHandlerChange}
               />
             </Col>
+          </Row>
+          <Row gutter={16} className="u-margin-top-22px">
             <Col lg={6} md={6} sm={24} xs={24}>
               <FormattedInputs
                 name="TransactionAmount"
@@ -3602,7 +3637,11 @@ const AddNewCustomerDetailsDC = () => {
                 textLength={(999, 999, 999, 999, 999, 999, 999)}
                 size="small"
                 autoComplete="off"
-                Label={"Transaction Amount *"}
+                Label={lbl(
+                  trsDetails.TransactionAmount,
+                  "Transaction Amount *"
+                )}
+                placeholder={"Transaction Amount *"}
                 fullWidth
                 change={TransactionDeatilHandlerChange}
               />
@@ -3620,7 +3659,11 @@ const AddNewCustomerDetailsDC = () => {
                 textLength={(999, 999, 999, 999, 999, 999, 999)}
                 size="small"
                 autoComplete="off"
-                Label={"Transaction Amount() *"}
+                Label={lbl(
+                  trsDetails.TransactionAmountOtherCurrency,
+                  "Transaction Amount() *"
+                )}
+                placeholder={"Transaction Amount() *"}
                 fullWidth
                 change={TransactionDeatilHandlerChange}
                 // disable={true}
@@ -3638,12 +3681,16 @@ const AddNewCustomerDetailsDC = () => {
                 textLength={(999, 999, 999, 999, 999, 999, 999)}
                 size="small"
                 autoComplete="off"
-                Label={"Exposure / Dispute Amount *"}
+                Label={lbl(
+                  trsDetails.DisputeAmount,
+                  "Exposure / Dispute Amount *"
+                )}
+                placeholder={"Exposure / Dispute Amount *"}
                 fullWidth
                 change={TransactionDeatilHandlerChange}
               />
             </Col>
-            <Col lg={6} md={6} sm={24} xs={24} className="u-margin-top-22px">
+            <Col lg={6} md={6} sm={24} xs={24}>
               {/* <TextField
                 name="TransactionCurrencyCode"
                 size="small"
@@ -3655,30 +3702,38 @@ const AddNewCustomerDetailsDC = () => {
                 textLength={6}
               /> */}
               <SelectBox
-                label="Select Transaction Currency Code"
+                label={lbl(
+                  transactionCurrencyCodeValue,
+                  "Select Transaction Currency Code"
+                )}
+                placeholder={"Select Transaction Currency Code"}
                 option={transactionCurrencyCode}
                 value={transactionCurrencyCodeValue}
                 change={transactionCurrencyCodeHandler}
                 name="TransactionCurrencyCode"
               />
             </Col>
+          </Row>
+          <Row gutter={16} className="u-margin-top-22px">
             <Col lg={6} md={6} sm={24} xs={24}>
               <TextField
                 name="ApprovalCode"
                 size="small"
-                label={"Approval Code *"}
+                label={lbl(trsDetails.ApprovalCode, "Approval Code *")}
+                placeholder={"Approval Code *"}
                 autoComplete="off"
                 value={trsDetails.ApprovalCode}
                 change={TransactionDeatilHandlerChange}
                 fullWidth
-                textLength={6}
+                textLength={7}
               />
             </Col>
             <Col lg={6} md={6} sm={24} xs={24}>
               <TextField
                 name="Response"
                 size="small"
-                label={"Response *"}
+                label={lbl(trsDetails.Response, "Response *")}
+                placeholder={"Response *"}
                 autoComplete="off"
                 value={trsDetails.Response}
                 change={TransactionDeatilHandlerChange}
@@ -3691,18 +3746,20 @@ const AddNewCustomerDetailsDC = () => {
                 name="POSMode"
                 size="small"
                 autoComplete="off"
-                label={"Point Of Sale Mode *"}
+                label={lbl(trsDetails.POSMode, "Point Of Sale Mode *")}
+                placeholder={"Point Of Sale Mode *"}
                 value={trsDetails.POSMode}
                 change={TransactionDeatilHandlerChange}
                 fullWidth
-                textLength={6}
+                textLength={30}
               />
             </Col>
             <Col lg={6} md={6} sm={24} xs={24}>
               <TextField
                 name="MerchantName"
                 size="small"
-                label={"Merchant Name *"}
+                label={lbl(trsDetails.MerchantName, "Merchant Name *")}
+                placeholder={"Merchant Name *"}
                 autoComplete="off"
                 value={trsDetails.MerchantName}
                 change={TransactionDeatilHandlerChange}
@@ -3710,23 +3767,27 @@ const AddNewCustomerDetailsDC = () => {
                 textLength={50}
               />
             </Col>
+          </Row>
+          <Row gutter={16} className="u-margin-top-22px">
             <Col lg={4} md={4} sm={24} xs={24}>
               <TextField
                 name="MerchantID"
                 size="small"
-                label={"Merchant ID *"}
+                label={lbl(trsDetails.MerchantID, "Merchant ID *")}
+                placeholder={"Merchant ID *"}
                 autoComplete="off"
                 value={trsDetails.MerchantID}
                 change={TransactionDeatilHandlerChange}
                 fullWidth
-                textLength={6}
+                textLength={20}
               />
             </Col>
             <Col lg={6} md={6} sm={24} xs={24}>
               <TextField
                 name="MerchantCity"
                 size="small"
-                label={"Merchant City *"}
+                label={lbl(trsDetails.MerchantCity, "Merchant City *")}
+                placeholder={"Merchant City *"}
                 autoComplete="off"
                 value={trsDetails.MerchantCity}
                 fullWidth
@@ -3753,11 +3814,15 @@ const AddNewCustomerDetailsDC = () => {
                 name="CategoryCodeMCC"
                 size="small"
                 autoComplete="off"
-                label={"Merchant Category Code *"}
+                label={lbl(
+                  trsDetails.CategoryCodeMCC,
+                  "Merchant Category Code *"
+                )}
+                placeholder={"Merchant Category Code *"}
                 value={trsDetails.CategoryCodeMCC}
                 change={TransactionDeatilHandlerChange}
                 fullWidth
-                textLength={6}
+                textLength={7}
               />
             </Col>
             <Col lg={6} md={6} sm={24} xs={24}>
@@ -3765,16 +3830,20 @@ const AddNewCustomerDetailsDC = () => {
                 name="ARN"
                 size="small"
                 autoComplete="off"
-                label={"Approval Reference Number *"}
+                label={lbl(trsDetails.ARN, "Approval Reference Number *")}
+                placeholder={"Approval Reference Number *"}
                 change={TransactionDeatilHandlerChange}
                 value={trsDetails.ARN}
                 fullWidth
                 textLength={50}
               />
             </Col>
+          </Row>
+          <Row gutter={16} className="u-margin-top-22px">
             <Col lg={4} md={4} sm={24} xs={24}>
               <SelectBox
-                label="Source *"
+                label={lbl(SourceType, "Source *")}
+                placeholder={"Source *"}
                 option={sourceTypeName}
                 value={SourceType}
                 change={SourceNameHandler}
@@ -3786,7 +3855,8 @@ const AddNewCustomerDetailsDC = () => {
                 name="AcquirerID"
                 size="small"
                 autoComplete="off"
-                label={"Acquirer ID *"}
+                label={lbl(trsDetails.AcquirerID, "Acquirer ID *")}
+                placeholder={"Acquirer ID *"}
                 value={trsDetails.AcquirerID}
                 change={TransactionDeatilHandlerChange}
                 fullWidth
@@ -3798,7 +3868,11 @@ const AddNewCustomerDetailsDC = () => {
                 name="AcquirerTerminalID"
                 size="small"
                 autoComplete="off"
-                label={"Acquirer Terminal ID *"}
+                label={lbl(
+                  trsDetails.AcquirerTerminalID,
+                  "Acquirer Terminal ID *"
+                )}
+                placeholder={"Acquirer Terminal ID *"}
                 textLength={6}
                 value={
                   trsDetails.AcquirerTerminalID === ""
@@ -3814,13 +3888,19 @@ const AddNewCustomerDetailsDC = () => {
                 name="AcquirerInstitution"
                 size="small"
                 autoComplete="off"
-                label={"Acquirer Institution *"}
+                label={lbl(
+                  trsDetails.AcquirerInstitution,
+                  "Acquirer Institution *"
+                )}
+                placeholder={"Acquirer Institution *"}
                 value={trsDetails.AcquirerInstitution}
                 change={TransactionDeatilHandlerChange}
                 fullWidth
                 textLength={50}
               />
             </Col>
+          </Row>
+          <Row gutter={16} className="u-margin-top-22px">
             <Col
               lg={24}
               md={24}
@@ -3847,6 +3927,7 @@ const AddNewCustomerDetailsDC = () => {
               )}
             </Col>
           </Row>
+
           <div className="u-margin-top-20px" />
           <Col lg={24} md={24} sm={24} className="u-margin-top-2pct">
             <div className="TransactionHeading">
@@ -3864,17 +3945,21 @@ const AddNewCustomerDetailsDC = () => {
             />
           </Col>
         </Paper>
+
         <div className="u-margin-top-20px" />
         <Paper padding="1">
-          <Col lg={18} md={18} sm={18} xs={24}>
-            <h1 className="u-font-size-18px u-margin-top-15px u-margin-left-20px u-color-21706d">
-              Date
-            </h1>
-          </Col>
-          <Row gutter={8}>
-            <Col lg={4} md={4} sm={24} className="u-margin-top-22px">
+          <Row>
+            <Col>
+              <h1 className="u-font-size-18px u-margin-top-15px u-margin-left-20px u-color-21706d">
+                Date
+              </h1>
+            </Col>
+          </Row>
+          <Row gutter={8} className="u-margin-top-22px">
+            <Col lg={4} md={4} sm={24}>
               <DatePicker
-                label={"Case Received Date"}
+                label={lbl(DCDisputes.CaseReceivedDate, "Case Received Date")}
+                placeholder={"Case Received Date"}
                 size="large"
                 width="100%"
                 DateRange
@@ -3889,10 +3974,14 @@ const AddNewCustomerDetailsDC = () => {
                 // defaultValue="{moment()}"
               />
             </Col>
-            <Col lg={6} md={6} sm={24} className="u-margin-top-22px">
+            <Col lg={6} md={6} sm={24}>
               <TextField
                 fullWidth
-                label="Case Received Channel"
+                label={lbl(
+                  DCDisputes.CaseReceivedChannel,
+                  "Case Received Channel"
+                )}
+                placeholder={"Case Received Channel"}
                 autoComplete="off"
                 value={DCDisputes.CaseReceivedChannel}
                 name="CaseReceivedChannel"
@@ -3902,13 +3991,7 @@ const AddNewCustomerDetailsDC = () => {
                 textLength={20}
               />
             </Col>
-            <Col
-              lg={4}
-              md={4}
-              sm={24}
-              xs={24}
-              className="u-text-align-center u-margin-top-15px"
-            >
+            <Col lg={4} md={4} sm={24} xs={24} className="u-text-align-center">
               <label>
                 <b>Case Resolved</b>
               </label>
@@ -3927,11 +4010,12 @@ const AddNewCustomerDetailsDC = () => {
                 </Radio>
               </Radio.Group>
             </Col>
-            <Col lg={4} md={4} sm={24} className="u-margin-top-22px">
+            <Col lg={4} md={4} sm={24}>
               <DatePicker
                 size="large"
                 width="100%"
                 DateRange
+                label={lbl(DCDisputes.CaseResolvedDate, "Case Resolved Date")}
                 placeholder={"Case Resolved Date"}
                 name="CaseResolvedDate"
                 value={
@@ -3943,11 +4027,15 @@ const AddNewCustomerDetailsDC = () => {
                 disable
               />
             </Col>
-            <Col lg={6} md={6} sm={24} className="u-margin-top-22px">
+            <Col lg={6} md={6} sm={24}>
               <Paper ml="1.5">
                 <TextField
                   fullWidth
-                  label="Total Dispute Amount"
+                  label={lbl(
+                    DCDisputes.TotalTransactionAmount,
+                    "Total Dispute Amount"
+                  )}
+                  placeholder={"Total Dispute Amount"}
                   value={
                     DCDisputes.TotalTransactionAmount === null ||
                     DCDisputes.TotalTransactionAmount === -99999999999999999999
@@ -3965,13 +4053,15 @@ const AddNewCustomerDetailsDC = () => {
         </Paper>
         <div className="u-margin-top-20px" />
         <Paper padding="1">
-          <Col lg={18} md={18} sm={18} xs={24}>
-            <h1 className="u-font-size-18px u-margin-top-15px u-margin-left-20px u-color-21706d">
-              Other Details
-            </h1>
-          </Col>
-          <Row gutter={8}>
-            <Col lg={4} md={4} sm={24} xs={24}>
+          <Row>
+            <Col lg={24} md={24} sm={24} xs={24}>
+              <h1 className="u-font-size-18px u-margin-top-15px u-margin-left-20px u-color-21706d">
+                Other Details
+              </h1>
+            </Col>
+          </Row>
+          <Row gutter={8} className="u-margin-top-22px">
+            <Col lg={4} md={4} sm={24} xs={24} className="u-text-align-center">
               <label>
                 <b>TC 40 Reporting</b>
               </label>
@@ -3991,8 +4081,12 @@ const AddNewCustomerDetailsDC = () => {
                 size="large"
                 width="100%"
                 DateRange
-                placeholder={"Select TC 40 Reporting Date"}
                 name="TC40ReportingDate"
+                label={lbl(
+                  DCDisputes.TC40ReportingDate,
+                  "Select TC 40 Reporting Date"
+                )}
+                placeholder={"Select TC 40 Reporting Date"}
                 value={
                   DCDisputes.TC40ReportingDate
                     ? DateDisplayFormat(DCDisputes.TC40ReportingDate)
@@ -4021,6 +4115,10 @@ const AddNewCustomerDetailsDC = () => {
                 size="large"
                 width="100%"
                 DateRange
+                label={lbl(
+                  DCDisputes.SafeReportingDate,
+                  "Select Safe Reporting Date"
+                )}
                 placeholder={"Select Safe Reporting Date"}
                 name="SafeReportingDate"
                 value={
@@ -4035,19 +4133,15 @@ const AddNewCustomerDetailsDC = () => {
         </Paper>
         <div className="u-margin-top-20px" />
         <Paper padding="1">
-          <Col lg={18} md={18} sm={18} xs={24} className="u-margin-bottom-20px">
-            <h1 className="u-font-size-18px u-margin-top-15px u-margin-left-20px u-color-21706d">
-              Closure Details
-            </h1>
-          </Col>
-          <Row gutter={8}>
-            <Col
-              lg={6}
-              md={6}
-              sm={24}
-              xs={24}
-              className="u-margin-top-15px u-text-align-center"
-            >
+          <Row>
+            <Col lg={24} md={24} sm={24} xs={24}>
+              <h1 className="u-font-size-18px u-margin-top-15px u-margin-left-20px u-color-21706d">
+                Closure Details
+              </h1>
+            </Col>
+          </Row>
+          <Row gutter={8} className="u-margin-top-22px">
+            <Col lg={6} md={6} sm={24} xs={24} className="u-text-align-center">
               <label>
                 <b>Point Of Compromise Identified</b>
               </label>
@@ -4061,11 +4155,15 @@ const AddNewCustomerDetailsDC = () => {
                 <Radio value={false}>No</Radio>
               </Radio.Group>
             </Col>
-            <Col lg={6} md={6} sm={24} xs={24} className="u-margin-top-22px">
+            <Col lg={6} md={6} sm={24} xs={24}>
               <TextField
                 disable={pOC}
                 fullWidth
-                label="Point Of Compromise Identified"
+                label={lbl(
+                  DCDisputes.POCIdentified,
+                  "Point Of Compromise Identified"
+                )}
+                placeholder={"Point Of Compromise Identified"}
                 size="small"
                 name="POCIdentified"
                 value={DCDisputes.POCIdentified}
@@ -4074,10 +4172,11 @@ const AddNewCustomerDetailsDC = () => {
                 textLength={100}
               />
             </Col>
-            <Col lg={6} md={6} sm={24} xs={24} className="u-margin-top-22px">
+            <Col lg={6} md={6} sm={24} xs={24}>
               <SelectBox
                 option={caseDecision}
-                label="Select Case Decision"
+                label={lbl(caseDecisionValue, "Select Case Decision")}
+                placeholder={"Select Case Decision"}
                 name="FK_CDEID"
                 value={caseDecisionValue}
                 change={CaseDecisionHandler}
@@ -4107,12 +4206,16 @@ const AddNewCustomerDetailsDC = () => {
                 }
                 size="small"
                 autoComplete="off"
-                Label={"In Favor of Customer"}
+                Label={lbl(DCDisputes.InFavourOfCM, "In Favor of Customer")}
+                placeholder={"In Favor of Customer"}
                 fullWidth
                 change={DCDisputeHandler}
               />
             </Col>
-            <Col lg={6} md={6} sm={24} xs={24}>
+          </Row>
+
+          <Row gutter={8} className="u-margin-top-22px">
+            <Col lg={8} md={8} sm={24} xs={24}>
               <FormattedInputs
                 name="CustomerLiability"
                 value={
@@ -4125,15 +4228,17 @@ const AddNewCustomerDetailsDC = () => {
                 }
                 size="small"
                 autoComplete="off"
-                Label={"Customer Liability"}
+                Label={lbl(DCDisputes.CustomerLiability, "Customer Liability")}
+                placeholder={"Customer Liability"}
                 fullWidth
                 change={DCDisputeHandler}
               />
             </Col>
-            <Col lg={6} md={6} sm={24} xs={24} className="u-margin-top-22px">
+            <Col lg={8} md={8} sm={24} xs={24}>
               <TextField
                 fullWidth
-                label="Remarks"
+                label={lbl(DCDisputes.Remarks, "Remarks")}
+                placeholder={"Remarks"}
                 size="small"
                 autoComplete="off"
                 name="Remarks"
@@ -4142,10 +4247,11 @@ const AddNewCustomerDetailsDC = () => {
                 textLength={50}
               />
             </Col>
-            <Col lg={6} md={6} sm={24} xs={24} className="u-margin-top-22px">
+            <Col lg={8} md={8} sm={24} xs={24}>
               <TextField
                 fullWidth
-                label="Event ID (SAS REF #)"
+                label={lbl(DCDisputes.EventIDSAS, "Event ID (SAS REF #)")}
+                placeholder={"Event ID (SAS REF #)"}
                 size="small"
                 autoComplete="off"
                 name="EventIDSAS"
@@ -4154,10 +4260,13 @@ const AddNewCustomerDetailsDC = () => {
                 textLength={50}
               />
             </Col>
-            <Col lg={6} md={6} sm={24} xs={24} className="u-margin-top-22px">
+          </Row>
+          <Row gutter={8} className="u-margin-top-22px">
+            <Col lg={6} md={6} sm={24} xs={24}>
               <TextField
                 fullWidth
-                label="Aging"
+                label={lbl(DCDisputes.Aging, "Aging")}
+                placeholder={"Aging"}
                 size="small"
                 name="Aging"
                 value={
@@ -4169,10 +4278,11 @@ const AddNewCustomerDetailsDC = () => {
                 disable
               />
             </Col>
-            <Col lg={6} md={6} sm={24} xs={24} className="u-margin-top-15px">
+            <Col lg={6} md={6} sm={24} xs={24}>
               <TextField
                 fullWidth
-                label="Case Closed TAT"
+                label={lbl(DCDisputes.CaseClosedTAT, "Case Closed TAT")}
+                placeholder={"Case Closed TAT"}
                 size="small"
                 name="CaseClosedTAT"
                 value={
@@ -4223,7 +4333,7 @@ const AddNewCustomerDetailsDC = () => {
           </Row>
         </Paper>
         <div className="u-margin-top-25px" />
-        <Row gutter={16} justify="center">
+        <Row gutter={16} justify="center" className="u-margin-bottom-22px">
           <Col lg={4} md={4} sm={24}>
             <Button
               text="Save"
@@ -4240,7 +4350,7 @@ const AddNewCustomerDetailsDC = () => {
               text="Save & Send For Approval"
               type="submit"
               icon={<i className="icon-sent icon-size-one"></i>}
-              applyClass="buttonPrimary2"
+              applyClass="buttonPrimary3"
               size="large"
               click={() => setsaveValue(2)}
             />

@@ -227,7 +227,6 @@ const IODebitCardDisputes = () => {
             placeholder={"HBL Account Number"}
             size="small"
             autoComplete="off"
-            required
             name="HBLAccountNumber"
             value={search.HBLAccountNumber}
             textLength={14}
@@ -241,10 +240,9 @@ const IODebitCardDisputes = () => {
               search?.OtherBankAccountNumber !== "" &&
               "Other Bank Account Number"
             }
-            placeholder={"Other Bank Account Number *"}
+            placeholder={"Other Bank Account Number"}
             size="small"
             autoComplete="off"
-            required
             name="OtherBankAccountNumber"
             value={search.OtherBankAccountNumber}
             textLength={14}
@@ -255,14 +253,13 @@ const IODebitCardDisputes = () => {
           <TextField
             fullWidth
             label={search?.CNIC !== "" && "CNIC"}
-            placeholder={"CNIC *"}
+            placeholder={"CNIC"}
             size="small"
             name="CNIC"
             autoComplete="off"
             value={search.CNIC}
             textLength={13}
             change={handleSerach}
-            required
           />
         </Col>
         <Col lg={8} md={8} sm={24} className="u-margin-top-22px">

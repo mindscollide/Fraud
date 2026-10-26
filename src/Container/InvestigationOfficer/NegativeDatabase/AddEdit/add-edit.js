@@ -17,6 +17,7 @@ import {
   GroupedButtons,
   Notification,
   Loader,
+  Button,
 } from "../../../../Components/Elements";
 
 import {
@@ -252,7 +253,17 @@ const AddEditNegativeDatabase = () => {
               System will not create new record.
             </Title>
           </div>
-          <GroupedButtons data={addButtonProps2} />
+          <div className="u-display-flex u-justify-content-center">
+            {/* <GroupedButtons data={okayButtonProp} /> */}
+            <Button
+              text="Ok"
+              type={"primary"}
+              size="large"
+              applyClass="btnBorderStyledBeach"
+              click={handleCancel}
+              // click= () => handleCancel(),
+            />
+          </div>
         </>
       </Modal>
 
