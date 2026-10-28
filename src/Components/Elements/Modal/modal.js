@@ -11,7 +11,7 @@ const CustomModal = ({ closable, modalTitle, children, modalState, closeModal,wi
         style={{padding:`${padding}px!important`}}
         centered
         title={modalTitle}
-        visible={modalState}
+        open={modalState}
         footer={null}
         onCancel={closeModal}
         width={width}
