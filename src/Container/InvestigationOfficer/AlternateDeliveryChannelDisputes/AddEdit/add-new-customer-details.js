@@ -295,9 +295,18 @@ const AddNewCustomerDetailsADC = () => {
   const ADCDisputeHandler = (e) => {
     let name = e.target.name;
     let value = e.target.value;
+    // P-II: alphanumeric + . - : (max 50 chars)
+    if (name === "PII") {
+      const cleaned = value
+        .replace(/[^a-zA-Z0-9 .\-:]/g, "")
+        .trimStart()
+        .slice(0, 50);
+      setADCDisputes((prev) => ({ ...prev, PII: cleaned }));
+      return;
+    }
     if (
       name !== "ExpectedRecovery" &&
-      name !== "PII" &&
+      // name !== "PII" &&
       name !== "ExpectedRecoveryFromHBLBeneficiary" &&
       name !== "ExpectedRecoveryFromMemberBankBeneficiary" &&
       name !== "IsDemographicChange" &&
@@ -3105,11 +3114,12 @@ const AddNewCustomerDetailsADC = () => {
                   <TextField
                     name=""
                     size="small"
-                    placeholder="Customer Name"
+                    placeholder="CNIC"
                     disable
                     value={customerDetails.cnicNumber}
-                    label={"CNIC"}
+                    label={lbl(customerDetails.cnicNumber, "CNIC")}
                     fullWidth
+                    textLength={13}
                   />
                 </Col>
               ) : null}
@@ -3762,7 +3772,7 @@ const AddNewCustomerDetailsADC = () => {
               <FormattedInputs
                 fullWidth
                 Label={lbl(ADCDisputes.ExpectedRecovery, "Expected Recovery")}
-                placeholder={"Expected Recovery"}
+                placeholder={"Expected Recovery *"}
                 size="small"
                 name="ExpectedRecovery"
                 autoComplete="off"
@@ -3811,7 +3821,7 @@ const AddNewCustomerDetailsADC = () => {
               <TextField
                 fullWidth
                 label={lbl(ADCDisputes.PII, "P-II information")}
-                placeholder={"P-II information"}
+                placeholder={"P-II information *"}
                 size="small"
                 name="PII"
                 autoComplete="off"
@@ -3844,7 +3854,7 @@ const AddNewCustomerDetailsADC = () => {
                   ADCDisputes.ExpectedRecoveryFromHBLBeneficiary,
                   "Expected Recovery From HBL"
                 )}
-                placeholder={"Expected Recovery From HBL"}
+                placeholder={"Expected Recovery From HBL *"}
                 size="small"
                 autoComplete="off"
                 name="ExpectedRecoveryFromHBLBeneficiary"
@@ -3870,7 +3880,7 @@ const AddNewCustomerDetailsADC = () => {
                   ADCDisputes.ExpectedRecoveryFromMemberBankBeneficiary,
                   "Expected Recovery From Member Bank"
                 )}
-                placeholder={"Expected Recovery From Member Bank"}
+                placeholder={"Expected Recovery From Member Bank *"}
                 size="small"
                 autoComplete="off"
                 name="ExpectedRecoveryFromMemberBankBeneficiary"

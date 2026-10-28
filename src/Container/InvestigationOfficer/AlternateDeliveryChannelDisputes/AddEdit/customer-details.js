@@ -159,9 +159,9 @@ const CustomerDetailsADCD = () => {
 
   //To call same API GetTransactionDetailsByCnicDC On Refresh
   useEffect(() => {
-    if (performance.navigation.type === performance.navigation.TYPE_RELOAD) {
-      dispatch(GetTransactionDetailsByCnicADC(cnic));
-    }
+    // if (performance.navigation.type === performance.navigation.TYPE_RELOAD) {
+    //   dispatch(GetTransactionDetailsByCnicADC(cnic));
+    // }
     dispatch(GetAllCity());
   }, []);
   // for add new dispute for exsitin deispute
@@ -310,18 +310,33 @@ const CustomerDetailsADCD = () => {
       },
     },
   ];
+  // true when a field actually holds a value (treats "", null, undefined,
+  // empty arrays and the -99999999999999999999 "empty number" sentinel as empty)
+  const hasValue = (v) =>
+    v !== undefined &&
+    v !== null &&
+    v !== "" &&
+    v !== -99999999999999999999 &&
+    !(Array.isArray(v) && v.length === 0);
+
+  // show the label only when the field has a value, otherwise "" (placeholder only)
+  const lbl = (value, text) => (hasValue(value) ? text : "");
   return (
     <>
       <Paper>
-        <Row gutter={16}>
+        <Row>
           <Col lg={18} md={18} sm={18} xs={24}>
-            <h1
-              className="u-font-size-18px u-margin-top-15px u-margin-left-20px u-color-21706d"
-            >
+            <h1 className="u-font-size-18px u-margin-top-15px u-margin-left-20px u-color-21706d">
               Customer Details
             </h1>
           </Col>
-          <Col lg={6} md={6} sm={6} xs={24} className="p-0 u-position-relative u-text-align-left">
+          <Col
+            lg={6}
+            md={6}
+            sm={6}
+            xs={24}
+            className="u-padding-0 u-margin-0 u-position-relative u-text-align-left"
+          >
             <div className="Level-Section">
               <div>
                 <i className="icon-card icon-size-one"></i>
@@ -340,7 +355,8 @@ const CustomerDetailsADCD = () => {
             <Col lg={6} md={6} sm={24} xs={24}>
               <TextField
                 fullWidth
-                label="Customer Name"
+                label={lbl(customer.custName, "Customer Name")}
+                placeholder={"Customer Name *"}
                 size="small"
                 disable={true}
                 required
@@ -349,7 +365,8 @@ const CustomerDetailsADCD = () => {
             </Col>
             <Col lg={6} md={6} sm={24} xs={24}>
               <SelectBox
-                label="City"
+                label={lbl(cityValue, "City")}
+                placeholder={"City"}
                 value={cityValue}
                 name="fK_CTID"
                 disable={true}
