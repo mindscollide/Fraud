@@ -38,11 +38,13 @@
       window.localStorage.isMySessionActive = "true";
       let newValue = parseInt(countTab);
     });
-    window.onunload = function (e) {
+    // one tab fewer when this page goes away ("unload" is blocked by Chrome;
+    // "pagehide" is the supported event that also fires when the tab closes)
+    window.addEventListener("pagehide", function () {
       const newTabCount = localStorage.getItem("tabsOpen");
       if (newTabCount !== null) {
         localStorage.setItem("tabsOpen", newTabCount - 1);
       }
-    };
+    });
   </script>
 </html>

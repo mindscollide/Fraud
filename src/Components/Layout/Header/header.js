@@ -48,15 +48,7 @@ const Header = ({ Notification, title, UserDetails }) => {
       localStorage.setItem("tabsOpen", parseInt(tabsOpen) + parseInt(1));
     }
 
-    // define decrement counter part (Chrome blocks "unload"; "pagehide" is the
-    // supported event that also fires when the tab is closed)
-    const onPageHide = () => {
-      const newTabCount = localStorage.getItem("tabsOpen");
-      if (newTabCount !== null) {
-        localStorage.setItem("tabsOpen", newTabCount - 1);
-      }
-    };
-    window.addEventListener("pagehide", onPageHide);
+    // the matching decrement lives in index.html (a "pagehide" listener)
     if (performance.navigation.type === performance.navigation.TYPE_RELOAD) {
       window.localStorage.isMySessionActive = "false";
     } else {
@@ -71,7 +63,6 @@ const Header = ({ Notification, title, UserDetails }) => {
         }
       }
     }
-    return () => window.removeEventListener("pagehide", onPageHide);
   }, []);
 
   // call user request list and user list count on refresh on reloaded
