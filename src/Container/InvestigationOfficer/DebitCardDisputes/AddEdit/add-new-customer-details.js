@@ -3327,7 +3327,7 @@ const AddNewCustomerDetailsDC = () => {
   return (
     <>
       <form onSubmit={(e) => goToSaveHandler(e)}>
-        <Paper padding="1">
+        <Paper section padding="1">
           <Row gutter={16} className="u-margin-bottom-15px">
             <Col lg={18} md={18} sm={18} xs={24}>
               <h1 className="u-font-size-18px u-margin-top-15px u-margin-left-20px u-color-ec8d57">
@@ -3486,7 +3486,7 @@ const AddNewCustomerDetailsDC = () => {
           </Row>
         </Paper>
         <div className="u-margin-top-20px" />
-        <Paper padding="1">
+        <Paper section padding="1">
           <Col lg={18} md={18} sm={18} xs={24}>
             <h1 className="u-font-size-18px u-margin-top-15px u-margin-left-20px u-color-ec8d57">
               Manual Transactions
@@ -3941,7 +3941,7 @@ const AddNewCustomerDetailsDC = () => {
         </Paper>
 
         <div className="u-margin-top-20px" />
-        <Paper padding="1">
+        <Paper section padding="1">
           <Row>
             <Col>
               <h1 className="u-font-size-18px u-margin-top-15px u-margin-left-20px u-color-ec8d57">
@@ -4046,7 +4046,7 @@ const AddNewCustomerDetailsDC = () => {
           </Row>
         </Paper>
         <div className="u-margin-top-20px" />
-        <Paper padding="1">
+        <Paper section padding="1">
           <Row>
             <Col lg={24} md={24} sm={24} xs={24}>
               <h1 className="u-font-size-18px u-margin-top-15px u-margin-left-20px u-color-ec8d57">
@@ -4126,7 +4126,7 @@ const AddNewCustomerDetailsDC = () => {
           </Row>
         </Paper>
         <div className="u-margin-top-20px" />
-        <Paper padding="1">
+        <Paper section padding="1">
           <Row>
             <Col lg={24} md={24} sm={24} xs={24}>
               <h1 className="u-font-size-18px u-margin-top-15px u-margin-left-20px u-color-ec8d57">
@@ -4292,7 +4292,7 @@ const AddNewCustomerDetailsDC = () => {
           </Row>
         </Paper>
         <div className="u-margin-top-20px" />
-        <Paper padding="1">
+        <Paper section padding="1">
           <Col lg={18} md={18} sm={18} xs={24}>
             <h1 className="u-font-size-18px u-margin-top-15px u-margin-left-20px u-color-ec8d57">
               File Upload{" "}

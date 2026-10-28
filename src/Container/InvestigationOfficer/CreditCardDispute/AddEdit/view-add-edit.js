@@ -705,7 +705,7 @@ const ViewCustomerDetails = () => {
     <>
       <Title level={3}>View Credit Card Disputes</Title>
       <form>
-        <Paper padding="1">
+        <Paper section padding="1">
           <Row gutter={16}>
             <Col lg={18} md={18}>
               <h1 className="u-font-size-18px u-margin-top-15px u-margin-left-20px u-color-ec8d57">
@@ -805,7 +805,7 @@ const ViewCustomerDetails = () => {
           </Col>
         </Paper>
         <div className="u-margin-top-20px" />
-        <Paper padding="1">
+        <Paper section padding="1">
           <Col lg={18} md={18} sm={18} xs={24}>
             <h1 className="u-font-size-18px u-margin-top-15px u-margin-left-20px u-color-ec8d57">
               Date
@@ -900,7 +900,7 @@ const ViewCustomerDetails = () => {
           </Row>
         </Paper>
         <div className="u-margin-top-20px" />
-        <Paper padding="1">
+        <Paper section padding="1">
           <Col lg={18} md={18} sm={18} xs={24}>
             <h1 className="u-font-size-18px u-margin-top-15px u-margin-left-20px u-color-ec8d57">
               Other Details
@@ -990,7 +990,7 @@ const ViewCustomerDetails = () => {
           </Row>
         </Paper>
         <div className="u-margin-top-20px" />
-        <Paper padding="1">
+        <Paper section padding="1">
           <Col lg={18} md={18} sm={18} xs={24}>
             <h1 className="u-font-size-18px u-margin-top-15px u-margin-left-20px u-color-ec8d57">
               Closure Details
@@ -1093,7 +1093,7 @@ const ViewCustomerDetails = () => {
           </Row>
         </Paper>
         <div className="u-margin-top-25px" />
-        <Paper padding="1">
+        <Paper section padding="1">
           <Col lg={18} md={18} sm={18} xs={24}>
             <h1 className="u-font-size-18px u-margin-top-15px u-margin-left-20px u-color-ec8d57">
               Files Upload

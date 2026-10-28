@@ -53,6 +53,11 @@
   text-align: left !important;
 }
 
+/* sections (Paper section) always have a gap, even where a page has no spacer div */
+.formPage :global(.form-section + .form-section) {
+  margin-top: 20px;
+}
+
 /* section headings line up with the fields' left edge */
 .formPage :global(h1.u-margin-left-20px) {
   margin-left: 0;

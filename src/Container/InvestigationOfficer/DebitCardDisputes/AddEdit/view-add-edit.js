@@ -1053,7 +1053,7 @@ const ViewCustomerDetailsDC = () => {
   return (
     <>
       <Title level={3}>View Debit Card Disputes</Title>
-      <Paper padding="1">
+      <Paper section padding="1">
         <Row gutter={16}>
           <Col lg={18} md={18} sm={18} xs={24}>
             <h1
@@ -1139,7 +1139,7 @@ const ViewCustomerDetailsDC = () => {
         </Row>
       </Paper>
       <div className="u-margin-top-20px" />
-      <Paper padding="1">
+      <Paper section padding="1">
         <Col lg={24} md={24} sm={24} className="u-margin-top-2pct">
           <div className="TransactionHeading">Manually Entered Transaction</div>
           <Table
@@ -1155,7 +1155,7 @@ const ViewCustomerDetailsDC = () => {
         </Col>
       </Paper>
       <div className="u-margin-top-20px" />
-      <Paper padding="1">
+      <Paper section padding="1">
         <Col lg={18} md={18} sm={18} xs={24}>
           <h1
             className="u-font-size-18px u-margin-top-15px u-margin-left-20px u-color-ec8d57"
@@ -1242,7 +1242,7 @@ const ViewCustomerDetailsDC = () => {
         </Row>
       </Paper>
       <div className="u-margin-top-20px" />
-      <Paper padding="1">
+      <Paper section padding="1">
         <Col lg={18} md={18} sm={18} xs={24} className="u-margin-bottom-20px">
           <h1
             className="u-font-size-18px u-margin-top-15px u-margin-left-20px u-color-ec8d57"
@@ -1320,7 +1320,7 @@ const ViewCustomerDetailsDC = () => {
         </Row>
       </Paper>
       <div className="u-margin-top-20px" />
-      <Paper padding="1">
+      <Paper section padding="1">
         <Col lg={18} md={18} sm={18} xs={24} className="u-margin-bottom-20px">
           <h1
             className="u-font-size-18px u-margin-top-15px u-margin-left-20px u-color-ec8d57"
@@ -1446,7 +1446,7 @@ const ViewCustomerDetailsDC = () => {
         </Row>
       </Paper>
       <div className="u-margin-top-25px" />
-      <Paper padding="1">
+      <Paper section padding="1">
         <Col lg={18} md={18} sm={18} xs={24}>
           <h1
             className="u-font-size-18px u-margin-top-15px u-margin-left-20px u-color-ec8d57"
