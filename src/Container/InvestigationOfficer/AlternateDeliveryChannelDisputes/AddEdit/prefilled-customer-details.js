@@ -403,7 +403,7 @@ const PreFilledCustomerDetails = () => {
                 disable
               />
             </Col>
-            <Col lg={4} md={4} sm={24} xs={24}>
+            <Col lg={6} md={6} sm={24} xs={24}>
               <label>
                 <b>Case Resolved</b>
               </label>
@@ -432,7 +432,7 @@ const PreFilledCustomerDetails = () => {
               />
             </Col>
             <Col lg={6} md={6} sm={24} className="u-margin-bottom-20px">
-              <Paper ml="1.5">
+              <Paper>
                 <TextField
                   fullWidth
                   label="Total Transaction Amount"
@@ -525,7 +525,7 @@ const PreFilledCustomerDetails = () => {
                 <Radio value={2}>No</Radio>
               </Radio.Group>
             </Col>
-            <Col lg={4} md={4} sm={24} xs={24} className="u-margin-bottom-20px">
+            <Col lg={6} md={6} sm={24} xs={24} className="u-margin-bottom-20px">
               <label>
                 <b>Flexi Loan</b>
               </label>
@@ -549,7 +549,7 @@ const PreFilledCustomerDetails = () => {
                 disable
               />
             </Col>
-            <Col lg={14} md={14} sm={24} xs={24}>
+            <Col lg={12} md={12} sm={24} xs={24}>
               <TextField
                 fullWidth
                 label="Information which customer claimed that caller have about Him/Her"
@@ -558,7 +558,7 @@ const PreFilledCustomerDetails = () => {
                 disable
               />
             </Col>
-            <Col lg={8} md={8} sm={24} xs={24}>
+            <Col lg={6} md={6} sm={24} xs={24}>
               <TextField
                 fullWidth
                 label="Expected Recovery from HBL Beneficiary"
@@ -568,7 +568,7 @@ const PreFilledCustomerDetails = () => {
                 disable
               />
             </Col>
-            <Col lg={8} md={8} sm={24} xs={24}>
+            <Col lg={6} md={6} sm={24} xs={24}>
               <TextField
                 fullWidth
                 label="Expected Recovery from Member Bank Beneficiary"
@@ -578,7 +578,7 @@ const PreFilledCustomerDetails = () => {
                 disable
               />
             </Col>
-            <Col lg={8} md={8} sm={24} xs={24}>
+            <Col lg={6} md={6} sm={24} xs={24}>
               <label>
                 <b>Customer / Beneficiary Sim Blocked</b>
               </label>
@@ -588,7 +588,7 @@ const PreFilledCustomerDetails = () => {
                 <Radio value={2}>No</Radio>
               </Radio.Group>
             </Col>
-            <Col lg={8} md={8} sm={24} xs={24}>
+            <Col lg={6} md={6} sm={24} xs={24}>
               <TextField
                 fullWidth
                 label="Fun Layered A/C #"
@@ -598,7 +598,7 @@ const PreFilledCustomerDetails = () => {
                 disable
               />
             </Col>
-            <Col lg={8} md={8} sm={24} xs={24} className="u-text-align-center">
+            <Col lg={6} md={6} sm={24} xs={24} className="u-text-align-center">
               <label>
                 <b>Operating System</b>
               </label>
@@ -608,7 +608,7 @@ const PreFilledCustomerDetails = () => {
                 <Radio value={2}>iOS</Radio>
               </Radio.Group>
             </Col>
-            <Col lg={8} md={8} sm={24} xs={24}>
+            <Col lg={6} md={6} sm={24} xs={24}>
               <TextField
                 fullWidth
                 label="Source of IB Channel Creation"

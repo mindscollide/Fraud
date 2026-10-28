@@ -705,7 +705,7 @@ const ViewCustomerDetails = () => {
     <>
       <Title level={3}>View Credit Card Disputes</Title>
       <form>
-        <Paper padding="1">
+        <Paper section padding="1">
           <Row gutter={16}>
             <Col lg={18} md={18}>
               <h1 className="u-font-size-18px u-margin-top-15px u-margin-left-20px u-color-ec8d57">
@@ -805,14 +805,14 @@ const ViewCustomerDetails = () => {
           </Col>
         </Paper>
         <div className="u-margin-top-20px" />
-        <Paper padding="1">
+        <Paper section padding="1">
           <Col lg={18} md={18} sm={18} xs={24}>
             <h1 className="u-font-size-18px u-margin-top-15px u-margin-left-20px u-color-ec8d57">
               Date
             </h1>
           </Col>
           <Row gutter={8}>
-            <Col lg={4} md={4} sm={24} className="u-margin-top-22px">
+            <Col lg={6} md={6} sm={24} className="u-margin-top-22px">
               <DatePicker
                 label={"Case Received Date"}
                 size="large"
@@ -839,8 +839,8 @@ const ViewCustomerDetails = () => {
               />
             </Col>
             <Col
-              lg={4}
-              md={4}
+              lg={6}
+              md={6}
               sm={24}
               xs={24}
               className="u-text-align-center u-margin-top-15px"
@@ -862,7 +862,7 @@ const ViewCustomerDetails = () => {
                 </Radio>
               </Radio.Group>
             </Col>
-            <Col lg={4} md={4} sm={24}>
+            <Col lg={6} md={6} sm={24}>
               <DatePicker
                 label={"Case Resolved Date"}
                 size="large"
@@ -879,7 +879,7 @@ const ViewCustomerDetails = () => {
               />
             </Col>
             <Col lg={6} md={6} sm={24}>
-              <Paper ml="1.5">
+              <Paper>
                 <FormattedInputs
                   name="TotalTransactionAmount"
                   value={
@@ -900,7 +900,7 @@ const ViewCustomerDetails = () => {
           </Row>
         </Paper>
         <div className="u-margin-top-20px" />
-        <Paper padding="1">
+        <Paper section padding="1">
           <Col lg={18} md={18} sm={18} xs={24}>
             <h1 className="u-font-size-18px u-margin-top-15px u-margin-left-20px u-color-ec8d57">
               Other Details
@@ -908,8 +908,8 @@ const ViewCustomerDetails = () => {
           </Col>
           <Row gutter={8}>
             <Col
-              lg={4}
-              md={4}
+              lg={6}
+              md={6}
               sm={24}
               xs={24}
               className="u-text-align-center u-margin-top-10px"
@@ -931,7 +931,7 @@ const ViewCustomerDetails = () => {
                 </Radio>
               </Radio.Group>
             </Col>
-            <Col lg={8} md={8} sm={24}>
+            <Col lg={6} md={6} sm={24}>
               <DatePicker
                 label={"Select TC 40 Reporting Date"}
                 size="large"
@@ -948,8 +948,8 @@ const ViewCustomerDetails = () => {
               />
             </Col>
             <Col
-              lg={4}
-              md={4}
+              lg={6}
+              md={6}
               sm={24}
               xs={24}
               className="u-text-align-center u-margin-top-10px"
@@ -971,7 +971,7 @@ const ViewCustomerDetails = () => {
                 </Radio>
               </Radio.Group>
             </Col>
-            <Col lg={8} md={8} sm={24}>
+            <Col lg={6} md={6} sm={24}>
               <DatePicker
                 label={"Select Safe Reporting Date"}
                 size="large"
@@ -990,14 +990,14 @@ const ViewCustomerDetails = () => {
           </Row>
         </Paper>
         <div className="u-margin-top-20px" />
-        <Paper padding="1">
+        <Paper section padding="1">
           <Col lg={18} md={18} sm={18} xs={24}>
             <h1 className="u-font-size-18px u-margin-top-15px u-margin-left-20px u-color-ec8d57">
               Closure Details
             </h1>
           </Col>
           <Row gutter={8}>
-            <Col lg={10} md={10} sm={24} xs={24}>
+            <Col lg={6} md={6} sm={24} xs={24}>
               <TextField
                 fullWidth
                 label="Case Decision"
@@ -1025,7 +1025,7 @@ const ViewCustomerDetails = () => {
                 </Radio>
               </Radio.Group>
             </Col>
-            <Col lg={8} md={8} sm={24} xs={24}>
+            <Col lg={6} md={6} sm={24} xs={24}>
               <TextField
                 fullWidth
                 label="Point Of Compromise Identified"
@@ -1093,7 +1093,7 @@ const ViewCustomerDetails = () => {
           </Row>
         </Paper>
         <div className="u-margin-top-25px" />
-        <Paper padding="1">
+        <Paper section padding="1">
           <Col lg={18} md={18} sm={18} xs={24}>
             <h1 className="u-font-size-18px u-margin-top-15px u-margin-left-20px u-color-ec8d57">
               Files Upload

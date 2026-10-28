@@ -1780,7 +1780,7 @@ const AddNewCustomerDetails = () => {
   return (
     <>
       <form onSubmit={(e) => goToSaveHandler(e)}>
-        <Paper>
+        <Paper section>
           <Row>
             <Col lg={18} md={18}>
               <h1 className="u-font-size-18px u-margin-top-15px u-margin-left-20px u-color-ec8d57">
@@ -1804,7 +1804,7 @@ const AddNewCustomerDetails = () => {
               </div>
             </Col>
           </Row>
-          <div className="u-padding-y-20px u-padding-x-10px">
+          <div className="u-padding-top-20px">
             <Row gutter={16}>
               <Col lg={6} md={6} sm={24} xs={24}>
                 {CardDetails.CardNumber !== "" && (
@@ -1903,7 +1903,7 @@ const AddNewCustomerDetails = () => {
           </div>
         </Paper>
         <div className="u-margin-top-20px" />
-        <Paper padding="1">
+        <Paper section padding="1">
           <Row>
             <Col>
               <h1 className="u-font-size-18px u-margin-top-15px u-margin-left-20px u-color-ec8d57">
@@ -2248,7 +2248,7 @@ const AddNewCustomerDetails = () => {
           </Col>
         </Paper>
         <div className="u-margin-top-20px" />
-        <Paper padding="1">
+        <Paper section padding="1">
           <Row>
             <Col>
               <h1 className="u-font-size-18px u-margin-top-15px u-margin-left-20px u-color-ec8d57">
@@ -2257,7 +2257,7 @@ const AddNewCustomerDetails = () => {
             </Col>
           </Row>
           <Row gutter={8} className="u-margin-top-22px">
-            <Col lg={4} md={4} sm={24}>
+            <Col lg={6} md={6} sm={24}>
               <DatePicker
                 label={lbl(CCDispute.CaseReceivedDate, "Case Received Date")}
                 placeholder={"Case Received Date"}
@@ -2290,7 +2290,7 @@ const AddNewCustomerDetails = () => {
                 change={CCDisputeHandler}
               />
             </Col>
-            <Col lg={4} md={4} sm={24} xs={24} className="u-text-align-center">
+            <Col lg={6} md={6} sm={24} xs={24} className="u-text-align-center">
               <label>
                 <b>Case Resolved</b>
               </label>
@@ -2309,7 +2309,7 @@ const AddNewCustomerDetails = () => {
                 </Radio>
               </Radio.Group>
             </Col>
-            <Col lg={4} md={4} sm={24}>
+            <Col lg={6} md={6} sm={24}>
               <DatePicker
                 label={lbl(CCDispute.CaseResolvedDate, "Case Resolved Date")}
                 size="large"
@@ -2349,7 +2349,7 @@ const AddNewCustomerDetails = () => {
           </Row>
         </Paper>
         <div className="u-margin-top-20px" />
-        <Paper padding="1">
+        <Paper section padding="1">
           <Row>
             <Col lg={24} md={24} sm={24} xs={24}>
               <h1 className="u-font-size-18px u-margin-top-15px u-margin-left-20px u-color-ec8d57">
@@ -2358,7 +2358,7 @@ const AddNewCustomerDetails = () => {
             </Col>
           </Row>
           <Row gutter={8} className="u-margin-top-10px">
-            <Col lg={4} md={4} sm={24} xs={24} className="u-text-align-center">
+            <Col lg={6} md={6} sm={24} xs={24} className="u-text-align-center">
               <label>
                 <b>TC 40 Reporting</b>
               </label>
@@ -2372,7 +2372,7 @@ const AddNewCustomerDetails = () => {
                 <Radio value={false}>No</Radio>
               </Radio.Group>
             </Col>
-            <Col lg={8} md={8} sm={24}>
+            <Col lg={6} md={6} sm={24}>
               <DatePicker
                 label={lbl(
                   CCDispute.TC40ReportingDate,
@@ -2393,7 +2393,7 @@ const AddNewCustomerDetails = () => {
                 change={DateHandler}
               />
             </Col>
-            <Col lg={4} md={4} sm={24} xs={24} className="u-text-align-center">
+            <Col lg={6} md={6} sm={24} xs={24} className="u-text-align-center">
               <label>
                 <b>Safe Reporting</b>
               </label>
@@ -2407,7 +2407,7 @@ const AddNewCustomerDetails = () => {
                 <Radio value={false}>No</Radio>
               </Radio.Group>
             </Col>
-            <Col lg={8} md={8} sm={24}>
+            <Col lg={6} md={6} sm={24}>
               <DatePicker
                 label={lbl(
                   CCDispute.SafeReportingDate,
@@ -2430,7 +2430,7 @@ const AddNewCustomerDetails = () => {
           </Row>
         </Paper>
         <div className="u-margin-top-20px" />
-        <Paper padding="1">
+        <Paper section padding="1">
           <Row>
             <Col lg={24} md={24} sm={24} xs={24}>
               <h1 className="u-font-size-18px u-margin-top-15px u-margin-left-20px u-color-ec8d57">
@@ -2558,7 +2558,7 @@ const AddNewCustomerDetails = () => {
           </Row>
         </Paper>
         <div className="u-margin-top-20px" />
-        <Paper padding="1">
+        <Paper section padding="1">
           <Col lg={18} md={18} sm={18} xs={24}>
             <h1 className="u-font-size-18px u-margin-top-15px u-margin-left-20px u-color-ec8d57">
               File Upload{" "}
