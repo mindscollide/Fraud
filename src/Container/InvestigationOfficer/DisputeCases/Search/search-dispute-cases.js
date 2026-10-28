@@ -1970,6 +1970,7 @@ const SearchDisputeIO = () => {
             size="small"
             value={searchData.ReferenceNumber}
             change={(e) => handleSearch(e)}
+            textLength={17}
           />
         </Col>
         <Col lg={8} md={8} sm={24}>

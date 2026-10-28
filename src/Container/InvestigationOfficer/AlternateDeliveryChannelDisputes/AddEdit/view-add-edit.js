@@ -20,14 +20,6 @@ import {
   AddApprovalReason,
   RejectReason,
 } from "../../../../store/actions/investigation-manager-actions";
-import {
-  GetAllSource,
-  GetAllApprovalReasons,
-  GetAllRejectionReasons,
-  GetAllFraudType,
-  GetAllSourceOfIBChannelCreation,
-  GetAllCity,
-} from "../../../../store/actions/setup-forms-actions";
 
 import {
   DownloadUploadFile,

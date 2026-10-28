@@ -722,6 +722,7 @@ const SearchDebitCardDispute = () => {
             size="small"
             value={searchData.RefrenceNumber}
             change={(e) => handleSearch(e)}
+            textLength={17}
           />
         </Col>
         <Col lg={6} md={6} sm={24}>

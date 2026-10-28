@@ -503,7 +503,7 @@ const EditDebitCardDispute = () => {
     setSourceTypeName(
       nameSource.map((data, index) => {
         return data.name;
-      }),
+      })
     );
   }, [setupForms.SourceData]);
 
@@ -783,7 +783,7 @@ const EditDebitCardDispute = () => {
     setCity(
       valueCity.map((data, index) => {
         return data.name;
-      }),
+      })
     );
   }, [setupForms.CityData]);
 
@@ -807,7 +807,7 @@ const EditDebitCardDispute = () => {
       setFraudType(
         nameFraud.map((data, index) => {
           return data.name;
-        }),
+        })
       );
     }
   }, [setupForms.FraudTypeData]);
@@ -885,7 +885,7 @@ const EditDebitCardDispute = () => {
   // update transection data
   const update = (e, record) => {
     var objIndex = ListOfDebitCardTransactionDetailsObjects.findIndex(
-      (obj) => obj.TransactionID === record.TransactionID,
+      (obj) => obj.TransactionID === record.TransactionID
     );
     // trsDetails, setTrsDetails
     setRecordIndex(objIndex);
@@ -1498,8 +1498,8 @@ const EditDebitCardDispute = () => {
             setTransactionIDError,
             setTIDErrMsg,
             setSourceType,
-            setTransactionCurrencyCodeValue,
-          ),
+            setTransactionCurrencyCodeValue
+          )
         );
       }
     } else {
@@ -1510,8 +1510,8 @@ const EditDebitCardDispute = () => {
           setTransactionIDError,
           setTIDErrMsg,
           setSourceType,
-          setTransactionCurrencyCodeValue,
-        ),
+          setTransactionCurrencyCodeValue
+        )
       );
     }
   };
@@ -2482,7 +2482,7 @@ const EditDebitCardDispute = () => {
         obj.DisplayFileName === record.DisplayFileName &&
         obj.PK_CCDDID === record.PK_CCDDID &&
         obj.FK_CCDID === record.FK_CCDID &&
-        obj.FK_GSSUserID === record.FK_GSSUserID,
+        obj.FK_GSSUserID === record.FK_GSSUserID
     );
     var temp = [];
     ListOfDebitCardDisputeDocuments.map((data, index) => {
@@ -2511,7 +2511,7 @@ const EditDebitCardDispute = () => {
   const getFilter = () => {
     let filteredItems = ListOfDebitCardDisputeDocuments;
     filteredItems = ListOfDebitCardDisputeDocuments.filter(
-      (item) => item.DisplayFileName !== "",
+      (item) => item.DisplayFileName !== ""
     );
     return filteredItems;
   };
@@ -2683,7 +2683,7 @@ const EditDebitCardDispute = () => {
         return { ...item, key: i + "" };
       });
       setListOfTransactionDetailsAlreadyExsist(
-        GetTransactionDetailsByCNICArray,
+        GetTransactionDetailsByCNICArray
       );
     }
   }, [
@@ -2834,8 +2834,8 @@ const EditDebitCardDispute = () => {
                   searchData,
                   searchDataofdate,
                   DataForGlobal,
-                  DataForGlobalDate,
-                ),
+                  DataForGlobalDate
+                )
               );
               setAddInedx([]);
             } else {
@@ -2920,8 +2920,8 @@ const EditDebitCardDispute = () => {
                 searchData,
                 searchDataofdate,
                 DataForGlobal,
-                DataForGlobalDate,
-              ),
+                DataForGlobalDate
+              )
             );
           }
         }
@@ -3045,8 +3045,8 @@ const EditDebitCardDispute = () => {
                 searchData,
                 searchDataofdate,
                 DataForGlobal,
-                DataForGlobalDate,
-              ),
+                DataForGlobalDate
+              )
             );
             setAddInedx([]);
           } else {
@@ -3192,8 +3192,8 @@ const EditDebitCardDispute = () => {
                     searchData,
                     searchDataofdate,
                     DataForGlobal,
-                    DataForGlobalDate,
-                  ),
+                    DataForGlobalDate
+                  )
                 );
               }
               setAddInedx([]);
@@ -3284,8 +3284,8 @@ const EditDebitCardDispute = () => {
                   searchData,
                   searchDataofdate,
                   DataForGlobal,
-                  DataForGlobalDate,
-                ),
+                  DataForGlobalDate
+                )
               );
             }
             // }
@@ -3419,8 +3419,8 @@ const EditDebitCardDispute = () => {
                   searchData,
                   searchDataofdate,
                   DataForGlobal,
-                  DataForGlobalDate,
-                ),
+                  DataForGlobalDate
+                )
               );
             }
             setAddInedx([]);
@@ -3645,7 +3645,7 @@ const EditDebitCardDispute = () => {
     setCaseDecision(
       valueCaseDecision.map((data, index) => {
         return data.name;
-      }),
+      })
     );
   }, [setupForms.CaseDecisionData]);
 
@@ -3694,7 +3694,7 @@ const EditDebitCardDispute = () => {
     setTransactionCurrencyCode(
       valuetransactionCurrencyCode.map((data, index) => {
         return data.description;
-      }),
+      })
     );
   }, [setupForms.TransactionCurrencyCodeData]);
 
@@ -4115,7 +4115,7 @@ const EditDebitCardDispute = () => {
                 change={TransactionDeatilHandlerChange}
                 value={trsDetails.ARN}
                 fullWidth
-                textLength={50}
+                textLength={17}
               />
             </Col>
             <Col lg={6} md={6} sm={24} xs={24}>

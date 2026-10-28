@@ -779,8 +779,7 @@ const SearchCreditCardDispute = () => {
             size="small"
             value={searchData.RefrenceNumber}
             change={(e) => handleSearch(e)}
-            max={20}
-            textLength={20}
+            textLength={17}
             autoComplete="off"
           />
         </Col>

@@ -34,7 +34,12 @@ import {
   disableGoBack,
   enableGoBack,
 } from "../../../../store/actions/ui-actions";
-import { ensureLookup } from "../../../../store/actions/lookup-actions";
+import {
+  GetAllSourceOfIBChannelCreation,
+  GetAllStatus,
+  GetAllCaseDecision,
+  GetAllCity,
+} from "../../../../store/actions/setup-forms-actions";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
@@ -469,7 +474,7 @@ const SearchADCD = () => {
                 GetDisputeStatusADC(disputeID, showModal, setAction, actions)
               );
             }}
-            className="icon-edit-list icon-size-one u-color-2f2f2f u-cursor-pointer"
+            className="icon-edit-list icon-size-one beachGreen u-cursor-pointer"
           ></div>
         );
       },
@@ -491,7 +496,7 @@ const SearchADCD = () => {
         return record.statusDescription === "In Process" ? (
           <div
             onClick={(e) => update(e, record)}
-            className="icon-edit icon-size-one u-color-2f2f2f u-cursor-pointer"
+            className="icon-edit icon-size-one beachGreen u-cursor-pointer"
           />
         ) : null;
       },
@@ -606,8 +611,8 @@ const SearchADCD = () => {
     let data = {
       IsNegativeDatabase: false,
     };
-    dispatch(ensureLookup("status", data));
-    dispatch(ensureLookup("city"));
+    // dispatch(GetAllStatus(data));
+    // dispatch(GetAllCity());
   }, []);
 
   const [cityValue, setCityValue] = useState("");
@@ -672,7 +677,7 @@ const SearchADCD = () => {
               size="small"
               value={searchData.RefrenceNumber}
               change={(e) => handleSearch(e)}
-              textLength={13}
+              textLength={17}
             />
           </Col>
 
@@ -741,7 +746,9 @@ const SearchADCD = () => {
           {/* City */}
           <Col lg={6} md={6} sm={24}>
             <SelectBox
-              label={lbl(cityValue, "Select City")}
+              label={
+                cityValue !== "" && cityValue !== null ? "Select City" : ""
+              }
               placeholder={"Select City"}
               option={city}
               value={cityValue}

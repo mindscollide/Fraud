@@ -471,6 +471,7 @@ const SearchNegativeDatabase = () => {
             fullWidth
             size="small"
             change={handleData}
+            textLength={17}
           />
         </Col>
         <Col lg={6} md={6} sm={24}>
