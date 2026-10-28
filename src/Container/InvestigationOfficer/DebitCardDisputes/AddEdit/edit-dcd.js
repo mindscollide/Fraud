@@ -3740,7 +3740,7 @@ const EditDebitCardDispute = () => {
                 value={DCDisputes.RefrenceNumber}
               />
             </Col>
-            <Col lg={4} md={4} sm={24} xs={24}>
+            <Col lg={6} md={6} sm={24} xs={24}>
               <TextField
                 name=""
                 size="small"
@@ -3751,7 +3751,7 @@ const EditDebitCardDispute = () => {
                 fullWidth
               />
             </Col>
-            <Col lg={4} md={4} sm={24} xs={24}>
+            <Col lg={6} md={6} sm={24} xs={24}>
               <SelectBox
                 label="Select City"
                 option={city}
@@ -4055,7 +4055,7 @@ const EditDebitCardDispute = () => {
                 textLength={50}
               />
             </Col>
-            <Col lg={4} md={4} sm={24} xs={24}>
+            <Col lg={6} md={6} sm={24} xs={24}>
               <TextField
                 name="MerchantID"
                 size="small"
@@ -4080,7 +4080,7 @@ const EditDebitCardDispute = () => {
               />
             </Col>
 
-            <Col lg={4} md={4} sm={24} xs={24} className="u-text-align-center">
+            <Col lg={6} md={6} sm={24} xs={24} className="u-text-align-center">
               <label>
                 <b>On Us / Off Us *</b>
               </label>
@@ -4094,7 +4094,7 @@ const EditDebitCardDispute = () => {
                 <Radio value={false}>No</Radio>
               </Radio.Group>
             </Col>
-            <Col lg={4} md={4} sm={24} xs={24}>
+            <Col lg={6} md={6} sm={24} xs={24}>
               <TextField
                 name="CategoryCodeMCC"
                 size="small"
@@ -4118,7 +4118,7 @@ const EditDebitCardDispute = () => {
                 textLength={50}
               />
             </Col>
-            <Col lg={4} md={4} sm={24} xs={24}>
+            <Col lg={6} md={6} sm={24} xs={24}>
               <SelectBox
                 label="Source *"
                 option={sourceTypeName}
@@ -4127,7 +4127,7 @@ const EditDebitCardDispute = () => {
                 name="SourceType"
               />
             </Col>
-            <Col lg={4} md={4} sm={24} xs={24}>
+            <Col lg={6} md={6} sm={24} xs={24}>
               <TextField
                 name="AcquirerID"
                 size="small"
@@ -4139,7 +4139,7 @@ const EditDebitCardDispute = () => {
                 textLength={6}
               />
             </Col>
-            <Col lg={4} md={4} sm={24} xs={24}>
+            <Col lg={6} md={6} sm={24} xs={24}>
               <TextField
                 name="AcquirerTerminalID"
                 size="small"
@@ -4218,7 +4218,7 @@ const EditDebitCardDispute = () => {
             </h1>
           </Col>
           <Row gutter={8}>
-            <Col lg={4} md={4} sm={24} className="u-margin-top-22px">
+            <Col lg={6} md={6} sm={24} className="u-margin-top-22px">
               <DatePicker
                 label={"Case Received Date"}
                 disable={true}
@@ -4249,8 +4249,8 @@ const EditDebitCardDispute = () => {
               />
             </Col>
             <Col
-              lg={4}
-              md={4}
+              lg={6}
+              md={6}
               sm={24}
               xs={24}
               className="u-text-align-center u-margin-top-15px"
@@ -4273,7 +4273,7 @@ const EditDebitCardDispute = () => {
                 </Radio>
               </Radio.Group>
             </Col>
-            <Col lg={4} md={4} sm={24} className="u-margin-top-22px">
+            <Col lg={6} md={6} sm={24} className="u-margin-top-22px">
               <DatePicker
                 size="large"
                 width="100%"
@@ -4290,7 +4290,7 @@ const EditDebitCardDispute = () => {
               />
             </Col>
             <Col lg={6} md={6} sm={24} className="u-margin-top-22px">
-              <Paper ml="1.5">
+              <Paper>
                 <TextField
                   fullWidth
                   label="Total Dispute Amount"
@@ -4317,7 +4317,7 @@ const EditDebitCardDispute = () => {
             </h1>
           </Col>
           <Row gutter={8}>
-            <Col lg={4} md={4} sm={24} xs={24}>
+            <Col lg={6} md={6} sm={24} xs={24}>
               <label>
                 <b>TC 40 Reporting</b>
               </label>
@@ -4331,7 +4331,7 @@ const EditDebitCardDispute = () => {
                 <Radio value={false}>No</Radio>
               </Radio.Group>
             </Col>
-            <Col lg={8} md={8} sm={24}>
+            <Col lg={6} md={6} sm={24}>
               <DatePicker
                 disable={isTC40ReportingDate}
                 size="large"
@@ -4347,7 +4347,7 @@ const EditDebitCardDispute = () => {
                 change={DateHandler}
               />
             </Col>
-            <Col lg={4} md={4} sm={24} xs={24} className="u-text-align-center">
+            <Col lg={6} md={6} sm={24} xs={24} className="u-text-align-center">
               <label>
                 <b>Safe Reporting</b>
               </label>
@@ -4361,7 +4361,7 @@ const EditDebitCardDispute = () => {
                 <Radio value={false}>No</Radio>
               </Radio.Group>
             </Col>
-            <Col lg={8} md={8} sm={24}>
+            <Col lg={6} md={6} sm={24}>
               <DatePicker
                 disable={safeReportingDate}
                 size="large"
@@ -4401,7 +4401,7 @@ const EditDebitCardDispute = () => {
                 <Radio value={false}>No</Radio>
               </Radio.Group>
             </Col>
-            <Col lg={8} md={8} sm={24} xs={24}>
+            <Col lg={6} md={6} sm={24} xs={24}>
               <TextField
                 disable={pOC}
                 fullWidth
@@ -4414,7 +4414,7 @@ const EditDebitCardDispute = () => {
                 textLength={100}
               />
             </Col>
-            <Col lg={10} md={10} sm={24} xs={24}>
+            <Col lg={6} md={6} sm={24} xs={24}>
               <SelectBox
                 option={caseDecision}
                 label="Select Case Decision"
@@ -4423,7 +4423,7 @@ const EditDebitCardDispute = () => {
                 change={CaseDecisionHandler}
               />
             </Col>
-            <Col lg={4} md={4} sm={24} xs={24} className="u-margin-bottom-20px">
+            <Col lg={6} md={6} sm={24} xs={24} className="u-margin-bottom-20px">
               <FormattedInputs
                 name="InFavourOfCM"
                 value={
@@ -4441,7 +4441,7 @@ const EditDebitCardDispute = () => {
                 change={DCDisputeHandler}
               />
             </Col>
-            <Col lg={4} md={4} sm={24} xs={24}>
+            <Col lg={6} md={6} sm={24} xs={24}>
               <FormattedInputs
                 name="CustomerLiability"
                 value={
@@ -4459,7 +4459,7 @@ const EditDebitCardDispute = () => {
                 change={DCDisputeHandler}
               />
             </Col>
-            <Col lg={16} md={16} sm={24} xs={24} className="u-margin-top-22px">
+            <Col lg={12} md={12} sm={24} xs={24} className="u-margin-top-22px">
               <TextField
                 fullWidth
                 label="Remarks"
@@ -4569,7 +4569,7 @@ const EditDebitCardDispute = () => {
               text="Save & Send For Approval"
               type="submit"
               icon={<i className="icon-sent icon-size-one"></i>}
-              applyClass="buttonPrimary2"
+              applyClass="buttonPrimaryLarge"
               size="large"
               click={() => setsaveValue(2)}
             />

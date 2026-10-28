@@ -3436,7 +3436,7 @@ const EditADCDispute = () => {
     <>
       <form onSubmit={(e) => goToSaveHandler(e)}>
         <Paper>
-          <Row>
+          <Row className="u-padding-x-10px">
             <Col lg={18} md={18} sm={18} xs={24}>
               <h1 className="u-font-size-18px u-margin-top-15px u-margin-left-20px u-color-ec8d57">
                 Customer Details
@@ -3931,7 +3931,7 @@ const EditADCDispute = () => {
             </h1>
           </Col>
           <Row gutter={16} className="u-margin-top-22px">
-            <Col lg={4} md={4} sm={24}>
+            <Col lg={6} md={6} sm={24}>
               <DatePicker
                 label={lbl(ADCDisputes.CaseReceivedDate, "Case Received Date")}
                 placeholder={"Case Received Date"}
@@ -3965,7 +3965,7 @@ const EditADCDispute = () => {
                 textLength={20}
               />
             </Col>
-            <Col lg={4} md={4} sm={24} xs={24} className="u-text-align-center">
+            <Col lg={6} md={6} sm={24} xs={24} className="u-text-align-center">
               <label>
                 <b>Case Resolved</b>
               </label>
@@ -3984,7 +3984,7 @@ const EditADCDispute = () => {
                 </Radio>
               </Radio.Group>
             </Col>
-            <Col lg={4} md={4} sm={24}>
+            <Col lg={6} md={6} sm={24}>
               <DatePicker
                 size="large"
                 width="100%"

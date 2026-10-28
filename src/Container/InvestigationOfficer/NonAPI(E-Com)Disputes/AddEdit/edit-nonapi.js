@@ -3957,7 +3957,7 @@ const EditNONAPIDispute = () => {
             </h1>
           </Col>
           <Row gutter={8}>
-            <Col lg={4} md={4} sm={24} className="u-margin-top-22px">
+            <Col lg={6} md={6} sm={24} className="u-margin-top-22px">
               <DatePicker
                 label={"Case Received Date"}
                 disable={true}
@@ -3987,8 +3987,8 @@ const EditNONAPIDispute = () => {
               />
             </Col>
             <Col
-              lg={4}
-              md={4}
+              lg={6}
+              md={6}
               sm={24}
               xs={24}
               className="u-text-align-center u-margin-top-15px"
@@ -4011,7 +4011,7 @@ const EditNONAPIDispute = () => {
                 </Radio>
               </Radio.Group>
             </Col>
-            <Col lg={4} md={4} sm={24} className="u-margin-top-22px">
+            <Col lg={6} md={6} sm={24} className="u-margin-top-22px">
               <DatePicker
                 size="large"
                 width="100%"
@@ -4028,7 +4028,7 @@ const EditNONAPIDispute = () => {
               />
             </Col>
             <Col lg={6} md={6} sm={24} className="u-margin-top-22px">
-              <Paper ml="1.5">
+              <Paper>
                 <TextField
                   fullWidth
                   label="Total Dispute Amount"
@@ -4235,7 +4235,7 @@ const EditNONAPIDispute = () => {
               text="Save & Send For Approval"
               type="submit"
               icon={<i className="icon-sent icon-size-one"></i>}
-              applyClass="buttonPrimary2"
+              applyClass="buttonPrimaryLarge"
               size="large"
               click={() => setsaveValue(2)}
             />

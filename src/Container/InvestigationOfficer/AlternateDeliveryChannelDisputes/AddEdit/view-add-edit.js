@@ -1254,7 +1254,7 @@ const ViewCustomerDetailsADC = () => {
             </h1>
           </Col>
           <Row gutter={8} className="u-margin-top-22px">
-            <Col lg={4} md={4} sm={24}>
+            <Col lg={6} md={6} sm={24}>
               <DatePicker
                 size="large"
                 width="100%"
@@ -1281,7 +1281,7 @@ const ViewCustomerDetailsADC = () => {
                 disable
               />
             </Col>
-            <Col lg={4} md={4} sm={24} xs={24} className="u-text-align-center">
+            <Col lg={6} md={6} sm={24} xs={24} className="u-text-align-center">
               <label>
                 <b>Case Resolved</b>
               </label>
@@ -1299,7 +1299,7 @@ const ViewCustomerDetailsADC = () => {
                 </Radio>
               </Radio.Group>
             </Col>
-            <Col lg={4} md={4} sm={24}>
+            <Col lg={6} md={6} sm={24}>
               <DatePicker
                 size="large"
                 width="100%"
@@ -1315,7 +1315,7 @@ const ViewCustomerDetailsADC = () => {
               />
             </Col>
             <Col lg={6} md={6} sm={24}>
-              <Paper ml="1.5">
+              <Paper>
                 <TextField
                   fullWidth
                   label="Total Dispute Amount"

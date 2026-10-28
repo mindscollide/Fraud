@@ -1035,7 +1035,7 @@ const ViewCustomerDetailsNONAPI = () => {
               fullWidth
             />
           </Col>
-          <Col lg={4} md={4} sm={24} xs={24}>
+          <Col lg={6} md={6} sm={24} xs={24}>
             <TextField
               name="CNIC"
               size="small"
@@ -1045,7 +1045,7 @@ const ViewCustomerDetailsNONAPI = () => {
               fullWidth
             />
           </Col>
-          <Col lg={4} md={4} sm={24} xs={24}>
+          <Col lg={6} md={6} sm={24} xs={24}>
             <TextField
               name="CustomerName"
               size="small"
@@ -1056,7 +1056,7 @@ const ViewCustomerDetailsNONAPI = () => {
             />
           </Col>
 
-          <Col lg={4} md={4} sm={24} xs={24}>
+          <Col lg={6} md={6} sm={24} xs={24}>
             <SelectBox
               label="City"
               value={cityValue}
@@ -1123,7 +1123,7 @@ const ViewCustomerDetailsNONAPI = () => {
           </h1>
         </Col>
         <Row gutter={8}>
-          <Col lg={4} md={4} sm={24} className="u-margin-bottom-20px">
+          <Col lg={6} md={6} sm={24} className="u-margin-bottom-20px">
             <DatePicker
               label={"Case Received Date"}
               size="large"
@@ -1150,8 +1150,8 @@ const ViewCustomerDetailsNONAPI = () => {
             />
           </Col>
           <Col
-            lg={4}
-            md={4}
+            lg={6}
+            md={6}
             sm={24}
             xs={24}
             className="u-text-align-center u-margin-top-15px"
@@ -1173,7 +1173,7 @@ const ViewCustomerDetailsNONAPI = () => {
               </Radio>
             </Radio.Group>
           </Col>
-          <Col lg={4} md={4} sm={24} className="u-margin-top-22px">
+          <Col lg={6} md={6} sm={24} className="u-margin-top-22px">
             <DatePicker
               size="large"
               width="100%"
@@ -1188,7 +1188,7 @@ const ViewCustomerDetailsNONAPI = () => {
             />
           </Col>
           <Col lg={6} md={6} sm={24} className="u-margin-top-22px">
-            <Paper ml="1.5">
+            <Paper>
               <TextField
                 fullWidth
                 label="Total Dispute Amount"

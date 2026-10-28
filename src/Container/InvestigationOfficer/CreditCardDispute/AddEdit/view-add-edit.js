@@ -812,7 +812,7 @@ const ViewCustomerDetails = () => {
             </h1>
           </Col>
           <Row gutter={8}>
-            <Col lg={4} md={4} sm={24} className="u-margin-top-22px">
+            <Col lg={6} md={6} sm={24} className="u-margin-top-22px">
               <DatePicker
                 label={"Case Received Date"}
                 size="large"
@@ -839,8 +839,8 @@ const ViewCustomerDetails = () => {
               />
             </Col>
             <Col
-              lg={4}
-              md={4}
+              lg={6}
+              md={6}
               sm={24}
               xs={24}
               className="u-text-align-center u-margin-top-15px"
@@ -862,7 +862,7 @@ const ViewCustomerDetails = () => {
                 </Radio>
               </Radio.Group>
             </Col>
-            <Col lg={4} md={4} sm={24}>
+            <Col lg={6} md={6} sm={24}>
               <DatePicker
                 label={"Case Resolved Date"}
                 size="large"
@@ -879,7 +879,7 @@ const ViewCustomerDetails = () => {
               />
             </Col>
             <Col lg={6} md={6} sm={24}>
-              <Paper ml="1.5">
+              <Paper>
                 <FormattedInputs
                   name="TotalTransactionAmount"
                   value={
@@ -908,8 +908,8 @@ const ViewCustomerDetails = () => {
           </Col>
           <Row gutter={8}>
             <Col
-              lg={4}
-              md={4}
+              lg={6}
+              md={6}
               sm={24}
               xs={24}
               className="u-text-align-center u-margin-top-10px"
@@ -931,7 +931,7 @@ const ViewCustomerDetails = () => {
                 </Radio>
               </Radio.Group>
             </Col>
-            <Col lg={8} md={8} sm={24}>
+            <Col lg={6} md={6} sm={24}>
               <DatePicker
                 label={"Select TC 40 Reporting Date"}
                 size="large"
@@ -948,8 +948,8 @@ const ViewCustomerDetails = () => {
               />
             </Col>
             <Col
-              lg={4}
-              md={4}
+              lg={6}
+              md={6}
               sm={24}
               xs={24}
               className="u-text-align-center u-margin-top-10px"
@@ -971,7 +971,7 @@ const ViewCustomerDetails = () => {
                 </Radio>
               </Radio.Group>
             </Col>
-            <Col lg={8} md={8} sm={24}>
+            <Col lg={6} md={6} sm={24}>
               <DatePicker
                 label={"Select Safe Reporting Date"}
                 size="large"
@@ -997,7 +997,7 @@ const ViewCustomerDetails = () => {
             </h1>
           </Col>
           <Row gutter={8}>
-            <Col lg={10} md={10} sm={24} xs={24}>
+            <Col lg={6} md={6} sm={24} xs={24}>
               <TextField
                 fullWidth
                 label="Case Decision"
@@ -1025,7 +1025,7 @@ const ViewCustomerDetails = () => {
                 </Radio>
               </Radio.Group>
             </Col>
-            <Col lg={8} md={8} sm={24} xs={24}>
+            <Col lg={6} md={6} sm={24} xs={24}>
               <TextField
                 fullWidth
                 label="Point Of Compromise Identified"

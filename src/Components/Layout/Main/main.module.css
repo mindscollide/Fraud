@@ -23,3 +23,37 @@
 .mainContainer :global(h4.ant-typography) {
   color: #EC8D57 !important;
 }
+
+/* ---- Add / Edit / View dispute forms ----
+   These pages put many fields in one <Row> that wraps onto several lines and
+   spaced them with u-margin-top-* on only some columns, so wrapped lines
+   collided or drifted. Here every row gets the same 16px column gutter, the
+   same 20px gap between wrapped lines and between rows, and the per-column
+   margins are dropped. */
+.formPage :global(.ant-row) {
+  margin-left: -8px !important;
+  margin-right: -8px !important;
+  row-gap: 20px;
+}
+
+.formPage :global(.ant-row > .ant-col) {
+  padding-left: 8px !important;
+  padding-right: 8px !important;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.formPage :global(.ant-row + .ant-row) {
+  margin-top: 20px;
+}
+
+/* Yes/No radio groups (Case Resolved, On Us / Off Us, ...) were centred on some
+   pages and left-aligned on others; keep them on the fields' left edge. */
+.formPage :global(.ant-col:has(> .ant-radio-group)) {
+  text-align: left !important;
+}
+
+/* section headings line up with the fields' left edge */
+.formPage :global(h1.u-margin-left-20px) {
+  margin-left: 0;
+}

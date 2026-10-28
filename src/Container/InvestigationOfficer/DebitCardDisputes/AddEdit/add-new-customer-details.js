@@ -3763,7 +3763,7 @@ const AddNewCustomerDetailsDC = () => {
             </Col>
           </Row>
           <Row gutter={16} className="u-margin-top-22px">
-            <Col lg={4} md={4} sm={24} xs={24}>
+            <Col lg={6} md={6} sm={24} xs={24}>
               <TextField
                 name="MerchantID"
                 size="small"
@@ -3789,7 +3789,7 @@ const AddNewCustomerDetailsDC = () => {
                 textLength={30}
               />
             </Col>
-            <Col lg={4} md={4} sm={24} xs={24} className="u-text-align-center">
+            <Col lg={6} md={6} sm={24} xs={24} className="u-text-align-center">
               <label>
                 <b>On Us / Off Us *</b>
               </label>
@@ -3803,7 +3803,7 @@ const AddNewCustomerDetailsDC = () => {
                 <Radio value={false}>No</Radio>
               </Radio.Group>
             </Col>
-            <Col lg={4} md={4} sm={24} xs={24}>
+            <Col lg={6} md={6} sm={24} xs={24}>
               <TextField
                 name="CategoryCodeMCC"
                 size="small"
@@ -3834,7 +3834,7 @@ const AddNewCustomerDetailsDC = () => {
             </Col>
           </Row>
           <Row gutter={16} className="u-margin-top-22px">
-            <Col lg={4} md={4} sm={24} xs={24}>
+            <Col lg={6} md={6} sm={24} xs={24}>
               <SelectBox
                 label={lbl(SourceType, "Source *")}
                 placeholder={"Source *"}
@@ -3844,7 +3844,7 @@ const AddNewCustomerDetailsDC = () => {
                 name="SourceType"
               />
             </Col>
-            <Col lg={4} md={4} sm={24} xs={24}>
+            <Col lg={6} md={6} sm={24} xs={24}>
               <TextField
                 name="AcquirerID"
                 size="small"
@@ -3857,7 +3857,7 @@ const AddNewCustomerDetailsDC = () => {
                 textLength={6}
               />
             </Col>
-            <Col lg={4} md={4} sm={24} xs={24}>
+            <Col lg={6} md={6} sm={24} xs={24}>
               <TextField
                 name="AcquirerTerminalID"
                 size="small"
@@ -3950,7 +3950,7 @@ const AddNewCustomerDetailsDC = () => {
             </Col>
           </Row>
           <Row gutter={8} className="u-margin-top-22px">
-            <Col lg={4} md={4} sm={24}>
+            <Col lg={6} md={6} sm={24}>
               <DatePicker
                 label={lbl(DCDisputes.CaseReceivedDate, "Case Received Date")}
                 placeholder={"Case Received Date"}
@@ -3985,7 +3985,7 @@ const AddNewCustomerDetailsDC = () => {
                 textLength={20}
               />
             </Col>
-            <Col lg={4} md={4} sm={24} xs={24} className="u-text-align-center">
+            <Col lg={6} md={6} sm={24} xs={24} className="u-text-align-center">
               <label>
                 <b>Case Resolved</b>
               </label>
@@ -4004,7 +4004,7 @@ const AddNewCustomerDetailsDC = () => {
                 </Radio>
               </Radio.Group>
             </Col>
-            <Col lg={4} md={4} sm={24}>
+            <Col lg={6} md={6} sm={24}>
               <DatePicker
                 size="large"
                 width="100%"
@@ -4022,7 +4022,7 @@ const AddNewCustomerDetailsDC = () => {
               />
             </Col>
             <Col lg={6} md={6} sm={24}>
-              <Paper ml="1.5">
+              <Paper>
                 <TextField
                   fullWidth
                   label={lbl(
@@ -4055,7 +4055,7 @@ const AddNewCustomerDetailsDC = () => {
             </Col>
           </Row>
           <Row gutter={8} className="u-margin-top-22px">
-            <Col lg={4} md={4} sm={24} xs={24} className="u-text-align-center">
+            <Col lg={6} md={6} sm={24} xs={24} className="u-text-align-center">
               <label>
                 <b>TC 40 Reporting</b>
               </label>
@@ -4069,7 +4069,7 @@ const AddNewCustomerDetailsDC = () => {
                 <Radio value={false}>No</Radio>
               </Radio.Group>
             </Col>
-            <Col lg={8} md={8} sm={24}>
+            <Col lg={6} md={6} sm={24}>
               <DatePicker
                 disable={isTC40ReportingDate}
                 size="large"
@@ -4089,7 +4089,7 @@ const AddNewCustomerDetailsDC = () => {
                 change={DateHandler}
               />
             </Col>
-            <Col lg={4} md={4} sm={24} xs={24} className="u-text-align-center">
+            <Col lg={6} md={6} sm={24} xs={24} className="u-text-align-center">
               <label>
                 <b>Safe Reporting</b>
               </label>
@@ -4103,7 +4103,7 @@ const AddNewCustomerDetailsDC = () => {
                 <Radio value={false}>No</Radio>
               </Radio.Group>
             </Col>
-            <Col lg={8} md={8} sm={24}>
+            <Col lg={6} md={6} sm={24}>
               <DatePicker
                 disable={safeReportingDate}
                 size="large"
@@ -4209,7 +4209,7 @@ const AddNewCustomerDetailsDC = () => {
           </Row>
 
           <Row gutter={8} className="u-margin-top-22px">
-            <Col lg={8} md={8} sm={24} xs={24}>
+            <Col lg={6} md={6} sm={24} xs={24}>
               <FormattedInputs
                 name="CustomerLiability"
                 value={
@@ -4228,7 +4228,7 @@ const AddNewCustomerDetailsDC = () => {
                 change={DCDisputeHandler}
               />
             </Col>
-            <Col lg={8} md={8} sm={24} xs={24}>
+            <Col lg={6} md={6} sm={24} xs={24}>
               <TextField
                 fullWidth
                 label={lbl(DCDisputes.Remarks, "Remarks")}
@@ -4241,7 +4241,7 @@ const AddNewCustomerDetailsDC = () => {
                 textLength={50}
               />
             </Col>
-            <Col lg={8} md={8} sm={24} xs={24}>
+            <Col lg={6} md={6} sm={24} xs={24}>
               <TextField
                 fullWidth
                 label={lbl(DCDisputes.EventIDSAS, "Event ID (SAS REF #)")}

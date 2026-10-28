@@ -2274,7 +2274,7 @@ const EditCreditCardDispute = () => {
           </Col>
 
           <Row gutter={16} className="u-margin-top-22px">
-            <Col lg={4} md={4} sm={24}>
+            <Col lg={6} md={6} sm={24}>
               <DatePicker
                 label={lbl(CCDispute.CaseReceivedDate, "Case Received Date")}
                 placeholder={"Case Received Date"}
@@ -2309,7 +2309,7 @@ const EditCreditCardDispute = () => {
               />
             </Col>
 
-            <Col lg={4} md={4} sm={24} xs={24} className="u-text-align-center">
+            <Col lg={6} md={6} sm={24} xs={24} className="u-text-align-center">
               <label>
                 <b>Case Resolved</b>
               </label>
@@ -2329,7 +2329,7 @@ const EditCreditCardDispute = () => {
               </Radio.Group>
             </Col>
 
-            <Col lg={4} md={4} sm={24}>
+            <Col lg={6} md={6} sm={24}>
               <DatePicker
                 label={lbl(CCDispute.CaseResolvedDate, "Case Resolved Date")}
                 size="large"
@@ -2348,7 +2348,7 @@ const EditCreditCardDispute = () => {
             </Col>
 
             <Col lg={6} md={6} sm={24}>
-              <Paper ml="1.5">
+              <Paper>
                 <TextField
                   fullWidth
                   label={lbl(
@@ -2379,7 +2379,7 @@ const EditCreditCardDispute = () => {
             </h1>
           </Col>
           <Row gutter={16} className="u-margin-top-22px">
-            <Col lg={4} md={4} sm={24} xs={24} className="u-text-align-center">
+            <Col lg={6} md={6} sm={24} xs={24} className="u-text-align-center">
               <label>
                 <b>TC 40 Reporting</b>
               </label>
@@ -2393,7 +2393,7 @@ const EditCreditCardDispute = () => {
                 <Radio value={false}>No</Radio>
               </Radio.Group>
             </Col>
-            <Col lg={8} md={8} sm={24}>
+            <Col lg={6} md={6} sm={24}>
               <DatePicker
                 label={lbl(
                   CCDispute.TC40ReportingDate,
@@ -2413,7 +2413,7 @@ const EditCreditCardDispute = () => {
                 change={DateHandler}
               />
             </Col>
-            <Col lg={4} md={4} sm={24} xs={24} className="u-text-align-center">
+            <Col lg={6} md={6} sm={24} xs={24} className="u-text-align-center">
               <label>
                 <b>Safe Reporting</b>
               </label>
@@ -2427,7 +2427,7 @@ const EditCreditCardDispute = () => {
                 <Radio value={false}>No</Radio>
               </Radio.Group>
             </Col>
-            <Col lg={8} md={8} sm={24}>
+            <Col lg={6} md={6} sm={24}>
               <DatePicker
                 label={lbl(
                   CCDispute.SafeReportingDate,

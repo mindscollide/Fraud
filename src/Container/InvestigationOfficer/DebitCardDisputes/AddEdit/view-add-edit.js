@@ -1074,7 +1074,7 @@ const ViewCustomerDetailsDC = () => {
               fullWidth
             />
           </Col>
-          <Col lg={4} md={4} sm={24} xs={24}>
+          <Col lg={6} md={6} sm={24} xs={24}>
             <TextField
               name="CNIC"
               size="small"
@@ -1084,7 +1084,7 @@ const ViewCustomerDetailsDC = () => {
               fullWidth
             />
           </Col>
-          <Col lg={4} md={4} sm={24} xs={24}>
+          <Col lg={6} md={6} sm={24} xs={24}>
             <TextField
               name="CustomerName"
               size="small"
@@ -1095,7 +1095,7 @@ const ViewCustomerDetailsDC = () => {
             />
           </Col>
 
-          <Col lg={4} md={4} sm={24} xs={24}>
+          <Col lg={6} md={6} sm={24} xs={24}>
             <SelectBox
               label="City"
               value={cityValue}
@@ -1164,7 +1164,7 @@ const ViewCustomerDetailsDC = () => {
           </h1>
         </Col>
         <Row gutter={8}>
-          <Col lg={4} md={4} sm={24} className="u-margin-bottom-20px">
+          <Col lg={6} md={6} sm={24} className="u-margin-bottom-20px">
             <DatePicker
               size="large"
               width="100%"
@@ -1189,7 +1189,7 @@ const ViewCustomerDetailsDC = () => {
               disable
             />
           </Col>
-          <Col lg={4} md={4} sm={24} xs={24} className="u-text-align-center">
+          <Col lg={6} md={6} sm={24} xs={24} className="u-text-align-center">
             <label>
               <b>Case Resolved</b>
             </label>
@@ -1207,7 +1207,7 @@ const ViewCustomerDetailsDC = () => {
               </Radio>
             </Radio.Group>
           </Col>
-          <Col lg={4} md={4} sm={24} className="u-margin-bottom-20px">
+          <Col lg={6} md={6} sm={24} className="u-margin-bottom-20px">
             <DatePicker
               size="large"
               width="100%"
@@ -1222,7 +1222,7 @@ const ViewCustomerDetailsDC = () => {
             />
           </Col>
           <Col lg={6} md={6} sm={24} className="u-margin-bottom-20px">
-            <Paper ml="1.5">
+            <Paper>
               <TextField
                 fullWidth
                 label="Total Dispute Amount"
@@ -1251,7 +1251,7 @@ const ViewCustomerDetailsDC = () => {
           </h1>
         </Col>
         <Row gutter={8}>
-          <Col lg={4} md={4} sm={24} xs={24}>
+          <Col lg={6} md={6} sm={24} xs={24}>
             <label>
               <b>TC 40 Reporting</b>
             </label>
@@ -1269,7 +1269,7 @@ const ViewCustomerDetailsDC = () => {
               </Radio>
             </Radio.Group>
           </Col>
-          <Col lg={8} md={8} sm={24}>
+          <Col lg={6} md={6} sm={24}>
             <DatePicker
               size="large"
               width="100%"
@@ -1284,7 +1284,7 @@ const ViewCustomerDetailsDC = () => {
               disable
             />
           </Col>
-          <Col lg={4} md={4} sm={24} xs={24}>
+          <Col lg={6} md={6} sm={24} xs={24}>
             <label>
               <b>Safe Reporting</b>
             </label>
@@ -1302,7 +1302,7 @@ const ViewCustomerDetailsDC = () => {
               </Radio>
             </Radio.Group>
           </Col>
-          <Col lg={8} md={8} sm={24}>
+          <Col lg={6} md={6} sm={24}>
             <DatePicker
               size="large"
               width="100%"
@@ -1343,7 +1343,7 @@ const ViewCustomerDetailsDC = () => {
               </Radio>
             </Radio.Group>
           </Col>
-          <Col lg={8} md={8} sm={24} xs={24}>
+          <Col lg={6} md={6} sm={24} xs={24}>
             <TextField
               fullWidth
               label="Point Of Compromise Identified"
@@ -1354,7 +1354,7 @@ const ViewCustomerDetailsDC = () => {
               disable
             />
           </Col>
-          <Col lg={10} md={10} sm={24} xs={24}>
+          <Col lg={6} md={6} sm={24} xs={24}>
             <TextField
               fullWidth
               label="Case Decision"
@@ -1364,7 +1364,7 @@ const ViewCustomerDetailsDC = () => {
               disable
             />
           </Col>
-          <Col lg={4} md={4} sm={24} xs={24} className="u-margin-bottom-20px">
+          <Col lg={6} md={6} sm={24} xs={24} className="u-margin-bottom-20px">
             <TextField
               fullWidth
               label="In Favor Of Customer"
@@ -1379,7 +1379,7 @@ const ViewCustomerDetailsDC = () => {
               disable
             />
           </Col>
-          <Col lg={4} md={4} sm={24} xs={24}>
+          <Col lg={6} md={6} sm={24} xs={24}>
             <TextField
               fullWidth
               label="Customer Liability"
@@ -1394,7 +1394,7 @@ const ViewCustomerDetailsDC = () => {
               disable
             />
           </Col>
-          <Col lg={16} md={16} sm={24} xs={24}>
+          <Col lg={12} md={12} sm={24} xs={24}>
             <TextField
               fullWidth
               label="Remarks"
