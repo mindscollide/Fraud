@@ -817,7 +817,7 @@ const ViewNDB = () => {
     <>
       {investigationOfficer.Loading ? <Loader /> : null}
       <form onSubmit={(e) => goToSaveHandler(e)}>
-        <Paper padding="1">
+        <Paper section padding="1">
           <Row gutter={16}>
             <Col lg={18} md={18} sm={18} xs={24}>
               <h1

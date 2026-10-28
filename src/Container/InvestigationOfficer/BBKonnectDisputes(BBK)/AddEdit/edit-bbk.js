@@ -3512,7 +3512,7 @@ const EditBBKDispute = () => {
   return (
     <>
       <form onSubmit={(e) => goToSaveHandler(e)}>
-        <Paper padding="1">
+        <Paper section padding="1">
           <Row gutter={16} className="u-margin-bottom-15px">
             <Col lg={18} md={18} sm={18} xs={24}>
               <h1 className="u-font-size-18px u-margin-top-15px u-margin-left-20px u-color-ec8d57">
@@ -3600,7 +3600,7 @@ const EditBBKDispute = () => {
           </Row>
         </Paper>
         <div className="u-margin-top-20px" />
-        <Paper padding="1">
+        <Paper section padding="1">
           <Col lg={18} md={18} sm={18} xs={24}>
             <h1 className="u-font-size-18px u-margin-top-15px u-margin-left-20px u-color-ec8d57">
               Manual Transactions
@@ -3856,14 +3856,14 @@ const EditBBKDispute = () => {
           </Col>
         </Paper>
         <div className="u-margin-top-20px" />
-        <Paper padding="1">
+        <Paper section padding="1">
           <Col lg={18} md={18} sm={18} xs={24}>
             <h1 className="u-font-size-18px u-margin-top-15px u-margin-left-20px u-color-ec8d57">
               Date
             </h1>
           </Col>
           <Row gutter={8}>
-            <Col lg={4} md={4} sm={24} className="u-margin-top-22px">
+            <Col lg={6} md={6} sm={24} className="u-margin-top-22px">
               <DatePicker
                 label={"Case Received Date"}
                 size="large"
@@ -3893,8 +3893,8 @@ const EditBBKDispute = () => {
               />
             </Col>
             <Col
-              lg={4}
-              md={4}
+              lg={6}
+              md={6}
               sm={24}
               xs={24}
               className="u-text-align-center u-margin-top-15px"
@@ -3917,7 +3917,7 @@ const EditBBKDispute = () => {
                 </Radio>
               </Radio.Group>
             </Col>
-            <Col lg={4} md={4} sm={24} className="u-margin-top-22px">
+            <Col lg={6} md={6} sm={24} className="u-margin-top-22px">
               <DatePicker
                 size="large"
                 width="100%"
@@ -3934,7 +3934,7 @@ const EditBBKDispute = () => {
               />
             </Col>
             <Col lg={6} md={6} sm={24} className="u-margin-top-22px">
-              <Paper ml="1.5">
+              <Paper>
                 <TextField
                   fullWidth
                   label="Total Dispute Amount"
@@ -3952,8 +3952,8 @@ const EditBBKDispute = () => {
               </Paper>
             </Col>
             <Col
-              lg={4}
-              md={4}
+              lg={6}
+              md={6}
               sm={24}
               xs={24}
               className="u-margin-top-17px u-text-align-center"
@@ -3971,7 +3971,7 @@ const EditBBKDispute = () => {
                 <Radio value={false}>No</Radio>
               </Radio.Group>
             </Col>
-            <Col lg={4} md={4} sm={24}>
+            <Col lg={6} md={6} sm={24}>
               <DatePicker
                 label={"Initial Blocking Date"}
                 disable={isInitialDate}
@@ -3989,7 +3989,7 @@ const EditBBKDispute = () => {
                 required={BBKDispute.IsInitialBlock}
               />
             </Col>
-            <Col lg={4} md={4} sm={24}>
+            <Col lg={6} md={6} sm={24}>
               <DatePicker
                 label={"Case Initiated Date"}
                 size="large"
@@ -4006,7 +4006,7 @@ const EditBBKDispute = () => {
                 required={true}
               />
             </Col>
-            <Col lg={4} md={4} sm={24}>
+            <Col lg={6} md={6} sm={24}>
               <DatePicker
                 label={"Customer Dispute Date"}
                 size="large"
@@ -4023,7 +4023,7 @@ const EditBBKDispute = () => {
                 required={true}
               />
             </Col>
-            <Col lg={4} md={4} sm={24}>
+            <Col lg={6} md={6} sm={24}>
               <DatePicker
                 label={"Case Detection Date"}
                 size="large"
@@ -4043,7 +4043,7 @@ const EditBBKDispute = () => {
           </Row>
         </Paper>
         <div className="u-margin-top-20px" />
-        <Paper padding="1">
+        <Paper section padding="1">
           <Col lg={18} md={18} sm={18} xs={24} className="u-margin-bottom-20px">
             <h1 className="u-font-size-18px u-margin-top-15px u-margin-left-20px u-color-ec8d57">
               Closure Details
@@ -4223,7 +4223,7 @@ const EditBBKDispute = () => {
           </Row>
         </Paper>
         <div className="u-margin-top-20px" />
-        <Paper padding="1">
+        <Paper section padding="1">
           <Col lg={18} md={18} sm={18} xs={24}>
             <h1 className="u-font-size-18px u-margin-top-15px u-margin-left-20px u-color-ec8d57">
               File Upload{" "}
@@ -4275,7 +4275,7 @@ const EditBBKDispute = () => {
               text="Save & Send For Approval"
               type="submit"
               icon={<i className="icon-sent icon-size-one"></i>}
-              applyClass="buttonPrimary2"
+              applyClass="buttonPrimaryLarge"
               size="large"
               click={() => setsaveValue(2)}
             />

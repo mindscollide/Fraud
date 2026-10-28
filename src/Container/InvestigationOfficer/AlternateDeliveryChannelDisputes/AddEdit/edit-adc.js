@@ -3435,7 +3435,7 @@ const EditADCDispute = () => {
   return (
     <>
       <form onSubmit={(e) => goToSaveHandler(e)}>
-        <Paper>
+        <Paper section>
           <Row>
             <Col lg={18} md={18} sm={18} xs={24}>
               <h1 className="u-font-size-18px u-margin-top-15px u-margin-left-20px u-color-ec8d57">
@@ -3461,7 +3461,7 @@ const EditADCDispute = () => {
               </div>
             </Col>
           </Row>
-          <div className="u-padding-y-20px u-padding-x-10px">
+          <div className="u-padding-top-20px">
             <Row gutter={16}>
               <Col lg={6} md={6} sm={24} xs={24}>
                 <TextField
@@ -3520,7 +3520,7 @@ const EditADCDispute = () => {
           </div>
         </Paper>
         <div className="u-margin-top-20px" />
-        <Paper padding="1">
+        <Paper section padding="1">
           <Col lg={18} md={18} sm={18} xs={24}>
             <h1 className="u-font-size-18px u-margin-top-15px u-margin-left-20px u-color-ec8d57">
               Manual Transactions
@@ -3924,14 +3924,14 @@ const EditADCDispute = () => {
           </Col>
         </Paper>
         <div className="u-margin-top-20px" />
-        <Paper padding="1">
+        <Paper section padding="1">
           <Col lg={18} md={18} sm={18} xs={24}>
             <h1 className="u-font-size-18px u-margin-top-15px u-margin-left-20px u-color-ec8d57">
               Date
             </h1>
           </Col>
           <Row gutter={16} className="u-margin-top-22px">
-            <Col lg={4} md={4} sm={24}>
+            <Col lg={6} md={6} sm={24}>
               <DatePicker
                 label={lbl(ADCDisputes.CaseReceivedDate, "Case Received Date")}
                 placeholder={"Case Received Date"}
@@ -3965,7 +3965,7 @@ const EditADCDispute = () => {
                 textLength={20}
               />
             </Col>
-            <Col lg={4} md={4} sm={24} xs={24} className="u-text-align-center">
+            <Col lg={6} md={6} sm={24} xs={24} className="u-text-align-center">
               <label>
                 <b>Case Resolved</b>
               </label>
@@ -3984,7 +3984,7 @@ const EditADCDispute = () => {
                 </Radio>
               </Radio.Group>
             </Col>
-            <Col lg={4} md={4} sm={24}>
+            <Col lg={6} md={6} sm={24}>
               <DatePicker
                 size="large"
                 width="100%"
@@ -4025,7 +4025,7 @@ const EditADCDispute = () => {
           </Row>
         </Paper>
         <div className="u-margin-top-20px" />
-        <Paper padding="1">
+        <Paper section padding="1">
           <Col lg={18} md={18} sm={18} xs={24} className="u-margin-bottom-20px">
             <h1 className="u-font-size-18px u-margin-top-15px u-margin-left-20px u-color-ec8d57">
               Closure Details
@@ -4309,7 +4309,7 @@ const EditADCDispute = () => {
           </Row>
         </Paper>
         <div className="u-margin-top-20px" />
-        <Paper padding="1">
+        <Paper section padding="1">
           <Col lg={18} md={18} sm={18} xs={24}>
             <h1 className="u-font-size-18px u-margin-top-15px u-margin-left-20px u-color-ec8d57">
               File Upload{" "}

@@ -1016,7 +1016,7 @@ const ViewCustomerDetailsNONAPI = () => {
   return (
     <>
       <Title level={3}>View Non API (E-Com) Disputes</Title>
-      <Paper padding="1">
+      <Paper section padding="1">
         <Row gutter={16}>
           <Col lg={18} md={18} sm={18} xs={24}>
             <h1 className="u-font-size-18px u-margin-top-15px u-margin-left-20px u-color-ec8d57">
@@ -1035,7 +1035,7 @@ const ViewCustomerDetailsNONAPI = () => {
               fullWidth
             />
           </Col>
-          <Col lg={4} md={4} sm={24} xs={24}>
+          <Col lg={6} md={6} sm={24} xs={24}>
             <TextField
               name="CNIC"
               size="small"
@@ -1045,7 +1045,7 @@ const ViewCustomerDetailsNONAPI = () => {
               fullWidth
             />
           </Col>
-          <Col lg={4} md={4} sm={24} xs={24}>
+          <Col lg={6} md={6} sm={24} xs={24}>
             <TextField
               name="CustomerName"
               size="small"
@@ -1056,7 +1056,7 @@ const ViewCustomerDetailsNONAPI = () => {
             />
           </Col>
 
-          <Col lg={4} md={4} sm={24} xs={24}>
+          <Col lg={6} md={6} sm={24} xs={24}>
             <SelectBox
               label="City"
               value={cityValue}
@@ -1100,7 +1100,7 @@ const ViewCustomerDetailsNONAPI = () => {
         </Row>
       </Paper>
       <div className="u-margin-top-20px" />
-      <Paper padding="1">
+      <Paper section padding="1">
         <Col lg={24} md={24} sm={24} className="u-margin-top-2pct">
           <div className="TransactionHeading">Manually Entered Transaction</div>
           <Table
@@ -1116,14 +1116,14 @@ const ViewCustomerDetailsNONAPI = () => {
         </Col>
       </Paper>
       <div className="u-margin-top-20px" />
-      <Paper padding="1">
+      <Paper section padding="1">
         <Col lg={18} md={18} sm={18} xs={24}>
           <h1 className="u-font-size-18px u-margin-top-15px u-margin-left-20px u-color-ec8d57">
             Date
           </h1>
         </Col>
         <Row gutter={8}>
-          <Col lg={4} md={4} sm={24} className="u-margin-bottom-20px">
+          <Col lg={6} md={6} sm={24} className="u-margin-bottom-20px">
             <DatePicker
               label={"Case Received Date"}
               size="large"
@@ -1150,8 +1150,8 @@ const ViewCustomerDetailsNONAPI = () => {
             />
           </Col>
           <Col
-            lg={4}
-            md={4}
+            lg={6}
+            md={6}
             sm={24}
             xs={24}
             className="u-text-align-center u-margin-top-15px"
@@ -1173,7 +1173,7 @@ const ViewCustomerDetailsNONAPI = () => {
               </Radio>
             </Radio.Group>
           </Col>
-          <Col lg={4} md={4} sm={24} className="u-margin-top-22px">
+          <Col lg={6} md={6} sm={24} className="u-margin-top-22px">
             <DatePicker
               size="large"
               width="100%"
@@ -1188,7 +1188,7 @@ const ViewCustomerDetailsNONAPI = () => {
             />
           </Col>
           <Col lg={6} md={6} sm={24} className="u-margin-top-22px">
-            <Paper ml="1.5">
+            <Paper>
               <TextField
                 fullWidth
                 label="Total Dispute Amount"
@@ -1208,7 +1208,7 @@ const ViewCustomerDetailsNONAPI = () => {
         </Row>
       </Paper>
       <div className="u-margin-top-20px" />
-      <Paper padding="1">
+      <Paper section padding="1">
         <Col lg={18} md={18} sm={18} xs={24} className="u-margin-bottom-20px">
           <h1 className="u-font-size-18px u-margin-top-15px u-margin-left-20px u-color-ec8d57">
             Closure Details
@@ -1337,7 +1337,7 @@ const ViewCustomerDetailsNONAPI = () => {
         </Row>
       </Paper>
       <div className="u-margin-top-25px" />
-      <Paper padding="1">
+      <Paper section padding="1">
         <Col lg={18} md={18} sm={18} xs={24}>
           <h1 className="u-font-size-18px u-margin-top-15px u-margin-left-20px u-color-ec8d57">
             Files Upload

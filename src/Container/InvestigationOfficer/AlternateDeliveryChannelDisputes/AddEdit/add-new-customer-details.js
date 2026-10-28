@@ -3046,7 +3046,7 @@ const AddNewCustomerDetailsADC = () => {
   return (
     <>
       <form onSubmit={(e) => goToSaveHandler(e)}>
-        <Paper>
+        <Paper section>
           <Row>
             <Col lg={18} md={18} sm={18} xs={24}>
               <h1 className="u-font-size-18px u-margin-top-15px u-margin-left-20px u-color-ec8d57">
@@ -3091,7 +3091,7 @@ const AddNewCustomerDetailsADC = () => {
               </Col>
             )}
           </Row>
-          <div className="u-padding-y-20px u-padding-x-10px">
+          <div className="u-padding-top-20px">
             <Row gutter={16}>
               <Col lg={6} md={6} sm={24} xs={24}>
                 <TextField
@@ -3163,7 +3163,7 @@ const AddNewCustomerDetailsADC = () => {
           </div>
         </Paper>
         <div className="u-margin-top-20px" />
-        <Paper padding="1">
+        <Paper section padding="1">
           <Col lg={18} md={18} sm={18} xs={24}>
             <h1 className="u-font-size-18px u-margin-top-15px u-margin-left-20px u-color-ec8d57">
               Manual Transactions
@@ -3557,14 +3557,14 @@ const AddNewCustomerDetailsADC = () => {
           </Col>
         </Paper>
         <div className="u-margin-top-20px" />
-        <Paper padding="1">
+        <Paper section padding="1">
           <Col lg={18} md={18} sm={18} xs={24}>
             <h1 className="u-font-size-18px u-margin-top-15px u-margin-left-20px u-color-ec8d57">
               Date
             </h1>
           </Col>
           <Row gutter={8} className="u-margin-top-22px">
-            <Col lg={5} md={5} sm={24}>
+            <Col lg={6} md={6} sm={24}>
               <DatePicker
                 label={lbl(ADCDisputes.CaseReceivedDate, "Case Received Date")}
                 placeholder={"Case Received Date"}
@@ -3582,7 +3582,7 @@ const AddNewCustomerDetailsADC = () => {
                 // defaultValue="{moment()}"
               />
             </Col>
-            <Col lg={5} md={5} sm={24}>
+            <Col lg={6} md={6} sm={24}>
               <TextField
                 fullWidth
                 autoComplete="off"
@@ -3599,7 +3599,7 @@ const AddNewCustomerDetailsADC = () => {
                 textLength={20}
               />
             </Col>
-            <Col lg={4} md={4} sm={24} xs={24} className="u-text-align-center">
+            <Col lg={6} md={6} sm={24} xs={24} className="u-text-align-center">
               <label>
                 <b>Case Resolved</b>
               </label>
@@ -3618,7 +3618,7 @@ const AddNewCustomerDetailsADC = () => {
                 </Radio>
               </Radio.Group>
             </Col>
-            <Col lg={5} md={5} sm={24}>
+            <Col lg={6} md={6} sm={24}>
               <DatePicker
                 size="large"
                 width="100%"
@@ -3635,8 +3635,8 @@ const AddNewCustomerDetailsADC = () => {
                 disable
               />
             </Col>
-            <Col lg={5} md={5} sm={24}>
-              <Paper ml="1.5">
+            <Col lg={6} md={6} sm={24}>
+              <Paper>
                 <TextField
                   fullWidth
                   label={lbl(
@@ -3662,7 +3662,7 @@ const AddNewCustomerDetailsADC = () => {
           <Row gutter={8} className="u-margin-top-22px"></Row>
         </Paper>
         <div className="u-margin-top-20px" />
-        <Paper padding="1">
+        <Paper section padding="1">
           <Col lg={18} md={18} sm={18} xs={24} className="u-margin-bottom-20px">
             <h1 className="u-font-size-18px u-margin-top-15px u-margin-left-20px u-color-ec8d57">
               Closure Details
@@ -3954,7 +3954,7 @@ const AddNewCustomerDetailsADC = () => {
           </Row>
         </Paper>
         <div className="u-margin-top-20px" />
-        <Paper padding="1">
+        <Paper section padding="1">
           <Col lg={18} md={18} sm={18} xs={24}>
             <h1 className="u-font-size-18px u-margin-top-15px u-margin-left-20px u-color-ec8d57">
               File Upload
