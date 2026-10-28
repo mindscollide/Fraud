@@ -3,6 +3,11 @@
 // @import url("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;0,800;1,300;1,400;1,600;1,700;1,800&display=swap");
 // all global styles are witten here
 
+// Scrollbars everywhere: peach thumb on a light peach track
+* {
+  scrollbar-color: #F0BA94 #FFF5EE;
+}
+
 // Date/Time/Range pickers (StartToEndDate, DatePicker, TimePicker Elements
 // wrappers all render antd's Picker, which shares this ".ant-picker" root
 // class) styled to match the MUI text-field border convention used
@@ -135,8 +140,8 @@
 .ant-menu-root.ant-menu-vertical-left,
 .ant-menu-root.ant-menu-vertical-right,
 .ant-menu-root.ant-menu-inline {
-  background-color: #025f5c;
-  color: #80b1af;
+  background-color: #ffffff;
+  color: rgba(0, 0, 0, 0.85);
 }
 
 // .ant-menu-submenu-title:hover {
@@ -148,25 +153,39 @@
 }
 
 .ant-menu-sub.ant-menu-inline {
-  background-color: #025f5c;
-  color: whitesmoke !important;
+  background-color: #FFF5EE;
+  color: rgba(0, 0, 0, 0.85) !important;
 }
 
 .ant-menu-item-selected {
-  background-color: #43b78f !important;
-  color: #fff;
+  background-color: #F0BA94 !important;
+  color: #2F2F2F;
   border-right: none !important;
 }
 
 // global css for sidebar ends here
 .ant-table-thead > tr * {
-  background-color: #e7ecec !important;
-  color: #b27706 !important;
+  background-color: #F0BA94 !important;
+  color: #2F2F2F !important;
   font-weight: bold !important;
 }
 
+// No column separators in the header: bordered tables draw them as each
+// cell's right border, non-bordered ones as a ::before line
+.ant-table-thead > tr > th:not(:last-child) {
+  border-right-color: transparent !important;
+}
+
+.ant-table-thead > tr > th::before {
+  display: none !important;
+}
+
 .ant-table-row {
-  background-color: #f6f6f6 !important;
+  background-color: #FFF5EE !important;
+}
+
+.ant-table-tbody > tr > td {
+  color: #2F2F2F;
 }
 
 .ant-layout {
@@ -182,12 +201,12 @@
 }
 
 .ant-menu-submenu-title {
-  color: #80b1af !important;
+  color: rgba(0, 0, 0, 0.85) !important;
   background-color: inherit !important;
 }
 
-.ant-menu-item-active > .ant-menu-title-content > a:hover {
-  color: white !important;
+.ant-menu-item-active:not(.ant-menu-item-selected) > .ant-menu-title-content > a:hover {
+  color: #EC8D57 !important;
 }
 
 .ant-menu-item-active > .ant-menu-title-content:hover {
@@ -203,8 +222,12 @@
   background: none !important;
 }
 
-.ant-menu-item-only-child:hover {
-  color: #fff !important;
+.ant-menu-item-only-child:not(.ant-menu-item-selected):hover {
+  color: #EC8D57 !important;
+}
+
+.ant-menu-item-selected:hover {
+  color: #2F2F2F !important;
 }
 
 .ant-select-arrow {
@@ -233,7 +256,7 @@
   position: relative;
   min-width: 0;
   min-height: auto;
-  background: #025f5c !important;
+  background: #ffffff !important;
   transition: all 0.2s;
 }
 
@@ -270,7 +293,7 @@ span.SubHeading {
 }
 
 .Level-Section {
-  background-color: #04bbb4;
+  background-color: #EC8D57;
   color: #fff;
   padding: 5px;
   width: 240px;
@@ -289,18 +312,18 @@ span.SubHeading {
 }
 
 .TransactionHeading {
-  color: #000;
-  background: #e7ecec !important;
+  color: #000000;
+  background: #F0BA94 !important;
   padding: 10px;
   font-size: 18px;
   font-weight: 600;
   text-align: center;
-  border: 1px solid #dee6e6;
+  border: 1px solid #F0BA94;
 }
 
 button.UploadFileButton {
-  background: #d08b07 !important;
-  border-color: #d08b07 !important;
+  background: #EC8D57 !important;
+  border-color: #EC8D57 !important;
   cursor: pointer !important;
   border-radius: 0px !important;
   font-weight: 400 !important;
@@ -355,8 +378,8 @@ i.icon-add.icon-size-one.AddMore p {
 }
 
 .btnSecondarySolidAddMore button {
-  background: #d08b07 !important;
-  border-color: #d08b07 !important;
+  background: #EC8D57 !important;
+  border-color: #EC8D57 !important;
   cursor: pointer !important;
   border-radius: 0px !important;
   font-weight: 400 !important;
@@ -402,7 +425,7 @@ h4.ant-typography.SignUpRequestTitle {
 }
 
 .NoRecordFound {
-  background: #eef0f0;
+  background: #FFF5EE;
   padding: 11px;
   text-align: center;
 }
@@ -413,7 +436,7 @@ h4.ant-typography.SignUpRequestTitle {
 }
 
 .NoRecordFound span {
-  color: #0ba19b;
+  color: #EC8D57;
   font-weight: bold;
   font-size: 21px;
 }
@@ -494,8 +517,8 @@ input.CreditCardInputField[disabled] {
 }
 
 span.UploadFileButton {
-  background: #d08b07 !important;
-  border-color: #d08b07 !important;
+  background: #EC8D57 !important;
+  border-color: #EC8D57 !important;
   cursor: pointer !important;
   border-radius: 0px !important;
   font-weight: 400 !important;
@@ -507,7 +530,7 @@ span.UploadFileButton {
 
 i.icon-user.SignupIconEmail.icon-size-one {
   border-radius: 0 !important;
-  background-color: #078480 !important;
+  background-color: #EC8D57 !important;
   box-shadow: none !important;
   color: #fff;
   text-align: center !important;

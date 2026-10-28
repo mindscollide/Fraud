@@ -16,3 +16,9 @@
   padding-right: 20px;
   padding-top: 10px;
 }
+
+/* Page headings */
+.mainContainer :global(h3.ant-typography),
+.mainContainer :global(h4.ant-typography) {
+  color: #EC8D57 !important;
+}

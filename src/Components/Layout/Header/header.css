@@ -23,7 +23,7 @@
   margin-left: 0;
   width: 80px;
   height: inherit;
-  background-color: #04908b;
+  background-color: #EC8D57;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -41,7 +41,7 @@
 }
 
 .heading-main {
-  color: #025f5c !important;
+  color: #EC8D57 !important;
   margin: 0 !important;
 }
 
@@ -50,11 +50,14 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 320px;
+  width: auto;
+  min-width: 320px;
+  flex-shrink: 0;
 }
 
 .avatar {
-  background-color: #e3eaea;
+  background-color: #F0BA94;
+  color: #2F2F2F;
   width: 100%;
   height: 100%;
   display: flex;
@@ -63,9 +66,9 @@
 }
 
 .avatar:hover {
-  background-color: black;
+  background-color: #EC8D57;
   transition: 0.4s;
-  color: white;
+  color: #FFFFFF;
 }
 
 .dropdown-icon {
@@ -108,9 +111,9 @@
   line-height: 1;
 }
 .notify:hover {
-  background-color: black;
+  background-color: #EC8D57;
   transition: 0.4s;
-  color: white;
+  color: #FFFFFF;
 }
 
 .menu-box {
@@ -126,9 +129,9 @@
 }
 
 .logout-icon-section:hover {
-  background-color: black;
+  background-color: #EC8D57;
   transition: 0.4s;
-  color: white;
+  color: #FFFFFF;
 }
 
 .user-figure {
@@ -136,12 +139,14 @@
   width: 50px;
   height: 50px;
   border-radius: 100%;
-  border: 2px solid #dbe0e3;
+  border: 2px solid #FFFFFF;
+  background-color: #FFFFFF;
   overflow: hidden;
+  flex-shrink: 0;
 }
 
 .user-name {
-  display: inline-block;
+  display: block;
   max-width: 150px;
   overflow: hidden;
   white-space: nowrap;
@@ -149,7 +154,16 @@
   font-size: 13px;
   font-weight: 600;
   margin-right: 10px;
-  margin-top: 15px;
+}
+
+.user-name p {
+  margin: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.avatar:hover .user-name {
+  max-width: none;
 }
 
 .user-icon-header {
@@ -202,7 +216,7 @@ h3.ant-typography.heading-main {
   text-align: left;
   margin-left: 0;
   width: 80px;
-  background-color: #04908b;
+  background-color: #EC8D57;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -220,7 +234,7 @@ h3.ant-typography.heading-main {
 }
 
 .heading-main {
-  color: #025f5c !important;
+  color: #EC8D57 !important;
   margin: 0 !important;
 }
 

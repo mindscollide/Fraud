@@ -22,13 +22,13 @@
 .line {
   height: 3px;
   width: 100%;
-  background: #e8e8e8;
+  background: #FFF5EE;
   margin-top: 30%;
 }
 .inner {
   width: 100%;
   height: inherit;
-  background: #08938e;
+  background: #EC8D57;
   animation: slide 2s ease-in-out infinite;
 }
 @keyframes slide {

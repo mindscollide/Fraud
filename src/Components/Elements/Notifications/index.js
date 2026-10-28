@@ -34,7 +34,7 @@ const Notification = ({ setOpen, open, message }) => {
         closeIcon: <CloseOutlined />,
         className: "app-teal-notification",
         style: {
-          backgroundColor: "#078480",
+          backgroundColor: "#EC8D57",
           height: "40px",
           padding: 0,
         },

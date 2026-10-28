@@ -97,7 +97,7 @@ const ManagementUnit = () => {
       render: (text, record) => (
         <div
           onClick={(e) => update(e, record)}
-          className="icon-edit icon-size-one beachGreen u-cursor-pointer"
+          className="icon-edit icon-size-one u-color-2f2f2f u-cursor-pointer"
         />
       ),
     },

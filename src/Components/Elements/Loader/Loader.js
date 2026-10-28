@@ -1,5 +1,5 @@
 import React from "react";
-import logo from "../../../assets/images/HBL-Logo.png";
+import logo from "../../../assets/images/HBL-Logo-orange.png";
 import styles from "./style.module.css";
 const Loader = () => {
   return (

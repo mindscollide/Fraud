@@ -1455,7 +1455,7 @@ const EditNONAPIDispute = () => {
       render: (text, record) => (
         <div
           onClick={(e) => update(e, record)}
-          className="icon-edit icon-size-one beachGreen u-cursor-pointer"
+          className="icon-edit icon-size-one u-color-2f2f2f u-cursor-pointer"
         />
       ),
     },
@@ -3491,7 +3491,7 @@ const EditNONAPIDispute = () => {
         <Paper padding="1">
           <Row gutter={16} className="u-margin-bottom-15px">
             <Col lg={18} md={18} sm={18} xs={24}>
-              <h1 className="u-font-size-18px u-margin-top-15px u-margin-left-20px u-color-21706d">
+              <h1 className="u-font-size-18px u-margin-top-15px u-margin-left-20px u-color-ec8d57">
                 Customer Details
               </h1>
             </Col>
@@ -3596,7 +3596,7 @@ const EditNONAPIDispute = () => {
         <div className="u-margin-top-20px" />
         <Paper padding="1">
           <Col lg={18} md={18} sm={18} xs={24}>
-            <h1 className="u-font-size-18px u-margin-top-15px u-margin-left-20px u-color-21706d">
+            <h1 className="u-font-size-18px u-margin-top-15px u-margin-left-20px u-color-ec8d57">
               Manual Transactions
             </h1>
           </Col>
@@ -3957,7 +3957,7 @@ const EditNONAPIDispute = () => {
         <div className="u-margin-top-20px" />
         <Paper padding="1">
           <Col lg={18} md={18} sm={18} xs={24}>
-            <h1 className="u-font-size-18px u-margin-top-15px u-margin-left-20px u-color-21706d">
+            <h1 className="u-font-size-18px u-margin-top-15px u-margin-left-20px u-color-ec8d57">
               Date
             </h1>
           </Col>
@@ -4055,7 +4055,7 @@ const EditNONAPIDispute = () => {
         <div className="u-margin-top-20px" />
         <Paper padding="1">
           <Col lg={18} md={18} sm={18} xs={24} className="u-margin-bottom-13px">
-            <h1 className="u-font-size-18px u-margin-top-15px u-margin-left-20px u-color-21706d">
+            <h1 className="u-font-size-18px u-margin-top-15px u-margin-left-20px u-color-ec8d57">
               Closure Details
             </h1>
           </Col>
@@ -4190,7 +4190,7 @@ const EditNONAPIDispute = () => {
         <div className="u-margin-top-20px" />
         <Paper padding="1">
           <Col lg={18} md={18} sm={18} xs={24}>
-            <h1 className="u-font-size-18px u-margin-top-15px u-margin-left-20px u-color-21706d">
+            <h1 className="u-font-size-18px u-margin-top-15px u-margin-left-20px u-color-ec8d57">
               File Upload{" "}
               <span className="FileUploadNote">
                 Allowed File Formats (Images, Word Documents, Excel, PDF and

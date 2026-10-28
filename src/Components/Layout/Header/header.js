@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { Layout, Typography, Tooltip, Badge, Dropdown, Menu } from "antd";
 import { BellOutlined as NotificationsNoneIcon } from "@ant-design/icons";
-import UserImage from "../../../assets/images/user.png";
+import UserImage from "../../../assets/images/user-orange.png";
 import Logo from "../../../assets/images/logo.png";
 import { useDispatch, useSelector } from "react-redux";
 import { signOut } from "../../../store/actions/auth-actions";

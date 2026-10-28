@@ -4,11 +4,12 @@
 .uploadButton {
   border: 1 solid black !important;
   border-radius: 0 !important;
-  background-color: #025f5c !important;
+  background-color: #EC8D57 !important;
   box-shadow: none !important;
+  color: #FFFFFF !important;
 }
 .btnMiniSecondary {
-  background-color: #d08b07 !important;
+  background-color: #EC8D57 !important;
   padding: 5px 20px !important;
   border: none !important;
   color: #fff !important;
@@ -17,8 +18,8 @@
   text-transform: none !important;
 }
 .btnSecondarySolid {
-  background: #d08b07 !important;
-  border-color: #d08b07 !important;
+  background: #EC8D57 !important;
+  border-color: #EC8D57 !important;
   cursor: pointer !important;
   border-radius: 0px !important;
   font-weight: 400 !important;

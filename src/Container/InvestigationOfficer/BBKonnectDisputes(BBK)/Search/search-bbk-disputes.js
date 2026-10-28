@@ -550,7 +550,7 @@ const SearchBBKDispute = () => {
                 GetDisputeStatusBBK(disputeID, showModal, setAction, actions)
               );
             }}
-            className="icon-edit-list icon-size-one beachGreen u-cursor-pointer"
+            className="icon-edit-list icon-size-one u-color-2f2f2f u-cursor-pointer"
           ></div>
         );
       },
@@ -572,7 +572,7 @@ const SearchBBKDispute = () => {
         return record.statusDescription === "In Process" ? (
           <div
             onClick={(e) => update(e, record)}
-            className="icon-edit icon-size-one beachGreen u-cursor-pointer"
+            className="icon-edit icon-size-one u-color-2f2f2f u-cursor-pointer"
           />
         ) : null;
       },

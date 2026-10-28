@@ -304,7 +304,7 @@ const CustomerDetailsADCD = () => {
         return record.statusDescription === "In Process" ? (
           <div
             onClick={(e) => update(e, record)}
-            className="icon-edit icon-size-one beachGreen u-cursor-pointer"
+            className="icon-edit icon-size-one u-color-2f2f2f u-cursor-pointer"
           />
         ) : null;
       },
@@ -316,7 +316,7 @@ const CustomerDetailsADCD = () => {
         <Row gutter={16}>
           <Col lg={18} md={18} sm={18} xs={24}>
             <h1
-              className="u-font-size-18px u-margin-top-15px u-margin-left-20px u-color-21706d"
+              className="u-font-size-18px u-margin-top-15px u-margin-left-20px u-color-ec8d57"
             >
               Customer Details
             </h1>

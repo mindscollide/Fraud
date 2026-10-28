@@ -1,6 +1,6 @@
 .btnPrimarySolid {
-  background: #04908b !important;
-  border-color: #04908b !important;
+  background: #EC8D57 !important;
+  border-color: #EC8D57 !important;
   cursor: pointer !important;
   border-radius: 0px !important;
   font-weight: 400 !important;
@@ -10,8 +10,8 @@
   text-transform: none !important;
 }
 .btnSecondarySolid {
-  background: #d08b07 !important;
-  border-color: #d08b07 !important;
+  background: #EC8D57 !important;
+  border-color: #EC8D57 !important;
   cursor: pointer !important;
   border-radius: 0px !important;
   font-weight: 400 !important;
@@ -21,8 +21,8 @@
 }
 
 .btnDarkSolid {
-  background: #025f5c !important;
-  border-color: #025f5c !important;
+  background: #EC8D57 !important;
+  border-color: #EC8D57 !important;
   cursor: pointer !important;
   border-radius: 0px !important;
   font-weight: 400 !important;
@@ -34,8 +34,8 @@
 }
 /* in edit button */
 .btnDarkSolidEdit {
-  background: #43b78f !important;
-  border-color: #43b78f !important;
+  background: #D07C4D !important;
+  border-color: #D07C4D !important;
   cursor: pointer !important;
   border-radius: 0px !important;
   font-weight: 400 !important;
@@ -46,8 +46,8 @@
   width: 100% !important;
 }
 .btnDarkSolidm {
-  background: #025f5c !important;
-  border-color: #025f5c !important;
+  background: #EC8D57 !important;
+  border-color: #EC8D57 !important;
   cursor: pointer !important;
   border-radius: 0px !important;
   font-weight: 400 !important;
@@ -71,8 +71,8 @@
 }
 
 .btnSecondarySolid2Search {
-  background: #025f5c !important;
-  border-color: #025f5c !important;
+  background: #EC8D57 !important;
+  border-color: #EC8D57 !important;
   cursor: pointer !important;
   border-radius: 0px !important;
   font-weight: 400 !important;
@@ -84,8 +84,8 @@
 }
 
 .btnSecondarySolid2Search2 {
-  background: #025f5c !important;
-  border-color: #025f5c !important;
+  background: #EC8D57 !important;
+  border-color: #EC8D57 !important;
   cursor: pointer !important;
   border-radius: 0px !important;
   font-weight: 400 !important;
@@ -98,8 +98,8 @@
   /* margin-left: 10px !important; */
 }
 .btnSecondarySolid2Search3 {
-  background: #025f5c !important;
-  border-color: #025f5c !important;
+  background: #EC8D57 !important;
+  border-color: #EC8D57 !important;
   cursor: pointer !important;
   border-radius: 0px !important;
   font-weight: 400 !important;
@@ -111,8 +111,8 @@
 }
 
 .btnSecondarySolidReset {
-  background: #d08b07 !important;
-  border-color: #d08b07 !important;
+  background: #EC8D57 !important;
+  border-color: #EC8D57 !important;
   cursor: pointer !important;
   border-radius: 0px !important;
   font-weight: 400 !important;
@@ -123,8 +123,8 @@
 }
 
 .btnSecondarySolidResetw {
-  background: #d08b07 !important;
-  border-color: #d08b07 !important;
+  background: #EC8D57 !important;
+  border-color: #EC8D57 !important;
   cursor: pointer !important;
   border-radius: 0px !important;
   font-weight: 400 !important;
@@ -136,8 +136,8 @@
 }
 
 .btnSecondarySolid2 {
-  background: #025f5c !important;
-  border-color: #025f5c !important;
+  background: #EC8D57 !important;
+  border-color: #EC8D57 !important;
   cursor: pointer !important;
   border-radius: 0px !important;
   font-weight: 400 !important;
@@ -147,8 +147,8 @@
 }
 
 .btnDarkSolidMini {
-  background: #025f5c !important;
-  border-color: #025f5c !important;
+  background: #EC8D57 !important;
+  border-color: #EC8D57 !important;
   cursor: pointer !important;
   border-radius: 0px !important;
   font-weight: 700 !important;
@@ -160,7 +160,7 @@
 }
 
 .btnMiniPrimary {
-  background-color: #025f5c !important;
+  background-color: #EC8D57 !important;
   padding: 5px 20px !important;
   border: none !important;
   color: #fff !important;
@@ -183,13 +183,13 @@
   background-color: #e7ecec !important;
   padding: 5px 20px !important;
   border: none !important;
-  color: #025f5c !important;
+  color: #EC8D57 !important;
   font-size: 0.8rem !important;
 }
 
 .btnBorderStyled {
-  background: #04908b !important;
-  border-color: #04908b !important;
+  background: #EC8D57 !important;
+  border-color: #EC8D57 !important;
   border-bottom-right-radius: 15px !important;
   border-top-left-radius: 15px !important;
   cursor: pointer !important;
@@ -221,16 +221,16 @@
 }
 /* starts */
 .btnBorderStyledBeach {
-  background: #04908b !important;
-  background: -moz-linear-gradient(left, #04908b 0%, #04bbb4 100%) !important;
+  background: #EC8D57 !important;
+  background: -moz-linear-gradient(left, #EC8D57 0%, #EC8D57 100%) !important;
   background: -webkit-linear-gradient(
     left,
-    #04908b 0%,
-    #04bbb4 100%
+    #EC8D57 0%,
+    #EC8D57 100%
   ) !important;
-  background: linear-gradient(to right, #04908b 0%, #04bbb4 100%) !important;
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#04908b', endColorstr='#04bbb4',GradientType=1 );
-  border-color: #0ba19b !important;
+  background: linear-gradient(to right, #EC8D57 0%, #EC8D57 100%) !important;
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#EC8D57', endColorstr='#EC8D57',GradientType=1 );
+  border-color: #EC8D57 !important;
   color: white !important;
   border-bottom-right-radius: 15px !important;
   border-bottom-left-radius: 0px !important;
@@ -243,22 +243,22 @@
 
 .btnBorderStyledBeach:hover,
 .btnBorderStyledBeach:focus {
-  border-color: #0ba19b !important;
-  background: #09b5af !important;
+  border-color: #EC8D57 !important;
+  background: #D07C4D !important;
   transition: 0.3s ease-in !important;
 }
 
 .btnBorderStyledBeachSignup {
-  background: #04908b !important;
-  background: -moz-linear-gradient(left, #04908b 0%, #04bbb4 100%) !important;
+  background: #EC8D57 !important;
+  background: -moz-linear-gradient(left, #EC8D57 0%, #EC8D57 100%) !important;
   background: -webkit-linear-gradient(
     left,
-    #04908b 0%,
-    #04bbb4 100%
+    #EC8D57 0%,
+    #EC8D57 100%
   ) !important;
-  background: linear-gradient(to right, #04908b 0%, #04bbb4 100%) !important;
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#04908b', endColorstr='#04bbb4',GradientType=1 );
-  border-color: #0ba19b !important;
+  background: linear-gradient(to right, #EC8D57 0%, #EC8D57 100%) !important;
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#EC8D57', endColorstr='#EC8D57',GradientType=1 );
+  border-color: #EC8D57 !important;
   color: white !important;
   border-bottom-right-radius: 15px !important;
   border-bottom-left-radius: 0px !important;
@@ -272,8 +272,8 @@
 
 .btnBorderStyledBeachSignup:hover,
 .btnBorderStyledBeachSignup:focus {
-  border-color: #0ba19b !important;
-  background: #09b5af !important;
+  border-color: #EC8D57 !important;
+  background: #D07C4D !important;
   transition: 0.3s ease-in !important;
 }
 /* ends */
@@ -339,16 +339,16 @@
   border-bottom-left-radius: 0px !important;
   border-top-right-radius: 0px !important;
   border-top-left-radius: 15px !important;
-  background: #04908b !important;
-  background: -moz-linear-gradient(left, #04908b 0%, #04bbb4 100%) !important;
+  background: #EC8D57 !important;
+  background: -moz-linear-gradient(left, #EC8D57 0%, #EC8D57 100%) !important;
   background: -webkit-linear-gradient(
     left,
-    #04908b 0%,
-    #04bbb4 100%
+    #EC8D57 0%,
+    #EC8D57 100%
   ) !important;
-  background: linear-gradient(to right, #04908b 0%, #04bbb4 100%) !important;
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#04908b', endColorstr='#04bbb4',GradientType=1 ) !important;
-  border-color: #0ba19b !important;
+  background: linear-gradient(to right, #EC8D57 0%, #EC8D57 100%) !important;
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#EC8D57', endColorstr='#EC8D57',GradientType=1 ) !important;
+  border-color: #EC8D57 !important;
   padding: 10px 25px 10px 25px !important;
 
   /* font-size: 24px !important; */
@@ -359,8 +359,8 @@
   height: 50px;
 }
 .buttonPrimaryLarge:hover {
-  border-color: #0ba19b !important;
-  background: #09b5af !important;
+  border-color: #EC8D57 !important;
+  background: #D07C4D !important;
   transition: 0.3s ease-in !important;
 }
 
@@ -377,23 +377,23 @@
   font-weight: 600 !important;
   color: #fff !important;
   transition: all 0.3s ease-in !important;
-  background: #014946 !important;
-  background: -moz-linear-gradient(left, #014946 0%, #00b2ac 100%) !important;
+  background: #EC8D57 !important;
+  background: -moz-linear-gradient(left, #EC8D57 0%, #EC8D57 100%) !important;
   background: -webkit-linear-gradient(
     left,
-    #014946 0%,
-    #00b2ac 100%
+    #EC8D57 0%,
+    #EC8D57 100%
   ) !important;
-  background: linear-gradient(to right, #014946 0%, #00b2ac 100%) !important;
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#014946', endColorstr='#00b2ac',GradientType=1 ) !important;
-  border-color: #0ba19b !important;
+  background: linear-gradient(to right, #EC8D57 0%, #EC8D57 100%) !important;
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#EC8D57', endColorstr='#EC8D57',GradientType=1 ) !important;
+  border-color: #EC8D57 !important;
   color: #fff !important;
   padding: 15px !important;
   width: 100% !important;
 }
 
 .buttonPrimary2:hover {
-  background: #00b2ac !important;
+  background: #D07C4D !important;
   color: #ffffff !important;
   transition: 0.3s ease-in !important;
 }
@@ -412,23 +412,23 @@
   font-weight: 600 !important;
   color: #fff !important;
   transition: all 0.3s ease-in !important;
-  background: #014946 !important;
-  background: -moz-linear-gradient(left, #014946 0%, #00b2ac 100%) !important;
+  background: #EC8D57 !important;
+  background: -moz-linear-gradient(left, #EC8D57 0%, #EC8D57 100%) !important;
   background: -webkit-linear-gradient(
     left,
-    #014946 0%,
-    #00b2ac 100%
+    #EC8D57 0%,
+    #EC8D57 100%
   ) !important;
-  background: linear-gradient(to right, #014946 0%, #00b2ac 100%) !important;
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#014946', endColorstr='#00b2ac',GradientType=1 ) !important;
-  border-color: #0ba19b !important;
+  background: linear-gradient(to right, #EC8D57 0%, #EC8D57 100%) !important;
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#EC8D57', endColorstr='#EC8D57',GradientType=1 ) !important;
+  border-color: #EC8D57 !important;
   color: #fff !important;
   width: 100% !important;
   height: 50px;
 }
 
 .buttonPrimary3:hover {
-  background: #00b2ac !important;
+  background: #D07C4D !important;
   color: #ffffff !important;
   transition: 0.3s ease-in !important;
 }

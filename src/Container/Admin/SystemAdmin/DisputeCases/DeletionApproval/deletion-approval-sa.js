@@ -594,7 +594,7 @@ const PendingDeletionApprovals = () => {
                 )
               );
             }}
-            className="icon-edit-list icon-size-one beachGreen u-cursor-pointer"
+            className="icon-edit-list icon-size-one u-color-2f2f2f u-cursor-pointer"
           ></div>
         );
       },

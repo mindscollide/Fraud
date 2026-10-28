@@ -1,13 +1,14 @@
 .uploadButton {
     border-radius   : 0 !important;
-    background-color: #025f5c !important;
+    background-color: #EC8D57 !important;
     box-shadow      : none !important;
     height          : 40px !important;
+  color: #FFFFFF !important;
 }
 
 .search {
     background   : #dfe8e8 !important;
-    color        : #078480 !important;
+    color        : #EC8D57 !important;
     border-radius: 0 !important;
     box-shadow   : none !important;
     height       : 40px !important;
@@ -15,9 +16,9 @@
 
 .account-number {
     color        : #fff !important;
-    background   : #00302e !important;
+    background   : #EC8D57 !important;
     /* background: #dfe8e8 !important;
-    color        : #078480 !important; */
+    color        : #EC8D57 !important; */
     border-radius: 0 !important;
     box-shadow   : none !important;
     height       : 40px !important;
@@ -26,14 +27,15 @@
 }
 
 .account-number:hover {
-    background: rgb(11, 161, 155) !important;
+    background: #D07C4D !important;
     transition: all 0.3s ease-in 0s;
 }
 
 .next {
     border-radius   : 0 !important;
-    background-color: #078480 !important;
+    background-color: #EC8D57 !important;
     box-shadow      : none !important;
     height          : 40px !important;
     width           : 20% !important;
+  color: #FFFFFF !important;
 }

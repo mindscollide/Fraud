@@ -1,7 +1,7 @@
 .menuMainItem {
   padding-top: 10px;
   padding-bottom: 10px !important;
-  border-bottom: 1px solid #3b7674;
+  border-bottom: 1px solid #EC8D57;
 }
 
 .noLinkStyles {
@@ -29,6 +29,7 @@
   display: block !important;
   overflow-y: auto !important;
   overflow-x: hidden !important;
+  border-right: 1px solid #EC8D57 !important;
   scrollbar-width: thin; /* Firefox */
 }
 
@@ -37,12 +38,12 @@
 }
 
 .sider::-webkit-scrollbar-thumb {
-  background-color: rgba(0, 0, 0, 0.25);
+  background-color: #F0BA94;
   border-radius: 3px;
 }
 
 .sider::-webkit-scrollbar-track {
-  background-color: transparent;
+  background-color: #FFF5EE;
 }
 
 .ant-menu-item.ant-menu-title-content {
@@ -93,16 +94,31 @@
 /* Everything inside a dropdown stays gray by default */
 .menuSidebarStyle :global(.ant-menu-sub .ant-menu-item),
 .menuSidebarStyle :global(.ant-menu-sub .ant-menu-item a) {
-  color: rgba(255, 255, 255, 0.65) !important; /* use your original gray here */
+  color: rgba(0, 0, 0, 0.85) !important;
 }
 
-/* Only the open dropdown's title is white */
+/* The open dropdown's title is highlighted */
 .menuSidebarStyle :global(.ant-menu-submenu-open > .ant-menu-submenu-title) {
-  color: #ffffff !important;
+  color: #EC8D57 !important;
 }
 
-/* Only the currently open page is white */
+/* Hover (not on the selected page or its parent, which keep their own colors) */
+.menuSidebarStyle :global(.ant-menu-submenu:not(.ant-menu-submenu-selected) > .ant-menu-submenu-title:hover),
+.menuSidebarStyle :global(.ant-menu-sub .ant-menu-item:not(.ant-menu-item-selected):hover),
+.menuSidebarStyle :global(.ant-menu-sub .ant-menu-item:not(.ant-menu-item-selected):hover a) {
+  color: #EC8D57 !important;
+}
+
+/* The currently open page: dark text on its peach background */
 .menuSidebarStyle :global(.ant-menu-sub .ant-menu-item-selected),
 .menuSidebarStyle :global(.ant-menu-sub .ant-menu-item-selected a) {
-  color: #ffffff !important;
+  color: #2F2F2F !important;
+}
+
+/* Parent menu of the current page: orange with white text
+   (declared last so it wins over the open/hover colors above) */
+.menuSidebarStyle :global(.ant-menu-submenu-selected > .ant-menu-submenu-title),
+.menuSidebarStyle :global(.ant-menu-submenu-selected > .ant-menu-submenu-title:hover) {
+  background-color: #EC8D57 !important;
+  color: #FFFFFF !important;
 }
