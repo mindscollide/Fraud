@@ -122,31 +122,154 @@ html,
   white-space: nowrap !important;
 }
 
-// Notification Elements wrapper — antd's own .ant-notification-notice-message
-// rule sets an explicit (dark) text color that wins over the teal
-// background's inherited color otherwise; !important here matches that
-// same specificity fight.
-.app-teal-notification {
-  display: flex;
-  align-items: center;
-  padding: 20px !important;
-  height: 50px !important;
+// Notification Elements wrapper: a raised (3D) orange card that flips in,
+// wraps the whole message, and shows a time-left bar along the bottom.
+.app-teal-notification.ant-notification-notice {
+  position: relative;
+  width: 380px;
+  padding: 14px 44px 18px 16px;
+  overflow: hidden;
+  border-radius: 14px;
+  background: linear-gradient(135deg, #F4A574 0%, #EC8D57 45%, #D9733A 100%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.45),
+    inset 0 -3px 0 rgba(0, 0, 0, 0.1),
+    0 14px 28px rgba(217, 115, 58, 0.35),
+    0 4px 10px rgba(0, 0, 0, 0.12);
+  transform-origin: top center;
 }
 
 .app-teal-notification .ant-notification-notice-message {
+  margin: 0 !important;
+  padding-right: 0 !important;
   color: #fff !important;
-  display: flex;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.5;
+  white-space: normal;
+  word-break: break-word;
+}
+
+.app-teal-notification .ant-notification-notice-with-icon .ant-notification-notice-message {
+  margin-left: 46px !important;
+}
+
+.app-teal-notification .ant-notification-notice-description {
+  display: none;
+}
+
+.app-teal-notification .ant-notification-notice-icon {
+  margin-left: 0;
+  line-height: 1;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.app-notification-icon {
+  display: inline-flex;
   align-items: center;
-  height: 100%;
-  margin-bottom: 0 !important;
-  line-height: normal;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.22);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4);
+  color: #fff;
+  font-size: 17px;
 }
 
 .app-teal-notification .ant-notification-notice-close {
-  color: #fff !important;
-  top: 50% !important;
+  top: 50%;
+  right: 14px;
   transform: translateY(-50%);
+  color: #fff !important;
+  opacity: 0.85;
 }
+
+.app-teal-notification .ant-notification-notice-close:hover {
+  opacity: 1;
+}
+
+// time-left bar (pauses while hovered, like the auto-close timer)
+.app-teal-notification::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 4px;
+  width: 100%;
+  background: rgba(255, 255, 255, 0.55);
+  transform-origin: left center;
+  animation: notificationTimeLeft var(--notification-duration, 4s) linear forwards;
+}
+
+.app-teal-notification:hover::after {
+  animation-play-state: paused;
+}
+
+// 3D flip in / out (replaces antd's slide for this notification only)
+.app-teal-notification.ant-notification-fade-enter.ant-notification-fade-enter-active,
+.app-teal-notification.ant-notification-fade-appear.ant-notification-fade-appear-active {
+  animation-name: notificationFlipIn !important;
+  animation-duration: 0.55s !important;
+  animation-timing-function: cubic-bezier(0.2, 0.9, 0.3, 1.25) !important;
+}
+
+.app-teal-notification.ant-notification-fade-leave.ant-notification-fade-leave-active {
+  animation-name: notificationFlipOut !important;
+  animation-duration: 0.35s !important;
+  animation-timing-function: ease-in !important;
+}
+
+@keyframes notificationFlipIn {
+  0% {
+    opacity: 0;
+    transform: perspective(700px) rotateX(-80deg) translateY(-24px) scale(0.92);
+  }
+  100% {
+    opacity: 1;
+    transform: perspective(700px) rotateX(0) translateY(0) scale(1);
+  }
+}
+
+@keyframes notificationFlipOut {
+  0% {
+    opacity: 1;
+    max-height: 160px;
+    transform: perspective(700px) rotateX(0) scale(1);
+  }
+  100% {
+    opacity: 0;
+    max-height: 0;
+    margin-bottom: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    transform: perspective(700px) rotateX(70deg) scale(0.92);
+  }
+}
+
+@keyframes notificationTimeLeft {
+  from {
+    transform: scaleX(1);
+  }
+  to {
+    transform: scaleX(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .app-teal-notification.ant-notification-fade-enter.ant-notification-fade-enter-active,
+  .app-teal-notification.ant-notification-fade-appear.ant-notification-fade-appear-active,
+  .app-teal-notification.ant-notification-fade-leave.ant-notification-fade-leave-active {
+    animation-name: none !important;
+  }
+}
+
+// Login / Sign Up (they put this class on <body>): the page itself never scrolls
+body.login-page {
+  overflow: hidden !important;
+}
+
 // global css for side bar
 .ant-menu-root.ant-menu-vertical,
 .ant-menu-root.ant-menu-vertical-left,
@@ -559,18 +682,6 @@ span.UploadFileButton {
   box-shadow: none;
 }
 
-i.icon-user.SignupIconEmail.icon-size-one {
-  border-radius: 0 !important;
-  background-color: #EC8D57 !important;
-  box-shadow: none !important;
-  color: #fff;
-  text-align: center !important;
-  position: relative;
-  top: -35px;
-  padding: 18px;
-  padding-bottom: 5px;
-  padding-top: 5px;
-}
 
 .iris-custom-table .ant-table-selection-column {
   width: 35px !important;

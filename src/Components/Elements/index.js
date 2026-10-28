@@ -25,6 +25,7 @@ import Table from './Table/table';
 import uploadButton from './Upload/uploadButton';
 import Loader from './Loader/Loader'
 import MaxWidthContainer from './MaxWidthContainer/max-width-container'
+import AuthLayout from './AuthLayout/AuthLayout'
 import {Notification,Message} from './Notifications'
 import {FormattedInputs} from './FormatedInput/FormatedInput'
 export {
@@ -53,6 +54,7 @@ export {
     uploadButton,
     Loader,
     MaxWidthContainer,
+    AuthLayout,
     Notification,
     Message,
     ConsolidateBox,

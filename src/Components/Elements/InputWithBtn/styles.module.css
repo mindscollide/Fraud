@@ -40,13 +40,16 @@
   margin: 0 !important;
 }
 
+/* Sign Up password arrow: same 56px rounded block as the LDAP ID icon */
 .next {
-  border: 1 solid 078480 !important;
-  border-radius: 0 !important;
+  border: none !important;
   background-color: #EC8D57 !important;
   box-shadow: none !important;
   height: 40px !important;
-  width: 20% !important;
+  width: 56px !important;
+  min-width: 56px;
+  padding: 0 !important;
+  font-size: 18px;
   color: #FFFFFF !important;
 }
 .btnSecondarySolidAddMoreComment{

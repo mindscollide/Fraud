@@ -1,0 +1,335 @@
+.shell {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  background: #FFFFFF;
+  overflow: hidden;
+}
+
+/* Login: form left, panel right. Sign Up: panel left, form right. */
+.loginMode {
+  flex-direction: row;
+}
+
+.signupMode {
+  flex-direction: row-reverse;
+}
+
+/* ---------- form side ---------- */
+.formSide {
+  position: relative;
+  flex: 1 1 60%;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  background: #FFFFFF;
+  /* still scrolls (long Sign Up step) but never shows a scrollbar */
+  scrollbar-width: none;
+}
+
+.formSide::-webkit-scrollbar {
+  display: none;
+}
+
+.brand {
+  padding: 22px 32px 0;
+  font-size: 14px;
+  font-weight: 700;
+  color: #2F2F2F;
+  letter-spacing: 0.3px;
+}
+
+.formInner {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+  max-width: 440px;
+  margin: 0 auto;
+  padding: 24px 24px 40px;
+}
+
+/* ---------- orange panel ---------- */
+.panel {
+  position: relative;
+  z-index: 2;
+  flex: 0 0 40%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background: linear-gradient(160deg, #EC8D57 0%, #E57E45 100%);
+  color: #FFFFFF;
+}
+
+/* the panel's edge facing the form is rounded */
+.loginMode .panel {
+  border-radius: 150px 0 0 100px;
+}
+
+.signupMode .panel {
+  border-radius: 0 150px 100px 0;
+}
+
+.panelContent {
+  position: relative;
+  z-index: 1;
+  max-width: 320px;
+  padding: 0 24px;
+  text-align: center;
+}
+
+.panelTitle {
+  margin: 0 0 12px;
+  color: #FFFFFF;
+  font-size: 30px;
+  font-weight: 700;
+}
+
+.panelText {
+  margin: 0 0 28px;
+  font-size: 14px;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.92);
+}
+
+.ghostButton {
+  min-width: 150px;
+  padding: 11px 32px;
+  border: 1.5px solid #FFFFFF;
+  border-radius: 999px;
+  background: transparent;
+  color: #FFFFFF;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s, transform 0.2s;
+}
+
+.ghostButton:hover {
+  background: #FFFFFF;
+  color: #EC8D57;
+}
+
+.ghostButton:active {
+  transform: scale(0.97);
+}
+
+/* ---------- floating decorative shapes ---------- */
+.shape {
+  position: absolute;
+  pointer-events: none;
+  animation: float 9s ease-in-out infinite alternate;
+}
+
+.triangleBig {
+  top: -40px;
+  right: -60px;
+  width: 0;
+  height: 0;
+  border-left: 180px solid transparent;
+  border-right: 180px solid transparent;
+  border-bottom: 260px solid rgba(255, 255, 255, 0.14);
+  transform: rotate(-25deg);
+  animation-duration: 12s;
+}
+
+.triangleSmall {
+  bottom: 18%;
+  right: 22%;
+  width: 0;
+  height: 0;
+  border-left: 22px solid transparent;
+  border-right: 22px solid transparent;
+  border-bottom: 34px solid rgba(255, 255, 255, 0.22);
+  animation-duration: 7s;
+  animation-delay: -2s;
+}
+
+.diamond {
+  top: 18%;
+  left: 18%;
+  width: 34px;
+  height: 34px;
+  background: rgba(255, 255, 255, 0.2);
+  transform: rotate(45deg);
+  animation-name: floatSpin;
+  animation-duration: 10s;
+}
+
+.circleBig {
+  bottom: -120px;
+  left: -90px;
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.13);
+  animation-duration: 14s;
+}
+
+.dotOne {
+  top: 58%;
+  left: 12%;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.25);
+  animation-duration: 6s;
+}
+
+.dotTwo {
+  top: 66%;
+  right: 12%;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+  animation-duration: 8s;
+  animation-delay: -3s;
+}
+
+.bar {
+  bottom: 30%;
+  left: 30%;
+  width: 8px;
+  height: 30px;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.25);
+  transform: rotate(-30deg);
+  animation-name: floatSpin;
+  animation-duration: 11s;
+}
+
+@keyframes float {
+  from {
+    translate: 0 0;
+  }
+  to {
+    translate: 14px -22px;
+  }
+}
+
+@keyframes floatSpin {
+  from {
+    translate: 0 0;
+    rotate: 0deg;
+  }
+  to {
+    translate: -12px 18px;
+    rotate: 60deg;
+  }
+}
+
+/* ---------- switching between Login and Sign Up ----------
+   A separate orange "curtain" layer does the animation, so the real panel and
+   form never resize or reflow:
+   1) leaving: the curtain grows from the panel's shape to cover the screen
+   2) arriving: it starts full screen and shrinks into the new panel's shape on
+      the other side, revealing the new form, then hides over the real panel */
+.curtain {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  pointer-events: none;
+  visibility: hidden;
+  background: linear-gradient(160deg, #EC8D57 0%, #E57E45 100%);
+}
+
+/* the panel's shape on each page (40% wide, rounded edge facing the form) */
+.loginMode .curtain {
+  --panel-shape: inset(0 0 0 60% round 150px 0 0 100px);
+}
+
+.signupMode .curtain {
+  --panel-shape: inset(0 60% 0 0 round 0 150px 100px 0);
+}
+
+.slideIn .curtain {
+  animation: curtainShrink 0.6s cubic-bezier(0.65, 0, 0.35, 1) forwards;
+}
+
+/* leaving must win over the arrival animation: a page reached by a slide still
+   has .slideIn (its finished shrink holds the curtain hidden), so without the
+   extra specificity the grow would only play on the very first switch */
+.expanding .curtain,
+.slideIn.expanding .curtain {
+  visibility: visible;
+  animation: curtainGrow 0.45s cubic-bezier(0.65, 0, 0.35, 1) forwards;
+}
+
+.slideIn .panelContent {
+  animation: fadeIn 0.3s ease-out 0.55s both;
+}
+
+@keyframes curtainGrow {
+  from {
+    clip-path: var(--panel-shape);
+  }
+  to {
+    clip-path: inset(0 0 0 0 round 0 0 0 0);
+  }
+}
+
+@keyframes curtainShrink {
+  0% {
+    visibility: visible;
+    clip-path: inset(0 0 0 0 round 0 0 0 0);
+  }
+  99% {
+    visibility: visible;
+    clip-path: var(--panel-shape);
+  }
+  100% {
+    visibility: hidden;
+    clip-path: var(--panel-shape);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* small screens: stack, panel becomes a slim banner (no curtain effect) */
+@media (max-width: 860px) {
+  .loginMode,
+  .signupMode {
+    flex-direction: column-reverse;
+  }
+
+  .panel,
+  .loginMode .panel,
+  .signupMode .panel {
+    flex: 0 0 auto;
+    padding: 28px 0;
+    border-radius: 0 0 40px 40px;
+  }
+
+  .curtain {
+    display: none;
+  }
+
+  .slideIn .panelContent {
+    animation: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .shape,
+  .curtain,
+  .slideIn .panelContent {
+    animation: none !important;
+  }
+
+  .curtain {
+    display: none;
+  }
+}
