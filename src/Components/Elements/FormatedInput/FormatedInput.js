@@ -64,7 +64,20 @@ export const FormattedInputs = ({
           style={{
             width: fullWidth ? "100%" : undefined,
           }}
-          onValueChange={(values) => {
+          // onValueChange={(values) => {
+          //   change({
+          //     target: {
+          //       name: name,
+          //       value: values?.value,
+          //     },
+          //   });
+          // }}
+
+          onValueChange={(values, sourceInfo) => {
+            // Ignore programmatic value updates (e.g. API response populating the field)
+            if (sourceInfo?.source !== "event") return;
+            if (typeof change !== "function") return;
+
             change({
               target: {
                 name: name,

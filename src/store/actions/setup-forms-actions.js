@@ -3979,46 +3979,87 @@ const EditSourceOfIBChannelCreation = (sourceOfIBChannelCreation) => {
   };
 };
 
+// const GetAllCity = (flag) => {
+//   let token = JSON.parse(localStorage.getItem("token"));
+//   return (dispatch) => {
+//     // dispatch(setupFormInit());
+//     let form = new FormData();
+//     form.append("RequestMethod", allCity.RequestMethod);
+//     axios({
+//       method: "post",
+//       url: SetupFormApi,
+//       data: form,
+//       headers: {
+//         _token: token,
+//       },
+//     })
+//       .then(async (response) => {
+//         if (response.data.responseCode === 417) {
+//           await dispatch(refreshToken());
+//           dispatch(allCity());
+//         } else if (response.data.responseCode === 200) {
+//           if (response.data.responseResult.isExecuted === true) {
+//             dispatch(CitySuccess(response.data.responseResult));
+//             if (flag === true) {
+//             } else {
+//               // dispatch(LOADERFALSE());
+//             }
+//           } else {
+//             dispatch(CityFail(response.data.responseResult));
+//             dispatch(LOADERFALSE());
+//           }
+//         }
+//         // dispatch(LOADERFALSE());
+//       })
+//       .catch((response) => {
+//         dispatch(setupFormFail());
+
+//         dispatch(SomeThingWentWrong(response));
+//       });
+//   };
+// };
+
 const GetAllCity = (flag) => {
   let token = JSON.parse(localStorage.getItem("token"));
-  return (dispatch) => {
-    // dispatch(setupFormInit());
+
+  return async (dispatch) => {
+    dispatch(setupFormInit()); // Start loader
+
     let form = new FormData();
     form.append("RequestMethod", allCity.RequestMethod);
-    axios({
-      method: "post",
-      url: SetupFormApi,
-      data: form,
-      headers: {
-        _token: token,
-      },
-    })
-      .then(async (response) => {
-        if (response.data.responseCode === 417) {
-          await dispatch(refreshToken());
-          dispatch(allCity());
-        } else if (response.data.responseCode === 200) {
-          if (response.data.responseResult.isExecuted === true) {
-            dispatch(CitySuccess(response.data.responseResult));
-            if (flag === true) {
-            } else {
-              // dispatch(LOADERFALSE());
-            }
-          } else {
-            dispatch(CityFail(response.data.responseResult));
-            dispatch(LOADERFALSE());
-          }
-        }
-        // dispatch(LOADERFALSE());
-      })
-      .catch((response) => {
-        dispatch(setupFormFail());
 
-        dispatch(SomeThingWentWrong(response));
+    try {
+      const response = await axios({
+        method: "post",
+        url: SetupFormApi,
+        data: form,
+        headers: {
+          _token: token,
+        },
       });
+
+      if (response.data.responseCode === 417) {
+        await dispatch(refreshToken());
+        return dispatch(GetAllCity(flag));
+      }
+
+      if (response.data.responseCode === 200) {
+        if (response.data.responseResult.isExecuted === true) {
+          dispatch(CitySuccess(response.data.responseResult));
+        } else {
+          dispatch(CityFail(response.data.responseResult));
+        }
+      } else {
+        dispatch(CityFail(response.data));
+      }
+    } catch (error) {
+      dispatch(setupFormFail());
+      dispatch(SomeThingWentWrong(error));
+    } finally {
+      dispatch(LOADERFALSE()); // Stop loader after response
+    }
   };
 };
-
 const SaveCity = (object) => {
   let token = JSON.parse(localStorage.getItem("token"));
 
@@ -5511,47 +5552,89 @@ const StatusFail = (response) => {
   };
 };
 
-//Get All Status
+// //Get All Status
+// const GetAllStatus = (data, flag) => {
+//   let token = JSON.parse(localStorage.getItem("token"));
+//   return (dispatch) => {
+//     dispatch(setupFormInit());
+//     let form = new FormData();
+//     form.append("RequestMethod", getAllStatus.RequestMethod);
+//     form.append("RequestData", JSON.stringify(data));
+//     axios({
+//       method: "post",
+//       url: SetupFormApi,
+//       data: form,
+//       headers: {
+//         _token: token,
+//       },
+//     })
+//       .then(async (response) => {
+//         if (response.data.responseCode === 417) {
+//           await dispatch(refreshToken());
+//           dispatch(GetAllStatus(data));
+//         } else if (response.data.responseCode === 200) {
+//           if (response.data.responseResult.isExecuted === true) {
+//             dispatch(StatusSuccess(response.data.responseResult));
+//             if (flag === true) {
+//             } else {
+//               dispatch(LOADERFALSE());
+//             }
+//           } else {
+//             dispatch(StatusFail([response.data.responseResult]));
+//             dispatch(LOADERFALSE());
+//           }
+//         }
+//       })
+//       .catch((response) => {
+//         dispatch(setupFormFail());
+
+//         dispatch(SomeThingWentWrong(response));
+//       });
+//   };
+// };
+
 const GetAllStatus = (data, flag) => {
   let token = JSON.parse(localStorage.getItem("token"));
-  return (dispatch) => {
-    dispatch(setupFormInit());
+
+  return async (dispatch) => {
+    dispatch(setupFormInit()); // Start loader
+
     let form = new FormData();
     form.append("RequestMethod", getAllStatus.RequestMethod);
     form.append("RequestData", JSON.stringify(data));
-    axios({
-      method: "post",
-      url: SetupFormApi,
-      data: form,
-      headers: {
-        _token: token,
-      },
-    })
-      .then(async (response) => {
-        if (response.data.responseCode === 417) {
-          await dispatch(refreshToken());
-          dispatch(GetAllStatus(data));
-        } else if (response.data.responseCode === 200) {
-          if (response.data.responseResult.isExecuted === true) {
-            dispatch(StatusSuccess(response.data.responseResult));
-            if (flag === true) {
-            } else {
-              dispatch(LOADERFALSE());
-            }
-          } else {
-            dispatch(StatusFail([response.data.responseResult]));
-            dispatch(LOADERFALSE());
-          }
-        }
-      })
-      .catch((response) => {
-        dispatch(setupFormFail());
 
-        dispatch(SomeThingWentWrong(response));
+    try {
+      const response = await axios({
+        method: "post",
+        url: SetupFormApi,
+        data: form,
+        headers: {
+          _token: token,
+        },
       });
+
+      if (response.data.responseCode === 417) {
+        await dispatch(refreshToken());
+        return dispatch(GetAllStatus(data, flag));
+      }
+
+      if (response.data.responseCode === 200) {
+        if (response.data.responseResult.isExecuted === true) {
+          dispatch(StatusSuccess(response.data.responseResult));
+        } else {
+          dispatch(StatusFail([response.data.responseResult]));
+        }
+      } else {
+        dispatch(StatusFail([response.data]));
+      }
+    } catch (error) {
+      dispatch(setupFormFail());
+      dispatch(SomeThingWentWrong(error));
+    } finally {
+      dispatch(LOADERFALSE()); // Stop loader after response
+    }
   };
 };
-
 //Actions Successors
 const ActionSuccess = (response) => {
   return {

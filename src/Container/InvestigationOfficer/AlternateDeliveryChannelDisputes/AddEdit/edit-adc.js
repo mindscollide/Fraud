@@ -301,9 +301,18 @@ const EditADCDispute = () => {
   const ADCDisputeHandler = (e) => {
     let name = e.target.name;
     let value = e.target.value;
+    // P-II: alphanumeric + . - : (max 50 chars)
+    if (name === "PII") {
+      const cleaned = value
+        .replace(/[^a-zA-Z0-9 .\-:]/g, "")
+        .trimStart()
+        .slice(0, 50);
+      setADCDisputes((prev) => ({ ...prev, PII: cleaned }));
+      return;
+    }
     if (
       name !== "ExpectedRecovery" &&
-      name !== "PII" &&
+      // name !== "PII" &&
       name !== "ExpectedRecoveryFromHBLBeneficiary" &&
       name !== "ExpectedRecoveryFromMemberBankBeneficiary" &&
       name !== "IsDemographicChange" &&
@@ -480,7 +489,7 @@ const EditADCDispute = () => {
       name === "CaseReceivedChannel" ||
       name === "EventIDSAS" ||
       name === "Remarks" ||
-      name === "PII" ||
+      // name === "PII" ||
       name === "CustomerClamiedInformation"
     ) {
       let spREmove = value.replace(/[^a-zA-Z0-9 ]/g, "");
@@ -3417,6 +3426,17 @@ const EditADCDispute = () => {
       setListOfADCDisputeDocuments(tem);
     }
   }, [investigationOfficer.GetADCDisputesForEditData]);
+  // true when a field actually holds a value (treats "", null, undefined,
+  // empty arrays and the -99999999999999999999 "empty number" sentinel as empty)
+  const hasValue = (v) =>
+    v !== undefined &&
+    v !== null &&
+    v !== "" &&
+    v !== -99999999999999999999 &&
+    !(Array.isArray(v) && v.length === 0);
+
+  // show the label only when the field has a value, otherwise "" (placeholder only)
+  const lbl = (value, text) => (hasValue(value) ? text : "");
   return (
     <>
       <form onSubmit={(e) => goToSaveHandler(e)}>
@@ -3455,7 +3475,7 @@ const EditADCDispute = () => {
                   placeholder="Reference #"
                   value={ADCDisputes.RefrenceNumber}
                   disable
-                  label={ADCDisputes.RefrenceNumber !== "" ? "Reference #" : ""}
+                  label={lbl(ADCDisputes.RefrenceNumber, "Reference #")}
                   fullWidth
                 />
               </Col>
@@ -3466,18 +3486,19 @@ const EditADCDispute = () => {
                   placeholder="Customer Name"
                   disable
                   value={customerDetails.customerName}
-                  label={"Customer Name"}
+                  label={lbl(customerDetails.customerName, "Customer Name")}
                   fullWidth
-                  textLength={50}
+                  textLength={100}
                 />
               </Col>
               <Col lg={6} md={6} sm={24} xs={24}>
                 <SelectBox
-                  label="Select City"
+                  label={lbl(cityValue, "Select City")}
                   option={city}
                   value={cityValue}
                   change={CityNameHandler}
                   name="FK_CTID"
+                  placeholder="Select City"
                   required
                 />
               </Col>
@@ -3488,6 +3509,7 @@ const EditADCDispute = () => {
                   System Fetched Transactions
                 </div>
                 <Table
+                  className={"iris-custom-table"}
                   rowSelection={rowSelection}
                   rows={listOfTransactionDetailsAlreadyExsist}
                   columns={columns}
@@ -3514,7 +3536,8 @@ const EditADCDispute = () => {
               <InputWithBtn
                 onchange={TransactionIDchangehandler}
                 isUpperCase={true}
-                label="Transaction ID *"
+                label={lbl(trsDetails.TransactionID, "Transaction ID *")}
+                placeholder={"Transaction ID *"}
                 fullWidth
                 autoComplete="off"
                 helperText={TIDErrMsg}
@@ -3535,7 +3558,8 @@ const EditADCDispute = () => {
                 name="HBLAccountNumber"
                 size="small"
                 autoComplete="off"
-                label={"HBL Account Number *"}
+                label={lbl(trsDetails.HBLAccountNumber, "HBL Account Number *")}
+                placeholder={"HBL Account Number *"}
                 value={trsDetails.HBLAccountNumber}
                 change={TransactionDeatilHandlerChange}
                 fullWidth
@@ -3552,7 +3576,11 @@ const EditADCDispute = () => {
                     ? null
                     : trsDetails.BeneficiaryAccountNumber
                 }
-                label={"Beneficiary Account Number *"}
+                label={lbl(
+                  trsDetails.BeneficiaryAccountNumber,
+                  "Beneficiary Account Number *"
+                )}
+                placeholder={"Beneficiary Account Number *"}
                 change={TransactionDeatilHandlerChange}
                 fullWidth
                 autoComplete="off"
@@ -3565,7 +3593,11 @@ const EditADCDispute = () => {
                 size="small"
                 autoComplete="off"
                 value={trsDetails.BeneficiaryBankName}
-                label={"Beneficiary Bank Name *"}
+                label={lbl(
+                  trsDetails.BeneficiaryBankName,
+                  "Beneficiary Bank Name *"
+                )}
+                placeholder={"Beneficiary Bank Name *"}
                 change={TransactionDeatilHandlerChange}
                 fullWidth
                 textLength={30}
@@ -3578,7 +3610,8 @@ const EditADCDispute = () => {
                 name="BranchCode"
                 size="small"
                 autoComplete="off"
-                label={"Branch Code *"}
+                label={lbl(trsDetails.BranchCode, "Branch Code *")}
+                placeholder={"Branch Code *"}
                 value={
                   trsDetails.BranchCode === 0 ? null : trsDetails.BranchCode
                 }
@@ -3592,7 +3625,8 @@ const EditADCDispute = () => {
                 name="BranchName"
                 size="small"
                 autoComplete="off"
-                label={"Branch Name *"}
+                label={lbl(trsDetails.BranchName, "Branch Name *")}
+                placeholder={"Branch Name *"}
                 value={trsDetails.BranchName}
                 change={TransactionDeatilHandlerChange}
                 fullWidth
@@ -3606,6 +3640,7 @@ const EditADCDispute = () => {
                 width="100%"
                 DateRange
                 placeholder={"Transaction Date *"}
+                label={lbl(trsDetails.TransactionDate, "Transaction Date *")}
                 value={
                   trsDetails.TransactionDate
                     ? DateDisplayFormat(trsDetails.TransactionDate)
@@ -3620,6 +3655,7 @@ const EditADCDispute = () => {
                 size="large"
                 width="100%"
                 placeholder={"Transaction Time *"}
+                label={lbl(trsDetails.TransactionTime, "Transaction Time *")}
                 value={trsDetails.TransactionTime}
                 change={TimeHandler}
               />
@@ -3630,7 +3666,11 @@ const EditADCDispute = () => {
               <FormattedInputs
                 name="TransactionAmount"
                 size="small"
-                Label="Transaction Amount *"
+                Label={lbl(
+                  trsDetails.TransactionAmount,
+                  "Transaction Amount *"
+                )}
+                placeholder={"Transaction Amount *"}
                 value={
                   trsDetails.TransactionAmount === null ||
                   trsDetails.TransactionAmount === -99999999999999999999
@@ -3646,7 +3686,11 @@ const EditADCDispute = () => {
               <FormattedInputs
                 name="DisputeAmount"
                 size="small"
-                Label={"Exposure / Dispute Amount *"}
+                Label={lbl(
+                  trsDetails.DisputeAmount,
+                  "Exposure / Dispute Amount *"
+                )}
+                placeholder={"Exposure / Dispute Amount *"}
                 value={
                   trsDetails.DisputeAmount === null ||
                   trsDetails.DisputeAmount === -99999999999999999999
@@ -3663,11 +3707,12 @@ const EditADCDispute = () => {
                 name="ApprovalCode"
                 size="small"
                 autoComplete="off"
-                label={"Approval Code *"}
+                label={lbl(trsDetails.ApprovalCode, "Approval Code *")}
+                placeholder={"Approval Code *"}
                 value={trsDetails.ApprovalCode}
                 change={TransactionDeatilHandlerChange}
                 fullWidth
-                textLength={20}
+                textLength={7}
               />
             </Col>
             <Col lg={6} md={6} sm={24} xs={24}>
@@ -3675,11 +3720,12 @@ const EditADCDispute = () => {
                 name="POSMode"
                 size="small"
                 autoComplete="off"
-                label={"Point Of Sale Mode *"}
+                label={lbl(trsDetails.POSMode, "Point Of Sale Mode *")}
+                placeholder={"Point Of Sale Mode *"}
                 value={trsDetails.POSMode}
                 change={TransactionDeatilHandlerChange}
                 fullWidth
-                textLength={50}
+                textLength={30}
               />
             </Col>
           </Row>
@@ -3690,13 +3736,14 @@ const EditADCDispute = () => {
                 name="MerchantID"
                 size="small"
                 autoComplete="off"
-                label={"Merchant ID *"}
+                label={lbl(trsDetails.MerchantID, "Merchant ID *")}
+                placeholder={"Merchant ID *"}
                 value={
                   trsDetails.MerchantID === 0 ? null : trsDetails.MerchantID
                 }
                 fullWidth
                 change={TransactionDeatilHandlerChange}
-                textLength={14}
+                textLength={20}
               />
             </Col>
             <Col lg={6} md={6} sm={24} xs={24}>
@@ -3704,11 +3751,12 @@ const EditADCDispute = () => {
                 name="MerchantCity"
                 size="small"
                 autoComplete="off"
-                label={"Merchant City *"}
+                label={lbl(trsDetails.MerchantCity, "Merchant City *")}
                 value={trsDetails.MerchantCity}
+                placeholder={"Merchant City *"}
                 fullWidth
                 change={TransactionDeatilHandlerChange}
-                textLength={50}
+                textLength={30}
               />
             </Col>
 
@@ -3731,7 +3779,11 @@ const EditADCDispute = () => {
                 name="MerchantCategoryCodeMCC"
                 size="small"
                 autoComplete="off"
-                label={"Merchant Category Code *"}
+                label={lbl(
+                  trsDetails.MerchantCategoryCodeMCC,
+                  "Merchant Category Code *"
+                )}
+                placeholder={"Merchant Category Code *"}
                 value={
                   trsDetails.MerchantCategoryCodeMCC === 0
                     ? null
@@ -3739,7 +3791,7 @@ const EditADCDispute = () => {
                 }
                 change={TransactionDeatilHandlerChange}
                 fullWidth
-                textLength={4}
+                textLength={7}
               />
             </Col>
           </Row>
@@ -3747,7 +3799,8 @@ const EditADCDispute = () => {
           <Row gutter={16} className="u-margin-top-22px">
             <Col lg={6} md={6} sm={24} xs={24}>
               <SelectBox
-                label="Source *"
+                label={lbl(SourceType, "Source *")}
+                placeholder={"Source *"}
                 option={sourceTypeName}
                 value={SourceType}
                 change={SourceNameHandler}
@@ -3759,7 +3812,8 @@ const EditADCDispute = () => {
                 name="MobileNumber"
                 size="small"
                 autoComplete="off"
-                label={"Mobile # Culprit *"}
+                label={lbl(trsDetails.MobileNumber, "Mobile # Culprit *")}
+                placeholder={"Mobile # Culprit *"}
                 value={
                   trsDetails.MobileNumber === 0 ? null : trsDetails.MobileNumber
                 }
@@ -3773,13 +3827,14 @@ const EditADCDispute = () => {
                 name="IMEINumber"
                 size="small"
                 autoComplete="off"
-                label={"IMEI # / MAC Address *"}
+                label={lbl(trsDetails.IMEINumber, "IMEI # / MAC Address *")}
+                placeholder={"IMEI # / MAC Address *"}
                 value={
                   trsDetails.IMEINumber === 0 ? null : trsDetails.IMEINumber
                 }
                 change={TransactionDeatilHandlerChange}
                 fullWidth
-                textLength={15}
+                textLength={17}
               />
             </Col>
             <Col lg={6} md={6} sm={24} xs={24}>
@@ -3787,11 +3842,12 @@ const EditADCDispute = () => {
                 name="URL"
                 size="small"
                 autoComplete="off"
-                label={"URL / Website *"}
+                label={lbl(trsDetails.URL, "URL / Website *")}
+                placeholder={"URL / Website *"}
                 value={trsDetails.URL}
                 change={TransactionDeatilHandlerChange}
                 fullWidth
-                textLength={30}
+                textLength={40}
               />
             </Col>
           </Row>
@@ -3803,6 +3859,7 @@ const EditADCDispute = () => {
                 name="IPAddress"
                 autoComplete="off"
                 placeholder="IP Address *"
+                label={lbl(trsDetails.IPAddress, "IP Address *")}
                 disable
                 value={trsDetails.IPAddress}
                 mask={[
@@ -3878,10 +3935,11 @@ const EditADCDispute = () => {
               Date
             </h1>
           </Col>
-          <Row gutter={8} className="u-margin-top-22px">
+          <Row gutter={16} className="u-margin-top-22px">
             <Col lg={4} md={4} sm={24}>
               <DatePicker
-                label={"Case Received Date"}
+                label={lbl(ADCDisputes.CaseReceivedDate, "Case Received Date")}
+                placeholder={"Case Received Date"}
                 size="large"
                 width="100%"
                 DateRange
@@ -3898,7 +3956,11 @@ const EditADCDispute = () => {
             <Col lg={6} md={6} sm={24}>
               <TextField
                 fullWidth
-                label="Case Received Channel"
+                label={lbl(
+                  ADCDisputes.CaseReceivedChannel,
+                  "Case Received Channel"
+                )}
+                placeholder="Case Received Channel"
                 autoComplete="off"
                 value={ADCDisputes.CaseReceivedChannel}
                 name="CaseReceivedChannel"
@@ -3933,6 +3995,7 @@ const EditADCDispute = () => {
                 width="100%"
                 DateRange
                 placeholder={"Case Resolved Date"}
+                label={lbl(ADCDisputes.CaseResolvedDate, "Case Resolved Date")}
                 name="CaseResolvedDate"
                 value={
                   ADCDisputes.CaseResolvedDate
@@ -3946,7 +4009,11 @@ const EditADCDispute = () => {
             <Col lg={6} md={6} sm={24}>
               <TextField
                 fullWidth
-                label="Total Dispute Amount"
+                label={lbl(
+                  ADCDisputes.TotalTransactionAmount,
+                  "Total Dispute Amount"
+                )}
+                placeholder="Total Dispute Amount"
                 value={
                   ADCDisputes.TotalTransactionAmount === null ||
                   ADCDisputes.TotalTransactionAmount === -99999999999999999999
@@ -3973,7 +4040,8 @@ const EditADCDispute = () => {
             <Col lg={6} md={6} sm={24} xs={24}>
               <SelectBox
                 option={caseDecision}
-                label="Select Case Decision"
+                label={lbl(caseDecisionValue, "Select Case Decision")}
+                placeholder="Select Case Decision"
                 name="FK_CDEID"
                 value={caseDecisionValue}
                 change={CaseDecisionHandler}
@@ -3982,7 +4050,8 @@ const EditADCDispute = () => {
             <Col lg={6} md={6} sm={24} xs={24}>
               <TextField
                 fullWidth
-                label="Event ID (SAS REF #)"
+                label={lbl(ADCDisputes.EventIDSAS, "Event ID (SAS REF #)")}
+                placeholder="Event ID (SAS REF #)"
                 size="small"
                 autoComplete="off"
                 name="EventIDSAS"
@@ -3994,7 +4063,8 @@ const EditADCDispute = () => {
             <Col lg={6} md={6} sm={24} xs={24}>
               <TextField
                 fullWidth
-                label="Remarks"
+                label={lbl(ADCDisputes.Remarks, "Remarks")}
+                placeholder="Remarks"
                 size="small"
                 autoComplete="off"
                 name="Remarks"
@@ -4005,11 +4075,11 @@ const EditADCDispute = () => {
             </Col>
             <Col lg={6} md={6} sm={24} xs={24}>
               <DatePicker
-                label={"Registration Date"}
+                label={lbl(ADCDisputes.RegistrationDate, "Registration Date")}
+                placeholder={"Registration Date"}
                 size="large"
                 width="100%"
                 DateRange
-                placeholder={"Registration Date"}
                 name="RegistrationDate"
                 change={DateHandler}
                 value={
@@ -4025,7 +4095,8 @@ const EditADCDispute = () => {
             <Col lg={6} md={6} sm={24} xs={24}>
               <TextField
                 fullWidth
-                label="Aging"
+                label={lbl(ADCDisputes.Aging, "Aging")}
+                placeholder="Aging"
                 size="small"
                 name="Aging"
                 value={
@@ -4040,7 +4111,8 @@ const EditADCDispute = () => {
             <Col lg={6} md={6} sm={24} xs={24}>
               <TextField
                 fullWidth
-                label="Case Closed TAT"
+                label={lbl(ADCDisputes.CaseClosedTAT, "Case Closed TAT")}
+                placeholder={"Case Closed TAT"}
                 size="small"
                 name="CaseClosedTAT"
                 value={
@@ -4056,7 +4128,8 @@ const EditADCDispute = () => {
             <Col lg={6} md={6} sm={24} xs={24}>
               <FormattedInputs
                 fullWidth
-                Label="Expected Recovery"
+                Label={lbl(ADCDisputes.ExpectedRecovery, "Expected Recovery")}
+                placeholder="Expected Recovery *"
                 size="small"
                 name="ExpectedRecovery"
                 value={
@@ -4072,7 +4145,7 @@ const EditADCDispute = () => {
               />
             </Col>
 
-            <Col lg={6} md={6} sm={24} xs={24}>
+            <Col lg={6} md={6} sm={24} xs={24} className="u-text-align-center">
               <label>
                 <b>Demographic Change</b>
               </label>
@@ -4089,7 +4162,7 @@ const EditADCDispute = () => {
           </Row>
 
           <Row gutter={16} className="u-margin-top-22px">
-            <Col lg={6} md={6} sm={24} xs={24}>
+            <Col lg={6} md={6} sm={24} xs={24} className="u-text-align-center">
               <label>
                 <b>Flexi Loan</b>
               </label>
@@ -4106,19 +4179,25 @@ const EditADCDispute = () => {
             <Col lg={6} md={6} sm={24} xs={24}>
               <TextField
                 fullWidth
-                label="P-II information"
+                label={lbl(ADCDisputes.PII, "P-II information")}
+                placeholder={"P-II information *"}
                 size="small"
                 name="PII"
                 autoComplete="off"
                 value={ADCDisputes.PII}
                 change={ADCDisputeHandler}
                 textLength={50}
+                required
               />
             </Col>
             <Col lg={6} md={6} sm={24} xs={24}>
               <TextField
                 fullWidth
-                label="Customer Clamied Information"
+                label={lbl(
+                  ADCDisputes.CustomerClamiedInformation,
+                  "Customer Clamied Information"
+                )}
+                placeholder="Customer Clamied Information"
                 size="small"
                 autoComplete="off"
                 name="CustomerClamiedInformation"
@@ -4130,7 +4209,11 @@ const EditADCDispute = () => {
             <Col lg={6} md={6} sm={24} xs={24}>
               <FormattedInputs
                 fullWidth
-                Label="Expected Recovery From HBL"
+                Label={lbl(
+                  ADCDisputes.ExpectedRecoveryFromHBLBeneficiary,
+                  "Expected Recovery From HBL"
+                )}
+                placeholder="Expected Recovery From HBL *"
                 size="small"
                 name="ExpectedRecoveryFromHBLBeneficiary"
                 value={
@@ -4150,7 +4233,11 @@ const EditADCDispute = () => {
             <Col lg={6} md={6} sm={24} xs={24}>
               <FormattedInputs
                 fullWidth
-                Label="Expected Recovery From Member Bank"
+                Label={lbl(
+                  ADCDisputes.ExpectedRecoveryFromMemberBankBeneficiary,
+                  "Expected Recovery From Member Bank"
+                )}
+                placeholder="Expected Recovery From Member Bank *"
                 size="small"
                 name="ExpectedRecoveryFromMemberBankBeneficiary"
                 value={
@@ -4165,7 +4252,7 @@ const EditADCDispute = () => {
                 required
               />
             </Col>
-            <Col lg={6} md={6} sm={24} xs={24}>
+            <Col lg={6} md={6} sm={24} xs={24} className="u-text-align-center">
               <label>
                 <b>Customer / Beneficiary SIM Blocked</b>
               </label>
@@ -4182,7 +4269,8 @@ const EditADCDispute = () => {
             <Col lg={6} md={6} sm={24} xs={24}>
               <TextField
                 fullWidth
-                label="Fund Layered A/c #"
+                label={lbl(ADCDisputes.FundLayeredAC, "Fund Layered A/c #")}
+                placeholder="Fund Layered A/c #"
                 size="small"
                 autoComplete="off"
                 name="FundLayeredAC"
@@ -4191,7 +4279,7 @@ const EditADCDispute = () => {
                 textLength={14}
               />
             </Col>
-            <Col lg={6} md={6} sm={24} xs={24}>
+            <Col lg={6} md={6} sm={24} xs={24} className="u-text-align-center">
               <label>
                 <b>iOS / Android</b>
               </label>
@@ -4212,7 +4300,11 @@ const EditADCDispute = () => {
             <Col lg={6} md={6} sm={24} xs={24}>
               <SelectBox
                 option={sourceOfIB}
-                label="Select Source of IB Channel Creation"
+                label={lbl(
+                  sourceOfIBName,
+                  "Select Source of IB Channel Creation"
+                )}
+                placeholder="Select Source of IB Channel Creation"
                 name="FK_SIBCCID"
                 value={sourceOfIBName}
                 change={SourceOfIBNameHandler}

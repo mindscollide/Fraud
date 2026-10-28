@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { Typography, Radio, Tooltip, Row, Col } from "antd";
 import moment from "moment";
 import {
@@ -141,7 +141,16 @@ const ViewCustomerDetailsADC = () => {
 
   const [sourceOfIB, setSourceOfIB] = useState("");
 
-  const [cityValue, setCityValue] = useState("");
+  // const [cityValue, setCityValue] = useState("");
+  // delete: const [cityValue, setCityValue] = useState("");
+
+  const cityValue = useMemo(() => {
+    const list = setupForms.CityData || [];
+    const match = list.find(
+      (c) => Number(c.pK_CTID) === Number(FDCustomer.fK_CTID)
+    );
+    return match ? match.name : "";
+  }, [setupForms.CityData, FDCustomer.fK_CTID]);
 
   // List of Transaction Details already esist
   const [
@@ -188,11 +197,11 @@ const ViewCustomerDetailsADC = () => {
   const [sourceOfIBName, setSourceOfIBName] = useState([]);
 
   //   useEffect for tempray api hit
-  useEffect(() => {
-    dispatch(GetAllApprovalReasons());
-    dispatch(GetAllRejectionReasons());
-    dispatch(GetAllCity());
-  }, []);
+  // useEffect(() => {
+  // dispatch(GetAllApprovalReasons());
+  // dispatch(GetAllRejectionReasons());
+  //   dispatch(GetAllCity());
+  // }, []);
 
   useEffect(() => {
     setListOfADCDisputeDocuments([]);
@@ -264,12 +273,12 @@ const ViewCustomerDetailsADC = () => {
           CustomerName: customerDetail.customerName,
           fK_CTID: customerDetail.fK_CTID,
         });
-        let cityValue = setupForms.CityData;
-        cityValue.map((data, index) => {
-          if (customerDetail.fK_CTID === data.pK_CTID) {
-            setCityValue(data.name);
-          }
-        });
+        // let cityValue = setupForms.CityData;
+        // cityValue.map((data, index) => {
+        //   if (customerDetail.fK_CTID === data.pK_CTID) {
+        //     setCityValue(data.name);
+        //   }
+        // });
       }
       if (transactionDetail !== undefined && transactionDetail !== null) {
         let tem = [];
@@ -378,16 +387,16 @@ const ViewCustomerDetailsADC = () => {
     }
   }, [investigationOfficer.GetADCDisputesForViewData]);
 
-  useEffect(() => {
-    let valueCity = setupForms.CityData;
-    valueCity.map((data, index) => {
-      if (fDCusotmerAccount.fK_CTID === data.pK_CTID) {
-        setCityValue(data.name);
-      }
-    });
-  }, [setupForms.CityData]);
+  // useEffect(() => {
+  //   let valueCity = setupForms.CityData;
+  //   valueCity.map((data, index) => {
+  //     if (fDCusotmerAccount.fK_CTID === data.pK_CTID) {
+  //       setCityValue(data.name);
+  //     }
+  //   });
+  // }, [setupForms.CityData]);
 
-  useEffect(() => {}, [cityValue]);
+  // useEffect(() => {}, [cityValue]);
 
   // source type names selection for drop down
   useEffect(() => {
@@ -1161,7 +1170,7 @@ const ViewCustomerDetailsADC = () => {
                 fullWidth
               />
             </Col>
-            <Col lg={4} md={4} sm={24} xs={24}>
+            <Col lg={6} md={6} sm={24} xs={24}>
               <TextField
                 name=""
                 size="small"
@@ -1172,7 +1181,7 @@ const ViewCustomerDetailsADC = () => {
                 fullWidth
               />
             </Col>
-            <Col lg={4} md={4} sm={24} xs={24}>
+            <Col lg={6} md={6} sm={24} xs={24}>
               <TextField
                 name=""
                 size="small"
@@ -1183,14 +1192,25 @@ const ViewCustomerDetailsADC = () => {
                 fullWidth
               />
             </Col>
-            <Col lg={4} md={4} sm={24} xs={24}>
-              <SelectBox
+            <Col lg={6} md={6} sm={24} xs={24}>
+              {/* <SelectBox
                 label="City"
                 value={cityValue}
                 name="fK_CTID"
                 disable={true}
+              /> */}
+
+              <TextField
+                size="small"
+                name="fK_CTID"
+                disable={true}
+                value={cityValue}
+                label="City"
+                fullWidth
               />
             </Col>
+          </Row>
+          <Row>
             <Col lg={24} md={24} sm={24} className="u-margin-top-2pct">
               <div className="TransactionHeading">
                 System Fetched Transactions
@@ -1233,7 +1253,7 @@ const ViewCustomerDetailsADC = () => {
               Date
             </h1>
           </Col>
-          <Row gutter={8}>
+          <Row gutter={8} className="u-margin-top-22px">
             <Col lg={4} md={4} sm={24}>
               <DatePicker
                 size="large"
@@ -1321,8 +1341,8 @@ const ViewCustomerDetailsADC = () => {
               Closure Details
             </h1>
           </Col>
-          <Row gutter={8}>
-            <Col lg={6} md={6} sm={24} xs={24} className="u-margin-top-22px">
+          <Row gutter={8} className="u-margin-top-22px">
+            <Col lg={6} md={6} sm={24} xs={24}>
               <TextField
                 fullWidth
                 label="Case Decision"
@@ -1334,7 +1354,7 @@ const ViewCustomerDetailsADC = () => {
                 disable
               />
             </Col>
-            <Col lg={6} md={6} sm={24} xs={24} className="u-margin-top-22px">
+            <Col lg={6} md={6} sm={24} xs={24}>
               <TextField
                 fullWidth
                 label="Event ID (SAS REF #)"
@@ -1345,7 +1365,7 @@ const ViewCustomerDetailsADC = () => {
                 disable
               />
             </Col>
-            <Col lg={6} md={6} sm={24} xs={24} className="u-margin-top-22px">
+            <Col lg={6} md={6} sm={24} xs={24}>
               <TextField
                 fullWidth
                 label="Remarks"
@@ -1372,6 +1392,8 @@ const ViewCustomerDetailsADC = () => {
                 disable
               />
             </Col>
+          </Row>
+          <Row gutter={8} className="u-margin-top-22px">
             <Col lg={6} md={6} sm={24} xs={24}>
               <TextField
                 fullWidth
@@ -1419,7 +1441,7 @@ const ViewCustomerDetailsADC = () => {
               />
             </Col>
 
-            <Col lg={6} md={6} sm={24} xs={24} className="u-margin-top-10px">
+            <Col lg={6} md={6} sm={24} xs={24}>
               <label>
                 <b>Demographic Change</b>
               </label>
@@ -1437,7 +1459,10 @@ const ViewCustomerDetailsADC = () => {
                 </Radio>
               </Radio.Group>
             </Col>
-            <Col lg={6} md={6} sm={24} xs={24} className="u-margin-top-10px">
+          </Row>
+
+          <Row gutter={8} className="u-margin-top-22px">
+            <Col lg={6} md={6} sm={24} xs={24}>
               <label>
                 <b>Flexi Loan</b>
               </label>
@@ -1455,7 +1480,7 @@ const ViewCustomerDetailsADC = () => {
                 </Radio>
               </Radio.Group>
             </Col>
-            <Col lg={6} md={6} sm={24} xs={24} className="u-margin-top-22px">
+            <Col lg={6} md={6} sm={24} xs={24}>
               <TextField
                 fullWidth
                 label="P-II information"
@@ -1467,7 +1492,7 @@ const ViewCustomerDetailsADC = () => {
                 disable
               />
             </Col>
-            <Col lg={6} md={6} sm={24} xs={24} className="u-margin-top-22px">
+            <Col lg={6} md={6} sm={24} xs={24}>
               <TextField
                 fullWidth
                 label="Customer Clamied Information"
@@ -1496,6 +1521,9 @@ const ViewCustomerDetailsADC = () => {
                 disable
               />
             </Col>
+          </Row>
+
+          <Row gutter={8} className="u-margin-top-22px">
             <Col lg={6} md={6} sm={24} xs={24}>
               <FormattedInputs
                 fullWidth
@@ -1515,7 +1543,7 @@ const ViewCustomerDetailsADC = () => {
                 disable
               />
             </Col>
-            <Col lg={6} md={6} sm={24} xs={24} className="u-margin-top-5px">
+            <Col lg={6} md={6} sm={24} xs={24}>
               <label>
                 <b>Customer / Beneficiary SIM Blocked</b>
               </label>
@@ -1533,7 +1561,7 @@ const ViewCustomerDetailsADC = () => {
                 </Radio>
               </Radio.Group>
             </Col>
-            <Col lg={6} md={6} sm={24} xs={24} className="u-margin-top-10px">
+            <Col lg={6} md={6} sm={24} xs={24}>
               <TextField
                 fullWidth
                 label="Fund Layered A/c #"
@@ -1544,7 +1572,7 @@ const ViewCustomerDetailsADC = () => {
                 disable
               />
             </Col>
-            <Col lg={6} md={6} sm={24} xs={24} className="u-margin-top-10px">
+            <Col lg={6} md={6} sm={24} xs={24}>
               <label>
                 <b>iOS / Android</b>
               </label>
@@ -1565,7 +1593,10 @@ const ViewCustomerDetailsADC = () => {
                 </Radio>
               </Radio.Group>
             </Col>
-            <Col lg={6} md={6} sm={24} xs={24} className="u-margin-top-10px">
+          </Row>
+
+          <Row gutter={8} className="u-margin-top-22px">
+            <Col lg={6} md={6} sm={24} xs={24}>
               <SelectBox
                 option={sourceOfIB}
                 label="Select Source of IB Channel Creation"
@@ -1580,7 +1611,7 @@ const ViewCustomerDetailsADC = () => {
         <Paper padding="1">
           <Col lg={18} md={18} sm={18} xs={24}>
             <h1 className="u-font-size-18px u-margin-top-15px u-margin-left-20px u-color-ec8d57">
-              File Upload
+              Files Uploaded
             </h1>
           </Col>
           <Row gutter={8}>
