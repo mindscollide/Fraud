@@ -32,12 +32,7 @@ import {
   GetCreditCardDisputesForEditByCnicAndRefrenceNumber,
   GetDisputeStatusCC,
 } from "../../../../store/actions/investigation-officer-actions";
-import {
-  GetAllFraudType,
-  GetAllStatus,
-  GetAllCaseDecision,
-  GetAllCity,
-} from "../../../../store/actions/setup-forms-actions";
+import { ensureLookup } from "../../../../store/actions/lookup-actions";
 import {
   enableGoBack,
   disableGoBack,
@@ -110,13 +105,13 @@ const SearchCreditCardDispute = () => {
       let data = {
         IsNegativeDatabase: false,
       };
-      await dispatch(GetAllStatus(data, true));
-      await dispatch(GetAllCity(true));
-      await dispatch(GetAllFraudType(true));
+      await dispatch(ensureLookup("status", data));
+      await dispatch(ensureLookup("city"));
+      await dispatch(ensureLookup("fraudType"));
       if (performance.navigation.type === performance.navigation.TYPE_RELOAD) {
-        await dispatch(GetAllStatus(data));
-        await dispatch(GetAllCity());
-        await dispatch(GetAllFraudType());
+        await dispatch(ensureLookup("status", data));
+        await dispatch(ensureLookup("city"));
+        await dispatch(ensureLookup("fraudType"));
         localStorage.removeItem("CaseStatus");
       }
       if (
@@ -605,7 +600,7 @@ const SearchCreditCardDispute = () => {
                 GetDisputeStatusCC(disputeID, showModal, setAction, actions)
               );
             }}
-            className="icon-edit-list icon-size-one beachGreen u-cursor-pointer"
+            className="icon-edit-list icon-size-one u-color-2f2f2f u-cursor-pointer"
           ></div>
         );
       },
@@ -627,7 +622,7 @@ const SearchCreditCardDispute = () => {
         return record.statusDescription === "In Process" ? (
           <div
             onClick={(e) => update(e, record)}
-            className="icon-edit icon-size-one beachGreen u-cursor-pointer"
+            className="icon-edit icon-size-one u-color-2f2f2f u-cursor-pointer"
           />
         ) : null;
       },

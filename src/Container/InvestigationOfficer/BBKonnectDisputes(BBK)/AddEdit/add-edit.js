@@ -44,9 +44,9 @@ const AddEditBBKDispute = () => {
   const [inputDataMobile, setInputDataMobile] = useState("");
   const [inputDataACModal, setInputDataACModal] = useState("");
   const [inputDataMobileModal, setInputDataMobileModal] = useState("");
-  const [btnClassCNIC, setBtnClassCNIC] = useState("btnDarkSolidEdit");
-  const [btnClassAccount, setBtnClassAccount] = useState("btnDarkSolid");
-  const [btnClassMobile, setBtnClassMobile] = useState("btnDarkSolid");
+  const [btnClassCNIC, setBtnClassCNIC] = useState("toggleSelected");
+  const [btnClassAccount, setBtnClassAccount] = useState("toggleUnselected");
+  const [btnClassMobile, setBtnClassMobile] = useState("toggleUnselected");
   const [isCnicNo, setIsCnicNo] = useState(true);
   const [isAccountNo, setIsAccountNo] = useState(true);
   const [cnicFound, setCnicFound] = useState(false);
@@ -132,9 +132,9 @@ const AddEditBBKDispute = () => {
   };
 
   const changeSelectCnicNumber = () => {
-    setBtnClassAccount("btnDarkSolid");
-    setBtnClassMobile("btnDarkSolid");
-    setBtnClassCNIC("btnDarkSolidEdit");
+    setBtnClassAccount("toggleUnselected");
+    setBtnClassMobile("toggleUnselected");
+    setBtnClassCNIC("toggleSelected");
     setIsCnicNo(true);
     setIsAccountNo(false);
     setBtnStatus(true);
@@ -146,9 +146,9 @@ const AddEditBBKDispute = () => {
   };
 
   const changeSelectAccountNumber = () => {
-    setBtnClassAccount("btnDarkSolidEdit");
-    setBtnClassCNIC("btnDarkSolid");
-    setBtnClassMobile("btnDarkSolid");
+    setBtnClassAccount("toggleSelected");
+    setBtnClassCNIC("toggleUnselected");
+    setBtnClassMobile("toggleUnselected");
     setIsCnicNo(false);
     setIsAccountNo(true);
     setBtnStatus(true);
@@ -160,9 +160,9 @@ const AddEditBBKDispute = () => {
   };
 
   const changeSelectMobileNumber = () => {
-    setBtnClassMobile("btnDarkSolidEdit");
-    setBtnClassCNIC("btnDarkSolid");
-    setBtnClassAccount("btnDarkSolid");
+    setBtnClassMobile("toggleSelected");
+    setBtnClassCNIC("toggleUnselected");
+    setBtnClassAccount("toggleUnselected");
     setIsCnicNo(false);
     setIsAccountNo(false);
     setBtnStatus(true);
@@ -641,7 +641,7 @@ const AddEditBBKDispute = () => {
                       {accountFound ? (
                         <Col lg={4} md={4} sm={24}>
                           <Button
-                            applyClass={btnClassCNIC}
+                            applyClass="btnDarkSolid"
                             text="Search"
                             className="downloadButton"
                             click={searchHandlerForAccount}

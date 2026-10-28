@@ -325,7 +325,7 @@ const AddEditDebitCardDispute = () => {
           <Col lg={8} md={8} sm={0} xs={0}></Col>
           <Col lg={4} md={4} sm={24}>
             <Button
-              applyClass={isCnicNo ? "btnDarkSolidEdit" : "btnDarkSolid"}
+              applyClass={isCnicNo ? "toggleSelected" : "toggleUnselected"}
               text="CNIC Number"
               className="downloadButton"
               click={changeSelectCnicNumber}
@@ -333,7 +333,7 @@ const AddEditDebitCardDispute = () => {
           </Col>
           <Col lg={4} md={4} sm={24}>
             <Button
-              applyClass={isCnicNo ? "btnDarkSolid" : "btnDarkSolidEdit"}
+              applyClass={isCnicNo ? "toggleUnselected" : "toggleSelected"}
               text="Account Number"
               className="downloadButton"
               click={changeSelectAccountNumber}
@@ -409,7 +409,7 @@ const AddEditDebitCardDispute = () => {
                       {accountFound ? (
                         <Col lg={4} md={4} sm={24}>
                           <Button
-                            applyClass="btnDarkSolidEdit"
+                            applyClass="btnDarkSolid"
                             text="Search"
                             className="downloadButton"
                             click={searchHandlerForAccount}

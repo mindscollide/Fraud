@@ -29,13 +29,7 @@ import {
   SaveAndApprovedADCDisputes,
   SearchTransactionDetailsByAccountNumberInIRISADC,
 } from "../../../../store/actions/investigation-officer-actions";
-import {
-  GetAllFraudType,
-  GetAllSourceOfIBChannelCreation,
-  GetAllCaseDecision,
-  GetAllSource,
-  GetAllCity,
-} from "../../../../store/actions/setup-forms-actions";
+import { ensureLookup } from "../../../../store/actions/lookup-actions";
 import {
   UploadFileADC,
   setStateOfUploadDocumentCreditCard,
@@ -521,11 +515,11 @@ const AddNewCustomerDetailsADC = () => {
         dispatch(SearchTransactionDetailsByAccountNumber(Data));
       }
     }
-    dispatch(GetAllSourceOfIBChannelCreation());
-    dispatch(GetAllCaseDecision());
-    dispatch(GetAllFraudType());
-    dispatch(GetAllSource());
-    dispatch(GetAllCity());
+    dispatch(ensureLookup("sourceOfIB"));
+    dispatch(ensureLookup("caseDecision"));
+    dispatch(ensureLookup("fraudType"));
+    dispatch(ensureLookup("source"));
+    dispatch(ensureLookup("city"));
   }, []);
 
   //   used for already exsit data of customer details for add
@@ -1039,7 +1033,7 @@ const AddNewCustomerDetailsADC = () => {
       render: (text, record) => (
         <div
           onClick={(e) => update(e, record)}
-          className="icon-edit icon-size-one beachGreen u-cursor-pointer"
+          className="icon-edit icon-size-one u-color-2f2f2f u-cursor-pointer"
         />
       ),
     },
@@ -3055,7 +3049,7 @@ const AddNewCustomerDetailsADC = () => {
         <Paper>
           <Row>
             <Col lg={18} md={18} sm={18} xs={24}>
-              <h1 className="u-font-size-18px u-margin-top-15px u-margin-left-20px u-color-21706d">
+              <h1 className="u-font-size-18px u-margin-top-15px u-margin-left-20px u-color-ec8d57">
                 Customer Details
               </h1>
             </Col>
@@ -3171,7 +3165,7 @@ const AddNewCustomerDetailsADC = () => {
         <div className="u-margin-top-20px" />
         <Paper padding="1">
           <Col lg={18} md={18} sm={18} xs={24}>
-            <h1 className="u-font-size-18px u-margin-top-15px u-margin-left-20px u-color-21706d">
+            <h1 className="u-font-size-18px u-margin-top-15px u-margin-left-20px u-color-ec8d57">
               Manual Transactions
             </h1>
           </Col>
@@ -3565,7 +3559,7 @@ const AddNewCustomerDetailsADC = () => {
         <div className="u-margin-top-20px" />
         <Paper padding="1">
           <Col lg={18} md={18} sm={18} xs={24}>
-            <h1 className="u-font-size-18px u-margin-top-15px u-margin-left-20px u-color-21706d">
+            <h1 className="u-font-size-18px u-margin-top-15px u-margin-left-20px u-color-ec8d57">
               Date
             </h1>
           </Col>
@@ -3670,7 +3664,7 @@ const AddNewCustomerDetailsADC = () => {
         <div className="u-margin-top-20px" />
         <Paper padding="1">
           <Col lg={18} md={18} sm={18} xs={24} className="u-margin-bottom-20px">
-            <h1 className="u-font-size-18px u-margin-top-15px u-margin-left-20px u-color-21706d">
+            <h1 className="u-font-size-18px u-margin-top-15px u-margin-left-20px u-color-ec8d57">
               Closure Details
             </h1>
           </Col>
@@ -3962,7 +3956,7 @@ const AddNewCustomerDetailsADC = () => {
         <div className="u-margin-top-20px" />
         <Paper padding="1">
           <Col lg={18} md={18} sm={18} xs={24}>
-            <h1 className="u-font-size-18px u-margin-top-15px u-margin-left-20px u-color-21706d">
+            <h1 className="u-font-size-18px u-margin-top-15px u-margin-left-20px u-color-ec8d57">
               File Upload
               <span className="FileUploadNote">
                 Allowed File Formats (Images, Word Documents, Excel, PDF and

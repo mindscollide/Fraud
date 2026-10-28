@@ -1,7 +1,10 @@
+/* Each top-level menu is its own rounded card (design: "Minds Collide New Screens") */
 .menuMainItem {
-  padding-top: 10px;
-  padding-bottom: 10px !important;
-  border-bottom: 1px solid #3b7674;
+  border: 1px solid #EC8D57;
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 12px;
+  background-color: #FFFFFF;
 }
 
 .noLinkStyles {
@@ -29,6 +32,7 @@
   display: block !important;
   overflow-y: auto !important;
   overflow-x: hidden !important;
+  background-color: #FFF5EE !important;
   scrollbar-width: thin; /* Firefox */
 }
 
@@ -37,12 +41,12 @@
 }
 
 .sider::-webkit-scrollbar-thumb {
-  background-color: rgba(0, 0, 0, 0.25);
+  background-color: #F0BA94;
   border-radius: 3px;
 }
 
 .sider::-webkit-scrollbar-track {
-  background-color: transparent;
+  background-color: #FFF5EE;
 }
 
 .ant-menu-item.ant-menu-title-content {
@@ -52,57 +56,120 @@
 }
 
 .menuSidebarStyle {
-  height: 100%;
   border: none !important;
+  padding: 16px 10px;
+  background-color: #FFF5EE !important;
 }
 
-/* ---------- Submenu arrow: right by default, rotates to down when open ---------- */
-.menuSidebarStyle :global(.ant-menu-submenu-arrow)::before {
-  display: none !important; /* remove antd's default two-bar chevron */
-}
-/* ---------- Arrow: drawn on the title itself, right by default ---------- */
-.menuSidebarStyle :global(.ant-menu-submenu-arrow) {
-  display: none !important; /* hide antd's built-in arrow completely */
-}
-
+/* ---------- Parent menu title (the card's header row) ---------- */
+/* antd sets an inline padding-left (24px) on titles and items, so overrides need !important */
 .menuSidebarStyle :global(.ant-menu-submenu > .ant-menu-submenu-title) {
   position: relative;
-  padding-right: 36px !important;
+  margin: 0 !important;
+  width: 100% !important;
+  height: auto !important;
+  min-height: 46px;
+  line-height: 20px !important;
+  padding: 12px 30px 12px 12px !important;
+  font-size: 14px;
+  color: #2F2F2F !important;
 }
 
+/* hide antd's built-in arrow; the chevron is drawn on the title itself */
+.menuSidebarStyle :global(.ant-menu-submenu-arrow),
+.menuSidebarStyle :global(.ant-menu-submenu-arrow)::before {
+  display: none !important;
+}
+
+/* chevron: points right when closed */
 .menuSidebarStyle :global(.ant-menu-submenu > .ant-menu-submenu-title)::after {
   content: "";
   position: absolute;
-  right: 16px;
+  right: 13px;
   top: 50%;
-  width: 7px;
-  height: 7px;
+  width: 8px;
+  height: 8px;
   border-top: 2px solid currentColor;
   border-right: 2px solid currentColor;
-  transform: translateY(-50%) rotate(45deg); /* points right */
+  transform: translateY(-50%) rotate(45deg);
   transition: transform 0.25s ease;
 }
 
-/* open: rotate another 90deg so it points down */
+/* ...and points up when open */
 .menuSidebarStyle
   :global(.ant-menu-submenu-open > .ant-menu-submenu-title)::after {
-  transform: translateY(-70%) rotate(135deg);
+  transform: translateY(-25%) rotate(-45deg);
+}
+
+/* ---------- Sub-menu panel inside the card ---------- */
+.menuSidebarStyle :global(.ant-menu-sub.ant-menu-inline) {
+  background-color: #FFFFFF !important;
+  padding: 8px !important;
+}
+
+.menuSidebarStyle :global(.ant-menu-sub .ant-menu-item) {
+  position: relative;
+  margin: 0 !important;
+  width: 100% !important;
+  height: auto !important;
+  min-height: 40px;
+  line-height: 20px !important;
+  padding: 10px 12px !important;
+  border-radius: 6px;
+  overflow: visible !important;
+}
+
+/* thin divider between sub-items */
+.menuSidebarStyle :global(.ant-menu-sub .ant-menu-item + .ant-menu-item) {
+  margin-top: 9px !important;
+}
+
+.menuSidebarStyle :global(.ant-menu-sub .ant-menu-item + .ant-menu-item)::before {
+  content: "";
+  position: absolute;
+  left: 6px;
+  right: 6px;
+  top: -5px;
+  height: 1px;
+  background-color: #F0BA94;
 }
 
 /* ---------- Colors ---------- */
-/* Everything inside a dropdown stays gray by default */
 .menuSidebarStyle :global(.ant-menu-sub .ant-menu-item),
 .menuSidebarStyle :global(.ant-menu-sub .ant-menu-item a) {
-  color: rgba(255, 255, 255, 0.65) !important; /* use your original gray here */
+  color: #2F2F2F !important;
 }
 
-/* Only the open dropdown's title is white */
+/* An open (but not current) menu's title is highlighted */
 .menuSidebarStyle :global(.ant-menu-submenu-open > .ant-menu-submenu-title) {
-  color: #ffffff !important;
+  color: #EC8D57 !important;
 }
 
-/* Only the currently open page is white */
+/* Hover (not on the selected page or its parent, which keep their own colors) */
+.menuSidebarStyle :global(.ant-menu-submenu:not(.ant-menu-submenu-selected) > .ant-menu-submenu-title:hover),
+.menuSidebarStyle :global(.ant-menu-sub .ant-menu-item:not(.ant-menu-item-selected):hover),
+.menuSidebarStyle :global(.ant-menu-sub .ant-menu-item:not(.ant-menu-item-selected):hover a) {
+  color: #EC8D57 !important;
+}
+
+.menuSidebarStyle :global(.ant-menu-sub .ant-menu-item:not(.ant-menu-item-selected):hover) {
+  background-color: #FFF5EE !important;
+}
+
+/* The current page: a peach pill with dark text */
+.menuSidebarStyle :global(.ant-menu-sub .ant-menu-item-selected) {
+  background-color: #F0BA94 !important;
+}
+
 .menuSidebarStyle :global(.ant-menu-sub .ant-menu-item-selected),
 .menuSidebarStyle :global(.ant-menu-sub .ant-menu-item-selected a) {
-  color: #ffffff !important;
+  color: #2F2F2F !important;
+}
+
+/* Parent menu of the current page: orange with white text
+   (declared last so it wins over the open/hover colors above) */
+.menuSidebarStyle :global(.ant-menu-submenu-selected > .ant-menu-submenu-title),
+.menuSidebarStyle :global(.ant-menu-submenu-selected > .ant-menu-submenu-title:hover) {
+  background-color: #EC8D57 !important;
+  color: #FFFFFF !important;
 }

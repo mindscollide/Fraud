@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styles from "./style.module.css";
-import { Input, Typography, Row, Col } from "antd";
+import { Input, Row, Col } from "antd";
 import { UserOutlined } from "@ant-design/icons";
 import {
   Button,
@@ -8,7 +8,7 @@ import {
   Loader,
   Notification,
   MultipleSelectCheckmarks,
-  MaxWidthContainer,
+  AuthLayout,
 } from "../../../Components/Elements";
 import { useNavigate, Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -24,10 +24,9 @@ import TextField from "../../../Components/Elements/InputFields/TextField/text-f
 import Select from "../../../Components/Elements/InputFields/SelectBox/select-box";
 import GroupedButtons from "../../../Components/Elements/GroupedButtons/grouped-buttons";
 import {
-  GetAllTransactionTypes,
   GetAllRoles,
-  GetAllRegion,
 } from "../../../store/actions/setup-forms-actions";
+import { ensureLookup } from "../../../store/actions/lookup-actions";
 
 const SignUp = () => {
   // to be use when get the api
@@ -37,11 +36,12 @@ const SignUp = () => {
   const dispatch = useDispatch();
   const { auth, ui } = state;
   const [fields, setFields] = useState(false);
-  const { Title } = Typography;
   const [btnDisable, setbtnDisable] = useState(false);
   const [emailAfterVerify, setEmailAfterVerify] = useState();
   const [emailAfterVerifyError, setEmailAfterVerifyError] = useState("");
   const navigate = useNavigate();
+  // switches back to Login with the panel animation (set by AuthLayout)
+  const switchToLogin = useRef(null);
   const [open, setOpen] = useState({
     open: false,
     message: "",
@@ -186,14 +186,18 @@ const SignUp = () => {
       navigate();
       gobackHandler();
     } else {
-      navigate("/");
-      dispatch(clearestate());
+      gobackHandler();
     }
   };
 
   const gobackHandler = () => {
-    navigate("/");
-    dispatch(clearestate());
+    if (switchToLogin.current) {
+      // AuthLayout's onSwitch clears the sign-up state before navigating
+      switchToLogin.current();
+    } else {
+      navigate("/");
+      dispatch(clearestate());
+    }
   };
 
   useEffect(() => {
@@ -458,9 +462,9 @@ const SignUp = () => {
   useEffect(() => {}, [transactionTypes]);
 
   useEffect(() => {
-    dispatch(GetAllTransactionTypes());
+    dispatch(ensureLookup("transactionTypes"));
     dispatch(GetAllRoles());
-    dispatch(GetAllRegion());
+    dispatch(ensureLookup("region"));
   }, []);
 
   // to set body backgound
@@ -629,7 +633,7 @@ const SignUp = () => {
       text: "Go Back",
       icon: null,
       endIcon: "",
-      class: "btnBorderStyledRedSignup",
+      class: "btnSecondarySolidReset",
       size: "small",
       disable: false,
       click: () => gobackHandler(),
@@ -709,25 +713,20 @@ const SignUp = () => {
   useEffect(() => {}, [auth.isFail, auth.isError]);
 
   return (
-    <MaxWidthContainer>
-      <div
-        className={`${styles.boxHeightLogin} u-display-flex u-align-items-center`}
-      >
-        <Row justify="end" style={{ width: "100%" }}>
-          <Col lg={12} md={12} sm={24}></Col>
-          <Col lg={12} md={12} sm={24} className="u-text-align-right">
-            <div className={styles.loginBody}>
-              <Title level={2} className={styles.fraudMainTitle}>
-                Fraud Digitization
-              </Title>
-              <Title level={4} className={styles.fraudMainTitle}>
-                Signup Request
-              </Title>
+    <>
+    <AuthLayout
+      mode="signup"
+      onSwitch={() => dispatch(clearestate())}
+      switchRef={switchToLogin}
+    >
+            <div className={styles.signupForm}>
+              <h1 className={styles.formTitle}>Create Account</h1>
+              <p className={styles.formSubtitle}>Send a signup request with your LDAP ID</p>
               <div className={styles.margin6p} />
               {/* first step code */}
               {auth.isError ? (
                 <>
-                  <div className={styles.positionRelative}>
+                  <div className={styles.ldapField}>
                     <Input
                       onChange={setFieldsHandler}
                       placeholder="Enter LDAP ID"
@@ -737,8 +736,8 @@ const SignUp = () => {
                       autoComplete="off"
                       autoFocus
                     />
-                    <span>
-                      <i className="icon-user SignupIconEmail icon-size-one"></i>
+                    <span className={styles.ldapIcon}>
+                      <i className="icon-user icon-size-one"></i>
                     </span>
                   </div>
                   <InputWithBtn
@@ -780,7 +779,7 @@ const SignUp = () => {
                       text="Go Back"
                       icon={null}
                       endIcon=""
-                      applyClass="btnBorderStyledRedSignup"
+                      applyClass="btnSecondarySolidReset"
                       disable={false}
                       click={goback}
                     />
@@ -927,12 +926,10 @@ const SignUp = () => {
               )}
               {/* second step component  */}
             </div>
-          </Col>
-        </Row>
-      </div>
+    </AuthLayout>
       <Notification setOpen={setOpen} open={open.open} message={open.message} />
       {auth.Loading ? <Loader /> : null}
-    </MaxWidthContainer>
+    </>
   );
 };
 

@@ -783,7 +783,7 @@
 //                 )
 //               );
 //             }}
-//             className="icon-edit-list icon-size-one beachGreen u-cursor-pointer"
+//             className="icon-edit-list icon-size-one u-color-2f2f2f u-cursor-pointer"
 //           ></div>
 //         );
 //       },
@@ -806,7 +806,7 @@
 //           record.statusDescription === "Created" ? (
 //           <div
 //             onClick={(e) => update(e, record)}
-//             className="icon-edit icon-size-one beachGreen u-cursor-pointer"
+//             className="icon-edit icon-size-one u-color-2f2f2f u-cursor-pointer"
 //           />
 //         ) : null;
 //       },
@@ -1109,19 +1109,7 @@ import {
   enableGoBack,
   disableGoBack,
 } from "../../../../store/actions/ui-actions";
-import {
-  GetAllTransactionTypes,
-  GetAllChannel,
-  GetAllIndividualInvolved,
-  GetAllCity,
-  GetAllForgedDocuments,
-  GetAllFraudNotAFraud,
-  GetAllCompanySegment,
-  GetAllFraudType,
-  GetAllSourceOfIBChannelCreation,
-  GetAllStatus,
-  GetAllCaseDecision,
-} from "../../../../store/actions/setup-forms-actions";
+import { ensureLookup } from "../../../../store/actions/lookup-actions";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import styles from "../../investigationOfficer.module.css";
@@ -1445,12 +1433,12 @@ const SearchDisputeIO = () => {
       let flagForGlobalDispute = true;
       await localStorage.setItem("FlagForGlobalDispute", flagForGlobalDispute);
       await dispatch(GetNegativeDBViewByCnic(data));
-      await dispatch(GetAllChannel());
-      await dispatch(GetAllIndividualInvolved());
-      await dispatch(GetAllForgedDocuments());
-      await dispatch(GetAllFraudNotAFraud());
-      await dispatch(GetAllCompanySegment());
-      await dispatch(GetAllCity());
+      await dispatch(ensureLookup("channel"));
+      await dispatch(ensureLookup("individualInvolved"));
+      await dispatch(ensureLookup("forgedDocuments"));
+      await dispatch(ensureLookup("fraudNotAFraud"));
+      await dispatch(ensureLookup("companySegment"));
+      await dispatch(ensureLookup("city"));
       navigate("/Fraud/NegativeDatabase/EditNegativeDatabase");
     }
   };
@@ -1521,12 +1509,12 @@ const SearchDisputeIO = () => {
         CNICNumber: record.cnicNumber,
       };
       await dispatch(GetNegativeDBViewByCnic(NDData));
-      await dispatch(GetAllChannel());
-      await dispatch(GetAllIndividualInvolved());
-      await dispatch(GetAllForgedDocuments());
-      await dispatch(GetAllFraudNotAFraud());
-      await dispatch(GetAllCompanySegment());
-      await dispatch(GetAllCity());
+      await dispatch(ensureLookup("channel"));
+      await dispatch(ensureLookup("individualInvolved"));
+      await dispatch(ensureLookup("forgedDocuments"));
+      await dispatch(ensureLookup("fraudNotAFraud"));
+      await dispatch(ensureLookup("companySegment"));
+      await dispatch(ensureLookup("city"));
       dispatch(enableGoBack());
       navigate("/Fraud/NegativeDatabase/ViewNegativeDataBase");
     }
@@ -1608,7 +1596,7 @@ const SearchDisputeIO = () => {
     }
     localStorage.removeItem("fk_TTIDDelete");
     dispatch(resetGlobalDisputeTable());
-    dispatch(GetAllTransactionTypes(userid));
+    dispatch(ensureLookup("transactionTypes", userid));
     if (
       caseStatusItem !== undefined &&
       caseStatusItem !== -1 &&
@@ -1847,7 +1835,7 @@ const SearchDisputeIO = () => {
                 )
               );
             }}
-            className="icon-edit-list icon-size-one beachGreen u-cursor-pointer"
+            className="icon-edit-list icon-size-one u-color-2f2f2f u-cursor-pointer"
           ></div>
         );
       },
@@ -1870,7 +1858,7 @@ const SearchDisputeIO = () => {
           record.statusDescription === "Created" ? (
           <div
             onClick={(e) => update(e, record)}
-            className="icon-edit icon-size-one beachGreen u-cursor-pointer"
+            className="icon-edit icon-size-one u-color-2f2f2f u-cursor-pointer"
           />
         ) : null;
       },
@@ -1910,9 +1898,9 @@ const SearchDisputeIO = () => {
     let data = {
       IsNegativeDatabase: false,
     };
-    dispatch(GetAllStatus(data));
-    dispatch(GetAllCity());
-    dispatch(GetAllFraudType());
+    dispatch(ensureLookup("status", data));
+    dispatch(ensureLookup("city"));
+    dispatch(ensureLookup("fraudType"));
   }, []);
 
   // // sourceofib type names selection for drop down

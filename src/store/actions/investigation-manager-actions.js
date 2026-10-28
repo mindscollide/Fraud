@@ -272,7 +272,7 @@ const saveDeletionApprove = (object) => {
       .then(async (response) => {
         if (response.data.responseCode === 417) {
           await dispatch(refreshToken());
-          dispatch(AddApprovalReason(object));
+          dispatch(saveDeletionApprove(object));
         } else if (response.data.responseCode === 200) {
           var userID = localStorage.getItem("UserID");
           if (response.data.responseResult.isExecuted === true) {
@@ -317,7 +317,7 @@ const saveDeletionReject = (object) => {
       .then(async (response) => {
         if (response.data.responseCode === 417) {
           await dispatch(refreshToken());
-          dispatch(RejectReason());
+          dispatch(saveDeletionReject(object));
         } else if (response.data.responseCode === 200) {
           if (response.data.responseResult.isExecuted === true) {
             dispatch(GetAllPendingForApprovalByID(0));

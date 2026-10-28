@@ -1,8 +1,7 @@
 import React, { useEffect } from "react";
-import { Layout, Typography, Tooltip, Badge, Dropdown, Menu } from "antd";
+import { Layout, Typography, Tooltip, Badge, Dropdown } from "antd";
 import { BellOutlined as NotificationsNoneIcon } from "@ant-design/icons";
-import UserImage from "../../../assets/images/user.png";
-import Logo from "../../../assets/images/logo.png";
+import UserImage from "../../../assets/images/user-orange.png";
 import { useDispatch, useSelector } from "react-redux";
 import { signOut } from "../../../store/actions/auth-actions";
 import {
@@ -49,13 +48,7 @@ const Header = ({ Notification, title, UserDetails }) => {
       localStorage.setItem("tabsOpen", parseInt(tabsOpen) + parseInt(1));
     }
 
-    // define decrement counter part
-    window.onunload = function (e) {
-      const newTabCount = localStorage.getItem("tabsOpen");
-      if (newTabCount !== null) {
-        localStorage.setItem("tabsOpen", newTabCount - 1);
-      }
-    };
+    // the matching decrement lives in index.html (a "pagehide" listener)
     if (performance.navigation.type === performance.navigation.TYPE_RELOAD) {
       window.localStorage.isMySessionActive = "false";
     } else {
@@ -86,13 +79,14 @@ const Header = ({ Notification, title, UserDetails }) => {
     }
   }, []);
 
+  const requestCount = requestReducer.userRequestCount;
+  const badgeCount =
+    requestCount > 0 && requestCount < 10 ? `0${requestCount}` : requestCount;
+
   return (
     <Header className="header">
       {/* logo */}
       <div className="inner-container">
-        <div className="logo-container">
-          <img src={Logo} alt="logo" />
-        </div>
         {/* middle text */}
         <div className="heading-main-container">
           <Title level={3} className="heading-main">
@@ -104,14 +98,13 @@ const Header = ({ Notification, title, UserDetails }) => {
           <Tooltip placement="bottom" title="Back">
             <div className="logout-icon-section">
               <div
+                className="header-icon-card"
                 onClick={() => {
                   window.history.back();
                   dispatch(disableGoBack());
                 }}
               >
-                <div className="logout-icon">
-                  <i className="icon-arrow-left icon-size-one "></i>
-                </div>
+                <i className="icon-arrow-left icon-size-one "></i>
               </div>
             </div>
           </Tooltip>
@@ -127,32 +120,35 @@ const Header = ({ Notification, title, UserDetails }) => {
                 onOpenChange={setMenuOpen}
                 trigger={["click"]}
                 placement="bottomRight"
-                overlay={
-                  <Menu onClick={handleClose} className="header-menu">
-                    <Menu.Item key="new-user-requests">
-                      <span
-                        onClick={() => {
-                          dispatch(newRequestList(Details.userID));
-                          localStorage.setItem("parent", "sub1");
-                          localStorage.setItem("child", "15");
-                          dispatch(makeTabActive());
-                          navigate("/Fraud/SystemAdmin/NewRequestList");
-                        }}
-                        className="NewUserHeading"
-                      >
-                        {requestReducer.userRequestCount} New User Requests
-                      </span>
-                    </Menu.Item>
-                  </Menu>
-                }
+                menu={{
+                  className: "header-menu",
+                  onClick: handleClose,
+                  items: [
+                    {
+                      key: "new-user-requests",
+                      label: (
+                        <span
+                          onClick={() => {
+                            dispatch(newRequestList(Details.userID));
+                            localStorage.setItem("parent", "sub1");
+                            localStorage.setItem("child", "15");
+                            dispatch(makeTabActive());
+                            navigate("/Fraud/SystemAdmin/NewRequestList");
+                          }}
+                          className="NewUserHeading"
+                        >
+                          {requestReducer.userRequestCount} New User Requests
+                        </span>
+                      ),
+                    },
+                  ],
+                }}
               >
                 <span onClick={handleClick} className="noti-icon">
-                  <Badge count={requestReducer.userRequestCount}>
-                    <NotificationsNoneIcon
-                    // Matches MUI's fontSize="large" (35px), which this
-                    // icon used before the antd swap.
-                    // style={{ fontSize: "25px" }}
-                    />
+                  <Badge count={badgeCount} offset={[-2, 8]}>
+                    <span className="header-icon-card">
+                      <NotificationsNoneIcon />
+                    </span>
                   </Badge>
                 </span>
               </Dropdown>
@@ -162,10 +158,8 @@ const Header = ({ Notification, title, UserDetails }) => {
         {/* its logout button */}
         <Tooltip placement="bottom" title="Logout">
           <div className="logout-icon-section">
-            <div onClick={() => dispatch(signOut())}>
-              <div className="logout-icon">
-                <i className="icon-login icon-size-one "></i>
-              </div>
+            <div className="header-icon-card" onClick={() => dispatch(signOut())}>
+              <i className="icon-login icon-size-one "></i>
             </div>
           </div>
         </Tooltip>

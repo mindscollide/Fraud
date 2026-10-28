@@ -232,7 +232,7 @@ const ApprovalFlow = () => {
       render: (text, record) => (
         <div
           onClick={(e) => addRoleHandler(e, record)}
-          className="icon-list-add icon-size-one beachGreen u-cursor-pointer"
+          className="icon-list-add icon-size-one u-color-2f2f2f u-cursor-pointer"
         />
       ),
     },
@@ -414,7 +414,7 @@ const ApprovalFlow = () => {
           <Button
             text="Reset"
             icon={<Restore />}
-            applyClass="btnDarkSolid"
+            applyClass="btnSecondarySolidResetFull"
             size="small"
             click={() => {
               setState({

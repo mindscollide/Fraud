@@ -24,7 +24,7 @@ import {
   SearchTransactionDetailsADCByCNICAndReferenceNumber,
   GetTransactionDetailsByAccountNumberADC,
 } from "../../../../store/actions/investigation-officer-actions";
-import { GetAllCity } from "../../../../store/actions/setup-forms-actions";
+import { ensureLookup } from "../../../../store/actions/lookup-actions";
 import {
   DateDisplayFormat,
   DateSendingFormat,
@@ -156,7 +156,7 @@ const CustomerDetailsADCAccount = () => {
     if (performance.navigation.type === performance.navigation.TYPE_RELOAD) {
       dispatch(GetTransactionDetailsByAccountNumberADC(accountNumber));
     }
-    dispatch(GetAllCity());
+    dispatch(ensureLookup("city"));
   }, []);
 
   const View = (e, value) => {
@@ -308,7 +308,7 @@ const CustomerDetailsADCAccount = () => {
         return record.statusDescription === "In Process" ? (
           <div
             onClick={(e) => update(e, record)}
-            className="icon-edit icon-size-one beachGreen u-cursor-pointer"
+            className="icon-edit icon-size-one u-color-2f2f2f u-cursor-pointer"
           />
         ) : null;
       },
@@ -327,7 +327,7 @@ const CustomerDetailsADCAccount = () => {
       <Paper>
         <Row gutter={16}>
           <Col lg={18} md={18} sm={18} xs={24}>
-            <h1 className="u-font-size-18px u-margin-top-15px u-margin-left-20px u-color-21706d">
+            <h1 className="u-font-size-18px u-margin-top-15px u-margin-left-20px u-color-ec8d57">
               Customer Details
             </h1>
           </Col>

@@ -13,6 +13,7 @@ import { newRequestListCount } from "./request-actions";
 import { LOADERFALSE } from "./investigation-officer-actions";
 
 import Helper from "../../Common/Functions/history_logout";
+import { preloadLookups, clearLookupCache } from "./lookup-actions";
 
 // Login Validation
 const signinInit = () => {
@@ -240,6 +241,8 @@ const signIn = (UserData) => {
               );
               navigate("/Fraud/MIS/AuditTrail");
             }
+            // Load the dropdown lists once now, so pages don't each refetch them.
+            dispatch(preloadLookups(response.data.responseResult.roleID));
           } else {
             dispatch(
               signinFail(
@@ -273,6 +276,7 @@ const signIn = (UserData) => {
 const signOut = (message) => {
   Helper.navigate("/");
   localStorage.clear();
+  clearLookupCache();
 
   if (message !== "") {
     return {

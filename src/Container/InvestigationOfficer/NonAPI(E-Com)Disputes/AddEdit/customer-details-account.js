@@ -24,10 +24,7 @@ import {
   SearchNonApiDisputesByCnicAndReferenceNumber,
   RESETALLSTATE,
 } from "../../../../store/actions/investigation-officer-actions";
-import {
-  GetAllCity,
-  GetAllFraudType,
-} from "../../../../store/actions/setup-forms-actions";
+import { ensureLookup } from "../../../../store/actions/lookup-actions";
 import { enableGoBack } from "../../../../store/actions/ui-actions";
 import {
   DateDisplayFormat,
@@ -149,8 +146,8 @@ const CustomerDetailsNONAPIDisputeAccount = () => {
     if (performance.navigation.type === performance.navigation.TYPE_RELOAD) {
       dispatch(GetTransactionDetailsByAccountNumberNonApi(accountNumber));
     }
-    dispatch(GetAllCity());
-    dispatch(GetAllFraudType());
+    dispatch(ensureLookup("city"));
+    dispatch(ensureLookup("fraudType"));
   }, []);
 
   const View = (e, value) => {
@@ -310,7 +307,7 @@ const CustomerDetailsNONAPIDisputeAccount = () => {
         return record.statusDescription === "In Process" ? (
           <div
             onClick={(e) => EDIT(e, record)}
-            className="icon-edit icon-size-one beachGreen u-cursor-pointer"
+            className="icon-edit icon-size-one u-color-2f2f2f u-cursor-pointer"
           />
         ) : null;
       },
@@ -329,7 +326,7 @@ const CustomerDetailsNONAPIDisputeAccount = () => {
         <Row gutter={16}>
           <Col lg={18} md={18} sm={18} xs={24}>
             <h1
-              className="u-font-size-18px u-margin-top-15px u-margin-left-20px u-color-21706d"
+              className="u-font-size-18px u-margin-top-15px u-margin-left-20px u-color-ec8d57"
             >
               Customer Details
             </h1>

@@ -1,39 +1,51 @@
 @import "antd/dist/antd.less";
-// @import url("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;0,800;1,300;1,400;1,600;1,700;1,800&display=swap");
-// @import url("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;0,800;1,300;1,400;1,600;1,700;1,800&display=swap");
 // all global styles are witten here
+
+// Scrollbars everywhere: peach thumb on a light peach track
+* {
+  scrollbar-color: #F0BA94 #FFF5EE;
+}
+
+// antd hardcodes its own fonts in a few places (page root fallback, the
+// required-field asterisk, pagination ellipsis/arrows) — keep Open Sans everywhere
+html,
+.ant-form-item-label > label.ant-form-item-required:not(.ant-form-item-required-mark-optional)::before,
+.ant-pagination-prev,
+.ant-pagination-next,
+.ant-pagination-jump-prev .ant-pagination-item-container .ant-pagination-item-ellipsis,
+.ant-pagination-jump-next .ant-pagination-item-container .ant-pagination-item-ellipsis {
+  font-family: "Open Sans", sans-serif !important;
+}
 
 // Date/Time/Range pickers (StartToEndDate, DatePicker, TimePicker Elements
 // wrappers all render antd's Picker, which shares this ".ant-picker" root
-// class) styled to match the MUI text-field border convention used
-// elsewhere in this app: #dee6e6 border, square corners, no hover color
-// change, #12B0E8 on focus (see CustomTextField's withStyles in
-// text-field.js/FormatedInput.js for the same three values).
+// class) and text inputs share one field style: light grey border, 8px
+// rounded corners, orange border on focus — same as the select boxes.
 .ant-picker {
-  border: 1px solid #dee6e6 !important;
-  border-radius: 0 !important;
+  border: 1px solid #D9D9D9 !important;
+  border-radius: 8px !important;
   box-shadow: none !important;
 }
 
 .ant-picker:hover {
-  border-color: #dee6e6 !important;
+  border-color: #D9D9D9 !important;
 }
 
-.ant-picker-focused {
-  border-color: #12b0e8 !important;
+// two classes so focus wins over the hover rule above
+.ant-picker.ant-picker-focused {
+  border-color: #EC8D57 !important;
   box-shadow: none !important;
 }
 
-// Text inputs (TextField Elements wrapper) — same border convention as the
-// pickers above. When an Input has a prefix/suffix (e.g. Login's UserOutlined
-// icon), antd wraps the real <input> in a .ant-input-affix-wrapper — and the
-// inner <input> keeps the plain .ant-input class too, so without the reset
-// below both the wrapper AND the nested input would show this border,
-// rendering as a visible box-inside-a-box around the icon.
+// Text inputs (TextField Elements wrapper). When an Input has a prefix/suffix
+// (e.g. Login's UserOutlined icon), antd wraps the real <input> in a
+// .ant-input-affix-wrapper — and the inner <input> keeps the plain .ant-input
+// class too, so without the reset below both the wrapper AND the nested input
+// would show this border, rendering as a visible box-inside-a-box.
 .ant-input,
 .ant-input-affix-wrapper {
-  border: 1px solid #dee6e6 !important;
-  border-radius: 0 !important;
+  border: 1px solid #D9D9D9 !important;
+  border-radius: 8px !important;
   box-shadow: none !important;
 }
 
@@ -44,14 +56,14 @@
 
 .ant-input:hover,
 .ant-input-affix-wrapper:hover {
-  border-color: #dee6e6 !important;
+  border-color: #D9D9D9 !important;
 }
 
 .ant-input:focus,
 .ant-input-focused,
 .ant-input-affix-wrapper:focus,
 .ant-input-affix-wrapper-focused {
-  border-color: #12b0e8 !important;
+  border-color: #EC8D57 !important;
   box-shadow: none !important;
 }
 
@@ -59,18 +71,23 @@
 // wrappers) — same border/background convention as the inputs/pickers above.
 // The visible box is .ant-select-selector, not .ant-select itself.
 .ant-select-selector {
-  border: 1px solid #dee6e6 !important;
-  border-radius: 0 !important;
+  border: 1px solid #D9D9D9 !important;
+  border-radius: 8px !important;
   box-shadow: none !important;
   background-color: white !important;
 }
 
 .ant-select:hover .ant-select-selector {
-  border-color: #dee6e6 !important;
+  border-color: #D9D9D9 !important;
 }
 
-.ant-select-focused .ant-select-selector {
-  border-color: #12b0e8 !important;
+// the open options list matches the rounded field
+.ant-select-dropdown {
+  border-radius: 8px !important;
+}
+
+.ant-select.ant-select-focused .ant-select-selector {
+  border-color: #EC8D57 !important;
   box-shadow: none !important;
 }
 
@@ -105,38 +122,161 @@
   white-space: nowrap !important;
 }
 
-// Notification Elements wrapper — antd's own .ant-notification-notice-message
-// rule sets an explicit (dark) text color that wins over the teal
-// background's inherited color otherwise; !important here matches that
-// same specificity fight.
-.app-teal-notification {
-  display: flex;
-  align-items: center;
-  padding: 20px !important;
-  height: 50px !important;
+// Notification Elements wrapper: a raised (3D) orange card that flips in,
+// wraps the whole message, and shows a time-left bar along the bottom.
+.app-teal-notification.ant-notification-notice {
+  position: relative;
+  width: 380px;
+  padding: 14px 44px 18px 16px;
+  overflow: hidden;
+  border-radius: 14px;
+  background: linear-gradient(135deg, #F4A574 0%, #EC8D57 45%, #D9733A 100%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.45),
+    inset 0 -3px 0 rgba(0, 0, 0, 0.1),
+    0 14px 28px rgba(217, 115, 58, 0.35),
+    0 4px 10px rgba(0, 0, 0, 0.12);
+  transform-origin: top center;
 }
 
 .app-teal-notification .ant-notification-notice-message {
+  margin: 0 !important;
+  padding-right: 0 !important;
   color: #fff !important;
-  display: flex;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.5;
+  white-space: normal;
+  word-break: break-word;
+}
+
+.app-teal-notification .ant-notification-notice-with-icon .ant-notification-notice-message {
+  margin-left: 46px !important;
+}
+
+.app-teal-notification .ant-notification-notice-description {
+  display: none;
+}
+
+.app-teal-notification .ant-notification-notice-icon {
+  margin-left: 0;
+  line-height: 1;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.app-notification-icon {
+  display: inline-flex;
   align-items: center;
-  height: 100%;
-  margin-bottom: 0 !important;
-  line-height: normal;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.22);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4);
+  color: #fff;
+  font-size: 17px;
 }
 
 .app-teal-notification .ant-notification-notice-close {
-  color: #fff !important;
-  top: 50% !important;
+  top: 50%;
+  right: 14px;
   transform: translateY(-50%);
+  color: #fff !important;
+  opacity: 0.85;
 }
+
+.app-teal-notification .ant-notification-notice-close:hover {
+  opacity: 1;
+}
+
+// time-left bar (pauses while hovered, like the auto-close timer)
+.app-teal-notification::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 4px;
+  width: 100%;
+  background: rgba(255, 255, 255, 0.55);
+  transform-origin: left center;
+  animation: notificationTimeLeft var(--notification-duration, 4s) linear forwards;
+}
+
+.app-teal-notification:hover::after {
+  animation-play-state: paused;
+}
+
+// 3D flip in / out (replaces antd's slide for this notification only)
+.app-teal-notification.ant-notification-fade-enter.ant-notification-fade-enter-active,
+.app-teal-notification.ant-notification-fade-appear.ant-notification-fade-appear-active {
+  animation-name: notificationFlipIn !important;
+  animation-duration: 0.55s !important;
+  animation-timing-function: cubic-bezier(0.2, 0.9, 0.3, 1.25) !important;
+}
+
+.app-teal-notification.ant-notification-fade-leave.ant-notification-fade-leave-active {
+  animation-name: notificationFlipOut !important;
+  animation-duration: 0.35s !important;
+  animation-timing-function: ease-in !important;
+}
+
+@keyframes notificationFlipIn {
+  0% {
+    opacity: 0;
+    transform: perspective(700px) rotateX(-80deg) translateY(-24px) scale(0.92);
+  }
+  100% {
+    opacity: 1;
+    transform: perspective(700px) rotateX(0) translateY(0) scale(1);
+  }
+}
+
+@keyframes notificationFlipOut {
+  0% {
+    opacity: 1;
+    max-height: 160px;
+    transform: perspective(700px) rotateX(0) scale(1);
+  }
+  100% {
+    opacity: 0;
+    max-height: 0;
+    margin-bottom: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    transform: perspective(700px) rotateX(70deg) scale(0.92);
+  }
+}
+
+@keyframes notificationTimeLeft {
+  from {
+    transform: scaleX(1);
+  }
+  to {
+    transform: scaleX(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .app-teal-notification.ant-notification-fade-enter.ant-notification-fade-enter-active,
+  .app-teal-notification.ant-notification-fade-appear.ant-notification-fade-appear-active,
+  .app-teal-notification.ant-notification-fade-leave.ant-notification-fade-leave-active {
+    animation-name: none !important;
+  }
+}
+
+// Login / Sign Up (they put this class on <body>): the page itself never scrolls
+body.login-page {
+  overflow: hidden !important;
+}
+
 // global css for side bar
 .ant-menu-root.ant-menu-vertical,
 .ant-menu-root.ant-menu-vertical-left,
 .ant-menu-root.ant-menu-vertical-right,
 .ant-menu-root.ant-menu-inline {
-  background-color: #025f5c;
-  color: #80b1af;
+  background-color: #ffffff;
+  color: rgba(0, 0, 0, 0.85);
 }
 
 // .ant-menu-submenu-title:hover {
@@ -148,29 +288,61 @@
 }
 
 .ant-menu-sub.ant-menu-inline {
-  background-color: #025f5c;
-  color: whitesmoke !important;
+  background-color: #FFF5EE;
+  color: rgba(0, 0, 0, 0.85) !important;
 }
 
 .ant-menu-item-selected {
-  background-color: #43b78f !important;
-  color: #fff;
+  background-color: #F0BA94 !important;
+  color: #2F2F2F;
   border-right: none !important;
 }
 
 // global css for sidebar ends here
 .ant-table-thead > tr * {
-  background-color: #e7ecec !important;
-  color: #b27706 !important;
-  font-weight: bold !important;
+  background-color: #F0BA94 !important;
+  color: #2F2F2F !important;
+  font-weight: 500 !important;
+}
+
+// No column separators in the header: bordered tables draw them as each
+// cell's right border, non-bordered ones as a ::before line
+.ant-table-thead > tr > th:not(:last-child) {
+  border-right-color: transparent !important;
+}
+
+.ant-table-thead > tr > th::before {
+  display: none !important;
 }
 
 .ant-table-row {
-  background-color: #f6f6f6 !important;
+  background-color: #FFF8F3 !important;
+}
+
+// No grid lines anywhere in tables; rounded header corners show the page behind
+.ant-table {
+  background: transparent !important;
+}
+
+.ant-table-thead > tr > th,
+.ant-table-tbody > tr > td {
+  border-bottom: none !important;
+}
+
+.ant-table-container table > thead > tr:first-child > th:first-child {
+  border-top-left-radius: 10px !important;
+}
+
+.ant-table-container table > thead > tr:first-child > th:last-child {
+  border-top-right-radius: 10px !important;
+}
+
+.ant-table-tbody > tr > td {
+  color: #2F2F2F;
 }
 
 .ant-layout {
-  background-color: #f6f6f6;
+  background-color: #FFF5EE;
 }
 
 .ant-scrolling-effect {
@@ -182,12 +354,12 @@
 }
 
 .ant-menu-submenu-title {
-  color: #80b1af !important;
+  color: rgba(0, 0, 0, 0.85) !important;
   background-color: inherit !important;
 }
 
-.ant-menu-item-active > .ant-menu-title-content > a:hover {
-  color: white !important;
+.ant-menu-item-active:not(.ant-menu-item-selected) > .ant-menu-title-content > a:hover {
+  color: #EC8D57 !important;
 }
 
 .ant-menu-item-active > .ant-menu-title-content:hover {
@@ -203,8 +375,12 @@
   background: none !important;
 }
 
-.ant-menu-item-only-child:hover {
-  color: #fff !important;
+.ant-menu-item-only-child:not(.ant-menu-item-selected):hover {
+  color: #EC8D57 !important;
+}
+
+.ant-menu-item-selected:hover {
+  color: #2F2F2F !important;
 }
 
 .ant-select-arrow {
@@ -233,7 +409,7 @@
   position: relative;
   min-width: 0;
   min-height: auto;
-  background: #025f5c !important;
+  background: #FFF5EE !important;
   transition: all 0.2s;
 }
 
@@ -270,7 +446,7 @@ span.SubHeading {
 }
 
 .Level-Section {
-  background-color: #04bbb4;
+  background-color: #EC8D57;
   color: #fff;
   padding: 5px;
   width: 240px;
@@ -289,20 +465,20 @@ span.SubHeading {
 }
 
 .TransactionHeading {
-  color: #000;
-  background: #e7ecec !important;
+  color: #000000;
+  background: #F0BA94 !important;
   padding: 10px;
   font-size: 18px;
   font-weight: 600;
   text-align: center;
-  border: 1px solid #dee6e6;
+  border: 1px solid #F0BA94;
 }
 
 button.UploadFileButton {
-  background: #d08b07 !important;
-  border-color: #d08b07 !important;
+  background: #EC8D57 !important;
+  border-color: #EC8D57 !important;
   cursor: pointer !important;
-  border-radius: 0px !important;
+  border-radius: 8px !important;
   font-weight: 400 !important;
   font-size: 14px !important;
   color: #fff !important;
@@ -351,14 +527,14 @@ i.icon-add.icon-size-one.AddMore p {
   position: absolute;
   left: 35px;
   top: 7px;
-  font-family: "Open Sans";
+  font-family: "Open Sans", sans-serif;
 }
 
 .btnSecondarySolidAddMore button {
-  background: #d08b07 !important;
-  border-color: #d08b07 !important;
+  background: #EC8D57 !important;
+  border-color: #EC8D57 !important;
   cursor: pointer !important;
-  border-radius: 0px !important;
+  border-radius: 8px !important;
   font-weight: 400 !important;
   height: 40px !important;
   color: #fff !important;
@@ -402,7 +578,7 @@ h4.ant-typography.SignUpRequestTitle {
 }
 
 .NoRecordFound {
-  background: #eef0f0;
+  background: #FFF5EE;
   padding: 11px;
   text-align: center;
 }
@@ -413,7 +589,7 @@ h4.ant-typography.SignUpRequestTitle {
 }
 
 .NoRecordFound span {
-  color: #0ba19b;
+  color: #EC8D57;
   font-weight: bold;
   font-size: 21px;
 }
@@ -432,7 +608,8 @@ input.CreditCardInputField {
   width: 95%;
   padding: 6px 0px 8px 10px;
   background-color: white !important;
-  border: 1px solid #dee6e6;
+  border: 1px solid #D9D9D9;
+  border-radius: 8px;
   height: 23px;
   margin: 0;
   display: block;
@@ -446,13 +623,13 @@ input.CreditCardInputField {
 }
 
 input.CreditCardInputField:focus-visible {
-  border: 1px solid #dee6e6 !important;
+  border: 1px solid #EC8D57 !important;
 }
 
 input.CreditCardInputField:focus,
 input.CreditCardInputField:active,
 input.CreditCardInputField:focus-visible {
-  border: 1px solid #dee6e6 !important;
+  border: 1px solid #EC8D57 !important;
 }
 
 p.PlaceholderCard {
@@ -494,10 +671,10 @@ input.CreditCardInputField[disabled] {
 }
 
 span.UploadFileButton {
-  background: #d08b07 !important;
-  border-color: #d08b07 !important;
+  background: #EC8D57 !important;
+  border-color: #EC8D57 !important;
   cursor: pointer !important;
-  border-radius: 0px !important;
+  border-radius: 8px !important;
   font-weight: 400 !important;
   font-size: 14px !important;
   color: #fff !important;
@@ -505,18 +682,6 @@ span.UploadFileButton {
   box-shadow: none;
 }
 
-i.icon-user.SignupIconEmail.icon-size-one {
-  border-radius: 0 !important;
-  background-color: #078480 !important;
-  box-shadow: none !important;
-  color: #fff;
-  text-align: center !important;
-  position: relative;
-  top: -35px;
-  padding: 18px;
-  padding-bottom: 5px;
-  padding-top: 5px;
-}
 
 .iris-custom-table .ant-table-selection-column {
   width: 35px !important;

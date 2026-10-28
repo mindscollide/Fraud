@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Typography, Row, Col } from "antd";
 import { DownloadOutlined } from "@ant-design/icons";
 import { Button, Loader, SelectBox } from "../../../../Components/Elements";
-import { GetAllRegion } from "../../../../store/actions/setup-forms-actions";
+import { ensureLookup } from "../../../../store/actions/lookup-actions";
 import { RegionWiseReportExcel } from "../../../../store/actions/reports_actions";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -19,7 +19,7 @@ const IORegionWiseStaffList = () => {
     RegionID: 0,
   });
   useEffect(() => {
-    dispatch(GetAllRegion());
+    dispatch(ensureLookup("region"));
   }, []);
   useEffect(() => {
     let RegionData = setupForms.RegionData;

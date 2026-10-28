@@ -878,7 +878,7 @@ const ViewCustomerDetailsBBK = () => {
       <Paper padding="1">
         <Row gutter={16}>
           <Col lg={18} md={18} sm={18} xs={24}>
-            <h1 className="u-font-size-18px u-margin-top-15px u-margin-left-20px u-color-21706d">
+            <h1 className="u-font-size-18px u-margin-top-15px u-margin-left-20px u-color-ec8d57">
               Customer Details
             </h1>
           </Col>
@@ -969,7 +969,7 @@ const ViewCustomerDetailsBBK = () => {
       <div className="u-margin-top-20px" />
       <Paper padding="1">
         <Col lg={18} md={18} sm={18} xs={24}>
-          <h1 className="u-font-size-18px u-margin-top-15px u-margin-left-20px u-color-21706d">
+          <h1 className="u-font-size-18px u-margin-top-15px u-margin-left-20px u-color-ec8d57">
             Date
           </h1>
         </Col>
@@ -1159,7 +1159,7 @@ const ViewCustomerDetailsBBK = () => {
       <div className="u-margin-top-20px" />
       <Paper padding="1">
         <Col lg={18} md={18} sm={18} xs={24} className="u-margin-bottom-20px">
-          <h1 className="u-font-size-18px u-margin-top-15px u-margin-left-20px u-color-21706d">
+          <h1 className="u-font-size-18px u-margin-top-15px u-margin-left-20px u-color-ec8d57">
             Closure Details
           </h1>
         </Col>
@@ -1347,7 +1347,7 @@ const ViewCustomerDetailsBBK = () => {
       <div className="u-margin-top-20px" />
       <Paper padding="1">
         <Col lg={18} md={18} sm={18} xs={24}>
-          <h1 className="u-font-size-18px u-margin-top-15px u-margin-left-20px u-color-21706d">
+          <h1 className="u-font-size-18px u-margin-top-15px u-margin-left-20px u-color-ec8d57">
             Files Upload
           </h1>
         </Col>

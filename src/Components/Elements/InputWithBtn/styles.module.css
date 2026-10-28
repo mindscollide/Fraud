@@ -1,13 +1,14 @@
 .uploadButton {
   border: 1 solid black !important;
   border-radius: 0 !important;
-  background-color: #025f5c !important;
+  background-color: #EC8D57 !important;
   box-shadow: none !important;
   height: 40px !important;
+  color: #FFFFFF !important;
 }
 .search2 {
   background: #dfe8e8 !important;
-  color: #078480 !important;
+  color: #EC8D57 !important;
   border: 1 solid black !important;
   border-radius: 0 !important;
   box-shadow: none !important;
@@ -15,7 +16,7 @@
 }
 .search {
   background: #dfe8e8 !important;
-  color: #078480 !important;
+  color: #EC8D57 !important;
   border: 1 solid black !important;
   border-radius: 0 !important;
   box-shadow: none !important;
@@ -23,33 +24,37 @@
 }
 .search-cnic {
   color: #fff !important;
-    background: #00302e !important;
+    background: #EC8D57 !important;
   /* background: #dfe8e8 !important;
-  color: #078480 !important; */
+  color: #EC8D57 !important; */
   border: 1 solid black !important;
   border-radius: 0 !important;
   box-shadow: none !important;
   height: 40px !important;
 }
 .search-cnic:hover{
-  background: rgb(11, 161, 155) !important;
+  background: #D07C4D !important;
   transition: all 0.3s ease-in 0s;
 }
 .search-cnic {
   margin: 0 !important;
 }
 
+/* Sign Up password arrow: same 56px rounded block as the LDAP ID icon */
 .next {
-  border: 1 solid 078480 !important;
-  border-radius: 0 !important;
-  background-color: #078480 !important;
+  border: none !important;
+  background-color: #EC8D57 !important;
   box-shadow: none !important;
   height: 40px !important;
-  width: 20% !important;
+  width: 56px !important;
+  min-width: 56px;
+  padding: 0 !important;
+  font-size: 18px;
+  color: #FFFFFF !important;
 }
 .btnSecondarySolidAddMoreComment{
-  background    : #d08b07 !important;
-  border-color  : #d08b07 !important;
+  background    : #EC8D57 !important;
+  border-color  : #EC8D57 !important;
   cursor        : pointer !important;
   border-radius : 0px !important;
   font-weight   : 400 !important;
@@ -60,4 +65,79 @@
   text-transform: none !important;
   letter-spacing: 0.02857em!important;
   white-space: nowrap !important;;
+}
+/* ---------- CNIC / Account / Mobile search field (design: rounded bar + orange button) ---------- */
+.inputSlot {
+  flex: 1;
+  position: relative;
+  min-width: 0;
+}
+
+.searchField :global(.ant-input) {
+  height: 44px;
+  padding-left: 16px;
+  background-color: #FFFFFF;
+  border: 1px solid #D9D9D9 !important;
+  border-radius: 8px !important;
+}
+
+.searchField :global(.ant-input:focus),
+.searchField :global(.ant-input-focused) {
+  border-color: #EC8D57 !important;
+}
+
+/* floating label sits on the white input, not on a grey chip */
+.searchField [class*="floatingLabel"] {
+  background-color: #FFFFFF;
+}
+
+.fakePlaceholder {
+  position: absolute;
+  left: 17px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 1;
+  color: #A6A6A6;
+  font-size: 14px;
+  pointer-events: none;
+  white-space: nowrap;
+}
+
+.requiredStar {
+  color: #FF0000;
+}
+
+/* fully rounded button that overlaps the field's rounded right end */
+.searchField .search-cnic {
+  height: 44px !important;
+  min-width: 56px;
+  border: none !important;
+  border-radius: 8px !important;
+  margin-left: -8px !important;
+  position: relative;
+  z-index: 1;
+  font-size: 18px;
+}
+
+/* keep the orange (just faded) while the number is incomplete */
+.searchField .search-cnic:disabled {
+  filter: none !important;
+  opacity: 1 !important;
+  /* solid light orange (not see-through, since it overlaps the field) */
+  background: #F4BB9A !important;
+  color: #FFFFFF !important;
+}
+
+/* Every input + attached button: the button is fully rounded and overlaps the
+   field's rounded right end (search-cnic adds its own size/colors above) */
+.attachedBar :global(.ant-btn) {
+  border-radius: 8px !important;
+  margin-left: -8px !important;
+  position: relative;
+  z-index: 1;
+}
+
+/* a disabled button must not be see-through where it overlaps the field */
+.attachedBar :global(.ant-btn:disabled) {
+  opacity: 1 !important;
 }

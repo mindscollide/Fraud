@@ -30,15 +30,32 @@ const InputWithBtn = ({
   minLength,
   disable1,
 }) => {
+  // CNIC / Account / Mobile search fields: one rounded bar with an attached
+  // orange button, and a placeholder whose required "*" is red
+  const isSearchField = applyClass === "search-cnic";
+  const placeholderText = placeholder ? placeholder.replace(/\s*\*\s*$/, "") : "";
+  const showFakePlaceholder =
+    isSearchField && placeholderText !== "" && (value === "" || value === null || value === undefined);
+
   return (
-    <div className="u-display-flex">
+    <div
+      className={`u-display-flex ${styles.attachedBar} ${
+        isSearchField ? styles.searchField : ""
+      }`}
+    >
       {/* flex:1 so the input fills all space the Button doesn't need —
           without this it only takes its natural content width, ending up
           visibly shorter than a plain full-width field with no button
           attached (e.g. SignUp's "Enter LDAP ID" beside "Enter Password"). */}
-      <div style={{ flex: 1 }}>
+      <div className={styles.inputSlot}>
+        {showFakePlaceholder ? (
+          <span className={styles.fakePlaceholder}>
+            {placeholderText}
+            {required ? <span className={styles.requiredStar}> *</span> : null}
+          </span>
+        ) : null}
         <TextField
-          placeholder={placeholder ? placeholder : null}
+          placeholder={isSearchField ? null : placeholder ? placeholder : null}
           size={size}
           autoComplete={autoComplete}
           type={type ? type : null}

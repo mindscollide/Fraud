@@ -4,5 +4,9 @@
 }
 
 .rowColor {
-  background-color: white !important;
+  background-color: #FFF8F3 !important;
+}
+
+.rowColor.rowColorAlt {
+  background-color: #FDEEE5 !important;
 }
