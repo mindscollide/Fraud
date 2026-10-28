@@ -318,16 +318,30 @@ const SetupFormReducer = (state = initialState, action) => {
     case actions.GET_CITY_UNIT_INIT:
       return { ...state, Loading: true };
 
-    case actions.GET_CITY_UNIT_SUCCESS:
+    // case actions.GET_CITY_UNIT_SUCCESS:
+    //   let CityArray = action.response.city.map((item, index) => {
+    //     return { ...item, key: index };
+    //   });
+    //   return {
+    //     ...state,
+    //     // Loading: false,
+    //     ResponseMessage: action.response.responseMessage,
+    //     CityData: CityArray,
+    //   };
+
+    case actions.GET_CITY_UNIT_SUCCESS: {
       let CityArray = action.response.city.map((item, index) => {
         return { ...item, key: index };
       });
+
       return {
         ...state,
-        // Loading: false,
+        Loading: false,
+        Success: true,
         ResponseMessage: action.response.responseMessage,
         CityData: CityArray,
       };
+    }
 
     case actions.GET_CITY_UNIT_FAIL:
       return {
@@ -606,16 +620,29 @@ const SetupFormReducer = (state = initialState, action) => {
         ViewDeleteDisputeCasesData: [],
       };
 
-    case actions.GET_STATUS_UNIT_SUCCESS:
+    // case actions.GET_STATUS_UNIT_SUCCESS:
+    //   let StatusArray = action.response.caseStatus.map((item, index) => {
+    //     return { ...item, key: index };
+    //   });
+    //   return {
+    //     ...state,
+    //     ResponseMessage: action.response.responseMessage,
+    //     StatusData: StatusArray,
+    //   };
+
+    case actions.GET_STATUS_UNIT_SUCCESS: {
       let StatusArray = action.response.caseStatus.map((item, index) => {
         return { ...item, key: index };
       });
+
       return {
         ...state,
+        Loading: false,
+        Success: true,
         ResponseMessage: action.response.responseMessage,
         StatusData: StatusArray,
       };
-
+    }
     case actions.GET_STATUS_UNIT_FAIL:
       return {
         ...state,

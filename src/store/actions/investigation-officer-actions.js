@@ -3111,6 +3111,8 @@ const SearchTransactionDetailsADCByCNICAndReferenceNumber = (object, TTID) => {
             await dispatch(GetAllFraudType());
             await dispatch(GetAllSource());
             await dispatch(GetAllCity());
+            dispatch(GetAllApprovalReasons());
+            dispatch(GetAllRejectionReasons());
             localStorage.setItem("CNICNumber", object.CNICNumber);
             if (!TTID) {
               localStorage.removeItem("FK_TTID");

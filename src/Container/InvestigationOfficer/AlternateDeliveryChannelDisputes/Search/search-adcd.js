@@ -13,7 +13,7 @@ import {
   SelectBox,
   Button,
   Table,
-  GroupedButtons,
+  // GroupedButtons,
   Modal,
   StartToEndDate,
   TextField,
@@ -546,16 +546,16 @@ const SearchADCD = () => {
     },
   ];
 
-  const okayButtonProp = {
-    primaryButton: {
-      text: "Ok",
-      class: "btnBorderStyledBeach",
-      click: () => handleCancel(),
-    },
-    secondaryButton: {
-      text: "",
-    },
-  };
+  // const okayButtonProp = {
+  //   primaryButton: {
+  //     text: "Close",
+  //     class: "btnBorderStyledBeach",
+  //     click: () => handleCancel(),
+  //   },
+  //   secondaryButton: {
+  //     text: "",
+  //   },
+  // };
 
   useEffect(() => {
     if (
@@ -661,185 +661,216 @@ const SearchADCD = () => {
   return (
     <>
       <Title level={3}>Search Alternate Delivery Channel Disputes</Title>
-      <Row gutter={8}>
-        <Col lg={6} md={6} sm={24}>
-          <TextField
-            name={"RefrenceNumber"}
-            fullWidth
-            autoComplete="off"
-            label={searchData?.RefrenceNumber !== "" ? "Reference Number" : ""}
-            placeholder={"Reference Number"}
-            size="small"
-            value={searchData.RefrenceNumber}
-            change={(e) => handleSearch(e)}
-          />
-        </Col>
-        <Col lg={6} md={6} sm={24}>
-          <TextField
-            fullWidth
-            name={"AccountNumber"}
-            label={searchData?.AccountNumber !== "" ? "Account Number" : ""}
-            placeholder={"Account Number"}
-            autoComplete="off"
-            size="small"
-            value={searchData.AccountNumber}
-            change={(e) => handleSearch(e)}
-            textLength={14}
-          />
-        </Col>
-        <Col lg={6} md={6} sm={24}>
-          <TextField
-            fullWidth
-            name={"TransactionID"}
-            label={searchData?.TransactionID !== "" ? "Transaction ID" : ""}
-            placeholder={"Transaction ID"}
-            autoComplete="off"
-            size="small"
-            value={searchData.TransactionID}
-            change={(e) => handleSearch(e)}
-            textLength={20}
-          />
-        </Col>
-        <Col lg={6} md={6} sm={24}>
-          <TextField
-            fullWidth
-            name={"ApprovalCode"}
-            label={searchData?.ApprovalCode ? "Approval Code" : ""}
-            placeholder={"Approval Code"}
-            size="small"
-            autoComplete="off"
-            value={searchData.ApprovalCode || ""}
-            change={(e) => handleSearch(e)}
-            textLength={20}
-          />
-        </Col>
-        <Col lg={6} md={6} sm={24} className="u-margin-top-22px">
-          <TextField
-            fullWidth
-            name={"CustomerName"}
-            label={searchData?.CustomerName !== "" ? "Customer Name" : ""}
-            placeholder={"Customer Name"}
-            size="small"
-            autoComplete="off"
-            value={searchData.CustomerName}
-            change={(e) => handleSearch(e)}
-            textLength={25}
-          />
-        </Col>
-        <Col lg={6} md={6} sm={24} className="u-margin-top-22px">
-          <SelectBox
-            label={cityValue !== "" && cityValue !== null ? "Select City" : ""}
-            placeholder={"Select City"}
-            option={city}
-            value={cityValue}
-            change={CityNameHandler}
-            name="FK_CTID"
-          />
-        </Col>
-        <Col lg={6} md={6} sm={24} className="u-margin-top-22px">
-          <TextField
-            fullWidth
-            name={"CNIC"}
-            label={searchData?.CNIC !== "" ? "CNIC" : ""}
-            placeholder={"CNIC"}
-            size="small"
-            autoComplete="off"
-            value={searchData.CNIC}
-            change={(e) => handleSearch(e)}
-            textLength={13}
-          />
-        </Col>
-        <Col lg={6} md={6} sm={24} className="u-margin-top-22px">
-          <SelectBox
-            label={hasCaseStatus ? "Select Case Status" : ""}
-            placeholder={"Select Case Status"}
-            option={caseStatusOptions}
-            name="fk_csid"
-            value={caseStatus}
-            change={caseStatusHandler}
-          />
-        </Col>
-        <Col lg={6} md={6} sm={24} className="u-margin-top-22px">
-          <FormattedInputs
-            fullWidth
-            name="TransactionAmount"
-            autoComplete="off"
-            Label={hasAmountValue ? "Total Dispute Amount" : ""}
-            placeholder={"Total Dispute Amount"}
-            size="small"
-            value={
-              searchData.TransactionAmount === null ||
-              searchData.TransactionAmount === -99999999999999999999
-                ? null
-                : CommaFormter(searchData.TransactionAmount)
-            }
-            change={(e) => handleSearch(e)}
-          />
-        </Col>
-        <Col lg={6} md={6} sm={24} className="u-margin-top-22px">
-          <StartToEndDate
-            label={hasDateValue ? "Case Received Date" : ""}
-            width="100%!important"
-            size="large"
-            change={setDate}
-            key={clearDateSelect}
-            startvalue={
-              State.FromDate !== null && State.FromDate !== ""
-                ? DateDisplayFormat(State.FromDate)
-                : null
-            }
-            endvalue={
-              State.ToDate !== null && State.ToDate !== ""
-                ? DateDisplayFormat(State.ToDate)
-                : null
-            }
-            DateRange={true}
-          />
-        </Col>
-        <Col lg={6} md={6} sm={24} className="u-margin-top-22px"></Col>
-        <Col lg={6} md={6} sm={24}></Col>
-        <Col lg={6} md={6} sm={24}></Col>
-        <Col
-          lg={6}
-          md={6}
-          sm={24}
-          className="u-margin-top-10px u-text-align-right"
+
+      <>
+        <Row gutter={8} className="u-margin-top-22px">
+          {/* Reference Number */}
+          <Col lg={6} md={6} sm={24}>
+            <TextField
+              name={"RefrenceNumber"}
+              fullWidth
+              autoComplete="off"
+              label={
+                searchData?.RefrenceNumber !== "" ? "Reference Number" : ""
+              }
+              placeholder={"Reference Number"}
+              size="small"
+              value={searchData.RefrenceNumber}
+              change={(e) => handleSearch(e)}
+              textLength={13}
+            />
+          </Col>
+
+          {/* Customer Name */}
+          <Col lg={6} md={6} sm={24}>
+            <TextField
+              fullWidth
+              name={"CustomerName"}
+              label={searchData?.CustomerName !== "" ? "Customer Name" : ""}
+              placeholder={"Customer Name"}
+              size="small"
+              autoComplete="off"
+              value={searchData.CustomerName}
+              change={(e) => handleSearch(e)}
+              textLength={100}
+            />
+          </Col>
+
+          {/* CNIC */}
+          <Col lg={6} md={6} sm={24}>
+            <TextField
+              fullWidth
+              name={"CNIC"}
+              label={searchData?.CNIC !== "" ? "CNIC" : ""}
+              placeholder={"CNIC"}
+              size="small"
+              autoComplete="off"
+              value={searchData.CNIC}
+              change={(e) => handleSearch(e)}
+              textLength={13}
+            />
+          </Col>
+
+          {/* Account Number */}
+          <Col lg={6} md={6} sm={24}>
+            <TextField
+              fullWidth
+              name={"AccountNumber"}
+              label={searchData?.AccountNumber !== "" ? "Account Number" : ""}
+              placeholder={"Account Number"}
+              autoComplete="off"
+              size="small"
+              value={searchData.AccountNumber}
+              change={(e) => handleSearch(e)}
+              textLength={14}
+            />
+          </Col>
+        </Row>
+
+        <Row gutter={16} className="u-margin-top-22px">
+          {/* Transaction ID */}
+          <Col lg={6} md={6} sm={24}>
+            <TextField
+              fullWidth
+              name={"TransactionID"}
+              label={searchData?.TransactionID !== "" ? "Transaction ID" : ""}
+              placeholder={"Transaction ID"}
+              autoComplete="off"
+              size="small"
+              value={searchData.TransactionID}
+              change={(e) => handleSearch(e)}
+              textLength={20}
+            />
+          </Col>
+
+          {/* City */}
+          <Col lg={6} md={6} sm={24}>
+            <SelectBox
+              label={
+                cityValue !== "" && cityValue !== null ? "Select City" : ""
+              }
+              placeholder={"Select City"}
+              option={city}
+              value={cityValue}
+              change={CityNameHandler}
+              name="FK_CTID"
+            />
+          </Col>
+
+          {/* Case Status */}
+          <Col lg={6} md={6} sm={24}>
+            <SelectBox
+              label={hasCaseStatus ? "Select Case Status" : ""}
+              placeholder={"Select Case Status"}
+              option={caseStatusOptions}
+              name="fk_csid"
+              value={caseStatus}
+              change={caseStatusHandler}
+            />
+          </Col>
+
+          {/* Approval Code */}
+          <Col lg={6} md={6} sm={24}>
+            <TextField
+              fullWidth
+              name={"ApprovalCode"}
+              label={searchData?.ApprovalCode ? "Approval Code" : ""}
+              placeholder={"Approval Code"}
+              size="small"
+              autoComplete="off"
+              value={searchData.ApprovalCode || ""}
+              change={(e) => handleSearch(e)}
+              textLength={7}
+            />
+          </Col>
+        </Row>
+
+        <Row gutter={16} className="u-margin-top-22px">
+          {/* Transaction Amount */}
+          <Col lg={6} md={6} sm={24}>
+            <FormattedInputs
+              fullWidth
+              name="TransactionAmount"
+              autoComplete="off"
+              Label={hasAmountValue ? "Total Dispute Amount" : ""}
+              placeholder={"Total Dispute Amount"}
+              size="small"
+              value={
+                searchData.TransactionAmount === null ||
+                searchData.TransactionAmount === -99999999999999999999
+                  ? null
+                  : CommaFormter(searchData.TransactionAmount)
+              }
+              change={(e) => handleSearch(e)}
+            />
+          </Col>
+
+          {/* Cash Received Date */}
+          <Col lg={6} md={6} sm={24}>
+            <StartToEndDate
+              label={hasDateValue ? "Case Received Date" : ""}
+              width="100%!important"
+              size="large"
+              change={setDate}
+              key={clearDateSelect}
+              startvalue={
+                State.FromDate !== null && State.FromDate !== ""
+                  ? DateDisplayFormat(State.FromDate)
+                  : null
+              }
+              endvalue={
+                State.ToDate !== null && State.ToDate !== ""
+                  ? DateDisplayFormat(State.ToDate)
+                  : null
+              }
+              DateRange={true}
+            />
+          </Col>
+        </Row>
+
+        <Row
+          gutter={16}
+          className="u-display-flex u-justify-content-center u-margin-top-10px"
         >
-          <Button
-            text="Search"
-            icon={
-              <i className="icon-size-zero">
-                <Search />
-              </i>
-            }
-            applyClass="btnSecondarySolid2Search"
-            size="small"
-            click={handleSearchData}
-          />
-        </Col>
-        <Col lg={6} md={6} sm={24} className="u-margin-top-10px">
-          <Button
-            text="Reset"
-            icon={<i className="icon-reset icon-size-zero"></i>}
-            applyClass="btnSecondarySolidReset"
-            size="small"
-            click={resetData}
-          />
-        </Col>
-        <Col lg={6} md={6} sm={24}></Col>
-        <Col lg={24} md={22} sm={24} className="u-margin-top-1pct">
-          <Table
-            rows={investigationOfficer.SearchADCDisputesData}
-            columns={columns}
-            scroll={{ x: "max-content" }}
-            pagination={{
-              defaultPageSize: 10,
-              showSizeChanger: true,
-              pageSizeOptions: ["5", "10", "20", "30"],
-            }}
-          />
-        </Col>
-      </Row>
+          <Col lg={3} md={3} sm={24}>
+            <Button
+              text="Search"
+              icon={
+                <i className="icon-size-zero">
+                  <Search />
+                </i>
+              }
+              applyClass="btnSecondarySolid2Search2"
+              size="small"
+              click={handleSearchData}
+            />
+          </Col>
+          <Col lg={3} md={3} sm={24}>
+            <Button
+              text="Reset"
+              icon={<i className="icon-reset icon-size-zero"></i>}
+              applyClass="btnSecondarySolidReset"
+              size="small"
+              click={resetData}
+            />
+          </Col>
+        </Row>
+
+        <Row gutter={16} className="u-margin-top-1pct">
+          <Col lg={24} md={24} sm={24}>
+            <Table
+              rows={investigationOfficer.SearchADCDisputesData}
+              columns={columns}
+              scroll={{ x: "max-content" }}
+              pagination={{
+                defaultPageSize: 10,
+                showSizeChanger: true,
+                pageSizeOptions: ["5", "10", "20", "30"],
+              }}
+            />
+          </Col>
+        </Row>
+      </>
 
       <Modal
         closeModal={handleCancel}
@@ -851,13 +882,23 @@ const SearchADCD = () => {
         {actions.viewApprovalHistory && (
           <>
             <Table rows={row} columns={viewApprovalColumn} />
-            <GroupedButtons data={okayButtonProp} />
+            <div className="u-display-flex u-justify-content-center">
+              {/* <GroupedButtons data={okayButtonProp} /> */}
+              <Button
+                text="Ok"
+                type={"primary"}
+                size="large"
+                applyClass="btnBorderStyledBeach"
+                click={handleCancel}
+                // click= () => handleCancel(),
+              />
+            </div>
           </>
         )}
       </Modal>
 
       <Notification setOpen={setOpen} open={open.flag} message={open.message} />
-      {investigationOfficer.Loading ? <Loader /> : null}
+      {setupForms.Loading || investigationOfficer.Loading ? <Loader /> : null}
     </>
   );
 };
