@@ -32,12 +32,7 @@ import {
   SaveNonApiDisputes,
   SaveAndApproveNonApiDisputes,
 } from "../../../../store/actions/investigation-officer-actions";
-import {
-  GetAllFraudType,
-  GetAllSource,
-  GetAllTransactionCurrencyCode,
-  GetAllCity,
-} from "../../../../store/actions/setup-forms-actions";
+import { ensureLookup } from "../../../../store/actions/lookup-actions";
 import {
   UploadFileNPI,
   setStateOfUploadDocumentCreditCard,
@@ -394,10 +389,10 @@ const AddNewCustomerDetailsNONAPI = () => {
         dispatch(GetTransactionDetailsByAccountNumberNonApi(Data));
       }
     }
-    dispatch(GetAllFraudType());
-    dispatch(GetAllSource());
-    dispatch(GetAllTransactionCurrencyCode());
-    dispatch(GetAllCity());
+    dispatch(ensureLookup("fraudType"));
+    dispatch(ensureLookup("source"));
+    dispatch(ensureLookup("transactionCurrency"));
+    dispatch(ensureLookup("city"));
   }, []);
 
   //   used for already exsit data of customer details for add

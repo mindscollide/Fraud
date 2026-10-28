@@ -2329,6 +2329,7 @@ const SearchApprovalFlow = (ApprovalFlowName, ApprovalFlowDescription) => {
       .then(async (response) => {
         if (response.data.responseCode === 417) {
           await dispatch(refreshToken());
+          dispatch(SearchApprovalFlow(ApprovalFlowName, ApprovalFlowDescription));
         } else if (response.data.responseCode === 200) {
           if (response.data.responseResult.recordFound === true) {
             let FinalArray = response.data.responseResult.list.map(
@@ -2581,7 +2582,7 @@ const SaveFraudType = (object) => {
       .then(async (response) => {
         if (response.data.responseCode === 417) {
           await dispatch(refreshToken());
-          dispatch(addFraudType(object));
+          dispatch(SaveFraudType(object));
         } else if (response.data.responseCode === 200) {
           if (response.data.responseResult.isExecuted === true) {
             dispatch(
@@ -2619,7 +2620,7 @@ const GetAllFraudType = (flag) => {
       .then(async (response) => {
         if (response.data.responseCode === 417) {
           await dispatch(refreshToken());
-          dispatch(allFraudType());
+          dispatch(GetAllFraudType(flag));
         } else if (response.data.responseCode === 200) {
           if (response.data.responseResult.isExecuted === true) {
             dispatch(FraudSuccess(response.data.responseResult));
@@ -2713,7 +2714,7 @@ const EditFraudType = (fraudType) => {
       .then(async (response) => {
         if (response.data.responseCode === 417) {
           await dispatch(refreshToken());
-          dispatch(addFraudType(fraudType));
+          dispatch(EditFraudType(fraudType));
         } else if (response.data.responseCode === 200) {
           if (response.data.responseResult.isExecuted === true) {
             dispatch(
@@ -2751,7 +2752,7 @@ const GetAllSource = () => {
       .then(async (response) => {
         if (response.data.responseCode === 417) {
           await dispatch(refreshToken());
-          dispatch(allSource());
+          dispatch(GetAllSource());
         } else if (response.data.responseCode === 200) {
           if (response.data.responseResult.isExecuted === true) {
             dispatch(SourceSuccess(response.data.responseResult));
@@ -2796,7 +2797,7 @@ const SaveSource = (object) => {
       .then(async (response) => {
         if (response.data.responseCode === 417) {
           await dispatch(refreshToken());
-          dispatch(addSource(object));
+          dispatch(SaveSource(object));
         } else if (response.data.responseCode === 200) {
           if (response.data.responseResult.isExecuted === true) {
             dispatch(
@@ -2886,7 +2887,7 @@ const EditSource = (source) => {
       .then(async (response) => {
         if (response.data.responseCode === 417) {
           await dispatch(refreshToken());
-          dispatch(addSource(source));
+          dispatch(EditSource(source));
         } else if (response.data.responseCode === 200) {
           if (response.data.responseResult.isExecuted === true) {
             dispatch(
@@ -2927,7 +2928,7 @@ const GetAllIndividualInvolved = (check) => {
       .then(async (response) => {
         if (response.data.responseCode === 417) {
           await dispatch(refreshToken());
-          dispatch(allIndividualInvolved(check));
+          dispatch(GetAllIndividualInvolved(check));
         } else if (response.data.responseCode === 200) {
           if (response.data.responseResult.isExecuted === true) {
             dispatch(IndividualInvolvedSuccess(response.data.responseResult));
@@ -2974,7 +2975,7 @@ const SaveIndividualInvolved = (object) => {
       .then(async (response) => {
         if (response.data.responseCode === 417) {
           await dispatch(refreshToken());
-          dispatch(addIndividualInvolved(object));
+          dispatch(SaveIndividualInvolved(object));
         } else if (response.data.responseCode === 200) {
           if (response.data.responseResult.isExecuted === true) {
             dispatch(
@@ -3064,7 +3065,7 @@ const EditIndividualInvolved = (individualInvolved) => {
       .then(async (response) => {
         if (response.data.responseCode === 417) {
           await dispatch(refreshToken());
-          dispatch(addIndividualInvolved(individualInvolved));
+          dispatch(EditIndividualInvolved(individualInvolved));
         } else if (response.data.responseCode === 200) {
           if (response.data.responseResult.isExecuted === true) {
             dispatch(
@@ -3104,7 +3105,7 @@ const GetAllChannel = (check) => {
       .then(async (response) => {
         if (response.data.responseCode === 417) {
           await dispatch(refreshToken());
-          dispatch(allChannel());
+          dispatch(GetAllChannel(check));
         } else if (response.data.responseCode === 200) {
           if (response.data.responseResult.isExecuted === true) {
             dispatch(ChannelSuccess(response.data.responseResult));
@@ -3152,7 +3153,7 @@ const SaveChannel = (object) => {
       .then(async (response) => {
         if (response.data.responseCode === 417) {
           await dispatch(refreshToken());
-          dispatch(addChannel(object));
+          dispatch(SaveChannel(object));
         } else if (response.data.responseCode === 200) {
           if (response.data.responseResult.isExecuted === true) {
             dispatch(
@@ -3242,7 +3243,7 @@ const EditChannel = (channel) => {
       .then(async (response) => {
         if (response.data.responseCode === 417) {
           await dispatch(refreshToken());
-          dispatch(addChannel(channel));
+          dispatch(EditChannel(channel));
         } else if (response.data.responseCode === 200) {
           if (response.data.responseResult.isExecuted === true) {
             dispatch(
@@ -3283,7 +3284,7 @@ const GetAllFraudNotAFraud = (check) => {
       .then(async (response) => {
         if (response.data.responseCode === 417) {
           await dispatch(refreshToken());
-          dispatch(allFraudNotAFraud(check));
+          dispatch(GetAllFraudNotAFraud(check));
         } else if (response.data.responseCode === 200) {
           if (response.data.responseResult.isExecuted === true) {
             dispatch(FraudNotAFraudSuccess(response.data.responseResult));
@@ -3332,7 +3333,7 @@ const SaveFraudNotAFraud = (object) => {
       .then(async (response) => {
         if (response.data.responseCode === 417) {
           await dispatch(refreshToken());
-          dispatch(addFraudNotAFraud(object));
+          dispatch(SaveFraudNotAFraud(object));
         } else if (response.data.responseCode === 200) {
           if (response.data.responseResult.isExecuted === true) {
             dispatch(
@@ -3422,7 +3423,7 @@ const EditFraudNotAFraud = (fraudNotAFraud) => {
       .then(async (response) => {
         if (response.data.responseCode === 417) {
           await dispatch(refreshToken());
-          dispatch(addFraudNotAFraud(fraudNotAFraud));
+          dispatch(EditFraudNotAFraud(fraudNotAFraud));
         } else if (response.data.responseCode === 200) {
           if (response.data.responseResult.isExecuted === true) {
             dispatch(
@@ -3462,7 +3463,7 @@ const GetAllCompanySegment = (check) => {
       .then(async (response) => {
         if (response.data.responseCode === 417) {
           await dispatch(refreshToken());
-          dispatch(allCompanySegment(check));
+          dispatch(GetAllCompanySegment(check));
         } else if (response.data.responseCode === 200) {
           if (response.data.responseResult.isExecuted === true) {
             dispatch(CompanySegmentSuccess(response.data.responseResult));
@@ -3510,7 +3511,7 @@ const SaveCompanySegment = (object) => {
       .then(async (response) => {
         if (response.data.responseCode === 417) {
           await dispatch(refreshToken());
-          dispatch(addCompanySegment(object));
+          dispatch(SaveCompanySegment(object));
         } else if (response.data.responseCode === 200) {
           if (response.data.responseResult.isExecuted === true) {
             dispatch(
@@ -3600,7 +3601,7 @@ const EditCompanySegment = (companySegment) => {
       .then(async (response) => {
         if (response.data.responseCode === 417) {
           await dispatch(refreshToken());
-          dispatch(addCompanySegment(companySegment));
+          dispatch(EditCompanySegment(companySegment));
         } else if (response.data.responseCode === 200) {
           if (response.data.responseResult.isExecuted === true) {
             dispatch(
@@ -3641,7 +3642,7 @@ const GetAllForgedDocuments = (check) => {
       .then(async (response) => {
         if (response.data.responseCode === 417) {
           await dispatch(refreshToken());
-          dispatch(allForgedDocuments(check));
+          dispatch(GetAllForgedDocuments(check));
         } else if (response.data.responseCode === 200) {
           if (response.data.responseResult.isExecuted === true) {
             dispatch(ForgedDocumentsSuccess(response.data.responseResult));
@@ -3689,7 +3690,7 @@ const SaveForgedDocuments = (object) => {
       .then(async (response) => {
         if (response.data.responseCode === 417) {
           await dispatch(refreshToken());
-          dispatch(addForgedDocuments(object));
+          dispatch(SaveForgedDocuments(object));
         } else if (response.data.responseCode === 200) {
           if (response.data.responseResult.isExecuted === true) {
             dispatch(
@@ -3780,7 +3781,7 @@ const EditForgedDocuments = (forgedDocuments) => {
       .then(async (response) => {
         if (response.data.responseCode === 417) {
           await dispatch(refreshToken());
-          dispatch(addForgedDocuments(forgedDocuments));
+          dispatch(EditForgedDocuments(forgedDocuments));
         } else if (response.data.responseCode === 200) {
           if (response.data.responseResult.isExecuted === true) {
             dispatch(
@@ -3818,7 +3819,7 @@ const GetAllSourceOfIBChannelCreation = () => {
       .then(async (response) => {
         if (response.data.responseCode === 417) {
           await dispatch(refreshToken());
-          dispatch(allSourceOfIBChannelCreation());
+          dispatch(GetAllSourceOfIBChannelCreation());
         } else if (response.data.responseCode === 200) {
           if (response.data.responseResult.isExecuted === true) {
             dispatch(
@@ -3867,7 +3868,7 @@ const SaveSourceOfIBChannelCreation = (object) => {
       .then(async (response) => {
         if (response.data.responseCode === 417) {
           await dispatch(refreshToken());
-          dispatch(addSourceOfIBChannelCreation(object));
+          dispatch(SaveSourceOfIBChannelCreation(object));
         } else if (response.data.responseCode === 200) {
           if (response.data.responseResult.isExecuted === true) {
             dispatch(
@@ -3958,7 +3959,7 @@ const EditSourceOfIBChannelCreation = (sourceOfIBChannelCreation) => {
       .then(async (response) => {
         if (response.data.responseCode === 417) {
           await dispatch(refreshToken());
-          dispatch(addSourceOfIBChannelCreation(sourceOfIBChannelCreation));
+          dispatch(EditSourceOfIBChannelCreation(sourceOfIBChannelCreation));
         } else if (response.data.responseCode === 200) {
           if (response.data.responseResult.isExecuted === true) {
             dispatch(
@@ -4086,7 +4087,7 @@ const SaveCity = (object) => {
       .then(async (response) => {
         if (response.data.responseCode === 417) {
           await dispatch(refreshToken());
-          dispatch(addCity(object));
+          dispatch(SaveCity(object));
         } else if (response.data.responseCode === 200) {
           if (response.data.responseResult.isExecuted === true) {
             dispatch(
@@ -4190,7 +4191,7 @@ const EditCity = (city) => {
       .then(async (response) => {
         if (response.data.responseCode === 417) {
           await dispatch(refreshToken());
-          dispatch(addCity(city));
+          dispatch(EditCity(city));
         } else if (response.data.responseCode === 200) {
           if (response.data.responseResult.isExecuted === true) {
             dispatch(
@@ -4228,7 +4229,7 @@ const GetAllRegion = () => {
       .then(async (response) => {
         if (response.data.responseCode === 417) {
           await dispatch(refreshToken());
-          dispatch(allRegion());
+          dispatch(GetAllRegion());
         } else if (response.data.responseCode === 200) {
           if (response.data.responseResult.isExecuted === true) {
             dispatch(RegionSuccess(response.data.responseResult));
@@ -4272,7 +4273,7 @@ const SaveRegion = (object) => {
       .then(async (response) => {
         if (response.data.responseCode === 417) {
           await dispatch(refreshToken());
-          dispatch(addRegion(object));
+          dispatch(SaveRegion(object));
         } else if (response.data.responseCode === 200) {
           if (response.data.responseResult.isExecuted === true) {
             dispatch(
@@ -4365,7 +4366,7 @@ const EditRegion = (region) => {
       .then(async (response) => {
         if (response.data.responseCode === 417) {
           await dispatch(refreshToken());
-          dispatch(addRegion(region));
+          dispatch(EditRegion(region));
         } else if (response.data.responseCode === 200) {
           if (response.data.responseResult.isExecuted === true) {
             dispatch(
@@ -4403,7 +4404,7 @@ const GetAllCityAndRegionMapping = () => {
       .then(async (response) => {
         if (response.data.responseCode === 417) {
           await dispatch(refreshToken());
-          dispatch(allCityAndRegionMapping());
+          dispatch(GetAllCityAndRegionMapping());
         } else if (response.data.responseCode === 200) {
           if (response.data.responseResult.isExecuted === true) {
             dispatch(CityAndRegionMappingSuccess(response.data.responseResult));
@@ -4447,7 +4448,7 @@ const SaveCityAndRegionMapping = (object) => {
       .then(async (response) => {
         if (response.data.responseCode === 417) {
           await dispatch(refreshToken());
-          dispatch(addCityAndRegionMapping(object));
+          dispatch(SaveCityAndRegionMapping(object));
         } else if (response.data.responseCode === 200) {
           if (response.data.responseResult.isExecuted === true) {
             dispatch(
@@ -4493,7 +4494,7 @@ const DeleteCityAndRegionMapping = (cityAndRegionMapping) => {
       .then(async (response) => {
         if (response.data.responseCode === 417) {
           await dispatch(refreshToken());
-          dispatch(deleteCityAndRegionMapping(cityAndRegionMapping));
+          dispatch(DeleteCityAndRegionMapping(cityAndRegionMapping));
         } else if (response.data.responseCode === 200) {
           if (response.data.responseResult.isExecuted === true) {
             dispatch(
@@ -4540,7 +4541,7 @@ const EditCityAndRegionMapping = (cityAndRegionMapping, CRMID) => {
       .then(async (response) => {
         if (response.data.responseCode === 417) {
           await dispatch(refreshToken());
-          dispatch(addCityAndRegionMapping(cityAndRegionMapping));
+          dispatch(EditCityAndRegionMapping(cityAndRegionMapping, CRMID));
         } else if (response.data.responseCode === 200) {
           if (response.data.responseResult.isExecuted === true) {
             dispatch(
@@ -4578,7 +4579,7 @@ const GetAllUserRoles = () => {
       .then(async (response) => {
         if (response.data.responseCode === 417) {
           await dispatch(refreshToken());
-          dispatch(allUserRoles());
+          dispatch(GetAllUserRoles());
         } else if (response.data.responseCode === 200) {
           if (response.data.responseResult.isExecuted === true) {
             dispatch(UserRolesSuccess(response.data.responseResult));
@@ -4645,7 +4646,7 @@ const GetAllEscalationMatrix = () => {
       .then(async (response) => {
         if (response.data.responseCode === 417) {
           await dispatch(refreshToken());
-          dispatch(allEscalationMatrix());
+          dispatch(GetAllEscalationMatrix());
         } else if (response.data.responseCode === 200) {
           if (response.data.responseResult.isExecuted === true) {
             dispatch(EscalationMatrixSuccess(response.data.responseResult));
@@ -4687,7 +4688,7 @@ const SaveEscalationMatrix = (object, object1) => {
       .then(async (response) => {
         if (response.data.responseCode === 417) {
           await dispatch(refreshToken());
-          dispatch(addEscalationMatrix(object, object1));
+          dispatch(SaveEscalationMatrix(object, object1));
         } else if (response.data.responseCode === 200) {
           if (response.data.responseResult.isExecuted === true) {
             dispatch(
@@ -4733,7 +4734,7 @@ const DeleteEscalationMatrix = (escalationMatrix) => {
       .then(async (response) => {
         if (response.data.responseCode === 417) {
           await dispatch(refreshToken());
-          dispatch(deleteEscalationMatrix(escalationMatrix));
+          dispatch(DeleteEscalationMatrix(escalationMatrix));
         } else if (response.data.responseCode === 200) {
           if (response.data.responseResult.isExecuted === true) {
             dispatch(
@@ -4778,7 +4779,7 @@ const EditEscalationMatrix = (PK_EMID, escalationMatrix, userRoles) => {
       .then(async (response) => {
         if (response.data.responseCode === 417) {
           await dispatch(refreshToken());
-          dispatch(addEscalationMatrix(escalationMatrix, userRoles));
+          dispatch(EditEscalationMatrix(PK_EMID, escalationMatrix, userRoles));
         } else if (response.data.responseCode === 200) {
           if (response.data.responseResult.isExecuted === true) {
             dispatch(
@@ -4818,7 +4819,7 @@ const GetAllApprovalReasons = (check) => {
       .then(async (response) => {
         if (response.data.responseCode === 417) {
           await dispatch(refreshToken());
-          dispatch(allApprovalReasons(check));
+          dispatch(GetAllApprovalReasons(check));
         } else if (response.data.responseCode === 200) {
           if (response.data.responseResult.isExecuted === true) {
             if (check) {
@@ -4866,7 +4867,7 @@ const SaveApprovalReasons = (object) => {
       .then(async (response) => {
         if (response.data.responseCode === 417) {
           await dispatch(refreshToken());
-          dispatch(addApprovalReasons(object));
+          dispatch(SaveApprovalReasons(object));
         } else if (response.data.responseCode === 200) {
           if (response.data.responseResult.isExecuted === true) {
             dispatch(
@@ -4957,7 +4958,7 @@ const EditApprovalReasons = (approvalReasons) => {
       .then(async (response) => {
         if (response.data.responseCode === 417) {
           await dispatch(refreshToken());
-          dispatch(addApprovalReasons(approvalReasons));
+          dispatch(EditApprovalReasons(approvalReasons));
         } else if (response.data.responseCode === 200) {
           if (response.data.responseResult.isExecuted === true) {
             dispatch(
@@ -4997,7 +4998,7 @@ const GetAllRejectionReasons = (check) => {
       .then(async (response) => {
         if (response.data.responseCode === 417) {
           await dispatch(refreshToken());
-          dispatch(allRejectionReasons(check));
+          dispatch(GetAllRejectionReasons(check));
         } else if (response.data.responseCode === 200) {
           if (response.data.responseResult.isExecuted === true) {
             if (check) {
@@ -5045,7 +5046,7 @@ const SaveRejectionReasons = (object) => {
       .then(async (response) => {
         if (response.data.responseCode === 417) {
           await dispatch(refreshToken());
-          dispatch(addRejectionReasons(object));
+          dispatch(SaveRejectionReasons(object));
         } else if (response.data.responseCode === 200) {
           if (response.data.responseResult.isExecuted === true) {
             dispatch(
@@ -5136,7 +5137,7 @@ const EditRejectionReasons = (rejectionReasons) => {
       .then(async (response) => {
         if (response.data.responseCode === 417) {
           await dispatch(refreshToken());
-          dispatch(addRejectionReasons(rejectionReasons));
+          dispatch(EditRejectionReasons(rejectionReasons));
         } else if (response.data.responseCode === 200) {
           if (response.data.responseResult.isExecuted === true) {
             dispatch(
@@ -5195,7 +5196,7 @@ const GetAllTransactionTypes = (object) => {
       .then(async (response) => {
         if (response.data.responseCode === 417) {
           await dispatch(refreshToken());
-          dispatch(getAllTransactionTypes());
+          dispatch(GetAllTransactionTypes(object));
         } else if (response.data.responseCode === 200) {
           if (response.data.responseResult.isExecuted === true) {
             dispatch(TransactionTypesSuccess(response.data.responseResult));
@@ -5453,7 +5454,7 @@ const SearchDeleteCases = (object, State) => {
       .then(async (response) => {
         if (response.data.responseCode === 417) {
           await dispatch(refreshToken());
-          dispatch(SearchDeleteCases(object));
+          dispatch(SearchDeleteCases(object, State));
         } else if (response.data.responseCode === 200) {
           if (response.data.responseResult.isExecuted === true) {
             await dispatch(
@@ -5507,7 +5508,7 @@ const GetAllPendingForDeletionSystemAdmin = (object, check) => {
       .then(async (response) => {
         if (response.data.responseCode === 417) {
           await dispatch(refreshToken());
-          dispatch(GetAllPendingForDeletionSystemAdmin(object));
+          dispatch(GetAllPendingForDeletionSystemAdmin(object, check));
         } else if (response.data.responseCode === 200) {
           if (response.data.responseResult.isExecuted === true) {
             if (check !== undefined && check === true) {
@@ -5723,7 +5724,7 @@ const GetAllHoliday = (check) => {
       .then(async (response) => {
         if (response.data.responseCode === 417) {
           await dispatch(refreshToken());
-          dispatch(allHoliday(check));
+          dispatch(GetAllHoliday(check));
         } else if (response.data.responseCode === 200) {
           if (response.data.responseResult.isExecuted === true) {
             dispatch(HolidaySuccess(response.data.responseResult));
@@ -5772,7 +5773,7 @@ const SaveHoliday = (object) => {
       .then(async (response) => {
         if (response.data.responseCode === 417) {
           await dispatch(refreshToken());
-          dispatch(saveHoliday(object));
+          dispatch(SaveHoliday(object));
         } else if (response.data.responseCode === 200) {
           if (response.data.responseResult.isExecuted === true) {
             dispatch(
@@ -5864,7 +5865,7 @@ const EditHoliday = (holiday) => {
       .then(async (response) => {
         if (response.data.responseCode === 417) {
           await dispatch(refreshToken());
-          dispatch(saveHoliday(holiday));
+          dispatch(EditHoliday(holiday));
         } else if (response.data.responseCode === 200) {
           if (response.data.responseResult.isExecuted === true) {
             dispatch(
@@ -5917,7 +5918,7 @@ const GetAllCaseDecision = () => {
       .then(async (response) => {
         if (response.data.responseCode === 417) {
           await dispatch(refreshToken());
-          dispatch(allCaseDecision());
+          dispatch(GetAllCaseDecision());
         } else if (response.data.responseCode === 200) {
           if (response.data.responseResult.isExecuted === true) {
             dispatch(CaseDecisionSuccess(response.data.responseResult));
@@ -5962,7 +5963,7 @@ const SaveCaseDecision = (object) => {
       .then(async (response) => {
         if (response.data.responseCode === 417) {
           await dispatch(refreshToken());
-          dispatch(saveCaseDecision(object));
+          dispatch(SaveCaseDecision(object));
         } else if (response.data.responseCode === 200) {
           if (response.data.responseResult.isExecuted === true) {
             dispatch(
@@ -6052,7 +6053,7 @@ const EditCaseDecision = (caseDecision) => {
       .then(async (response) => {
         if (response.data.responseCode === 417) {
           await dispatch(refreshToken());
-          dispatch(saveCaseDecision(caseDecision));
+          dispatch(EditCaseDecision(caseDecision));
         } else if (response.data.responseCode === 200) {
           if (response.data.responseResult.isExecuted === true) {
             dispatch(
@@ -6107,7 +6108,7 @@ const GetAllTransactionCurrencyCode = (check) => {
       .then(async (response) => {
         if (response.data.responseCode === 417) {
           await dispatch(refreshToken());
-          dispatch(allTransactionCurrency(check));
+          dispatch(GetAllTransactionCurrencyCode(check));
         } else if (response.data.responseCode === 200) {
           if (response.data.responseResult.isExecuted === true) {
             dispatch(

@@ -24,10 +24,7 @@ import {
   SearchNonApiDisputesByCnicAndReferenceNumber,
   RESETALLSTATE,
 } from "../../../../store/actions/investigation-officer-actions";
-import {
-  GetAllCity,
-  GetAllFraudType,
-} from "../../../../store/actions/setup-forms-actions";
+import { ensureLookup } from "../../../../store/actions/lookup-actions";
 import { enableGoBack } from "../../../../store/actions/ui-actions";
 import {
   DateDisplayFormat,
@@ -149,8 +146,8 @@ const CustomerDetailsNONAPIDisputeAccount = () => {
     if (performance.navigation.type === performance.navigation.TYPE_RELOAD) {
       dispatch(GetTransactionDetailsByAccountNumberNonApi(accountNumber));
     }
-    dispatch(GetAllCity());
-    dispatch(GetAllFraudType());
+    dispatch(ensureLookup("city"));
+    dispatch(ensureLookup("fraudType"));
   }, []);
 
   const View = (e, value) => {

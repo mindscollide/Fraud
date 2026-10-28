@@ -33,12 +33,7 @@ import {
   UpdateDebitCardDisputeDetails,
   UpdateAndApproveDebitCardDisputeDetails,
 } from "../../../../store/actions/investigation-officer-actions";
-import {
-  GetAllCaseDecision,
-  GetAllFraudType,
-  GetAllTransactionCurrencyCode,
-  GetAllSource,
-} from "../../../../store/actions/setup-forms-actions";
+import { ensureLookup } from "../../../../store/actions/lookup-actions";
 // import { GetAllSource } from "../../../../store/actions/setup-forms-actions";
 import {
   UploadFileDC,
@@ -2705,7 +2700,7 @@ const EditDebitCardDispute = () => {
       };
       if (performance.navigation.type === performance.navigation.TYPE_RELOAD) {
         dispatch(GetDebitCardDisputesForEditByCnicAndRefrenceNumber(data2));
-        await dispatch(GetAllFraudType());
+        await dispatch(ensureLookup("fraudType"));
       }
     };
     loadOnReload();

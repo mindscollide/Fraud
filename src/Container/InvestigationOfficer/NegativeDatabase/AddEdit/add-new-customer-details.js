@@ -18,14 +18,7 @@ import {
 } from "../../../../Components/Elements";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import {
-  GetAllChannel,
-  GetAllIndividualInvolved,
-  GetAllForgedDocuments,
-  GetAllFraudNotAFraud,
-  GetAllCompanySegment,
-  GetAllCity,
-} from "../../../../store/actions/setup-forms-actions";
+import { ensureLookup } from "../../../../store/actions/lookup-actions";
 import {
   DateDisplayFormat,
   TimeDisplayFormat,
@@ -359,7 +352,7 @@ const AddNewCustomerDetailsND = () => {
   };
 
   useEffect(() => {
-    dispatch(GetAllChannel());
+    dispatch(ensureLookup("channel"));
   }, []);
   useEffect(() => {
     setOpen({
@@ -404,7 +397,7 @@ const AddNewCustomerDetailsND = () => {
   };
 
   useEffect(() => {
-    dispatch(GetAllIndividualInvolved());
+    dispatch(ensureLookup("individualInvolved"));
   }, []);
 
   //end of drop down
@@ -447,7 +440,7 @@ const AddNewCustomerDetailsND = () => {
   };
 
   useEffect(() => {
-    dispatch(GetAllForgedDocuments());
+    dispatch(ensureLookup("forgedDocuments"));
   }, []);
 
   //end of drop down
@@ -490,7 +483,7 @@ const AddNewCustomerDetailsND = () => {
   };
 
   useEffect(() => {
-    dispatch(GetAllFraudNotAFraud());
+    dispatch(ensureLookup("fraudNotAFraud"));
   }, []);
 
   //end of drop down
@@ -531,7 +524,7 @@ const AddNewCustomerDetailsND = () => {
   };
 
   useEffect(() => {
-    dispatch(GetAllCompanySegment());
+    dispatch(ensureLookup("companySegment"));
   }, []);
 
   //end of drop down
@@ -760,7 +753,7 @@ const AddNewCustomerDetailsND = () => {
   };
 
   useEffect(() => {
-    dispatch(GetAllCity());
+    dispatch(ensureLookup("city"));
   }, []);
 
   // City handler

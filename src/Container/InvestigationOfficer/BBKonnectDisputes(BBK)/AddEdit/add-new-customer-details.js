@@ -28,13 +28,7 @@ import {
   SaveAndApprovedBBKDisputes,
   SearchTransactionDetailsByAccountNumberInIRISBBK,
 } from "../../../../store/actions/investigation-officer-actions";
-import {
-  GetAllFraudType,
-  GetAllTransactionCurrencyCode,
-  GetAllSource,
-  GetAllCaseDecision,
-  GetAllCity,
-} from "../../../../store/actions/setup-forms-actions";
+import { ensureLookup } from "../../../../store/actions/lookup-actions";
 import {
   UploadFileBBK,
   RESETALLSTATEFORREPORTS,
@@ -500,11 +494,11 @@ const AddNewCustomerDetailsBBK = () => {
         dispatch(SearchTransactionDetailsByAccountNumber(Data));
       }
     }
-    dispatch(GetAllFraudType());
-    dispatch(GetAllSource());
-    dispatch(GetAllTransactionCurrencyCode());
-    dispatch(GetAllCaseDecision());
-    dispatch(GetAllCity());
+    dispatch(ensureLookup("fraudType"));
+    dispatch(ensureLookup("source"));
+    dispatch(ensureLookup("transactionCurrency"));
+    dispatch(ensureLookup("caseDecision"));
+    dispatch(ensureLookup("city"));
   }, []);
 
   //   used for already exsit data of customer details for add

@@ -34,12 +34,7 @@ import {
   SearchTransactionDetailsByAccountNumberInIRISADC,
   SearchADCDisputesForEditByCnicAndReferenceNumber,
 } from "../../../../store/actions/investigation-officer-actions";
-import {
-  GetAllCaseDecision,
-  GetAllFraudType,
-  GetAllSourceOfIBChannelCreation,
-  GetAllCity,
-} from "../../../../store/actions/setup-forms-actions";
+import { ensureLookup } from "../../../../store/actions/lookup-actions";
 import { GetAllSource } from "../../../../store/actions/setup-forms-actions";
 import {
   UploadFileADC,
@@ -511,10 +506,10 @@ const EditADCDispute = () => {
   const [caseDecision, setCaseDecision] = useState("");
 
   useEffect(() => {
-    dispatch(GetAllSourceOfIBChannelCreation());
-    dispatch(GetAllSource());
-    dispatch(GetAllCaseDecision());
-    dispatch(GetAllCity());
+    dispatch(ensureLookup("sourceOfIB"));
+    dispatch(ensureLookup("source"));
+    dispatch(ensureLookup("caseDecision"));
+    dispatch(ensureLookup("city"));
     var ReferenceNumber = JSON.parse(localStorage.getItem("ReferenceNumber"));
     var CNICNumber = JSON.parse(localStorage.getItem("CNICNumber"));
     var cnic2 = localStorage.getItem("cnic2");

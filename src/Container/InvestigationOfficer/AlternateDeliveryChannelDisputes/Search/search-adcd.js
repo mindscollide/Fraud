@@ -34,12 +34,7 @@ import {
   disableGoBack,
   enableGoBack,
 } from "../../../../store/actions/ui-actions";
-import {
-  GetAllSourceOfIBChannelCreation,
-  GetAllStatus,
-  GetAllCaseDecision,
-  GetAllCity,
-} from "../../../../store/actions/setup-forms-actions";
+import { ensureLookup } from "../../../../store/actions/lookup-actions";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
@@ -611,8 +606,8 @@ const SearchADCD = () => {
     let data = {
       IsNegativeDatabase: false,
     };
-    dispatch(GetAllStatus(data));
-    dispatch(GetAllCity());
+    dispatch(ensureLookup("status", data));
+    dispatch(ensureLookup("city"));
   }, []);
 
   const [cityValue, setCityValue] = useState("");

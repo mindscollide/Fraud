@@ -19,14 +19,7 @@ import {
 } from "../../../../Components/Elements";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import {
-  GetAllChannel,
-  GetAllIndividualInvolved,
-  GetAllForgedDocuments,
-  GetAllFraudNotAFraud,
-  GetAllCompanySegment,
-  GetAllCity,
-} from "../../../../store/actions/setup-forms-actions";
+import { ensureLookup } from "../../../../store/actions/lookup-actions";
 import {
   DateDisplayFormat,
   TimeDisplayFormat,
@@ -365,12 +358,12 @@ const ViewNDB = () => {
         CNICNumber: cnic,
       };
       dispatch(GetNegativeDBViewByCnic(Data));
-      dispatch(GetAllChannel());
-      dispatch(GetAllIndividualInvolved());
-      dispatch(GetAllForgedDocuments());
-      dispatch(GetAllFraudNotAFraud());
-      dispatch(GetAllCompanySegment());
-      dispatch(GetAllCity());
+      dispatch(ensureLookup("channel"));
+      dispatch(ensureLookup("individualInvolved"));
+      dispatch(ensureLookup("forgedDocuments"));
+      dispatch(ensureLookup("fraudNotAFraud"));
+      dispatch(ensureLookup("companySegment"));
+      dispatch(ensureLookup("city"));
     }
   }, []);
   useEffect(() => {

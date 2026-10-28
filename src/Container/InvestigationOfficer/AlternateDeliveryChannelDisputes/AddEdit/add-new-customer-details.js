@@ -29,13 +29,7 @@ import {
   SaveAndApprovedADCDisputes,
   SearchTransactionDetailsByAccountNumberInIRISADC,
 } from "../../../../store/actions/investigation-officer-actions";
-import {
-  GetAllFraudType,
-  GetAllSourceOfIBChannelCreation,
-  GetAllCaseDecision,
-  GetAllSource,
-  GetAllCity,
-} from "../../../../store/actions/setup-forms-actions";
+import { ensureLookup } from "../../../../store/actions/lookup-actions";
 import {
   UploadFileADC,
   setStateOfUploadDocumentCreditCard,
@@ -521,11 +515,11 @@ const AddNewCustomerDetailsADC = () => {
         dispatch(SearchTransactionDetailsByAccountNumber(Data));
       }
     }
-    dispatch(GetAllSourceOfIBChannelCreation());
-    dispatch(GetAllCaseDecision());
-    dispatch(GetAllFraudType());
-    dispatch(GetAllSource());
-    dispatch(GetAllCity());
+    dispatch(ensureLookup("sourceOfIB"));
+    dispatch(ensureLookup("caseDecision"));
+    dispatch(ensureLookup("fraudType"));
+    dispatch(ensureLookup("source"));
+    dispatch(ensureLookup("city"));
   }, []);
 
   //   used for already exsit data of customer details for add

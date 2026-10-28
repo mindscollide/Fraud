@@ -33,13 +33,7 @@ import {
   SaveAndApprovedDebitCardDisputes,
   SearchTransactionDetailsByAccountNumberInIRIS,
 } from "../../../../store/actions/investigation-officer-actions";
-import {
-  GetAllFraudType,
-  GetAllSource,
-  GetAllCaseDecision,
-  GetAllTransactionCurrencyCode,
-  GetAllCity,
-} from "../../../../store/actions/setup-forms-actions";
+import { ensureLookup } from "../../../../store/actions/lookup-actions";
 import {
   UploadFileDC,
   setStateOfUploadDocumentCreditCard,
@@ -512,11 +506,11 @@ const AddNewCustomerDetailsDC = () => {
         dispatch(SearchTransactionDetailsByAccountNumber(Data));
       }
     }
-    dispatch(GetAllFraudType());
-    dispatch(GetAllSource());
-    dispatch(GetAllCaseDecision());
-    dispatch(GetAllTransactionCurrencyCode());
-    dispatch(GetAllCity());
+    dispatch(ensureLookup("fraudType"));
+    dispatch(ensureLookup("source"));
+    dispatch(ensureLookup("caseDecision"));
+    dispatch(ensureLookup("transactionCurrency"));
+    dispatch(ensureLookup("city"));
   }, []);
 
   //   used for already exsit data of customer details for add

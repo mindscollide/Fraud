@@ -24,7 +24,7 @@ import {
   GetCreditCardDisputesForEditByCnicAndRefrenceNumber,
   GetIRISCustomerByCnicCC,
 } from "../../../../store/actions/investigation-officer-actions";
-import { GetAllCity } from "../../../../store/actions/setup-forms-actions";
+import { ensureLookup } from "../../../../store/actions/lookup-actions";
 import { enableGoBack } from "../../../../store/actions/ui-actions";
 import {
   DateDisplayFormat,
@@ -199,9 +199,9 @@ const CustomerDetailsCreditCardDispute = () => {
   useEffect(() => {
     if (performance.navigation.type === performance.navigation.TYPE_RELOAD) {
       dispatch(GetTransactionDetailsByCnic(cnic));
-      dispatch(GetAllCity());
+      dispatch(ensureLookup("city"));
     }
-    dispatch(GetAllCity());
+    dispatch(ensureLookup("city"));
   }, []);
 
   //Set Values for Input ResponseData

@@ -35,11 +35,7 @@ import {
   removeDashesFromDate,
 } from "../../../../Common/Functions/date-formatter";
 import { DownloadUploadFile } from "../../../../store/actions/reports_actions";
-import {
-  GetAllFraudType,
-  GetAllCaseDecision,
-  GetAllCity,
-} from "../../../../store/actions/setup-forms-actions";
+import { ensureLookup } from "../../../../store/actions/lookup-actions";
 import {
   SaveCreditCardDisputes,
   SaveAndApprovedCreditCardDisputes,
@@ -1489,9 +1485,9 @@ const AddNewCustomerDetails = () => {
 
   //Get All Fraud Type and Customer Cnic set
   useEffect(() => {
-    dispatch(GetAllFraudType());
-    dispatch(GetAllCaseDecision());
-    dispatch(GetAllCity());
+    dispatch(ensureLookup("fraudType"));
+    dispatch(ensureLookup("caseDecision"));
+    dispatch(ensureLookup("city"));
   }, []);
 
   // Customer details (name + city) coming from the CNIC lookup

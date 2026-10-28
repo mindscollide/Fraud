@@ -23,7 +23,7 @@ import {
   SearchADCDisputesForEditByCnicAndReferenceNumber,
   GetTransactionDetailsByCnicADC,
 } from "../../../../store/actions/investigation-officer-actions";
-import { GetAllCity } from "../../../../store/actions/setup-forms-actions";
+import { ensureLookup } from "../../../../store/actions/lookup-actions";
 import { enableGoBack } from "../../../../store/actions/ui-actions";
 import {
   DateDisplayFormat,
@@ -162,7 +162,7 @@ const CustomerDetailsADCD = () => {
     // if (performance.navigation.type === performance.navigation.TYPE_RELOAD) {
     //   dispatch(GetTransactionDetailsByCnicADC(cnic));
     // }
-    dispatch(GetAllCity());
+    dispatch(ensureLookup("city"));
   }, []);
   // for add new dispute for exsitin deispute
   const addDisputeData = () => {

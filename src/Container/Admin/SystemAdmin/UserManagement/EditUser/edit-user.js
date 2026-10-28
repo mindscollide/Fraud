@@ -21,9 +21,9 @@ import {
   editSystemUser,
 } from "../../../../../store/actions/request-actions";
 import {
-  GetAllRegion,
   GetAllTransactionTypes,
 } from "../../../../../store/actions/setup-forms-actions";
+import { ensureLookup } from "../../../../../store/actions/lookup-actions";
 import { SearchOutlined as Search } from "@ant-design/icons";
 
 // Display labels for transaction types returned by the API
@@ -186,7 +186,7 @@ const EditUser = () => {
     setUserRoleValue([]);
     setUserStatusValue([]);
     dispatch(getAllUserData(data));
-    dispatch(GetAllRegion());
+    dispatch(ensureLookup("region"));
     dispatch(GetAllTransactionTypes(userid));
   };
 
@@ -441,7 +441,7 @@ const EditUser = () => {
   // Api call for user data
   useEffect(() => {
     dispatch(getAllUserData(resetSearchData));
-    dispatch(GetAllRegion());
+    dispatch(ensureLookup("region"));
     dispatch(GetAllTransactionTypes());
     if (userRoles) {
       setUserRolesName(

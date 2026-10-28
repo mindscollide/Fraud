@@ -34,12 +34,7 @@ import {
   enableGoBack,
   disableGoBack,
 } from "../../../../store/actions/ui-actions";
-import {
-  GetAllCaseDecision,
-  GetAllFraudType,
-  GetAllStatus,
-  GetAllCity,
-} from "../../../../store/actions/setup-forms-actions";
+import { ensureLookup } from "../../../../store/actions/lookup-actions";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
@@ -362,8 +357,8 @@ const SearchDebitCardDispute = () => {
   //UseEffects
   //APICall
   useEffect(() => {
-    dispatch(GetAllFraudType());
-    dispatch(GetAllCity());
+    dispatch(ensureLookup("fraudType"));
+    dispatch(ensureLookup("city"));
   }, []);
 
   // For FraudType DropDown SetState
@@ -666,7 +661,7 @@ const SearchDebitCardDispute = () => {
     let data = {
       IsNegativeDatabase: false,
     };
-    dispatch(GetAllStatus(data));
+    dispatch(ensureLookup("status", data));
   }, []);
 
   const [cityValue, setCityValue] = useState("");

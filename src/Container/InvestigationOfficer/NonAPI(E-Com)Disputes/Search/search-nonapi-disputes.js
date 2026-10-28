@@ -34,11 +34,7 @@ import {
   enableGoBack,
   disableGoBack,
 } from "../../../../store/actions/ui-actions";
-import {
-  GetAllFraudType,
-  GetAllStatus,
-  GetAllCity,
-} from "../../../../store/actions/setup-forms-actions";
+import { ensureLookup } from "../../../../store/actions/lookup-actions";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
@@ -367,7 +363,7 @@ const SearchNONAPIDispute = () => {
   //UseEffects
   //APICall
   useEffect(() => {
-    dispatch(GetAllFraudType());
+    dispatch(ensureLookup("fraudType"));
   }, []);
 
   // For FraudType DropDown SetState
@@ -669,8 +665,8 @@ const SearchNONAPIDispute = () => {
     let data = {
       IsNegativeDatabase: false,
     };
-    dispatch(GetAllStatus(data));
-    dispatch(GetAllCity());
+    dispatch(ensureLookup("status", data));
+    dispatch(ensureLookup("city"));
   }, []);
 
   // // sourceofib type names selection for drop down

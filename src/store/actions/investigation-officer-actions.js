@@ -552,7 +552,7 @@ const SearchCreditCardDisputes = (object, State) => {
       .then(async (response) => {
         if (response.data.responseCode === 417) {
           await dispatch(refreshToken());
-          dispatch(SearchCreditCardDisputes(object));
+          dispatch(SearchCreditCardDisputes(object, State));
         } else if (response.data.responseCode === 200) {
           if (response.data.responseResult.isExecuted === true) {
             dispatch(
@@ -1609,7 +1609,7 @@ const SearchDebitCardDisputes = (object, State) => {
       .then(async (response) => {
         if (response.data.responseCode === 417) {
           await dispatch(refreshToken());
-          dispatch(SearchDebitCardDisputes(object));
+          dispatch(SearchDebitCardDisputes(object, State));
         } else if (response.data.responseCode === 200) {
           if (response.data.responseResult.isExecuted === true) {
             await dispatch(
@@ -1651,7 +1651,7 @@ const SearchCustomerByCnic = (object) => {
       .then(async (response) => {
         if (response.data.responseCode === 417) {
           await dispatch(refreshToken());
-          dispatch(searchCustomerByCnic(object));
+          dispatch(SearchCustomerByCnic(object));
         } else if (response.data.responseCode === 200) {
           if (response.data.responseResult.isExecuted === true) {
             dispatch(SearchCustomerByCnicSuccess(response.data.responseResult));
@@ -2637,7 +2637,7 @@ const GetAllAccountsByCnicADC = ({ object, setCnicFound }) => {
       .then(async (response) => {
         if (response.data.responseCode === 417) {
           await dispatch(refreshToken());
-          dispatch(GetAllAccountsByCnicADC());
+          dispatch(GetAllAccountsByCnicADC({ object, setCnicFound }));
         } else if (response.data.responseCode === 200) {
           if (response.data.responseResult.isExecuted === true) {
             await dispatch(
@@ -2922,7 +2922,7 @@ const SearchADCDisputes = (object, State) => {
       .then(async (response) => {
         if (response.data.responseCode === 417) {
           await dispatch(refreshToken());
-          dispatch(SearchADCDisputes(object));
+          dispatch(SearchADCDisputes(object, State));
         } else if (response.data.responseCode === 200) {
           if (response.data.responseResult.isExecuted === true) {
             await dispatch(
@@ -3174,7 +3174,7 @@ const UpdateADCDisputeDetails = (
       .then(async (response) => {
         if (response.data.responseCode === 417) {
           await dispatch(refreshToken());
-          dispatch(SaveADCDisputes(object, searchData, searchDataofdate));
+          dispatch(UpdateADCDisputeDetails(object, searchData, searchDataofdate, DataForGlobal, DataForGlobalDate));
         } else if (response.data.responseCode === 200) {
           if (response.data.responseResult.isExecuted === true) {
             await dispatch(
@@ -3250,7 +3250,7 @@ const UpdateAndApproveADCDisputeDetails = (
       .then(async (response) => {
         if (response.data.responseCode === 417) {
           await dispatch(refreshToken());
-          dispatch(SaveADCDisputes(object, searchData, searchDataofdate));
+          dispatch(UpdateAndApproveADCDisputeDetails(object, searchData, searchDataofdate, DataForGlobal, DataForGlobalDate));
         } else if (response.data.responseCode === 200) {
           if (response.data.responseResult.isExecuted === true) {
             await dispatch(
@@ -3481,7 +3481,7 @@ const GetTransactionDetailsByAccountNumberADC = ({
       .then(async (response) => {
         if (response.data.responseCode === 417) {
           await dispatch(refreshToken());
-          dispatch(GetTransactionDetailsByAccountNumberADC(object));
+          dispatch(GetTransactionDetailsByAccountNumberADC({ object, setAccountFoundAccTab }));
         } else if (response.data.responseCode === 200) {
           if (response.data.responseResult.isExecuted === true) {
             setAccountFoundAccTab(true);
@@ -4285,7 +4285,7 @@ const SearchBBKDisputes = (object, State) => {
       .then(async (response) => {
         if (response.data.responseCode === 417) {
           await dispatch(refreshToken());
-          dispatch(SearchBBKDisputes(object));
+          dispatch(SearchBBKDisputes(object, State));
         } else if (response.data.responseCode === 200) {
           if (response.data.responseResult.isExecuted === true) {
             await dispatch(
@@ -5558,7 +5558,7 @@ const SearchNonApiDisputes = (object, State) => {
       .then(async (response) => {
         if (response.data.responseCode === 417) {
           await dispatch(refreshToken());
-          dispatch(SearchNonApiDisputes(object));
+          dispatch(SearchNonApiDisputes(object, State));
         } else if (response.data.responseCode === 200) {
           if (response.data.responseResult.isExecuted === true) {
             await dispatch(
@@ -6167,7 +6167,7 @@ const EditDisputeNegativeDB = (
       .then(async (response) => {
         if (response.data.responseCode === 417) {
           await dispatch(refreshToken());
-          dispatch(EditDisputeNegativeDB(object, searchData));
+          dispatch(EditDisputeNegativeDB(object, searchData, DataForGlobal, DataForGlobalDate));
         } else if (response.data.responseCode === 200) {
           if (response.data.responseResult.isExecuted === true) {
             if (flagForGlobalDispute === "true") {
@@ -6225,7 +6225,7 @@ const GetNegativeDBViewByCnic = (object, ttid) => {
       .then(async (response) => {
         if (response.data.responseCode === 417) {
           await dispatch(refreshToken());
-          dispatch(GetNegativeDBViewByCnic(object));
+          dispatch(GetNegativeDBViewByCnic(object, ttid));
         } else if (response.data.responseCode === 200) {
           if (response.data.responseResult.isExecuted === true) {
             localStorage.setItem("CNICNumber", object.CNICNumber);

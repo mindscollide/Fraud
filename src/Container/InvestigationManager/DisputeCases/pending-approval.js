@@ -38,10 +38,7 @@ import {
   GetDisputeStatusGlobal,
 } from "./../../../store/actions/investigation-officer-actions";
 
-import {
-  GetAllApprovalReasons,
-  GetAllRejectionReasons,
-} from "./../../../store/actions/setup-forms-actions";
+import { ensureLookup } from "./../../../store/actions/lookup-actions";
 import {
   DateDisplayFormat,
   CommaFormter,
@@ -176,8 +173,8 @@ const PendingApprovals = () => {
   //Get APIs call
   useEffect(() => {
     dispatch(disableGoBack());
-    dispatch(GetAllApprovalReasons(true));
-    dispatch(GetAllRejectionReasons(true));
+    dispatch(ensureLookup("approvalReasons"));
+    dispatch(ensureLookup("rejectionReasons"));
     if (!flagValue || flagValue === undefined || flagValue === null) {
       dispatch(GetAllPendingForApprovalByID(userID));
     } else {

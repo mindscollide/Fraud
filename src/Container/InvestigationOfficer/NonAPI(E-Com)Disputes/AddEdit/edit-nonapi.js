@@ -33,12 +33,7 @@ import {
   UpdateNonApiDisputeDetails,
   UpdateAndApproveNonApiDisputeDetails,
 } from "../../../../store/actions/investigation-officer-actions";
-import {
-  GetAllFraudType,
-  GetAllTransactionCurrencyCode,
-  GetAllSource,
-  GetAllCity,
-} from "../../../../store/actions/setup-forms-actions";
+import { ensureLookup } from "../../../../store/actions/lookup-actions";
 import {
   UploadFileNPI,
   setStateOfUploadDocumentCreditCard,
@@ -384,10 +379,10 @@ const EditNONAPIDispute = () => {
 
   //   useEffect for tempray api hit
   useEffect(() => {
-    dispatch(GetAllFraudType());
-    dispatch(GetAllSource());
-    dispatch(GetAllTransactionCurrencyCode());
-    dispatch(GetAllCity());
+    dispatch(ensureLookup("fraudType"));
+    dispatch(ensureLookup("source"));
+    dispatch(ensureLookup("transactionCurrency"));
+    dispatch(ensureLookup("city"));
   }, []);
 
   // // City handler

@@ -36,15 +36,7 @@ import {
   GetNegativeDBViewByCnic,
   GetDisputeStatusGlobal,
 } from "../../../store/actions/investigation-officer-actions";
-import {
-  GetAllTransactionTypes,
-  GetAllChannel,
-  GetAllIndividualInvolved,
-  GetAllForgedDocuments,
-  GetAllFraudNotAFraud,
-  GetAllCompanySegment,
-  GetAllStatus,
-} from "../../../store/actions/setup-forms-actions";
+import { ensureLookup } from "../../../store/actions/lookup-actions";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
@@ -244,11 +236,11 @@ const SearchDisputeIM = () => {
       let NDData = {
         CNICNumber: record.cnicNumber,
       };
-      await dispatch(GetAllChannel());
-      await dispatch(GetAllIndividualInvolved());
-      await dispatch(GetAllForgedDocuments());
-      await dispatch(GetAllFraudNotAFraud());
-      await dispatch(GetAllCompanySegment());
+      await dispatch(ensureLookup("channel"));
+      await dispatch(ensureLookup("individualInvolved"));
+      await dispatch(ensureLookup("forgedDocuments"));
+      await dispatch(ensureLookup("fraudNotAFraud"));
+      await dispatch(ensureLookup("companySegment"));
       dispatch(enableGoBack());
       await dispatch(GetNegativeDBViewByCnic(NDData, TTIDGS));
       dispatch(enableGoBack());
@@ -314,7 +306,7 @@ const SearchDisputeIM = () => {
     let userid = UserID.userID;
     localStorage.removeItem("fk_TTIDDelete");
     dispatch(resetGlobalDisputeTable());
-    dispatch(GetAllTransactionTypes(userid));
+    dispatch(ensureLookup("transactionTypes", userid));
     dispatch(disableGoBack());
     window.scrollTo(0, 0);
   }, []);
@@ -564,7 +556,7 @@ const SearchDisputeIM = () => {
     let data = {
       IsNegativeDatabase: false,
     };
-    dispatch(GetAllStatus(data));
+    dispatch(ensureLookup("status", data));
   }, []);
   const hasDateValue =
     (State.from !== null && State.from !== "") ||

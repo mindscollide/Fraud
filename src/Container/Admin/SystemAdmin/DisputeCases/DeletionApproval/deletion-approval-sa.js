@@ -30,17 +30,11 @@ import {
 } from "../../../../../store/actions/investigation-officer-actions";
 import {
   HideNotification,
-  GetAllApprovalReasons,
-  GetAllRejectionReasons,
   GetAllPendingForDeletionSystemAdmin,
   SavePendingForDeletion,
   SaveInProcess,
-  GetAllChannel,
-  GetAllIndividualInvolved,
-  GetAllForgedDocuments,
-  GetAllFraudNotAFraud,
-  GetAllCompanySegment,
 } from "../../../../../store/actions/setup-forms-actions";
+import { ensureLookup } from "../../../../../store/actions/lookup-actions";
 import {
   DateDisplayFormat,
   CommaFormter,
@@ -173,8 +167,8 @@ const PendingDeletionApprovals = () => {
   useEffect(() => {
     let UserID = JSON.parse(localStorage.getItem("UserDetails"));
     let userid = UserID.userID;
-    dispatch(GetAllApprovalReasons());
-    dispatch(GetAllRejectionReasons());
+    dispatch(ensureLookup("approvalReasons"));
+    dispatch(ensureLookup("rejectionReasons"));
     dispatch(GetAllPendingForDeletionSystemAdmin(userid));
     if (performance.navigation.type === performance.navigation.TYPE_RELOAD) {
       dispatch(GetAllPendingForDeletionSystemAdmin(userid));
@@ -346,11 +340,11 @@ const PendingDeletionApprovals = () => {
       let flag = true;
       localStorage.setItem("fk_TTID", ttid);
       localStorage.setItem("cnic", record.cnicNumber);
-      await dispatch(GetAllChannel());
-      await dispatch(GetAllIndividualInvolved());
-      await dispatch(GetAllForgedDocuments());
-      await dispatch(GetAllFraudNotAFraud());
-      await dispatch(GetAllCompanySegment());
+      await dispatch(ensureLookup("channel"));
+      await dispatch(ensureLookup("individualInvolved"));
+      await dispatch(ensureLookup("forgedDocuments"));
+      await dispatch(ensureLookup("fraudNotAFraud"));
+      await dispatch(ensureLookup("companySegment"));
       dispatch(GetNegativeDBViewByCnic(NDData, flag));
       navigate("/Fraud/SystemAdmin/ViewCustomerDetailsND");
     }

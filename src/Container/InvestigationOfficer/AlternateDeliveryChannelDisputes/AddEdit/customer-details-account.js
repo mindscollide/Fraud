@@ -24,7 +24,7 @@ import {
   SearchTransactionDetailsADCByCNICAndReferenceNumber,
   GetTransactionDetailsByAccountNumberADC,
 } from "../../../../store/actions/investigation-officer-actions";
-import { GetAllCity } from "../../../../store/actions/setup-forms-actions";
+import { ensureLookup } from "../../../../store/actions/lookup-actions";
 import {
   DateDisplayFormat,
   DateSendingFormat,
@@ -156,7 +156,7 @@ const CustomerDetailsADCAccount = () => {
     if (performance.navigation.type === performance.navigation.TYPE_RELOAD) {
       dispatch(GetTransactionDetailsByAccountNumberADC(accountNumber));
     }
-    dispatch(GetAllCity());
+    dispatch(ensureLookup("city"));
   }, []);
 
   const View = (e, value) => {

@@ -26,7 +26,7 @@ import {
   CommaFormter,
 } from "../../../../Common/Functions/date-formatter";
 import { DebitCardReportExcel } from "../../../../store/actions/reports_actions";
-import { GetAllStatus } from "../../../../store/actions/setup-forms-actions";
+import { ensureLookup } from "../../../../store/actions/lookup-actions";
 
 const IODebitCardDisputes = () => {
   const { Title } = Typography;
@@ -192,7 +192,7 @@ const IODebitCardDisputes = () => {
     let data = {
       IsNegativeDatabase: false,
     };
-    dispatch(GetAllStatus(data));
+    dispatch(ensureLookup("status", data));
   }, []);
   const hasDateValue =
     (State.FromDate !== null && State.FromDate !== "") ||

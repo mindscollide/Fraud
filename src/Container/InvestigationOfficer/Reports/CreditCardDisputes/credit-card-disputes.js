@@ -14,7 +14,7 @@ import {
   DateSendingFormat,
 } from "../../../../Common/Functions/date-formatter";
 import { CreditCardReportExcel } from "../../../../store/actions/reports_actions";
-import { GetAllStatus } from "../../../../store/actions/setup-forms-actions";
+import { ensureLookup } from "../../../../store/actions/lookup-actions";
 import styles from "../../investigationOfficer.module.css";
 const IOCreditCardDisputes = () => {
   const { Title } = Typography;
@@ -163,7 +163,7 @@ const IOCreditCardDisputes = () => {
     let data = {
       IsNegativeDatabase: false,
     };
-    dispatch(GetAllStatus(data));
+    dispatch(ensureLookup("status", data));
   }, []);
 
   return (

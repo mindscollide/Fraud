@@ -32,12 +32,7 @@ import {
   GetCreditCardDisputesForEditByCnicAndRefrenceNumber,
   GetDisputeStatusCC,
 } from "../../../../store/actions/investigation-officer-actions";
-import {
-  GetAllFraudType,
-  GetAllStatus,
-  GetAllCaseDecision,
-  GetAllCity,
-} from "../../../../store/actions/setup-forms-actions";
+import { ensureLookup } from "../../../../store/actions/lookup-actions";
 import {
   enableGoBack,
   disableGoBack,
@@ -110,13 +105,13 @@ const SearchCreditCardDispute = () => {
       let data = {
         IsNegativeDatabase: false,
       };
-      await dispatch(GetAllStatus(data, true));
-      await dispatch(GetAllCity(true));
-      await dispatch(GetAllFraudType(true));
+      await dispatch(ensureLookup("status", data));
+      await dispatch(ensureLookup("city"));
+      await dispatch(ensureLookup("fraudType"));
       if (performance.navigation.type === performance.navigation.TYPE_RELOAD) {
-        await dispatch(GetAllStatus(data));
-        await dispatch(GetAllCity());
-        await dispatch(GetAllFraudType());
+        await dispatch(ensureLookup("status", data));
+        await dispatch(ensureLookup("city"));
+        await dispatch(ensureLookup("fraudType"));
         localStorage.removeItem("CaseStatus");
       }
       if (

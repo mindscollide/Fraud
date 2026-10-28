@@ -23,11 +23,7 @@ import {
   GetDebitCardDisputesForEditByCnicAndRefrenceNumber,
   GetTransactionDetailsByCnicDC,
 } from "../../../../store/actions/investigation-officer-actions";
-import {
-  GetAllCity,
-  GetAllFraudType,
-  GetAllTransactionCurrencyCode,
-} from "../../../../store/actions/setup-forms-actions";
+import { ensureLookup } from "../../../../store/actions/lookup-actions";
 import { enableGoBack } from "../../../../store/actions/ui-actions";
 import {
   DateDisplayFormat,
@@ -167,9 +163,9 @@ const CustomerDetailsDebitCardDispute = () => {
     if (performance.navigation.type === performance.navigation.TYPE_RELOAD) {
       dispatch(GetTransactionDetailsByCnicDC(cnic));
     }
-    dispatch(GetAllCity());
-    dispatch(GetAllFraudType());
-    dispatch(GetAllTransactionCurrencyCode());
+    dispatch(ensureLookup("city"));
+    dispatch(ensureLookup("fraudType"));
+    dispatch(ensureLookup("transactionCurrency"));
   }, []);
 
   const checkBtn = (flag) => {

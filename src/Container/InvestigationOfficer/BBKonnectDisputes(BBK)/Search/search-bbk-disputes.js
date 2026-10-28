@@ -31,13 +31,7 @@ import {
   SearchBBKDisputesByCnicAndReferenceNumber,
   GetDisputeStatusBBK,
 } from "../../../../store/actions/investigation-officer-actions";
-import {
-  GetAllCaseDecision,
-  GetAllFraudType,
-  GetAllStatus,
-  GetAllCity,
-  GetAllTransactionCurrencyCode,
-} from "../../../../store/actions/setup-forms-actions";
+import { ensureLookup } from "../../../../store/actions/lookup-actions";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import {
@@ -357,9 +351,9 @@ const SearchBBKDispute = () => {
   //UseEffects
   //APICall
   useEffect(() => {
-    dispatch(GetAllFraudType());
-    dispatch(GetAllCity());
-    dispatch(GetAllTransactionCurrencyCode());
+    dispatch(ensureLookup("fraudType"));
+    dispatch(ensureLookup("city"));
+    dispatch(ensureLookup("transactionCurrency"));
   }, []);
 
   // For FraudType DropDown SetState
@@ -466,7 +460,7 @@ const SearchBBKDispute = () => {
     localStorage.removeItem("CaseStatus");
     let flagForGlobalDispute = false;
     await localStorage.setItem("FlagForGlobalDispute", flagForGlobalDispute);
-    await dispatch(GetAllCaseDecision());
+    await dispatch(ensureLookup("caseDecision"));
     await dispatch(GetBBKDisputesForEditByCnicAndReferenceNumber(data));
   };
 
@@ -667,7 +661,7 @@ const SearchBBKDispute = () => {
     let data = {
       IsNegativeDatabase: false,
     };
-    dispatch(GetAllStatus(data));
+    dispatch(ensureLookup("status", data));
   }, []);
 
   // // City handler

@@ -24,10 +24,9 @@ import TextField from "../../../Components/Elements/InputFields/TextField/text-f
 import Select from "../../../Components/Elements/InputFields/SelectBox/select-box";
 import GroupedButtons from "../../../Components/Elements/GroupedButtons/grouped-buttons";
 import {
-  GetAllTransactionTypes,
   GetAllRoles,
-  GetAllRegion,
 } from "../../../store/actions/setup-forms-actions";
+import { ensureLookup } from "../../../store/actions/lookup-actions";
 
 const SignUp = () => {
   // to be use when get the api
@@ -463,9 +462,9 @@ const SignUp = () => {
   useEffect(() => {}, [transactionTypes]);
 
   useEffect(() => {
-    dispatch(GetAllTransactionTypes());
+    dispatch(ensureLookup("transactionTypes"));
     dispatch(GetAllRoles());
-    dispatch(GetAllRegion());
+    dispatch(ensureLookup("region"));
   }, []);
 
   // to set body backgound

@@ -17,7 +17,7 @@ import {
   SearchBBKDisputesByCnicAndReferenceNumber,
   GetTransactionDetailsByCnicBBK,
 } from "../../../../store/actions/investigation-officer-actions";
-import { GetAllCity } from "../../../../store/actions/setup-forms-actions";
+import { ensureLookup } from "../../../../store/actions/lookup-actions";
 import {
   CommaFormter,
   DateDisplayFormat,
@@ -154,7 +154,7 @@ const CustomerDetailsBBKDispute = () => {
     if (performance.navigation.type === performance.navigation.TYPE_RELOAD) {
       dispatch(GetTransactionDetailsByCnicBBK(cnic));
     }
-    dispatch(GetAllCity());
+    dispatch(ensureLookup("city"));
   }, []);
 
   const checkBtn = (flag) => {

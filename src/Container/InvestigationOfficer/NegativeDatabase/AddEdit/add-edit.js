@@ -20,13 +20,7 @@ import {
   Button,
 } from "../../../../Components/Elements";
 
-import {
-  GetAllChannel,
-  GetAllIndividualInvolved,
-  GetAllForgedDocuments,
-  GetAllFraudNotAFraud,
-  GetAllCompanySegment,
-} from "../../../../store/actions/setup-forms-actions";
+import { ensureLookup } from "../../../../store/actions/lookup-actions";
 import {
   enableGoBack,
   disableGoBack,
@@ -126,11 +120,11 @@ const AddEditNegativeDatabase = () => {
   const EditHandler = async (e) => {
     dispatch(customerFoundModal(false));
     setBtnStatus(true);
-    await dispatch(GetAllChannel());
-    await dispatch(GetAllIndividualInvolved());
-    await dispatch(GetAllForgedDocuments());
-    await dispatch(GetAllFraudNotAFraud());
-    await dispatch(GetAllCompanySegment());
+    await dispatch(ensureLookup("channel"));
+    await dispatch(ensureLookup("individualInvolved"));
+    await dispatch(ensureLookup("forgedDocuments"));
+    await dispatch(ensureLookup("fraudNotAFraud"));
+    await dispatch(ensureLookup("companySegment"));
     localStorage.setItem("cnic", inputData);
     let Data = {
       CNICNumber: inputData,

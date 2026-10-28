@@ -24,7 +24,7 @@ import {
   GetTransactionDetailsByAccountNumberBBK,
   RESETALLSTATE,
 } from "../../../../store/actions/investigation-officer-actions";
-import { GetAllCity } from "../../../../store/actions/setup-forms-actions";
+import { ensureLookup } from "../../../../store/actions/lookup-actions";
 import { enableGoBack } from "../../../../store/actions/ui-actions";
 import {
   DateDisplayFormat,
@@ -184,7 +184,7 @@ const CustomerDetailsBBKDisputeAccount = () => {
     if (performance.navigation.type === performance.navigation.TYPE_RELOAD) {
       dispatch(GetTransactionDetailsByAccountNumberBBK(accountNumber));
     }
-    dispatch(GetAllCity());
+    dispatch(ensureLookup("city"));
   }, []);
 
   const EDIT = (e, value) => {
