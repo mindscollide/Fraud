@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { Tooltip, Typography, Row, Col } from "antd";
-import { SearchOutlined as Search } from "@ant-design/icons";
 import {
   SearchNDBDisputes,
   HideNotification,
@@ -476,20 +475,6 @@ const SearchNegativeDatabase = () => {
         </Col>
         <Col lg={6} md={6} sm={24}>
           <TextField
-            name={"MobileNo"}
-            label={searchData.MobileNo !== "" ? "Mobile No" : ""}
-            placeholder={"Mobile No"}
-            value={searchData.MobileNo}
-            textLength={11}
-            minLength={11}
-            autoComplete="off"
-            fullWidth
-            size="small"
-            change={handleData}
-          />
-        </Col>
-        <Col lg={6} md={6} sm={24}>
-          <TextField
             fullWidth
             name="CustomerName"
             autoComplete="off"
@@ -498,28 +483,6 @@ const SearchNegativeDatabase = () => {
             label={searchData?.CustomerName !== "" ? "Customer Name" : ""}
             placeholder={"Customer Name"}
             size="small"
-          />
-        </Col>
-        <Col lg={6} md={6} sm={24}>
-          <SelectBox
-            label={cityValue !== "" ? "Select City" : ""}
-            placeholder={"Select City"}
-            option={city}
-            value={cityValue}
-            change={CityNameHandler}
-            name="FK_CTID"
-          />
-        </Col>
-      </Row>
-      <Row gutter={8} className="u-margin-top-22px">
-        <Col lg={6} md={6} sm={24}>
-          <SelectBox
-            label={hasCaseStatus ? "Select Case Status" : ""}
-            placeholder={"Select Case Status"}
-            option={caseStatusOptions}
-            name="fk_csid"
-            value={caseStatus}
-            change={caseStatusHandler}
           />
         </Col>
         <Col lg={6} md={6} sm={24} xs={24}>
@@ -536,6 +499,34 @@ const SearchNegativeDatabase = () => {
             change={handleData}
           />
         </Col>
+
+        <Col lg={6} md={6} sm={24}>
+          <SelectBox
+            label={cityValue !== "" ? "Select City" : ""}
+            placeholder={"Select City"}
+            option={city}
+            value={cityValue}
+            change={CityNameHandler}
+            name="FK_CTID"
+          />
+        </Col>
+      </Row>
+      <Row gutter={8} className="u-margin-top-22px">
+        <Col lg={6} md={6} sm={24}>
+          <TextField
+            name={"MobileNo"}
+            label={searchData.MobileNo !== "" ? "Mobile No" : ""}
+            placeholder={"Mobile No"}
+            value={searchData.MobileNo}
+            textLength={11}
+            minLength={11}
+            autoComplete="off"
+            fullWidth
+            size="small"
+            change={handleData}
+          />
+        </Col>
+
         <Col lg={6} md={6} sm={24}>
           <TextField
             fullWidth
@@ -546,6 +537,17 @@ const SearchNegativeDatabase = () => {
             value={searchData.CompanyName}
             change={handleData}
             size="small"
+          />
+        </Col>
+
+        <Col lg={6} md={6} sm={24}>
+          <SelectBox
+            label={hasCaseStatus ? "Select Case Status" : ""}
+            placeholder={"Select Case Status"}
+            option={caseStatusOptions}
+            name="fk_csid"
+            value={caseStatus}
+            change={caseStatusHandler}
           />
         </Col>
       </Row>
@@ -597,7 +599,7 @@ const SearchNegativeDatabase = () => {
           </>
         )}
       </Modal>
-      {investigationOfficer.Loading ? <Loader /> : null}
+      {setupForms.Loading || investigationOfficer.Loading ? <Loader /> : null}
       <Notification setOpen={setOpen} open={open.flag} message={open.message} />
     </>
   );

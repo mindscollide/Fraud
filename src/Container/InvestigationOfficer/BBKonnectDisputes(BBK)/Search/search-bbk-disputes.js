@@ -712,6 +712,7 @@ const SearchBBKDispute = () => {
             size="small"
             value={searchData.ReferenceNumber}
             change={(e) => handleSearch(e)}
+            textLength={17}
           />
         </Col>
         <Col lg={6} md={6} sm={24}>
@@ -724,7 +725,7 @@ const SearchBBKDispute = () => {
             size="small"
             value={searchData.AccountNumber}
             change={(e) => handleSearch(e)}
-            textLength={8}
+            textLength={14}
             minLength={8}
           />
         </Col>
@@ -752,8 +753,7 @@ const SearchBBKDispute = () => {
             size="small"
             value={searchData.CustomerName}
             change={(e) => handleSearch(e)}
-            textLength={25}
-            minLength={25}
+            textLength={100}
           />
         </Col>
       </Row>
@@ -792,8 +792,7 @@ const SearchBBKDispute = () => {
             size="small"
             value={searchData.MobileNumber}
             change={(e) => handleSearch(e)}
-            textLength={13}
-            minLength={13}
+            textLength={11}
           />
         </Col>
         <Col lg={6} md={6} sm={24}>

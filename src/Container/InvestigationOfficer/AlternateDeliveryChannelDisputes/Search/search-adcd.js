@@ -741,9 +741,7 @@ const SearchADCD = () => {
           {/* City */}
           <Col lg={6} md={6} sm={24}>
             <SelectBox
-              label={
-                cityValue !== "" && cityValue !== null ? "Select City" : ""
-              }
+              label={lbl(cityValue, "Select City")}
               placeholder={"Select City"}
               option={city}
               value={cityValue}
