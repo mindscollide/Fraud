@@ -4,12 +4,12 @@
   bottom: 0;
   left: 0;
   right: 0;
-  background-color: #fff;
+  /* only the backdrop is see-through, so the title and bar stay crisp */
+  background-color: rgba(255, 255, 255, 0.6);
   z-index: 1000;
-  opacity: 0.6;
 }
 .containerloader {
-  width: 200px;
+  width: 300px;
   height: 200px;
   background-size: cover;
   vertical-align: middle;
@@ -18,12 +18,15 @@
 .Loaderlogo {
   text-align: center;
   display: block;
+  color: #EC8D57;
+  font-size: 22px;
+  font-weight: 700;
 }
 .line {
   height: 3px;
   width: 100%;
   background: #FFF5EE;
-  margin-top: 30%;
+  margin-top: 16px;
 }
 .inner {
   width: 100%;

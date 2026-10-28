@@ -39,3 +39,45 @@
     width           : 20% !important;
   color: #FFFFFF !important;
 }
+
+/* Account dropdown + search button: one rounded 44px bar, same as the CNIC search field */
+.selectBar :global(.ant-select-selector) {
+  height: 44px !important;
+  align-items: center;
+  border-radius: 8px !important;
+}
+
+.selectBar :global(.ant-select-selection-search-input) {
+  height: 42px !important;
+}
+
+.selectBar :global(.ant-select-selection-item),
+.selectBar :global(.ant-select-selection-placeholder) {
+  line-height: 42px !important;
+}
+
+/* floating label sits on the white field, not on a grey chip */
+.selectBar [class*="floatingLabel"] {
+  background-color: #FFFFFF;
+}
+
+/* fully rounded button that overlaps the field's rounded right end */
+.selectBar .account-number {
+  height: 44px !important;
+  min-width: 56px;
+  border: none !important;
+  border-radius: 8px !important;
+  margin-left: -8px !important;
+  position: relative;
+  z-index: 1;
+  font-size: 18px;
+}
+
+/* keep the orange (just faded) while nothing is selected */
+.selectBar .account-number:disabled {
+  filter: none !important;
+  opacity: 1 !important;
+  /* solid light orange (not see-through, since it overlaps the field) */
+  background: #F4BB9A !important;
+  color: #FFFFFF !important;
+}

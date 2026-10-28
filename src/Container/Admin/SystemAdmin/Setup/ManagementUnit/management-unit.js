@@ -208,7 +208,7 @@ const ManagementUnit = () => {
           <Button
             text="Reset"
             icon={<Restore />}
-            applyClass="btnDarkSolid"
+            applyClass="btnSecondarySolidResetFull"
             size="small"
             click={() => {
               setmanagementUnit({

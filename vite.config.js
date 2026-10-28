@@ -22,11 +22,11 @@ export default defineConfig({
         javascriptEnabled: true,
         modifyVars: {
           "@primary-color": "#EC8D57",
-          "@body-background": "#f6f6f6",
+          "@body-background": "#FFF5EE",
           "@font-family": "'Open Sans', sans-serif",
           "@code-family": "'Open Sans', sans-serif",
           "@table-row-hover-bg": "#FCE3D2",
-          "@table-padding-vertical": "5px",
+          "@table-padding-vertical": "10px",
           "@table-padding-horizontal": "5px",
           "@table-border-color": "#dee6e6",
         },

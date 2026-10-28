@@ -19,35 +19,33 @@ html,
 
 // Date/Time/Range pickers (StartToEndDate, DatePicker, TimePicker Elements
 // wrappers all render antd's Picker, which shares this ".ant-picker" root
-// class) styled to match the MUI text-field border convention used
-// elsewhere in this app: #dee6e6 border, square corners, no hover color
-// change, #12B0E8 on focus (see CustomTextField's withStyles in
-// text-field.js/FormatedInput.js for the same three values).
+// class) and text inputs share one field style: light grey border, 8px
+// rounded corners, orange border on focus — same as the select boxes.
 .ant-picker {
-  border: 1px solid #dee6e6 !important;
-  border-radius: 0 !important;
+  border: 1px solid #D9D9D9 !important;
+  border-radius: 8px !important;
   box-shadow: none !important;
 }
 
 .ant-picker:hover {
-  border-color: #dee6e6 !important;
+  border-color: #D9D9D9 !important;
 }
 
-.ant-picker-focused {
-  border-color: #12b0e8 !important;
+// two classes so focus wins over the hover rule above
+.ant-picker.ant-picker-focused {
+  border-color: #EC8D57 !important;
   box-shadow: none !important;
 }
 
-// Text inputs (TextField Elements wrapper) — same border convention as the
-// pickers above. When an Input has a prefix/suffix (e.g. Login's UserOutlined
-// icon), antd wraps the real <input> in a .ant-input-affix-wrapper — and the
-// inner <input> keeps the plain .ant-input class too, so without the reset
-// below both the wrapper AND the nested input would show this border,
-// rendering as a visible box-inside-a-box around the icon.
+// Text inputs (TextField Elements wrapper). When an Input has a prefix/suffix
+// (e.g. Login's UserOutlined icon), antd wraps the real <input> in a
+// .ant-input-affix-wrapper — and the inner <input> keeps the plain .ant-input
+// class too, so without the reset below both the wrapper AND the nested input
+// would show this border, rendering as a visible box-inside-a-box.
 .ant-input,
 .ant-input-affix-wrapper {
-  border: 1px solid #dee6e6 !important;
-  border-radius: 0 !important;
+  border: 1px solid #D9D9D9 !important;
+  border-radius: 8px !important;
   box-shadow: none !important;
 }
 
@@ -58,14 +56,14 @@ html,
 
 .ant-input:hover,
 .ant-input-affix-wrapper:hover {
-  border-color: #dee6e6 !important;
+  border-color: #D9D9D9 !important;
 }
 
 .ant-input:focus,
 .ant-input-focused,
 .ant-input-affix-wrapper:focus,
 .ant-input-affix-wrapper-focused {
-  border-color: #12b0e8 !important;
+  border-color: #EC8D57 !important;
   box-shadow: none !important;
 }
 
@@ -73,18 +71,23 @@ html,
 // wrappers) — same border/background convention as the inputs/pickers above.
 // The visible box is .ant-select-selector, not .ant-select itself.
 .ant-select-selector {
-  border: 1px solid #dee6e6 !important;
-  border-radius: 0 !important;
+  border: 1px solid #D9D9D9 !important;
+  border-radius: 8px !important;
   box-shadow: none !important;
   background-color: white !important;
 }
 
 .ant-select:hover .ant-select-selector {
-  border-color: #dee6e6 !important;
+  border-color: #D9D9D9 !important;
 }
 
-.ant-select-focused .ant-select-selector {
-  border-color: #12b0e8 !important;
+// the open options list matches the rounded field
+.ant-select-dropdown {
+  border-radius: 8px !important;
+}
+
+.ant-select.ant-select-focused .ant-select-selector {
+  border-color: #EC8D57 !important;
   box-shadow: none !important;
 }
 
@@ -176,7 +179,7 @@ html,
 .ant-table-thead > tr * {
   background-color: #F0BA94 !important;
   color: #2F2F2F !important;
-  font-weight: bold !important;
+  font-weight: 500 !important;
 }
 
 // No column separators in the header: bordered tables draw them as each
@@ -190,7 +193,25 @@ html,
 }
 
 .ant-table-row {
-  background-color: #FFF5EE !important;
+  background-color: #FFF8F3 !important;
+}
+
+// No grid lines anywhere in tables; rounded header corners show the page behind
+.ant-table {
+  background: transparent !important;
+}
+
+.ant-table-thead > tr > th,
+.ant-table-tbody > tr > td {
+  border-bottom: none !important;
+}
+
+.ant-table-container table > thead > tr:first-child > th:first-child {
+  border-top-left-radius: 10px !important;
+}
+
+.ant-table-container table > thead > tr:first-child > th:last-child {
+  border-top-right-radius: 10px !important;
 }
 
 .ant-table-tbody > tr > td {
@@ -198,7 +219,7 @@ html,
 }
 
 .ant-layout {
-  background-color: #f6f6f6;
+  background-color: #FFF5EE;
 }
 
 .ant-scrolling-effect {
@@ -265,7 +286,7 @@ html,
   position: relative;
   min-width: 0;
   min-height: auto;
-  background: #ffffff !important;
+  background: #FFF5EE !important;
   transition: all 0.2s;
 }
 
@@ -334,7 +355,7 @@ button.UploadFileButton {
   background: #EC8D57 !important;
   border-color: #EC8D57 !important;
   cursor: pointer !important;
-  border-radius: 0px !important;
+  border-radius: 8px !important;
   font-weight: 400 !important;
   font-size: 14px !important;
   color: #fff !important;
@@ -390,7 +411,7 @@ i.icon-add.icon-size-one.AddMore p {
   background: #EC8D57 !important;
   border-color: #EC8D57 !important;
   cursor: pointer !important;
-  border-radius: 0px !important;
+  border-radius: 8px !important;
   font-weight: 400 !important;
   height: 40px !important;
   color: #fff !important;
@@ -464,7 +485,8 @@ input.CreditCardInputField {
   width: 95%;
   padding: 6px 0px 8px 10px;
   background-color: white !important;
-  border: 1px solid #dee6e6;
+  border: 1px solid #D9D9D9;
+  border-radius: 8px;
   height: 23px;
   margin: 0;
   display: block;
@@ -478,13 +500,13 @@ input.CreditCardInputField {
 }
 
 input.CreditCardInputField:focus-visible {
-  border: 1px solid #dee6e6 !important;
+  border: 1px solid #EC8D57 !important;
 }
 
 input.CreditCardInputField:focus,
 input.CreditCardInputField:active,
 input.CreditCardInputField:focus-visible {
-  border: 1px solid #dee6e6 !important;
+  border: 1px solid #EC8D57 !important;
 }
 
 p.PlaceholderCard {
@@ -529,7 +551,7 @@ span.UploadFileButton {
   background: #EC8D57 !important;
   border-color: #EC8D57 !important;
   cursor: pointer !important;
-  border-radius: 0px !important;
+  border-radius: 8px !important;
   font-weight: 400 !important;
   font-size: 14px !important;
   color: #fff !important;

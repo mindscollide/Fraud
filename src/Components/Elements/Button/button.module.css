@@ -2,7 +2,7 @@
   background: #EC8D57 !important;
   border-color: #EC8D57 !important;
   cursor: pointer !important;
-  border-radius: 0px !important;
+  border-radius: 8px !important;
   font-weight: 400 !important;
   font-size: 14px !important;
   color: #fff !important;
@@ -13,7 +13,7 @@
   background: #EC8D57 !important;
   border-color: #EC8D57 !important;
   cursor: pointer !important;
-  border-radius: 0px !important;
+  border-radius: 8px !important;
   font-weight: 400 !important;
   font-size: 14px !important;
   color: #fff !important;
@@ -24,7 +24,7 @@
   background: #EC8D57 !important;
   border-color: #EC8D57 !important;
   cursor: pointer !important;
-  border-radius: 0px !important;
+  border-radius: 8px !important;
   font-weight: 400 !important;
   font-size: 14px !important;
   color: #fff !important;
@@ -37,7 +37,7 @@
   background: #D07C4D !important;
   border-color: #D07C4D !important;
   cursor: pointer !important;
-  border-radius: 0px !important;
+  border-radius: 8px !important;
   font-weight: 400 !important;
   font-size: 14px !important;
   color: #fff !important;
@@ -49,7 +49,7 @@
   background: #EC8D57 !important;
   border-color: #EC8D57 !important;
   cursor: pointer !important;
-  border-radius: 0px !important;
+  border-radius: 8px !important;
   font-weight: 400 !important;
   font-size: 14px !important;
   color: #fff !important;
@@ -61,20 +61,17 @@
 .btnBorderStyledRedd {
   border: 1px solid #ce483e !important;
   color: #ce483e !important;
-  border-bottom-right-radius: 15px !important;
-  border-bottom-left-radius: 0px !important;
-  border-top-right-radius: 0px !important;
-  border-top-left-radius: 15px !important;
   padding: 10px 25px 10px 25px !important;
   font-weight: 600 !important;
   margin-left: 10px !important;
+  border-radius: 8px !important;
 }
 
 .btnSecondarySolid2Search {
   background: #EC8D57 !important;
   border-color: #EC8D57 !important;
   cursor: pointer !important;
-  border-radius: 0px !important;
+  border-radius: 8px !important;
   font-weight: 400 !important;
   font-size: 14px !important;
   color: #fff !important;
@@ -87,7 +84,7 @@
   background: #EC8D57 !important;
   border-color: #EC8D57 !important;
   cursor: pointer !important;
-  border-radius: 0px !important;
+  border-radius: 8px !important;
   font-weight: 400 !important;
   font-size: 14px !important;
   color: #fff !important;
@@ -101,7 +98,7 @@
   background: #EC8D57 !important;
   border-color: #EC8D57 !important;
   cursor: pointer !important;
-  border-radius: 0px !important;
+  border-radius: 8px !important;
   font-weight: 400 !important;
   font-size: 14px !important;
   color: #fff !important;
@@ -111,25 +108,25 @@
 }
 
 .btnSecondarySolidReset {
-  background: #EC8D57 !important;
-  border-color: #EC8D57 !important;
+  background: #FFFFFF !important;
+  border: 1px solid #D9D9D9 !important;
   cursor: pointer !important;
-  border-radius: 0px !important;
+  border-radius: 8px !important;
   font-weight: 400 !important;
   font-size: 14px !important;
-  color: #fff !important;
+  color: #EC8D57 !important;
   text-transform: none !important;
   padding: 7px 20px !important;
 }
 
 .btnSecondarySolidResetw {
-  background: #EC8D57 !important;
-  border-color: #EC8D57 !important;
+  background: #FFFFFF !important;
+  border: 1px solid #D9D9D9 !important;
   cursor: pointer !important;
-  border-radius: 0px !important;
+  border-radius: 8px !important;
   font-weight: 400 !important;
   font-size: 14px !important;
-  color: #fff !important;
+  color: #EC8D57 !important;
   text-transform: none !important;
   padding: 7px 20px !important;
   width: 160px !important;
@@ -139,7 +136,7 @@
   background: #EC8D57 !important;
   border-color: #EC8D57 !important;
   cursor: pointer !important;
-  border-radius: 0px !important;
+  border-radius: 8px !important;
   font-weight: 400 !important;
   font-size: 14px !important;
   color: #fff !important;
@@ -150,7 +147,7 @@
   background: #EC8D57 !important;
   border-color: #EC8D57 !important;
   cursor: pointer !important;
-  border-radius: 0px !important;
+  border-radius: 8px !important;
   font-weight: 700 !important;
   font-size: 12px !important;
   color: #fff !important;
@@ -165,7 +162,7 @@
   border: none !important;
   color: #fff !important;
   font-size: 12px !important;
-  border-radius: 0 !important;
+  border-radius: 8px !important;
   text-transform: none !important;
 }
 
@@ -175,7 +172,7 @@
   border: none !important;
   color: #fff !important;
   font-size: 12px !important;
-  border-radius: 0.2rem !important;
+  border-radius: 8px !important;
   text-transform: none !important;
 }
 
@@ -190,30 +187,24 @@
 .btnBorderStyled {
   background: #EC8D57 !important;
   border-color: #EC8D57 !important;
-  border-bottom-right-radius: 15px !important;
-  border-top-left-radius: 15px !important;
   cursor: pointer !important;
   font-weight: 500 !important;
   font-size: 14px !important;
   color: #fff !important;
   width: 100px !important;
-  border-top-right-radius: 0px !important;
-  border-bottom-left-radius: 0px !important;
+  border-radius: 8px !important;
 }
 
 .btnBorderStyledRedSignup {
   background: #dc3545 !important;
   border-color: #dc3545 !important;
-  border-bottom-right-radius: 15px !important;
-  border-top-left-radius: 15px !important;
   cursor: pointer !important;
   font-weight: 500 !important;
   font-size: 14px !important;
   color: #fff !important;
   width: 100px !important;
   padding: 10px !important;
-  border-top-right-radius: 0px !important;
-  border-bottom-left-radius: 0px !important;
+  border-radius: 8px !important;
 }
 
 .btnBorderStyledRedSignup:hover {
@@ -232,13 +223,10 @@
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#EC8D57', endColorstr='#EC8D57',GradientType=1 );
   border-color: #EC8D57 !important;
   color: white !important;
-  border-bottom-right-radius: 15px !important;
-  border-bottom-left-radius: 0px !important;
-  border-top-right-radius: 0px !important;
-  border-top-left-radius: 15px !important;
   padding: 10px 25px 10px 25px !important;
   font-weight: 600 !important;
   height: 50px;
+  border-radius: 8px !important;
 }
 
 .btnBorderStyledBeach:hover,
@@ -260,14 +248,11 @@
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#EC8D57', endColorstr='#EC8D57',GradientType=1 );
   border-color: #EC8D57 !important;
   color: white !important;
-  border-bottom-right-radius: 15px !important;
-  border-bottom-left-radius: 0px !important;
-  border-top-right-radius: 0px !important;
-  border-top-left-radius: 15px !important;
   padding: 8px !important;
   font-weight: 500 !important;
   margin-right: 70px !important ;
   font-size: 14px !important;
+  border-radius: 8px !important;
 }
 
 .btnBorderStyledBeachSignup:hover,
@@ -282,14 +267,11 @@
 .btnBorderStyledRed {
   border: 1px solid #ce483e !important;
   color: #ce483e !important;
-  border-bottom-right-radius: 15px !important;
-  border-bottom-left-radius: 0px !important;
-  border-top-right-radius: 0px !important;
-  border-top-left-radius: 15px !important;
   padding: 10px 25px 10px 25px !important;
   font-weight: 600 !important;
   width: 100% !important;
   height: 50px;
+  border-radius: 8px !important;
 }
 .btnBorderStyledRed:hover,
 .btnBorderStyledRed:focus {
@@ -305,10 +287,6 @@
 }
 
 .buttonYellow {
-  border-bottom-right-radius: 15px !important;
-  border-bottom-left-radius: 0px !important;
-  border-top-right-radius: 0px !important;
-  border-top-left-radius: 15px !important;
   font-weight: 600 !important;
   font-size: 15px !important;
   background: #d08c07 !important;
@@ -324,6 +302,7 @@
   color: #fff !important;
   padding: 15px !important;
   width: 100% !important;
+  border-radius: 8px !important;
 }
 .buttonYellow:hover {
   border-color: #d08c07 !important;
@@ -332,13 +311,9 @@
 }
 
 .buttonPrimaryLarge {
-  border-radius: 0px !important;
+  border-radius: 8px !important;
   font-weight: 600 !important;
   /* font-size: 15px !important; */
-  border-bottom-right-radius: 15px !important;
-  border-bottom-left-radius: 0px !important;
-  border-top-right-radius: 0px !important;
-  border-top-left-radius: 15px !important;
   background: #EC8D57 !important;
   background: -moz-linear-gradient(left, #EC8D57 0%, #EC8D57 100%) !important;
   background: -webkit-linear-gradient(
@@ -365,13 +340,9 @@
 }
 
 .buttonPrimary2 {
-  border-radius: 0px !important;
+  border-radius: 8px !important;
   font-weight: 600 !important;
   font-size: 15px !important;
-  border-bottom-right-radius: 15px !important;
-  border-bottom-left-radius: 0px !important;
-  border-top-right-radius: 0px !important;
-  border-top-left-radius: 15px !important;
   padding: 12px 30px !important;
   /* font-size: 24px!important; */
   font-weight: 600 !important;
@@ -399,13 +370,9 @@
 }
 
 .buttonPrimary3 {
-  border-radius: 0px !important;
+  border-radius: 8px !important;
   font-weight: 600 !important;
   /* font-size: 15px !important; */
-  border-bottom-right-radius: 15px !important;
-  border-bottom-left-radius: 0px !important;
-  border-top-right-radius: 0px !important;
-  border-top-left-radius: 15px !important;
   padding: 10px 25px 10px 25px !important;
   /* font-size: 24px!important; */
   width: 100% !important;
@@ -445,11 +412,66 @@
 }
 .DeleteButton {
   background-color: #dfe8e8 !important;
-  border-radius: 0 !important;
+  border-radius: 8px !important;
   padding: 4px !important;
   padding-right: 0 !important;
 }
 
 .DeleteButton:hover {
   background-color: #dfe8e8 !important;
+}
+
+/* CNIC / Account / Mobile mode toggle */
+.toggleSelected {
+  background: #EC8D57 !important;
+  border: 1px solid #EC8D57 !important;
+  color: #FFFFFF !important;
+  cursor: pointer !important;
+  border-radius: 8px !important;
+  font-weight: 400 !important;
+  font-size: 14px !important;
+  text-transform: none !important;
+  box-shadow: none !important;
+  height: 100% !important;
+  width: 100% !important;
+  transition: background-color 0.3s, border-color 0.3s;
+}
+
+.toggleUnselected {
+  background: #FFFFFF !important;
+  border: 1px solid #D9D9D9 !important;
+  color: #EC8D57 !important;
+  cursor: pointer !important;
+  border-radius: 8px !important;
+  font-weight: 400 !important;
+  font-size: 14px !important;
+  text-transform: none !important;
+  box-shadow: none !important;
+  height: 100% !important;
+  width: 100% !important;
+  transition: background-color 0.3s, border-color 0.3s;
+}
+
+.toggleUnselected:hover {
+  border-color: #EC8D57 !important;
+}
+
+/* Reset buttons that fill their column (same look as the other Reset buttons) */
+.btnSecondarySolidResetFull {
+  background: #FFFFFF !important;
+  border: 1px solid #D9D9D9 !important;
+  color: #EC8D57 !important;
+  cursor: pointer !important;
+  border-radius: 8px !important;
+  font-weight: 400 !important;
+  font-size: 14px !important;
+  text-transform: none !important;
+  height: 100% !important;
+  width: 100% !important;
+}
+
+.btnSecondarySolidReset:hover,
+.btnSecondarySolidResetw:hover,
+.btnSecondarySolidResetFull:hover {
+  border-color: #EC8D57 !important;
 }

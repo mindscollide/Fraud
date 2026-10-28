@@ -3,7 +3,7 @@
 }
 .uploadButton {
   border: 1 solid black !important;
-  border-radius: 0 !important;
+  border-radius: 8px !important;
   background-color: #EC8D57 !important;
   box-shadow: none !important;
   color: #FFFFFF !important;
@@ -14,14 +14,14 @@
   border: none !important;
   color: #fff !important;
   font-size: 12px !important;
-  border-radius: 0.2rem !important;
+  border-radius: 8px !important;
   text-transform: none !important;
 }
 .btnSecondarySolid {
   background: #EC8D57 !important;
   border-color: #EC8D57 !important;
   cursor: pointer !important;
-  border-radius: 0px !important;
+  border-radius: 8px !important;
   font-weight: 400 !important;
   font-size: 12px !important;
   color: #fff !important;

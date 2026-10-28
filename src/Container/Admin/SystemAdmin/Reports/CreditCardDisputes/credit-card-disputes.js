@@ -223,7 +223,7 @@ const CreditCardDisputes = () => {
          <Button
           text="Reset"
           icon={<Restore />}
-          applyClass="btnDarkSolid"
+          applyClass="btnSecondarySolidResetFull"
           size="small"
           click={()=>{
             setborrowerType({

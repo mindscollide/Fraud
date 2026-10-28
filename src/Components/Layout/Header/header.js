@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import { Layout, Typography, Tooltip, Badge, Dropdown, Menu } from "antd";
 import { BellOutlined as NotificationsNoneIcon } from "@ant-design/icons";
 import UserImage from "../../../assets/images/user-orange.png";
-import Logo from "../../../assets/images/logo.png";
 import { useDispatch, useSelector } from "react-redux";
 import { signOut } from "../../../store/actions/auth-actions";
 import {
@@ -86,13 +85,14 @@ const Header = ({ Notification, title, UserDetails }) => {
     }
   }, []);
 
+  const requestCount = requestReducer.userRequestCount;
+  const badgeCount =
+    requestCount > 0 && requestCount < 10 ? `0${requestCount}` : requestCount;
+
   return (
     <Header className="header">
       {/* logo */}
       <div className="inner-container">
-        <div className="logo-container">
-          <img src={Logo} alt="logo" />
-        </div>
         {/* middle text */}
         <div className="heading-main-container">
           <Title level={3} className="heading-main">
@@ -104,14 +104,13 @@ const Header = ({ Notification, title, UserDetails }) => {
           <Tooltip placement="bottom" title="Back">
             <div className="logout-icon-section">
               <div
+                className="header-icon-card"
                 onClick={() => {
                   window.history.back();
                   dispatch(disableGoBack());
                 }}
               >
-                <div className="logout-icon">
-                  <i className="icon-arrow-left icon-size-one "></i>
-                </div>
+                <i className="icon-arrow-left icon-size-one "></i>
               </div>
             </div>
           </Tooltip>
@@ -147,12 +146,10 @@ const Header = ({ Notification, title, UserDetails }) => {
                 }
               >
                 <span onClick={handleClick} className="noti-icon">
-                  <Badge count={requestReducer.userRequestCount}>
-                    <NotificationsNoneIcon
-                    // Matches MUI's fontSize="large" (35px), which this
-                    // icon used before the antd swap.
-                    // style={{ fontSize: "25px" }}
-                    />
+                  <Badge count={badgeCount} offset={[-2, 8]}>
+                    <span className="header-icon-card">
+                      <NotificationsNoneIcon />
+                    </span>
                   </Badge>
                 </span>
               </Dropdown>
@@ -162,10 +159,8 @@ const Header = ({ Notification, title, UserDetails }) => {
         {/* its logout button */}
         <Tooltip placement="bottom" title="Logout">
           <div className="logout-icon-section">
-            <div onClick={() => dispatch(signOut())}>
-              <div className="logout-icon">
-                <i className="icon-login icon-size-one "></i>
-              </div>
+            <div className="header-icon-card" onClick={() => dispatch(signOut())}>
+              <i className="icon-login icon-size-one "></i>
             </div>
           </div>
         </Tooltip>

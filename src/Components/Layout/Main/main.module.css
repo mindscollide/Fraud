@@ -6,15 +6,16 @@
      every routed page renders inside this one fixed, self-scrolling box
      instead of growing the document's own height. */
   position: fixed;
-  top: 68px;
+  top: 60px;
   left: 230px;
-  right: 0;
-  bottom: 40px;
+  right: 16px;
+  bottom: 46px;
   overflow-y: auto;
   overflow-x: hidden;
-  padding-left: 15px;
-  padding-right: 20px;
-  padding-top: 10px;
+  padding: 16px 20px;
+  background-color: #FFFFFF;
+  border: 1px solid #EC8D57;
+  border-radius: 12px;
 }
 
 /* Page headings */
