@@ -59,7 +59,11 @@ const SelectBoxWithButton = memo(
     };
 
     return (
-      <div className="u-display-flex">
+      <div
+        className={`u-display-flex ${
+          applyClass === "account-number" ? styles.selectBar : ""
+        }`}
+      >
         <div
           className={label ? floatingLabelStyles.wrapper : undefined}
           style={{ flex: 1 }}

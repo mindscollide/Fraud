@@ -201,7 +201,7 @@ const newRequestListCountIM = (UserData) => {
         if (response.data.responseCode === 417) {
           await dispatch(refreshToken());
 
-          dispatch(newRequestListCount(UserData));
+          dispatch(newRequestListCountIM(UserData));
         } else if (response.data.responseCode === 200) {
           if (response.data.responseResult.isExecuted === true) {
             dispatch(
@@ -252,6 +252,7 @@ const getAllUserData = (UserData) => {
       .then(async (response) => {
         if (response.data.responseCode === 417) {
           await dispatch(refreshToken());
+          dispatch(getAllUserData(UserData));
         } else if (response.data.responseCode === 200) {
           if (response.data.responseResult.isExecuted === true) {
             await dispatch(getalluserdataSuccess(response.data.responseResult));
@@ -378,7 +379,7 @@ const editUser = (UserData, resetSearchData) => {
       .then(async (response) => {
         if (response.data.responseCode === 417) {
           await dispatch(refreshToken());
-          dispatch(getAllUserData(UserData, resetSearchData));
+          dispatch(editUser(UserData, resetSearchData));
         } else if (response.data.responseCode === 200) {
           if (response.data.responseResult.isExecuted === true) {
             await dispatch(

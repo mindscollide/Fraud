@@ -28,15 +28,7 @@ import {
 } from "../../../../store/actions/ui-actions";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import {
-  GetAllChannel,
-  GetAllIndividualInvolved,
-  GetAllForgedDocuments,
-  GetAllFraudNotAFraud,
-  GetAllCompanySegment,
-  GetAllStatus,
-  GetAllCity,
-} from "../../../../store/actions/setup-forms-actions";
+import { ensureLookup } from "../../../../store/actions/lookup-actions";
 
 const SearchNegativeDatabase = () => {
   const { Title, Text } = Typography;
@@ -230,12 +222,12 @@ const SearchNegativeDatabase = () => {
     localStorage.removeItem("CaseStatus");
     await dispatch(enableGoBack());
     await dispatch(GetNegativeDBViewByCnic(Data));
-    await dispatch(GetAllChannel());
-    await dispatch(GetAllIndividualInvolved());
-    await dispatch(GetAllForgedDocuments());
-    await dispatch(GetAllFraudNotAFraud());
-    await dispatch(GetAllCompanySegment());
-    await dispatch(GetAllCity());
+    await dispatch(ensureLookup("channel"));
+    await dispatch(ensureLookup("individualInvolved"));
+    await dispatch(ensureLookup("forgedDocuments"));
+    await dispatch(ensureLookup("fraudNotAFraud"));
+    await dispatch(ensureLookup("companySegment"));
+    await dispatch(ensureLookup("city"));
     navigate("/Fraud/NegativeDatabase/ViewNegativeDataBase");
   };
 
@@ -251,12 +243,12 @@ const SearchNegativeDatabase = () => {
     let flagForGlobalDispute = false;
     await localStorage.setItem("FlagForGlobalDispute", flagForGlobalDispute);
     await dispatch(GetNegativeDBViewByCnic(Data));
-    await dispatch(GetAllChannel());
-    await dispatch(GetAllIndividualInvolved());
-    await dispatch(GetAllForgedDocuments());
-    await dispatch(GetAllFraudNotAFraud());
-    await dispatch(GetAllCompanySegment());
-    await dispatch(GetAllCity());
+    await dispatch(ensureLookup("channel"));
+    await dispatch(ensureLookup("individualInvolved"));
+    await dispatch(ensureLookup("forgedDocuments"));
+    await dispatch(ensureLookup("fraudNotAFraud"));
+    await dispatch(ensureLookup("companySegment"));
+    await dispatch(ensureLookup("city"));
     navigate("/Fraud/NegativeDatabase/EditNegativeDatabase");
   };
 
@@ -374,7 +366,7 @@ const SearchNegativeDatabase = () => {
                 GetDisputeStatusND(disputeID, showModal, setAction, actions)
               );
             }}
-            className="icon-edit-list icon-size-one beachGreen u-cursor-pointer"
+            className="icon-edit-list icon-size-one u-color-2f2f2f u-cursor-pointer"
           ></div>
         );
       },
@@ -410,7 +402,7 @@ const SearchNegativeDatabase = () => {
         return record.statusDescription === "Created" ? (
           <div
             onClick={(e) => update(e, record)}
-            className="icon-edit icon-size-one beachGreen u-cursor-pointer"
+            className="icon-edit icon-size-one u-color-2f2f2f u-cursor-pointer"
           />
         ) : null;
       },
@@ -446,8 +438,8 @@ const SearchNegativeDatabase = () => {
     let data = {
       IsNegativeDatabase: true,
     };
-    dispatch(GetAllStatus(data));
-    dispatch(GetAllCity());
+    dispatch(ensureLookup("status", data));
+    dispatch(ensureLookup("city"));
   }, []);
 
   // // sourceofib type names selection for drop down

@@ -1,5 +1,5 @@
 body {
-  background-color: #f6f6f6 !important;
+  background-color: #FFF5EE !important;
   margin          : 0;
   font-family     : 'Open Sans', sans-serif;
   overflow        : visible !important;
@@ -7,8 +7,7 @@ body {
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
+  font-family: "Open Sans", sans-serif;
 }
 
 .crosstick {

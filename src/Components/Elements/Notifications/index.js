@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { notification } from "antd";
-import { CloseOutlined } from "@ant-design/icons";
+import { BellFilled, CloseOutlined } from "@ant-design/icons";
 
 const Message = {
   success: "success",
@@ -27,17 +27,22 @@ const Notification = ({ setOpen, open, message }) => {
 
   useEffect(() => {
     if (open && message !== "") {
+      // longer messages stay up longer so the whole text can be read
+      const text = typeof message === "string" ? message : "";
+      const duration = Math.min(8, Math.max(3.5, text.length / 14));
       notification.open({
         message,
         placement: "topRight",
-        duration: 2,
+        duration,
+        icon: (
+          <span className="app-notification-icon">
+            <BellFilled />
+          </span>
+        ),
         closeIcon: <CloseOutlined />,
         className: "app-teal-notification",
-        style: {
-          backgroundColor: "#078480",
-          height: "40px",
-          padding: 0,
-        },
+        // drives the time-left bar along the bottom (see App.less)
+        style: { "--notification-duration": `${duration}s` },
         onClose: handleClose,
       });
     }

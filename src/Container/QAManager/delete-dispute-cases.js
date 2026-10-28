@@ -22,16 +22,7 @@ import {
 } from "../../Components/Elements";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import {
-  GetAllTransactionTypes,
-  GetAllChannel,
-  GetAllIndividualInvolved,
-  GetAllForgedDocuments,
-  GetAllFraudNotAFraud,
-  GetAllCompanySegment,
-  GetAllStatus,
-  GetAllCity,
-} from "./../../store/actions/setup-forms-actions";
+import { ensureLookup } from "./../../store/actions/lookup-actions";
 import { enableGoBack, disableGoBack } from "./../../store/actions/ui-actions";
 import {
   GetAllDisputesQM,
@@ -434,11 +425,11 @@ const DeleteDisputeCases = () => {
       let ttid = record.ttid;
       let flag = true;
       localStorage.setItem("ttid", ttid);
-      await dispatch(GetAllChannel());
-      await dispatch(GetAllIndividualInvolved());
-      await dispatch(GetAllForgedDocuments());
-      await dispatch(GetAllFraudNotAFraud());
-      await dispatch(GetAllCompanySegment());
+      await dispatch(ensureLookup("channel"));
+      await dispatch(ensureLookup("individualInvolved"));
+      await dispatch(ensureLookup("forgedDocuments"));
+      await dispatch(ensureLookup("fraudNotAFraud"));
+      await dispatch(ensureLookup("companySegment"));
       dispatch(GetNegativeDBViewByCnic(DataND, flag));
       navigate("/Fraud/QAM/ViewCustomerDetailsND");
     }
@@ -448,9 +439,9 @@ const DeleteDisputeCases = () => {
   useEffect(() => {
     let UserID = JSON.parse(localStorage.getItem("UserDetails"));
     let userid = UserID.userID;
-    dispatch(GetAllTransactionTypes(userid));
+    dispatch(ensureLookup("transactionTypes", userid));
     dispatch(ResetAllDisputesData());
-    dispatch(GetAllCity());
+    dispatch(ensureLookup("city"));
     dispatch(disableGoBack());
     window.scrollTo(0, 0);
   }, []);
@@ -610,7 +601,7 @@ const DeleteDisputeCases = () => {
                 )
               );
             }}
-            className="icon-edit-list icon-size-one beachGreen u-cursor-pointer"
+            className="icon-edit-list icon-size-one u-color-2f2f2f u-cursor-pointer"
           ></div>
         );
       },
@@ -746,7 +737,7 @@ const DeleteDisputeCases = () => {
     let data = {
       IsNegativeDatabase: false,
     };
-    dispatch(GetAllStatus(data));
+    dispatch(ensureLookup("status", data));
   }, []);
 
   // City handler

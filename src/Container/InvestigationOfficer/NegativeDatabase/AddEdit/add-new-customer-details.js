@@ -18,14 +18,7 @@ import {
 } from "../../../../Components/Elements";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import {
-  GetAllChannel,
-  GetAllIndividualInvolved,
-  GetAllForgedDocuments,
-  GetAllFraudNotAFraud,
-  GetAllCompanySegment,
-  GetAllCity,
-} from "../../../../store/actions/setup-forms-actions";
+import { ensureLookup } from "../../../../store/actions/lookup-actions";
 import {
   DateDisplayFormat,
   TimeDisplayFormat,
@@ -359,7 +352,7 @@ const AddNewCustomerDetailsND = () => {
   };
 
   useEffect(() => {
-    dispatch(GetAllChannel());
+    dispatch(ensureLookup("channel"));
   }, []);
   useEffect(() => {
     setOpen({
@@ -404,7 +397,7 @@ const AddNewCustomerDetailsND = () => {
   };
 
   useEffect(() => {
-    dispatch(GetAllIndividualInvolved());
+    dispatch(ensureLookup("individualInvolved"));
   }, []);
 
   //end of drop down
@@ -447,7 +440,7 @@ const AddNewCustomerDetailsND = () => {
   };
 
   useEffect(() => {
-    dispatch(GetAllForgedDocuments());
+    dispatch(ensureLookup("forgedDocuments"));
   }, []);
 
   //end of drop down
@@ -490,7 +483,7 @@ const AddNewCustomerDetailsND = () => {
   };
 
   useEffect(() => {
-    dispatch(GetAllFraudNotAFraud());
+    dispatch(ensureLookup("fraudNotAFraud"));
   }, []);
 
   //end of drop down
@@ -531,7 +524,7 @@ const AddNewCustomerDetailsND = () => {
   };
 
   useEffect(() => {
-    dispatch(GetAllCompanySegment());
+    dispatch(ensureLookup("companySegment"));
   }, []);
 
   //end of drop down
@@ -760,7 +753,7 @@ const AddNewCustomerDetailsND = () => {
   };
 
   useEffect(() => {
-    dispatch(GetAllCity());
+    dispatch(ensureLookup("city"));
   }, []);
 
   // City handler
@@ -833,12 +826,12 @@ const AddNewCustomerDetailsND = () => {
         <Paper padding="1">
           <Row gutter={16}>
             <Col lg={18} md={18} sm={18} xs={24}>
-              <h1 className="u-font-size-18px u-margin-top-15px u-margin-left-20px u-color-21706d">
+              <h1 className="u-font-size-18px u-margin-top-15px u-margin-left-20px u-color-ec8d57">
                 Customer Details
               </h1>
             </Col>
             <Col lg={6} md={6} sm={6} xs={24} className="p-0 u-text-align-left">
-              <div className="Level-Section u-padding-5px u-right-50px u-width-240px u-color-fff u-position-absolute u-background-color-04bbb4">
+              <div className="Level-Section u-padding-5px u-right-50px u-width-240px u-color-fff u-position-absolute">
                 <div>
                   <i className="icon-card icon-size-one"></i>
                   <div className="u-position-absolute u-right-75px u-top-5px">
@@ -1177,7 +1170,7 @@ const AddNewCustomerDetailsND = () => {
                       }
                       fullWidth
                       icon={
-                        <i className="icon-edit icon-size-one beachGreen"></i>
+                        <i className="icon-edit icon-size-one u-color-2f2f2f"></i>
                       }
                       disable1={true}
                       onchange={commentshandler}

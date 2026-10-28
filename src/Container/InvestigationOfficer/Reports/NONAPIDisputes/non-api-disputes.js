@@ -13,7 +13,7 @@ import {
 } from "../../../../Components/Elements";
 import { useDispatch, useSelector } from "react-redux";
 import { NONAPIReportExcel } from "../../../../store/actions/reports_actions";
-import { GetAllStatus } from "../../../../store/actions/setup-forms-actions";
+import { ensureLookup } from "../../../../store/actions/lookup-actions";
 import styles from "../../investigationOfficer.module.css";
 
 const IONONAPIDisputes = () => {
@@ -180,7 +180,7 @@ const IONONAPIDisputes = () => {
     let data = {
       IsNegativeDatabase: false,
     };
-    dispatch(GetAllStatus(data));
+    dispatch(ensureLookup("status", data));
   }, []);
 
   return (

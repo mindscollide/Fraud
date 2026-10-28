@@ -7,7 +7,6 @@ import { makeTabDisable } from "../../../store/actions/ui-actions";
 import { RESETALLSTATE } from "../../../store/actions/investigation-officer-actions";
 
 const Sidebar = ({ Links, ui }) => {
-  const { SubMenu } = Menu;
   const { Sider } = Layout;
   const dispatch = useDispatch();
   // Sidebar only ever mounts under /Fraud (see App.js) — it's a sibling of
@@ -79,6 +78,32 @@ const Sidebar = ({ Links, ui }) => {
     setSelectedKey(key);
   };
 
+  // antd's items API (Menu children are deprecated). Parent keys stay
+  // "sub<position in Links>" counted before filtering, as before.
+  const menuItems = Links.map((item, index) =>
+    ttidCheck(item.ttid)
+      ? {
+          key: `sub${index + 1}`,
+          icon: <i className={`${item.icon}`}></i>,
+          label: `${item.menuName}`,
+          className: styles.menuMainItem,
+          children: item.subMenu
+            .filter((nestedItem) => ttidCheck(nestedItem.sttid))
+            .map((nestedItem) => ({
+              key: nestedItem.key,
+              label: (
+                <Link
+                  to={`${path}${nestedItem.link}`}
+                  className={styles.noLinkStyles}
+                >
+                  {nestedItem.name}
+                </Link>
+              ),
+            })),
+        }
+      : null
+  ).filter(Boolean);
+
   return (
     <Sider width={230} className={styles.sider}>
       <Menu
@@ -88,41 +113,8 @@ const Sidebar = ({ Links, ui }) => {
         onOpenChange={onOpenChange}
         onSelect={onSelect}
         className={styles.menuSidebarStyle}
-      >
-        {Links.length > 0
-          ? Links.map((item, index) => {
-              if (!ttidCheck(item.ttid)) {
-                return null;
-              }
-              return (
-                <SubMenu
-                  key={`sub${index + 1}`}
-                  icon={<i className={`${item.icon}`}></i>}
-                  title={`${item.menuName}`}
-                  className={styles.menuMainItem}
-                >
-                  {item
-                    ? item.subMenu.map((nestedItem, nestedIndex) => {
-                        if (!ttidCheck(nestedItem.sttid)) {
-                          return null;
-                        }
-                        return (
-                          <Menu.Item key={nestedItem.key}>
-                            <Link
-                              to={`${path}${nestedItem.link}`}
-                              className={styles.noLinkStyles}
-                            >
-                              {nestedItem.name}
-                            </Link>
-                          </Menu.Item>
-                        );
-                      })
-                    : null}
-                </SubMenu>
-              );
-            })
-          : null}
-      </Menu>
+        items={menuItems}
+      />
     </Sider>
   );
 };

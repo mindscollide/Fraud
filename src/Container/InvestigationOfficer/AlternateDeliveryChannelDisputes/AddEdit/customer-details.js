@@ -23,7 +23,7 @@ import {
   SearchADCDisputesForEditByCnicAndReferenceNumber,
   GetTransactionDetailsByCnicADC,
 } from "../../../../store/actions/investigation-officer-actions";
-import { GetAllCity } from "../../../../store/actions/setup-forms-actions";
+import { ensureLookup } from "../../../../store/actions/lookup-actions";
 import { enableGoBack } from "../../../../store/actions/ui-actions";
 import {
   DateDisplayFormat,
@@ -162,7 +162,7 @@ const CustomerDetailsADCD = () => {
     // if (performance.navigation.type === performance.navigation.TYPE_RELOAD) {
     //   dispatch(GetTransactionDetailsByCnicADC(cnic));
     // }
-    dispatch(GetAllCity());
+    dispatch(ensureLookup("city"));
   }, []);
   // for add new dispute for exsitin deispute
   const addDisputeData = () => {
@@ -304,7 +304,7 @@ const CustomerDetailsADCD = () => {
         return record.statusDescription === "In Process" ? (
           <div
             onClick={(e) => update(e, record)}
-            className="icon-edit icon-size-one beachGreen u-cursor-pointer"
+            className="icon-edit icon-size-one u-color-2f2f2f u-cursor-pointer"
           />
         ) : null;
       },
@@ -326,7 +326,9 @@ const CustomerDetailsADCD = () => {
       <Paper>
         <Row>
           <Col lg={18} md={18} sm={18} xs={24}>
-            <h1 className="u-font-size-18px u-margin-top-15px u-margin-left-20px u-color-21706d">
+            <h1
+              className="u-font-size-18px u-margin-top-15px u-margin-left-20px u-color-ec8d57"
+            >
               Customer Details
             </h1>
           </Col>

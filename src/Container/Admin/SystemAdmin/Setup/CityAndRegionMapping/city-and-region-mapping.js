@@ -18,12 +18,11 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   HideNotification,
   GetAllCityAndRegionMapping,
-  GetAllCity,
-  GetAllRegion,
   SaveCityAndRegionMapping,
   DeleteCityAndRegionMapping,
   EditCityAndRegionMapping,
 } from "../../../../../store/actions/setup-forms-actions";
+import { ensureLookup } from "../../../../../store/actions/lookup-actions";
 import styles from "../systemAdmin.module.css";
 
 const CityAndRegionMapping = () => {
@@ -159,8 +158,8 @@ const CityAndRegionMapping = () => {
 
   useEffect(() => {
     dispatch(GetAllCityAndRegionMapping());
-    dispatch(GetAllCity());
-    dispatch(GetAllRegion());
+    dispatch(ensureLookup("city"));
+    dispatch(ensureLookup("region"));
   }, []);
 
   //For City Names DropDown SetState
@@ -358,7 +357,7 @@ const CityAndRegionMapping = () => {
       render: (text, record) => (
         <div
           onClick={(e) => update(e, record)}
-          className="icon-edit icon-size-one beachGreen u-cursor-pointer"
+          className="icon-edit icon-size-one u-color-2f2f2f u-cursor-pointer"
         />
       ),
     },

@@ -34,11 +34,7 @@ import {
   enableGoBack,
   disableGoBack,
 } from "../../../../store/actions/ui-actions";
-import {
-  GetAllFraudType,
-  GetAllStatus,
-  GetAllCity,
-} from "../../../../store/actions/setup-forms-actions";
+import { ensureLookup } from "../../../../store/actions/lookup-actions";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
@@ -367,7 +363,7 @@ const SearchNONAPIDispute = () => {
   //UseEffects
   //APICall
   useEffect(() => {
-    dispatch(GetAllFraudType());
+    dispatch(ensureLookup("fraudType"));
   }, []);
 
   // For FraudType DropDown SetState
@@ -554,7 +550,7 @@ const SearchNONAPIDispute = () => {
                 GetDisputeStatusNONAPI(disputeID, showModal, setAction, actions)
               );
             }}
-            className="icon-edit-list icon-size-one beachGreen u-cursor-pointer"
+            className="icon-edit-list icon-size-one u-color-2f2f2f u-cursor-pointer"
           ></div>
         );
       },
@@ -576,7 +572,7 @@ const SearchNONAPIDispute = () => {
         return record.statusDescription === "In Process" ? (
           <div
             onClick={(e) => update(e, record)}
-            className="icon-edit icon-size-one beachGreen u-cursor-pointer"
+            className="icon-edit icon-size-one u-color-2f2f2f u-cursor-pointer"
           />
         ) : null;
       },
@@ -669,8 +665,8 @@ const SearchNONAPIDispute = () => {
     let data = {
       IsNegativeDatabase: false,
     };
-    dispatch(GetAllStatus(data));
-    dispatch(GetAllCity());
+    dispatch(ensureLookup("status", data));
+    dispatch(ensureLookup("city"));
   }, []);
 
   // // sourceofib type names selection for drop down

@@ -15,7 +15,7 @@ import {
   DateSendingFormat,
 } from "../../../../Common/Functions/date-formatter";
 import { BBKonnectReportExcel } from "../../../../store/actions/reports_actions";
-import { GetAllStatus } from "../../../../store/actions/setup-forms-actions";
+import { ensureLookup } from "../../../../store/actions/lookup-actions";
 import styles from "../../investigationOfficer.module.css";
 
 const IOBBKonnectDisputes = () => {
@@ -181,7 +181,7 @@ const IOBBKonnectDisputes = () => {
     let data = {
       IsNegativeDatabase: false,
     };
-    dispatch(GetAllStatus(data));
+    dispatch(ensureLookup("status", data));
   }, []);
 
   return (

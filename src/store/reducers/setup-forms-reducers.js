@@ -301,7 +301,7 @@ const SetupFormReducer = (state = initialState, action) => {
         });
       return {
         ...state,
-        Loading: false,
+        Loading: action.silent ? state.Loading : false,
         ResponseMessage: action.response.responseMessage,
         SourceOfIBChannelCreationData: SourceOfIBChannelCreationArray,
       };
@@ -336,7 +336,7 @@ const SetupFormReducer = (state = initialState, action) => {
 
       return {
         ...state,
-        Loading: false,
+        Loading: action.silent ? state.Loading : false,
         Success: true,
         ResponseMessage: action.response.responseMessage,
         CityData: CityArray,
@@ -360,7 +360,7 @@ const SetupFormReducer = (state = initialState, action) => {
       });
       return {
         ...state,
-        Loading: false,
+        Loading: action.silent ? state.Loading : false,
         ResponseMessage: action.response.responseMessage,
         RegionData: RegionArray,
       };
@@ -637,7 +637,7 @@ const SetupFormReducer = (state = initialState, action) => {
 
       return {
         ...state,
-        Loading: false,
+        Loading: action.silent ? state.Loading : false,
         Success: true,
         ResponseMessage: action.response.responseMessage,
         StatusData: StatusArray,

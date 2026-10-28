@@ -388,7 +388,7 @@ const AddEditBBKDispute2 = () => {
           <Col lg={8} md={8} sm={0} xs={0}></Col>
           <Col lg={4} md={4} sm={24}>
             <Button
-              applyClass="btnDarkSolid"
+              applyClass={isCnicNo ? "toggleSelected" : "toggleUnselected"}
               text="CNIC Number"
               className="downloadButton"
               click={changeSelectCnicNumber}
@@ -397,7 +397,7 @@ const AddEditBBKDispute2 = () => {
           </Col>
           <Col lg={4} md={4} sm={24}>
             <Button
-              applyClass="btnDarkSolid"
+              applyClass={isCnicNo ? "toggleUnselected" : "toggleSelected"}
               text="Account Number"
               className="downloadButton"
               click={changeSelectAccountNumber}

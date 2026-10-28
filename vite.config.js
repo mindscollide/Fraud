@@ -21,11 +21,12 @@ export default defineConfig({
       less: {
         javascriptEnabled: true,
         modifyVars: {
-          "@primary-color": "#04908b",
-          "@body-background": "#f6f6f6",
+          "@primary-color": "#EC8D57",
+          "@body-background": "#FFF5EE",
           "@font-family": "'Open Sans', sans-serif",
-          "@table-row-hover-bg": "#eaf4f4",
-          "@table-padding-vertical": "5px",
+          "@code-family": "'Open Sans', sans-serif",
+          "@table-row-hover-bg": "#FCE3D2",
+          "@table-padding-vertical": "10px",
           "@table-padding-horizontal": "5px",
           "@table-border-color": "#dee6e6",
         },

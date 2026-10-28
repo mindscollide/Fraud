@@ -11,8 +11,7 @@
     height: 40px;
     display: flex;
     align-items: center;
-    background-color: #f6f6f6;
-    border-top: 1px solid #ccc;
+    background-color: #FFF5EE;
     z-index: 100;
   }
   .footer > .innerContent {

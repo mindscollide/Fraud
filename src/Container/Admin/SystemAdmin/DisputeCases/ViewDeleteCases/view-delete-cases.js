@@ -34,16 +34,10 @@ import {
   GetNegativeDBViewByCnic,
 } from "../../../../../store/actions/investigation-officer-actions";
 import {
-  GetAllFraudType,
-  GetAllTransactionTypes,
   SearchDeleteCases,
   resetDisputeTable,
-  GetAllChannel,
-  GetAllIndividualInvolved,
-  GetAllForgedDocuments,
-  GetAllFraudNotAFraud,
-  GetAllCompanySegment,
 } from "../../../../../store/actions/setup-forms-actions";
+import { ensureLookup } from "../../../../../store/actions/lookup-actions";
 import {
   enableGoBack,
   disableGoBack,
@@ -223,11 +217,11 @@ const ViewDeleteCases = () => {
       let flag = true;
       localStorage.setItem("fk_TTID", ttid);
       localStorage.setItem("cnic", record.cnicNumber);
-      await dispatch(GetAllChannel());
-      await dispatch(GetAllIndividualInvolved());
-      await dispatch(GetAllForgedDocuments());
-      await dispatch(GetAllFraudNotAFraud());
-      await dispatch(GetAllCompanySegment());
+      await dispatch(ensureLookup("channel"));
+      await dispatch(ensureLookup("individualInvolved"));
+      await dispatch(ensureLookup("forgedDocuments"));
+      await dispatch(ensureLookup("fraudNotAFraud"));
+      await dispatch(ensureLookup("companySegment"));
       dispatch(GetNegativeDBViewByCnic(NDData, flag));
       navigate("/Fraud/SystemAdmin/ViewCustomerDetailsND");
     }
@@ -295,7 +289,7 @@ const ViewDeleteCases = () => {
     let userid = UserID.userID;
     localStorage.removeItem("fk_TTIDDelete");
     dispatch(resetCustomerDetailsCreditCard());
-    dispatch(GetAllTransactionTypes(userid));
+    dispatch(ensureLookup("transactionTypes", userid));
     dispatch(disableGoBack());
     window.scrollTo(0, 0);
   }, []);

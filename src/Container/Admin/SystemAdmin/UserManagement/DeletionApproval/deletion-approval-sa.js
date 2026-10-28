@@ -40,10 +40,7 @@ import {
   SearchTransactionDetailsADCByCNICAndReferenceNumber,
 } from "../../../../../store/actions/investigation-officer-actions";
 
-import {
-  GetAllApprovalReasons,
-  GetAllRejectionReasons,
-} from "../../../../../store/actions/setup-forms-actions";
+import { ensureLookup } from "../../../../../store/actions/lookup-actions";
 import {
   DateDisplayFormat,
   CommaFormter,
@@ -176,8 +173,8 @@ const PendingDeletionApprovals = () => {
 
   //Get APIs call
   useEffect(() => {
-    dispatch(GetAllApprovalReasons());
-    dispatch(GetAllRejectionReasons());
+    dispatch(ensureLookup("approvalReasons"));
+    dispatch(ensureLookup("rejectionReasons"));
     dispatch(GetAllPendingForApprovalByID(userID));
   }, []);
 
