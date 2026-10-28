@@ -14,7 +14,7 @@ const Footer = () => {
             <small>Privacy policy | Disclaimer</small>{" "}
           </div>
           <div>
-            <small>{`© ${year} HBL All Rights Reserved`}</small>{" "}
+            <small>{`© ${year} Minds Collides All Rights Reserved`}</small>{" "}
           </div>
         </section>
       </section>

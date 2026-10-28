@@ -33,20 +33,7 @@
   overflow-y: auto !important;
   overflow-x: hidden !important;
   background-color: #FFF5EE !important;
-  scrollbar-width: thin; /* Firefox */
-}
-
-.sider::-webkit-scrollbar {
-  width: 6px;
-}
-
-.sider::-webkit-scrollbar-thumb {
-  background-color: #F0BA94;
-  border-radius: 3px;
-}
-
-.sider::-webkit-scrollbar-track {
-  background-color: #FFF5EE;
+  /* scrollbar: the global slim, show-on-hover style in App.less */
 }
 
 .ant-menu-item.ant-menu-title-content {

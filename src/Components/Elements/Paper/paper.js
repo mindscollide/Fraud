@@ -36,6 +36,8 @@ const CustomPaper = ({
           border: variant ? "1px solid rgba(0,0,0,0.12)" : "none",
           borderRadius: section ? 12 : 0,
           background: section ? "#FFF5EE" : "#fff",
+          // anchor for the CNIC / account badge pinned to the card's corner
+          position: section ? "relative" : undefined,
         }}
       >
         {children}
