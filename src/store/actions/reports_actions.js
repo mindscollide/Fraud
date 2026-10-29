@@ -5,6 +5,7 @@ import axios from "axios";
 import {
   reportsApi,
   downloadExcelFile,
+  reportsFileDownloadApi,
   InvestigationOfficerAPI,
   InvestigationOfficerAPIDC,
   InvestigationOfficerAPIADC,
@@ -779,7 +780,7 @@ const DownloadUploadFile = (data) => {
     dispatch(downloadExcelFileInit());
     axios({
       method: "post",
-      url: downloadExcelFile,
+      url: reportsFileDownloadApi,
       data: form,
       headers: {
         _token: token,
