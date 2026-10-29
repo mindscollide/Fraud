@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import { Input } from "antd";
 import NumberFormat from "react-number-format";
 import styles from "../floating-label.module.css";
@@ -21,6 +21,7 @@ export const FormattedInputs = ({
   onblur,
   maxLength,
 }) => {
+  const lastValues = useRef(null);
   return (
     <>
       {label ? (
@@ -64,24 +65,21 @@ export const FormattedInputs = ({
           style={{
             width: fullWidth ? "100%" : undefined,
           }}
-          // onValueChange={(values) => {
-          //   change({
-          //     target: {
-          //       name: name,
-          //       value: values?.value,
-          //     },
-          //   });
-          // }}
-
-          onValueChange={(values, sourceInfo) => {
-            // Ignore programmatic value updates (e.g. API response populating the field)
-            if (sourceInfo?.source !== "event") return;
+          // Only pass on changes the user typed, not programmatic value updates
+          // (e.g. an API response populating the field). react-number-format
+          // v4 has no `sourceInfo` argument (that's v5), so a sourceInfo check
+          // blocked every change. In v4 a keystroke runs onValueChange, then
+          // onChange; a programmatic update runs onValueChange only. So keep
+          // the parsed value from onValueChange and forward it from onChange.
+          onValueChange={(values) => {
+            lastValues.current = values;
+          }}
+          onChange={() => {
             if (typeof change !== "function") return;
-
             change({
               target: {
                 name: name,
-                value: values?.value,
+                value: lastValues.current?.value,
               },
             });
           }}
