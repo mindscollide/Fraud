@@ -30,6 +30,9 @@ const IMADCDisputes = () => {
     CNIC: "",
     HBLAccountNumber: "",
     OtherBankAccountNumber: "",
+    MobileNumber: "",
+    IMEINumber: "",
+    IPAddress: "",
   });
 
   const [clearDateSelect, setDateClearSelect] = useState("");
@@ -61,6 +64,9 @@ const IMADCDisputes = () => {
       CNIC: "",
       HBLAccountNumber: "",
       OtherBankAccountNumber: "",
+      MobileNumber: "",
+      IMEINumber: "",
+      IPAddress: "",
     });
     setState({
       FromDate: "",
@@ -111,6 +117,10 @@ const IMADCDisputes = () => {
         ...search,
         [name]: "",
       });
+    } else if (name === "MobileNumber") {
+      setSearch({ ...search, [name]: value.replace(/[^\d]/g, "") });
+    } else if (name === "IMEINumber" || name === "IPAddress") {
+      setSearch({ ...search, [name]: value.trimStart() });
     }
   };
 
@@ -121,7 +131,12 @@ const IMADCDisputes = () => {
       DateTO: State.ToDate,
       CNIC: search.CNIC,
       HBLAccountNumber: search.HBLAccountNumber,
-      OtherBankAccountNumber: search.OtherBankAccountNumber,
+      // the backend reads BeneficiaryAccountNumber; OtherBankAccountNumber was ignored
+      BeneficiaryAccountNumber: search.OtherBankAccountNumber,
+      MobileNumber: search.MobileNumber,
+      IMEINumber: search.IMEINumber,
+      IPAddress: search.IPAddress,
+      CaseStatus: [],
     };
     dispatch(ADCReportExcel(data));
   };
@@ -129,7 +144,7 @@ const IMADCDisputes = () => {
   return (
     <>
       <Title level={3}>ADC Disputes</Title>
-      <Row gutter={8}>
+      <Row gutter={[8, 22]}>
         <Col lg={8} md={8} sm={24}>
           <TextField
             fullWidth
@@ -145,12 +160,45 @@ const IMADCDisputes = () => {
         <Col lg={8} md={8} sm={24}>
           <TextField
             fullWidth
-            label="Other Bank Account Number"
+            label="Beneficiary Account Number"
             size="small"
             required
             name="OtherBankAccountNumber"
             value={search.OtherBankAccountNumber}
             textLength={14}
+            change={handleSerach}
+          />
+        </Col>
+        <Col lg={8} md={8} sm={24}>
+          <TextField
+            fullWidth
+            label="Mobile #"
+            size="small"
+            name="MobileNumber"
+            value={search.MobileNumber}
+            textLength={11}
+            change={handleSerach}
+          />
+        </Col>
+        <Col lg={8} md={8} sm={24}>
+          <TextField
+            fullWidth
+            label="IMEI #"
+            size="small"
+            name="IMEINumber"
+            value={search.IMEINumber}
+            textLength={17}
+            change={handleSerach}
+          />
+        </Col>
+        <Col lg={8} md={8} sm={24}>
+          <TextField
+            fullWidth
+            label="IP Address"
+            size="small"
+            name="IPAddress"
+            value={search.IPAddress}
+            textLength={45}
             change={handleSerach}
           />
         </Col>

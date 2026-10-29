@@ -31,6 +31,9 @@ const IOADCDisputes = () => {
     CNIC: "",
     HBLAccountNumber: "",
     OtherBankAccountNumber: "",
+    MobileNumber: "",
+    IMEINumber: "",
+    IPAddress: "",
     CaseStatus: [],
   });
   const [clearDateSelect, setDateClearSelect] = useState("");
@@ -62,6 +65,9 @@ const IOADCDisputes = () => {
       CNIC: "",
       HBLAccountNumber: "",
       OtherBankAccountNumber: "",
+      MobileNumber: "",
+      IMEINumber: "",
+      IPAddress: "",
       CaseStatus: [],
     });
     setState({
@@ -112,6 +118,10 @@ const IOADCDisputes = () => {
         ...search,
         [name]: "",
       });
+    } else if (name === "MobileNumber") {
+      setSearch({ ...search, [name]: value.replace(/[^\d]/g, "") });
+    } else if (name === "IMEINumber" || name === "IPAddress") {
+      setSearch({ ...search, [name]: value.trimStart() });
     }
   };
 
@@ -123,6 +133,9 @@ const IOADCDisputes = () => {
       CNIC: search.CNIC,
       HBLAccountNumber: search.HBLAccountNumber,
       BeneficiaryAccountNumber: search.OtherBankAccountNumber,
+      MobileNumber: search.MobileNumber,
+      IMEINumber: search.IMEINumber,
+      IPAddress: search.IPAddress,
       CaseStatus: search.CaseStatus,
     };
     dispatch(ADCReportExcel(data));
@@ -231,6 +244,45 @@ const IOADCDisputes = () => {
             name="OtherBankAccountNumber"
             value={search.OtherBankAccountNumber}
             textLength={14}
+            change={handleSerach}
+          />
+        </Col>
+        <Col lg={8} md={8} sm={24} className="u-margin-top-22px">
+          <TextField
+            fullWidth
+            label={search.MobileNumber !== "" && "Mobile #"}
+            placeholder={"Mobile #"}
+            size="small"
+            autoComplete="off"
+            name="MobileNumber"
+            value={search.MobileNumber}
+            textLength={11}
+            change={handleSerach}
+          />
+        </Col>
+        <Col lg={8} md={8} sm={24} className="u-margin-top-22px">
+          <TextField
+            fullWidth
+            label={search.IMEINumber !== "" && "IMEI #"}
+            placeholder={"IMEI #"}
+            size="small"
+            autoComplete="off"
+            name="IMEINumber"
+            value={search.IMEINumber}
+            textLength={17}
+            change={handleSerach}
+          />
+        </Col>
+        <Col lg={8} md={8} sm={24} className="u-margin-top-22px">
+          <TextField
+            fullWidth
+            label={search.IPAddress !== "" && "IP Address"}
+            placeholder={"IP Address"}
+            size="small"
+            autoComplete="off"
+            name="IPAddress"
+            value={search.IPAddress}
+            textLength={45}
             change={handleSerach}
           />
         </Col>
