@@ -60,6 +60,10 @@ const AddEditDebitCardDispute = () => {
   const [State, setState] = useState(defaultDates);
   const [clearDateSelect, setDateClearSelect] = useState(0);
 
+  // more than one CNIC linked to the account = joint account
+  const isJointAccount = cnicList.length > 1;
+
+  const canSearchAccount = !!selectedCnic && !!State.FromDate && !!State.ToDate;
   const [open, setOpen] = useState({
     flag: false,
     message: "",
@@ -219,7 +223,8 @@ const AddEditDebitCardDispute = () => {
 
   // Search IRIS with the account + the CNIC picked from the dropdown
   const searchHandlerForAccountCnic = () => {
-    if (!selectedCnic) return;
+    // if (!selectedCnic ) return;
+    if (!selectedCnic || !State.FromDate || !State.ToDate) return;
     localStorage.setItem("State", JSON.stringify(State));
     localStorage.setItem("route", JSON.stringify(2));
     let Data = {
@@ -421,6 +426,69 @@ const AddEditDebitCardDispute = () => {
                 ) : null}
               </>
             ) : (
+              // ) :
+              // (
+              //   <>
+              //     <InputWithBtn
+              //       onchange={accountSectionHandler}
+              //       label={inputDataAC !== "" && "Enter Account Number"}
+              //       placeholder={"Enter Account Number"}
+              //       fullWidth
+              //       textFieldSize="small"
+              //       autoComplete="off"
+              //       applyClass="search-cnic"
+              //       minLength={14}
+              //       textLength={14}
+              //       icon={<i className="icon-search icon-size-one"></i>}
+              //       disable={btnStatus}
+              //       value={inputDataAC}
+              //       required
+              //       name="AccountNumber"
+              //       click={accountSearch2Handler}
+              //     />
+              //     {/* <div className="dateRangePicker">
+              //       <StartToEndDate
+              //         size="large"
+              //         DateRange
+              //         change={setDate}
+              //         key={clearDateSelect}
+              //         startvalue={
+              //           State.FromDate !== null && State.FromDate !== ""
+              //             ? DateDisplayFormat(State.FromDate)
+              //             : null
+              //         }
+              //         endvalue={
+              //           State.ToDate !== null && State.ToDate !== ""
+              //             ? DateDisplayFormat(State.ToDate)
+              //             : null
+              //         }
+              //         className="DatePickerDC"
+              //         required
+              //       />
+              //     </div> */}
+              //     {cnicList.length > 0 ? (
+              //       <div className="u-margin-top-15px">
+              //         <SelectBoxWithButton
+              //           icon={<i className="icon-arrow-right icon-size-one"></i>}
+              //           // text="Search"
+              //           name="CNIC"
+              //           applyClass="account-number"
+              //           label={selectedCnic !== "" && "Select CNIC"}
+              //           placeholder={"Select CNIC"}
+              //           textFieldSize="small"
+              //           fullWidth
+              //           autoComplete="off"
+              //           required
+              //           option={cnicList}
+              //           click={searchHandlerForAccountCnic}
+              //           change={cnicSelectHandler}
+              //           value={selectedCnic}
+              //         />
+              //       </div>
+              //     ) : null}
+              //   </>
+              // )}
+
               <>
                 <InputWithBtn
                   onchange={accountSectionHandler}
@@ -439,44 +507,57 @@ const AddEditDebitCardDispute = () => {
                   name="AccountNumber"
                   click={accountSearch2Handler}
                 />
-                {/* <div className="dateRangePicker">
-                  <StartToEndDate
-                    size="large"
-                    DateRange
-                    change={setDate}
-                    key={clearDateSelect}
-                    startvalue={
-                      State.FromDate !== null && State.FromDate !== ""
-                        ? DateDisplayFormat(State.FromDate)
-                        : null
-                    }
-                    endvalue={
-                      State.ToDate !== null && State.ToDate !== ""
-                        ? DateDisplayFormat(State.ToDate)
-                        : null
-                    }
-                    className="DatePickerDC"
-                    required
-                  />
-                </div> */}
-                {cnicList.length > 0 ? (
+
+                {/* Joint account: user must pick a CNIC first */}
+                {isJointAccount ? (
                   <div className="u-margin-top-15px">
-                    <SelectBoxWithButton
-                      icon={<i className="icon-search icon-size-one"></i>}
-                      text="Search"
+                    <SelectBox
                       name="CNIC"
-                      applyClass="account-number"
-                      label={selectedCnic !== "" && "Select CNIC"}
-                      placeholder={"Select CNIC"}
-                      textFieldSize="small"
-                      fullWidth
-                      autoComplete="off"
-                      required
+                      label={selectedCnic !== "" ? "Select CNIC" : ""}
+                      placeholder={"Select CNIC *"}
                       option={cnicList}
-                      click={searchHandlerForAccountCnic}
-                      change={cnicSelectHandler}
                       value={selectedCnic}
+                      change={cnicSelectHandler}
                     />
+                  </div>
+                ) : null}
+
+                {/* Date range + Search: always shown once CNICs are fetched
+                  (below the CNIC dropdown for joint accounts, alone otherwise) */}
+                {cnicList.length > 0 ? (
+                  <div
+                    className="dateRangePicker u-margin-top-15px u-display-flex"
+                    style={{ gap: 16, alignItems: "center" }}
+                  >
+                    <div style={{ flex: 1 }}>
+                      <StartToEndDate
+                        size="large"
+                        DateRange
+                        change={setDate}
+                        key={clearDateSelect}
+                        startvalue={
+                          State.FromDate !== null && State.FromDate !== ""
+                            ? DateDisplayFormat(State.FromDate)
+                            : null
+                        }
+                        endvalue={
+                          State.ToDate !== null && State.ToDate !== ""
+                            ? DateDisplayFormat(State.ToDate)
+                            : null
+                        }
+                        className="DatePickerDC"
+                        required
+                      />
+                    </div>
+                    <div>
+                      <Button
+                        applyClass="btnDarkSolid"
+                        text="Search"
+                        className="downloadButton"
+                        disable={!canSearchAccount}
+                        click={searchHandlerForAccountCnic}
+                      />
+                    </div>
                   </div>
                 ) : null}
               </>

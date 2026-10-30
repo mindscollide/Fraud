@@ -704,50 +704,7 @@ const SearchNONAPIDispute = () => {
             textLength={17}
           />
         </Col>
-        <Col lg={6} md={6} sm={24}>
-          <TextField
-            fullWidth
-            name={"AccountNumber"}
-            label={searchData?.AccountNumber !== "" && "Account Number"}
-            placeholder={"Account Number"}
-            autoComplete="off"
-            size="small"
-            value={searchData.AccountNumber}
-            change={(e) => handleSearch(e)}
-            textLength={14}
-            minLength={14}
-          />
-        </Col>
-        <Col lg={6} md={6} sm={24}>
-          <TextField
-            fullWidth
-            name={"TransactionId"}
-            label={searchData?.TransactionId !== "" && "Transaction ID"}
-            placeholder={"Transaction ID"}
-            size="small"
-            autoComplete="off"
-            value={searchData.TransactionId}
-            change={(e) => handleSearch(e)}
-            textLength={20}
-            minLength={20}
-          />
-        </Col>
-        <Col lg={6} md={6} sm={24}>
-          <TextField
-            fullWidth
-            name={"ApprovalCode"}
-            label={searchData?.ApprovalCode !== "" && "Approval Code"}
-            placeholder={"Approval Code"}
-            size="small"
-            autoComplete="off"
-            value={searchData.ApprovalCode}
-            change={(e) => handleSearch(e)}
-            textLength={6}
-            minLength={6}
-          />
-        </Col>
-      </Row>
-      <Row gutter={8} className="u-margin-top-22px">
+
         <Col lg={6} md={4} sm={24}>
           <TextField
             fullWidth
@@ -758,10 +715,10 @@ const SearchNONAPIDispute = () => {
             autoComplete="off"
             value={searchData.CustomerName}
             change={(e) => handleSearch(e)}
-            textLength={25}
-            minLength={25}
+            textLength={100}
           />
         </Col>
+
         <Col lg={6} md={6} sm={24}>
           <TextField
             fullWidth
@@ -776,6 +733,50 @@ const SearchNONAPIDispute = () => {
             minLength={13}
           />
         </Col>
+
+        <Col lg={6} md={6} sm={24}>
+          <TextField
+            fullWidth
+            name={"AccountNumber"}
+            label={searchData?.AccountNumber !== "" && "Account Number"}
+            placeholder={"Account Number"}
+            autoComplete="off"
+            size="small"
+            value={searchData.AccountNumber}
+            change={(e) => handleSearch(e)}
+            textLength={14}
+            minLength={14}
+          />
+        </Col>
+      </Row>
+
+      <Row gutter={8} className="u-margin-top-22px">
+        <Col lg={6} md={6} sm={24}>
+          <TextField
+            fullWidth
+            name={"TransactionId"}
+            label={searchData?.TransactionId !== "" && "Transaction ID"}
+            placeholder={"Transaction ID"}
+            size="small"
+            autoComplete="off"
+            value={searchData.TransactionId}
+            change={(e) => handleSearch(e)}
+            textLength={20}
+            minLength={20}
+          />
+        </Col>
+
+        <Col lg={6} md={6} sm={24}>
+          <SelectBox
+            label={cityValue?.length > 0 && "Select City"}
+            placeholder="Select City"
+            option={city}
+            value={cityValue}
+            change={CityNameHandler}
+            name="FK_CTID"
+          />
+        </Col>
+
         <Col lg={6} md={6} sm={24}>
           <SelectBox
             label={caseStatus?.length > 0 && "Select Case Status"}
@@ -786,6 +787,7 @@ const SearchNONAPIDispute = () => {
             change={caseStatusHandler}
           />
         </Col>
+
         <Col lg={6} md={6} sm={24}>
           <SelectBox
             label={searchData?.Fraudtype !== "" && "Select Fraud Type"}
@@ -797,17 +799,23 @@ const SearchNONAPIDispute = () => {
           />
         </Col>
       </Row>
+
       <Row gutter={8} className="u-margin-top-22px">
         <Col lg={6} md={6} sm={24}>
-          <SelectBox
-            label={cityValue?.length > 0 && "Select City"}
-            placeholder="Select City"
-            option={city}
-            value={cityValue}
-            change={CityNameHandler}
-            name="FK_CTID"
+          <TextField
+            fullWidth
+            name={"ApprovalCode"}
+            label={searchData?.ApprovalCode !== "" && "Approval Code"}
+            placeholder={"Approval Code"}
+            size="small"
+            autoComplete="off"
+            value={searchData.ApprovalCode}
+            change={(e) => handleSearch(e)}
+            textLength={6}
+            minLength={6}
           />
         </Col>
+
         <Col lg={6} md={6} sm={24}>
           <FormattedInputs
             fullWidth
@@ -848,7 +856,7 @@ const SearchNONAPIDispute = () => {
       </Row>
 
       <Row gutter={8} className="u-margin-top-10px u-justify-content-center">
-        <Col lg={4} md={4} sm={24}>
+        <Col lg={3} md={3} sm={24}>
           <Button
             text="Search"
             icon={
@@ -861,7 +869,7 @@ const SearchNONAPIDispute = () => {
             click={handleSearchData}
           />
         </Col>
-        <Col lg={4} md={4} sm={24}>
+        <Col lg={3} md={3} sm={24}>
           <Button
             text="Reset"
             icon={<i className="icon-reset icon-size-zero"></i>}

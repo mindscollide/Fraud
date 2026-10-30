@@ -1,5 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
-
+import React, { useEffect, useState, useRef, useMemo } from "react";
 
 import { PlusOutlined as AddIcon } from "@ant-design/icons";
 
@@ -64,7 +63,7 @@ const ViewCustomerDetailsDC = () => {
 
   const dispatch = useDispatch();
 
-  const [fraudType, setFraudType] = useState([]);
+  const [fraudType, setFraudType] = useState("");
 
   const {
     setupForms,
@@ -133,22 +132,22 @@ const ViewCustomerDetailsDC = () => {
   ] = useState([]);
 
   //For Fraud ID to Name
-  useEffect(() => {
-    let customerDetails =
-      investigationOfficer.GetDebitCardDisputesData.debitCardDispute;
-    let nameFraud = setupForms.FraudTypeData;
-    if (customerDetails !== undefined && customerDetails !== null) {
-      nameFraud.map((data, index) => {
-        if (customerDetails.fK_FTID === data.pK_FTID) {
-          setFraudType(data.name);
-          setDCDispute({
-            ...DCDispute,
-            ["fK_FTID"]: parseInt(data.pK_FTID),
-          });
-        }
-      });
-    }
-  }, [setupForms.FraudTypeData]);
+  // useEffect(() => {
+  //   let customerDetails =
+  //     investigationOfficer.GetDebitCardDisputesData.debitCardDispute;
+  //   let nameFraud = setupForms.FraudTypeData;
+  //   if (customerDetails !== undefined && customerDetails !== null) {
+  //     nameFraud.map((data, index) => {
+  //       if (customerDetails.fK_FTID === data.pK_FTID) {
+  //         setFraudType(data.name);
+  //         setDCDispute({
+  //           ...DCDispute,
+  //           ["fK_FTID"]: parseInt(data.pK_FTID),
+  //         });
+  //       }
+  //     });
+  //   }
+  // }, [setupForms.FraudTypeData]);
 
   // manual transection list table column
   const colu = [
@@ -1037,28 +1036,85 @@ const ViewCustomerDetailsDC = () => {
     }
   }, [investigationManager.SaveRejectionData]);
 
-  const [cityValue, setCityValue] = useState("");
+  // const [cityValue, setCityValue] = useState("");
 
+  // useEffect(() => {
+  //   let valueCity = setupForms.CityData;
+  //   valueCity.map((data, index) => {
+  //     if (fDCusotmerAccount.fK_CTID === data.pK_CTID) {
+  //       setCityValue(data.name);
+  //     }
+  //   });
+  // }, [setupForms.CityData]);
+
+  // useEffect(() => {}, [cityValue]);
+
+  // useEffect(() => {
+  //   const customerDetails =
+  //     investigationOfficer.GetDebitCardDisputesData?.debitCardDispute;
+
+  //   const fraudTypes = setupForms.FraudTypeData || [];
+
+  //   if (!customerDetails) return;
+
+  //   const matchedFraud = fraudTypes.find(
+  //     (item) => Number(item.pK_FTID) === Number(customerDetails.fK_FTID)
+  //   );
+
+  //   setFraudType(matchedFraud?.name || "");
+
+  //   setDCDispute((prev) => ({
+  //     ...prev,
+  //     FK_FTID: Number(customerDetails.fK_FTID) || 0,
+  //   }));
+  // }, [
+  //   investigationOfficer.GetDebitCardDisputesData?.debitCardDispute,
+  //   setupForms.FraudTypeData,
+  // ]);
+
+  const cityValue = useMemo(() => {
+    const list = setupForms.CityData || [];
+    const match = list.find(
+      (c) => Number(c.pK_CTID) === Number(fDCusotmerAccount.fK_CTID)
+    );
+    return match ? match.name : "";
+  }, [setupForms.CityData, fDCusotmerAccount.fK_CTID]);
+
+  const fraudTypeName = useMemo(() => {
+    const dispute =
+      investigationOfficer.GetDebitCardDisputesData?.debitCardDispute;
+    if (!dispute) return "";
+
+    // 1) Prefer the name that comes directly in the dispute response
+    if (dispute.fraudType) return dispute.fraudType;
+
+    // 2) Fallback: look it up from the Fraud Type list using the ID
+    const list = setupForms.FraudTypeData || [];
+    const match = list.find(
+      (item) => Number(item.pK_FTID) === Number(dispute.fK_FTID)
+    );
+    return match?.name || "";
+  }, [
+    investigationOfficer.GetDebitCardDisputesData?.debitCardDispute,
+    setupForms.FraudTypeData,
+  ]);
+  // keep FK_FTID in the form state in sync
   useEffect(() => {
-    let valueCity = setupForms.CityData;
-    valueCity.map((data, index) => {
-      if (fDCusotmerAccount.fK_CTID === data.pK_CTID) {
-        setCityValue(data.name);
-      }
-    });
-  }, [setupForms.CityData]);
-
-  useEffect(() => {}, [cityValue]);
-
+    const dispute =
+      investigationOfficer.GetDebitCardDisputesData?.debitCardDispute;
+    if (!dispute) return;
+    setDCDispute((prev) => ({
+      ...prev,
+      FK_FTID: Number(dispute.fK_FTID) || 0,
+    }));
+  }, [investigationOfficer.GetDebitCardDisputesData?.debitCardDispute]);
   return (
     <>
       <Title level={3}>View Debit Card Disputes</Title>
       <Paper section padding="1">
         <Row gutter={16}>
           <Col lg={18} md={18} sm={18} xs={24}>
-            <h1
-              className="u-font-size-18px u-margin-top-15px u-margin-left-20px u-color-ec8d57"
-            >
+            <h1 className="u-font-size-18px u-margin-top-15px u-margin-left-20px u-color-ec8d57">
               Customer Details
             </h1>
           </Col>
@@ -1096,11 +1152,13 @@ const ViewCustomerDetailsDC = () => {
           </Col>
 
           <Col lg={6} md={6} sm={24} xs={24}>
-            <SelectBox
-              label="City"
-              value={cityValue}
+            <TextField
+              size="small"
               name="fK_CTID"
               disable={true}
+              value={cityValue}
+              label="City"
+              fullWidth
             />
           </Col>
           <Col lg={6} md={6} sm={24} xs={24}>
@@ -1114,11 +1172,20 @@ const ViewCustomerDetailsDC = () => {
             />
           </Col>
           <Col lg={6} md={6} sm={24} xs={24}>
-            <SelectBox
+            {/* <SelectBox
               name="Fraud Type"
               disable
               value={fraudType}
               label="Select Fraud Type"
+            /> */}
+
+            <TextField
+              name="FraudType"
+              size="small"
+              disable
+              value={fraudTypeName}
+              label="Fraud Type"
+              fullWidth
             />
           </Col>
           <Col lg={24} md={24} sm={24} className="u-margin-top-2pct">
@@ -1157,9 +1224,7 @@ const ViewCustomerDetailsDC = () => {
       <div className="u-margin-top-20px" />
       <Paper section padding="1">
         <Col lg={18} md={18} sm={18} xs={24}>
-          <h1
-            className="u-font-size-18px u-margin-top-15px u-margin-left-20px u-color-ec8d57"
-          >
+          <h1 className="u-font-size-18px u-margin-top-15px u-margin-left-20px u-color-ec8d57">
             Date
           </h1>
         </Col>
@@ -1244,9 +1309,7 @@ const ViewCustomerDetailsDC = () => {
       <div className="u-margin-top-20px" />
       <Paper section padding="1">
         <Col lg={18} md={18} sm={18} xs={24} className="u-margin-bottom-20px">
-          <h1
-            className="u-font-size-18px u-margin-top-15px u-margin-left-20px u-color-ec8d57"
-          >
+          <h1 className="u-font-size-18px u-margin-top-15px u-margin-left-20px u-color-ec8d57">
             Other Details
           </h1>
         </Col>
@@ -1322,9 +1385,7 @@ const ViewCustomerDetailsDC = () => {
       <div className="u-margin-top-20px" />
       <Paper section padding="1">
         <Col lg={18} md={18} sm={18} xs={24} className="u-margin-bottom-20px">
-          <h1
-            className="u-font-size-18px u-margin-top-15px u-margin-left-20px u-color-ec8d57"
-          >
+          <h1 className="u-font-size-18px u-margin-top-15px u-margin-left-20px u-color-ec8d57">
             Closure Details
           </h1>
         </Col>
@@ -1448,9 +1509,7 @@ const ViewCustomerDetailsDC = () => {
       <div className="u-margin-top-25px" />
       <Paper section padding="1">
         <Col lg={18} md={18} sm={18} xs={24}>
-          <h1
-            className="u-font-size-18px u-margin-top-15px u-margin-left-20px u-color-ec8d57"
-          >
+          <h1 className="u-font-size-18px u-margin-top-15px u-margin-left-20px u-color-ec8d57">
             Files Upload
           </h1>
         </Col>

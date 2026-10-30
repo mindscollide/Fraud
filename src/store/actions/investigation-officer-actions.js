@@ -3174,7 +3174,15 @@ const UpdateADCDisputeDetails = (
       .then(async (response) => {
         if (response.data.responseCode === 417) {
           await dispatch(refreshToken());
-          dispatch(UpdateADCDisputeDetails(object, searchData, searchDataofdate, DataForGlobal, DataForGlobalDate));
+          dispatch(
+            UpdateADCDisputeDetails(
+              object,
+              searchData,
+              searchDataofdate,
+              DataForGlobal,
+              DataForGlobalDate
+            )
+          );
         } else if (response.data.responseCode === 200) {
           if (response.data.responseResult.isExecuted === true) {
             await dispatch(
@@ -3250,7 +3258,15 @@ const UpdateAndApproveADCDisputeDetails = (
       .then(async (response) => {
         if (response.data.responseCode === 417) {
           await dispatch(refreshToken());
-          dispatch(UpdateAndApproveADCDisputeDetails(object, searchData, searchDataofdate, DataForGlobal, DataForGlobalDate));
+          dispatch(
+            UpdateAndApproveADCDisputeDetails(
+              object,
+              searchData,
+              searchDataofdate,
+              DataForGlobal,
+              DataForGlobalDate
+            )
+          );
         } else if (response.data.responseCode === 200) {
           if (response.data.responseResult.isExecuted === true) {
             await dispatch(
@@ -3481,7 +3497,12 @@ const GetTransactionDetailsByAccountNumberADC = ({
       .then(async (response) => {
         if (response.data.responseCode === 417) {
           await dispatch(refreshToken());
-          dispatch(GetTransactionDetailsByAccountNumberADC({ object, setAccountFoundAccTab }));
+          dispatch(
+            GetTransactionDetailsByAccountNumberADC({
+              object,
+              setAccountFoundAccTab,
+            })
+          );
         } else if (response.data.responseCode === 200) {
           if (response.data.responseResult.isExecuted === true) {
             setAccountFoundAccTab(true);
@@ -6167,7 +6188,14 @@ const EditDisputeNegativeDB = (
       .then(async (response) => {
         if (response.data.responseCode === 417) {
           await dispatch(refreshToken());
-          dispatch(EditDisputeNegativeDB(object, searchData, DataForGlobal, DataForGlobalDate));
+          dispatch(
+            EditDisputeNegativeDB(
+              object,
+              searchData,
+              DataForGlobal,
+              DataForGlobalDate
+            )
+          );
         } else if (response.data.responseCode === 200) {
           if (response.data.responseResult.isExecuted === true) {
             if (flagForGlobalDispute === "true") {

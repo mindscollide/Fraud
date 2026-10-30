@@ -711,7 +711,7 @@ const SearchDebitCardDispute = () => {
   return (
     <>
       <Title level={3}>Search Debit Card Disputes</Title>
-      <Row gutter={8}>
+      <Row gutter={8} className="u-margin-top-22px">
         <Col lg={6} md={6} sm={24}>
           <TextField
             name={"RefrenceNumber"}
@@ -725,6 +725,36 @@ const SearchDebitCardDispute = () => {
             textLength={17}
           />
         </Col>
+
+        <Col lg={6} md={4} sm={24}>
+          <TextField
+            fullWidth
+            name={"CustomerName"}
+            label={searchData?.CustomerName !== "" ? "Customer Name" : ""}
+            placeholder={"Customer Name"}
+            size="small"
+            autoComplete="off"
+            value={searchData.CustomerName}
+            change={(e) => handleSearch(e)}
+            textLength={100}
+          />
+        </Col>
+
+        <Col lg={6} md={6} sm={24}>
+          <TextField
+            fullWidth
+            name={"CNIC"}
+            label={searchData?.CNIC !== "" ? "CNIC" : ""}
+            placeholder={"CNIC"}
+            autoComplete="off"
+            size="small"
+            value={searchData.CNIC}
+            change={(e) => handleSearch(e)}
+            textLength={13}
+            minLength={13}
+          />
+        </Col>
+
         <Col lg={6} md={6} sm={24}>
           <TextField
             fullWidth
@@ -739,6 +769,9 @@ const SearchDebitCardDispute = () => {
             minLength={14}
           />
         </Col>
+      </Row>
+
+      <Row gutter={8} className="u-margin-top-22px">
         <Col lg={6} md={6} sm={24}>
           <TextField
             fullWidth
@@ -753,6 +786,42 @@ const SearchDebitCardDispute = () => {
             minLength={20}
           />
         </Col>
+
+        <Col lg={6} md={4} sm={24}>
+          <SelectBox
+            label={cityValue !== "" && cityValue !== null ? "Select City" : ""}
+            placeholder={"Select City"}
+            option={city}
+            value={cityValue}
+            change={CityNameHandler}
+            name="FK_CTID"
+          />
+        </Col>
+
+        <Col lg={6} md={6} sm={24}>
+          <SelectBox
+            label={hasCaseStatus ? "Select Case Status" : ""}
+            placeholder={"Select Case Status"}
+            option={caseStatusOptions}
+            name="fk_csid"
+            value={caseStatus}
+            change={caseStatusHandler}
+          />
+        </Col>
+
+        <Col lg={6} md={6} sm={24}>
+          <SelectBox
+            label={searchData.Fraudtype !== "" ? "Select Fraud Type" : ""}
+            placeholder={"Select Fraud Type"}
+            option={fraudType}
+            name="Fraudtype"
+            value={searchData.Fraudtype}
+            change={fraudNameHandler}
+          />
+        </Col>
+      </Row>
+
+      <Row gutter={8} className="u-margin-top-22px">
         <Col lg={6} md={6} sm={24}>
           <TextField
             fullWidth
@@ -767,65 +836,8 @@ const SearchDebitCardDispute = () => {
             minLength={6}
           />
         </Col>
-        <Col lg={6} md={4} sm={24} className="u-margin-top-22px">
-          <TextField
-            fullWidth
-            name={"CustomerName"}
-            label={searchData?.CustomerName !== "" ? "Customer Name" : ""}
-            placeholder={"Customer Name"}
-            size="small"
-            autoComplete="off"
-            value={searchData.CustomerName}
-            change={(e) => handleSearch(e)}
-            textLength={25}
-            minLength={25}
-          />
-        </Col>
-        <Col lg={6} md={4} sm={24} className="u-margin-top-22px">
-          <SelectBox
-            label={cityValue !== "" && cityValue !== null ? "Select City" : ""}
-            placeholder={"Select City"}
-            option={city}
-            value={cityValue}
-            change={CityNameHandler}
-            name="FK_CTID"
-          />
-        </Col>
-        <Col lg={6} md={6} sm={24} className="u-margin-top-22px">
-          <TextField
-            fullWidth
-            name={"CNIC"}
-            label={searchData?.CNIC !== "" ? "CNIC" : ""}
-            placeholder={"CNIC"}
-            autoComplete="off"
-            size="small"
-            value={searchData.CNIC}
-            change={(e) => handleSearch(e)}
-            textLength={13}
-            minLength={13}
-          />
-        </Col>
-        <Col lg={6} md={6} sm={24} className="u-margin-top-22px">
-          <SelectBox
-            label={hasCaseStatus ? "Select Case Status" : ""}
-            placeholder={"Select Case Status"}
-            option={caseStatusOptions}
-            name="fk_csid"
-            value={caseStatus}
-            change={caseStatusHandler}
-          />
-        </Col>
-        <Col lg={6} md={6} sm={24} className="u-margin-top-22px">
-          <SelectBox
-            label={searchData.Fraudtype !== "" ? "Select Fraud Type" : ""}
-            placeholder={"Select Fraud Type"}
-            option={fraudType}
-            name="Fraudtype"
-            value={searchData.Fraudtype}
-            change={fraudNameHandler}
-          />
-        </Col>
-        <Col lg={6} md={6} sm={24} className="u-margin-top-22px">
+
+        <Col lg={6} md={6} sm={24}>
           <FormattedInputs
             fullWidth
             name="TransactionAmount"
@@ -842,7 +854,7 @@ const SearchDebitCardDispute = () => {
             change={(e) => handleSearch(e)}
           />
         </Col>
-        <Col lg={6} md={6} sm={24} className="u-margin-top-22px">
+        <Col lg={6} md={6} sm={24}>
           <StartToEndDate
             label={hasDateValue ? "Case Received Date" : ""}
             width="100%!important"
@@ -862,14 +874,9 @@ const SearchDebitCardDispute = () => {
             DateRange={true}
           />
         </Col>
-        <Col lg={6} md={6} sm={24} className="u-margin-top-22px"></Col>
-        <Col lg={8} md={8} sm={24}></Col>
-        <Col
-          lg={4}
-          md={4}
-          sm={24}
-          className="u-margin-top-10px u-text-align-right"
-        >
+      </Row>
+      <Row className="u-margin-top-10px u-display-flex u-justify-content-center">
+        <Col lg={3} md={3} sm={24}>
           <Button
             text="Search"
             icon={
@@ -882,7 +889,7 @@ const SearchDebitCardDispute = () => {
             click={handleSearchData}
           />
         </Col>
-        <Col lg={4} md={4} sm={24} className="u-margin-top-10px">
+        <Col lg={3} md={3} sm={24}>
           <Button
             text="Reset"
             icon={<i className="icon-reset icon-size-zero"></i>}
@@ -891,7 +898,8 @@ const SearchDebitCardDispute = () => {
             click={resetData}
           />
         </Col>
-        <Col lg={8} md={8} sm={24}></Col>
+      </Row>
+      <Row>
         <Col lg={24} md={22} sm={24} className="u-margin-top-1pct">
           <Table
             rows={investigationOfficer.SearchDebitCardDisputesData}
@@ -916,7 +924,17 @@ const SearchDebitCardDispute = () => {
         {actions.viewApprovalHistory && (
           <>
             <Table rows={row} columns={viewApprovalColumn} />
-            <GroupedButtons data={okayButtonProp} />
+            <div className="u-display-flex u-justify-content-center">
+              {/* <GroupedButtons data={okayButtonProp} /> */}
+              <Button
+                text="Cancel"
+                type={"primary"}
+                size="large"
+                applyClass="btnBorderStyledBeach"
+                click={handleCancel}
+                // click= () => handleCancel(),
+              />
+            </div>
           </>
         )}
       </Modal>

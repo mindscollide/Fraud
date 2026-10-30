@@ -670,16 +670,16 @@ const SearchCreditCardDispute = () => {
     },
   ];
 
-  const okayButtonProp = {
-    primaryButton: {
-      text: "Ok",
-      class: "btnBorderStyledBeach",
-      click: () => handleCancel(),
-    },
-    secondaryButton: {
-      text: "",
-    },
-  };
+  // const okayButtonProp = {
+  //   primaryButton: {
+  //     text: "Ok",
+  //     class: "btnBorderStyledBeach",
+  //     click: () => handleCancel(),
+  //   },
+  //   secondaryButton: {
+  //     text: "",
+  //   },
+  // };
 
   const addButtonProps = {
     primaryButton: {
@@ -793,20 +793,7 @@ const SearchCreditCardDispute = () => {
             value={searchData.CustomerName}
             change={(e) => handleSearch(e)}
             autoComplete="off"
-          />
-        </Col>
-        <Col lg={6} md={6} sm={24}>
-          <TextField
-            fullWidth
-            name={"TransactionId"}
-            label={searchData?.TransactionId !== "" ? "Transaction ID" : ""}
-            placeholder={"Transaction ID"}
-            size="small"
-            value={searchData.TransactionId}
-            change={(e) => handleSearch(e)}
-            textLength={20}
-            minLength={20}
-            autoComplete="off"
+            textLength={100}
           />
         </Col>
         <Col lg={6} md={6} sm={24}>
@@ -820,6 +807,20 @@ const SearchCreditCardDispute = () => {
             change={(e) => handleSearch(e)}
             textLength={13}
             minLength={13}
+            autoComplete="off"
+          />
+        </Col>
+        <Col lg={6} md={6} sm={24}>
+          <TextField
+            fullWidth
+            name={"TransactionId"}
+            label={searchData?.TransactionId !== "" ? "Transaction ID" : ""}
+            placeholder={"Transaction ID"}
+            size="small"
+            value={searchData.TransactionId}
+            change={(e) => handleSearch(e)}
+            textLength={20}
+            minLength={20}
             autoComplete="off"
           />
         </Col>
@@ -855,6 +856,7 @@ const SearchCreditCardDispute = () => {
             change={fraudNameHandler}
           />
         </Col>
+
         <Col lg={6} md={6} sm={24}>
           <FormattedInputs
             name={"TransactionAmount"}
@@ -943,7 +945,19 @@ const SearchCreditCardDispute = () => {
         {actions.viewApprovalHistory && (
           <>
             <Table rows={row} columns={viewApprovalColumn} />
-            <GroupedButtons data={okayButtonProp} />
+            {/* <GroupedButtons data={okayButtonProp} /> */}
+
+            <div className="u-display-flex u-justify-content-center">
+              {/* <GroupedButtons data={okayButtonProp} /> */}
+              <Button
+                text="Cancel"
+                type={"primary"}
+                size="large"
+                applyClass="btnBorderStyledBeach"
+                click={handleCancel}
+                // click= () => handleCancel(),
+              />
+            </div>
           </>
         )}
       </Modal>

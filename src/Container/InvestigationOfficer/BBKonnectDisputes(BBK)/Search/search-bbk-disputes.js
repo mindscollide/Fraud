@@ -718,34 +718,6 @@ const SearchBBKDispute = () => {
         <Col lg={6} md={6} sm={24}>
           <TextField
             fullWidth
-            name={"AccountNumber"}
-            label={searchData.AccountNumber !== "" && "Account Number"}
-            placeholder={"Account Number"}
-            autoComplete="off"
-            size="small"
-            value={searchData.AccountNumber}
-            change={(e) => handleSearch(e)}
-            textLength={14}
-            minLength={8}
-          />
-        </Col>
-        <Col lg={6} md={6} sm={24}>
-          <TextField
-            fullWidth
-            name={"TransactionID"}
-            label={searchData.TransactionID !== "" && "Transaction ID"}
-            placeholder={"Transaction ID"}
-            autoComplete="off"
-            size="small"
-            value={searchData.TransactionID}
-            change={(e) => handleSearch(e)}
-            textLength={20}
-            minLength={20}
-          />
-        </Col>
-        <Col lg={6} md={6} sm={24}>
-          <TextField
-            fullWidth
             name={"CustomerName"}
             label={searchData.CustomerName !== "" && "Customer Name"}
             placeholder={"Customer Name"}
@@ -756,18 +728,7 @@ const SearchBBKDispute = () => {
             textLength={100}
           />
         </Col>
-      </Row>
-      <Row gutter={8} className="u-margin-top-22px">
-        <Col lg={6} md={6} sm={24}>
-          <SelectBox
-            label={cityValue?.length > 0 && "Select City"}
-            placeholder={"Select City"}
-            option={city}
-            value={cityValue}
-            change={CityNameHandler}
-            name="FK_CTID"
-          />
-        </Col>
+
         <Col lg={6} md={6} sm={24}>
           <TextField
             fullWidth
@@ -782,6 +743,74 @@ const SearchBBKDispute = () => {
             minLength={13}
           />
         </Col>
+
+        <Col lg={6} md={6} sm={24}>
+          <TextField
+            fullWidth
+            name={"AccountNumber"}
+            label={searchData.AccountNumber !== "" && "Account Number"}
+            placeholder={"Account Number"}
+            autoComplete="off"
+            size="small"
+            value={searchData.AccountNumber}
+            change={(e) => handleSearch(e)}
+            textLength={14}
+            minLength={8}
+          />
+        </Col>
+      </Row>
+
+      <Row gutter={8} className="u-margin-top-22px">
+        <Col lg={6} md={6} sm={24}>
+          <TextField
+            fullWidth
+            name={"TransactionID"}
+            label={searchData.TransactionID !== "" && "Transaction ID"}
+            placeholder={"Transaction ID"}
+            autoComplete="off"
+            size="small"
+            value={searchData.TransactionID}
+            change={(e) => handleSearch(e)}
+            textLength={20}
+            minLength={20}
+          />
+        </Col>
+
+        <Col lg={6} md={6} sm={24}>
+          <SelectBox
+            label={cityValue?.length > 0 && "Select City"}
+            placeholder={"Select City"}
+            option={city}
+            value={cityValue}
+            change={CityNameHandler}
+            name="FK_CTID"
+          />
+        </Col>
+
+        <Col lg={6} md={6} sm={24}>
+          <SelectBox
+            label={caseStatus?.length > 0 && "Select Case Status"}
+            placeholder={"Select Case Status"}
+            option={caseStatusOptions}
+            name="fk_csid"
+            value={caseStatus}
+            change={caseStatusHandler}
+          />
+        </Col>
+
+        <Col lg={6} md={6} sm={24}>
+          <SelectBox
+            label={searchData.Fraudtype !== "" && "Select Fraud Type"}
+            placeholder={"Select Fraud Type"}
+            option={fraudType}
+            name="Fraudtype"
+            value={searchData.Fraudtype}
+            change={fraudNameHandler}
+          />
+        </Col>
+      </Row>
+
+      <Row gutter={8} className="u-margin-top-22px">
         <Col lg={6} md={6} sm={24}>
           <TextField
             fullWidth
@@ -795,29 +824,7 @@ const SearchBBKDispute = () => {
             textLength={11}
           />
         </Col>
-        <Col lg={6} md={6} sm={24}>
-          <SelectBox
-            label={caseStatus?.length > 0 && "Select Case Status"}
-            placeholder={"Select Case Status"}
-            option={caseStatusOptions}
-            name="fk_csid"
-            value={caseStatus}
-            change={caseStatusHandler}
-          />
-        </Col>
-      </Row>
 
-      <Row gutter={8} className="u-margin-top-22px">
-        <Col lg={6} md={6} sm={24}>
-          <SelectBox
-            label={searchData.Fraudtype !== "" && "Select Fraud Type"}
-            placeholder={"Select Fraud Type"}
-            option={fraudType}
-            name="Fraudtype"
-            value={searchData.Fraudtype}
-            change={fraudNameHandler}
-          />
-        </Col>
         <Col lg={6} md={6} sm={24}>
           <FormattedInputs
             fullWidth
@@ -856,8 +863,9 @@ const SearchBBKDispute = () => {
           />
         </Col>
       </Row>
+
       <Row gutter={8} className="u-margin-top-10px u-justify-content-center">
-        <Col lg={4} md={4} sm={24}>
+        <Col lg={3} md={3} sm={24}>
           <Button
             text="Search"
             icon={
@@ -870,7 +878,7 @@ const SearchBBKDispute = () => {
             click={handleSearchData}
           />
         </Col>
-        <Col lg={4} md={4} sm={24}>
+        <Col lg={3} md={3} sm={24}>
           <Button
             text="Reset"
             icon={<i className="icon-reset icon-size-zero"></i>}
