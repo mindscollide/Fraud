@@ -161,7 +161,7 @@ const SearchDebitCardDispute = () => {
     let name = e.target.name;
     let value = e.target.value;
     if (
-      name !== "ApprovalCode" &&
+      // name !== "ApprovalCode" &&
       name !== "TransactionId" &&
       name !== "TransactionAmount" &&
       name !== "CNIC" &&
@@ -174,7 +174,7 @@ const SearchDebitCardDispute = () => {
         [name]: value.trimStart(),
       });
     } else if (
-      name !== "ApprovalCode" &&
+      // name !== "ApprovalCode" &&
       name !== "TransactionId" &&
       name === "TransactionAmount" &&
       value !== -99999999999999999999 &&
@@ -276,20 +276,22 @@ const SearchDebitCardDispute = () => {
         ...searchData,
         [name]: "",
       });
-    } else if (name === "ApprovalCode" && value !== "") {
-      var valueCheck = value.replace(/[^\d-]/g, "");
-      if (valueCheck != "") {
-        setSearchData({
-          ...searchData,
-          [name]: valueCheck,
-        });
-      }
-    } else if (name === "ApprovalCode" && value === "") {
-      setSearchData({
-        ...searchData,
-        [name]: "",
-      });
-    } else if (name === "CNIC" && value !== "") {
+    }
+    // else if (name === "ApprovalCode" && value !== "") {
+    //   var valueCheck = value.replace(/[^\d-]/g, "");
+    //   if (valueCheck != "") {
+    //     setSearchData({
+    //       ...searchData,
+    //       [name]: valueCheck,
+    //     });
+    //   }
+    // } else if (name === "ApprovalCode" && value === "") {
+    //   setSearchData({
+    //     ...searchData,
+    //     [name]: "",
+    //   });
+    // }
+    else if (name === "CNIC" && value !== "") {
       var valueCheck = value.replace(/[^\d-]/g, "");
       if (valueCheck != "") {
         setSearchData({
@@ -832,8 +834,7 @@ const SearchDebitCardDispute = () => {
             autoComplete="off"
             value={searchData.ApprovalCode}
             change={(e) => handleSearch(e)}
-            textLength={6}
-            minLength={6}
+            textLength={7}
           />
         </Col>
 
@@ -876,7 +877,7 @@ const SearchDebitCardDispute = () => {
         </Col>
       </Row>
       <Row className="u-margin-top-10px u-display-flex u-justify-content-center">
-        <Col lg={3} md={3} sm={24}>
+        <Col lg={4} md={4} sm={24}>
           <Button
             text="Search"
             icon={
@@ -889,7 +890,7 @@ const SearchDebitCardDispute = () => {
             click={handleSearchData}
           />
         </Col>
-        <Col lg={3} md={3} sm={24}>
+        <Col lg={4} md={4} sm={24}>
           <Button
             text="Reset"
             icon={<i className="icon-reset icon-size-zero"></i>}

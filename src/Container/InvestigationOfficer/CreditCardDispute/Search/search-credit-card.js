@@ -91,6 +91,7 @@ const SearchCreditCardDispute = () => {
     FK_CTID: 0,
     Fraudtype: "",
     TransactionId: "",
+    ApprovalCode: "",
     TransactionAmount: -99999999999999999999,
     fk_csid: -1,
   });
@@ -149,6 +150,7 @@ const SearchCreditCardDispute = () => {
       FK_CTID: 0,
       Fraudtype: "",
       TransactionId: "",
+      ApprovalCode: "",
       TransactionAmount: -99999999999999999999,
       fk_csid: -1,
     });
@@ -858,6 +860,21 @@ const SearchCreditCardDispute = () => {
         </Col>
 
         <Col lg={6} md={6} sm={24}>
+          <TextField
+            fullWidth
+            name={"ApprovalCode"}
+            label={searchData?.ApprovalCode !== "" ? "Approval Code" : ""}
+            placeholder={"Approval Code"}
+            size="small"
+            autoComplete="off"
+            value={searchData.ApprovalCode}
+            change={(e) => handleSearch(e)}
+            textLength={7}
+          />
+        </Col>
+      </Row>
+      <Row gutter={8} className="u-margin-top-22px">
+        <Col lg={6} md={6} sm={24}>
           <FormattedInputs
             name={"TransactionAmount"}
             value={
@@ -875,8 +892,6 @@ const SearchCreditCardDispute = () => {
             autoComplete="off"
           />
         </Col>
-      </Row>
-      <Row gutter={8} className="u-margin-top-22px">
         <Col lg={6} md={6} sm={24}>
           <StartToEndDate
             label={hasDateValue ? "Case Received Date" : ""}

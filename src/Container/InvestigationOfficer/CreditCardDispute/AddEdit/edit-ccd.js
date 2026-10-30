@@ -1867,7 +1867,7 @@ const EditCreditCardDispute = () => {
                 <TextField
                   size="small"
                   value={FDCustomer.CustomerName}
-                  label={lbl(FDCustomer.CustomerName, "Customer Name *")}
+                  label={lbl(FDCustomer.CustomerName, "Customer Name")}
                   placeholder={"Customer Name *"}
                   autoComplete="off"
                   fullWidth
@@ -1879,7 +1879,7 @@ const EditCreditCardDispute = () => {
               </Col>
               <Col lg={6} md={6} sm={24} xs={24}>
                 <SelectBox
-                  label={lbl(cityValue, "Select City *")}
+                  label={lbl(cityValue, "Select City")}
                   placeholder={"Select City *"}
                   option={city}
                   value={cityValue}
@@ -1894,7 +1894,7 @@ const EditCreditCardDispute = () => {
                 <FormattedInputs
                   textLength={(999, 999, 999, 999, 999, 999, 999)}
                   size="small"
-                  Label={lbl(CCDispute.CreditCardLimit, "Credit Limit *")}
+                  Label={lbl(CCDispute.CreditCardLimit, "Credit Limit")}
                   placeholder={"Credit Limit *"}
                   value={
                     CCDispute.CreditCardLimit === null ||
@@ -1912,7 +1912,7 @@ const EditCreditCardDispute = () => {
               <Col lg={6} md={6} sm={24} xs={24}>
                 <SelectBox
                   option={fraudType}
-                  label={lbl(fraudTypeName, "Fraud Type *")}
+                  label={lbl(fraudTypeName, "Fraud Type")}
                   placeholder={"Fraud Type *"}
                   name="FK_FTID"
                   value={fraudTypeName}
@@ -2119,20 +2119,30 @@ const EditCreditCardDispute = () => {
                 textLength={100}
               />
             </Col>
-            <Col lg={6} md={6} sm={24} xs={24} className="u-text-align-center">
-              <label>
-                <b>On Us / Off Us</b>
-              </label>
-              <br />
-              <Radio.Group
-                name="ON_OFF_US"
-                value={CreditCardTransactionDetailsObjects.ON_OFF_US}
-                onChange={CCTDOHandler}
-                required
+            <Col lg={6} md={6} sm={24} xs={24}>
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  height: "100%",
+                }}
               >
-                <Radio value={true}>Yes</Radio>
-                <Radio value={false}>No</Radio>
-              </Radio.Group>
+                <label>
+                  <b>On Us / Off Us</b>
+                </label>
+                <div className="u-margin-left-15px">
+                  <Radio.Group
+                    name="ON_OFF_US"
+                    value={CreditCardTransactionDetailsObjects.ON_OFF_US}
+                    onChange={CCTDOHandler}
+                  >
+                    <Radio value={true}>Yes</Radio>
+                    <Radio value={false}>No</Radio>
+                  </Radio.Group>
+                </div>
+              </div>
             </Col>
             <Col lg={6} md={6} sm={24} xs={24}>
               <TextField
@@ -2274,7 +2284,7 @@ const EditCreditCardDispute = () => {
           </Col>
 
           <Row gutter={16} className="u-margin-top-22px">
-            <Col lg={6} md={6} sm={24}>
+            <Col lg={5} md={5} sm={24}>
               <DatePicker
                 label={lbl(CCDispute.CaseReceivedDate, "Case Received Date")}
                 placeholder={"Case Received Date"}
@@ -2309,7 +2319,7 @@ const EditCreditCardDispute = () => {
               />
             </Col>
 
-            <Col lg={6} md={6} sm={24} xs={24} className="u-text-align-center">
+            <Col lg={3} md={3} sm={24} xs={24} className="u-text-align-center">
               <label>
                 <b>Case Resolved</b>
               </label>
@@ -2329,7 +2339,7 @@ const EditCreditCardDispute = () => {
               </Radio.Group>
             </Col>
 
-            <Col lg={6} md={6} sm={24}>
+            <Col lg={5} md={5} sm={24}>
               <DatePicker
                 label={lbl(CCDispute.CaseResolvedDate, "Case Resolved Date")}
                 size="large"
@@ -2347,7 +2357,7 @@ const EditCreditCardDispute = () => {
               />
             </Col>
 
-            <Col lg={6} md={6} sm={24}>
+            <Col lg={5} md={5} sm={24}>
               <Paper>
                 <TextField
                   fullWidth
@@ -2379,7 +2389,7 @@ const EditCreditCardDispute = () => {
             </h1>
           </Col>
           <Row gutter={16} className="u-margin-top-22px">
-            <Col lg={6} md={6} sm={24} xs={24} className="u-text-align-center">
+            <Col lg={3} md={3} sm={24} xs={24} className="u-text-align-center">
               <label>
                 <b>TC 40 Reporting</b>
               </label>
@@ -2413,7 +2423,7 @@ const EditCreditCardDispute = () => {
                 change={DateHandler}
               />
             </Col>
-            <Col lg={6} md={6} sm={24} xs={24} className="u-text-align-center">
+            <Col lg={3} md={3} sm={24} xs={24} className="u-text-align-center">
               <label>
                 <b>Safe Reporting</b>
               </label>
@@ -2468,18 +2478,20 @@ const EditCreditCardDispute = () => {
               />
             </Col>
             <Col lg={6} md={6} sm={24} xs={24} className="u-text-align-center">
-              <label>
-                <b>Point Of Compromise Identified</b>
-              </label>
-              <br />
-              <Radio.Group
-                name="IsPOC"
-                value={CCDispute.IsPOC}
-                onChange={CCDisputeHandler}
-              >
-                <Radio value={true}>Yes</Radio>
-                <Radio value={false}>No</Radio>
-              </Radio.Group>
+              <div>
+                <label>
+                  <b>Point Of Compromise Identified</b>
+                </label>
+                <br />
+                <Radio.Group
+                  name="IsPOC"
+                  value={CCDispute.IsPOC}
+                  onChange={CCDisputeHandler}
+                >
+                  <Radio value={true}>Yes</Radio>
+                  <Radio value={false}>No</Radio>
+                </Radio.Group>
+              </div>
             </Col>
             <Col lg={12} md={12} sm={24} xs={24}>
               <TextField
