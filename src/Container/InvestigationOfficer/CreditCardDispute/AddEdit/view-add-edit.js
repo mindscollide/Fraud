@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 
 import { Typography, Radio, Tooltip, Row, Col } from "antd";
 
@@ -48,8 +48,6 @@ const ViewCustomerDetails = () => {
 
   const dispatch = useDispatch();
 
-  const [fraudType, setFraudType] = useState([]);
-
   const { setupForms, investigationOfficer, reports, investigationManager } =
     state;
 
@@ -62,6 +60,8 @@ const ViewCustomerDetails = () => {
     CNICNumber: "",
     CustomerName: "",
     CMCity: "",
+    fK_CTID: 0,
+    fK_FTID: 0,
   });
 
   const [
@@ -100,7 +100,7 @@ const ViewCustomerDetails = () => {
   const getFilter = () => {
     let filteredItems = ListOfCreditCardDisputeDocuments;
     filteredItems = ListOfCreditCardDisputeDocuments.filter(
-      (item) => item.DisplayFileName !== "",
+      (item) => item.DisplayFileName !== ""
     );
     return filteredItems;
   };
@@ -134,7 +134,7 @@ const ViewCustomerDetails = () => {
     });
   }, []);
 
-  useEffect(() => {}, [fraudType]);
+  // useEffect(() => {}, [fraudType]);
 
   //Details of Input Fields
   useEffect(() => {
@@ -196,28 +196,21 @@ const ViewCustomerDetails = () => {
     }
   }, [investigationOfficer.GetCreditCardDisputesData]);
 
-  // For FraudType DropDown SetState
-  useEffect(() => {
-    let nameFraud = setupForms.FraudTypeData;
-    nameFraud.map((data, index) => {
-      if (disputeDetails.fK_FTID === data.pK_FTID) {
-        setFraudType(data.name);
-      }
-    });
-  }, [setupForms.FraudTypeData]);
+  const cityValue = useMemo(() => {
+    const list = setupForms.CityData || [];
+    const match = list.find(
+      (c) => Number(c.pK_CTID) === Number(disputeDetails.fK_CTID)
+    );
+    return match ? match.name : "";
+  }, [setupForms.CityData, disputeDetails.fK_CTID]);
 
-  const [cityValue, setCityValue] = useState("");
-
-  useEffect(() => {
-    let valueCity = setupForms.CityData;
-    valueCity.map((data, index) => {
-      if (disputeDetails.fK_CTID === data.pK_CTID) {
-        setCityValue(data.name);
-      }
-    });
-  }, [setupForms.CityData]);
-
-  useEffect(() => {}, [cityValue]);
+  const fraudTypeName = useMemo(() => {
+    const list = setupForms.FraudTypeData || [];
+    const match = list.find(
+      (f) => Number(f.pK_FTID) === Number(disputeDetails.fK_FTID)
+    );
+    return match ? match.name : "";
+  }, [setupForms.FraudTypeData, disputeDetails.fK_FTID]);
 
   useEffect(() => {
     let newData = reports.uploadDocumentsList;
@@ -642,7 +635,7 @@ const ViewCustomerDetails = () => {
     setApprovalReason(
       nameApproval.map((data, index) => {
         return data.reason;
-      }),
+      })
     );
   }, [setupForms.ApprovalReasonsData]);
 
@@ -653,7 +646,7 @@ const ViewCustomerDetails = () => {
       setRejectionReason(
         nameRejection.map((data, index) => {
           return data.reason;
-        }),
+        })
       );
     }
   }, [setupForms.RejectionReasonsData]);
@@ -736,11 +729,19 @@ const ViewCustomerDetails = () => {
               />
             </Col>
             <Col lg={6} md={6} sm={24} xs={24}>
-              <SelectBox
+              {/* <SelectBox
                 label="Select City"
                 value={cityValue}
                 name="fK_CTID"
                 disable={true}
+              /> */}
+              <TextField
+                size="small"
+                name="fK_CTID"
+                disable={true}
+                value={cityValue}
+                label="City"
+                fullWidth
               />
             </Col>
             <Col lg={6} md={6} sm={24} xs={24} className="CreditCardGrid">
@@ -781,11 +782,19 @@ const ViewCustomerDetails = () => {
               />
             </Col>
             <Col lg={6} md={6} sm={24} xs={24}>
-              <SelectBox
+              {/* <SelectBox
                 label="Fraud Type"
                 name="FK_FTID"
                 value={fraudType}
                 disable={true}
+              /> */}
+              <TextField
+                name="FraudType"
+                size="small"
+                disable
+                value={fraudTypeName}
+                label="Fraud Type"
+                fullWidth
               />
             </Col>
           </Row>

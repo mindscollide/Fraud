@@ -4,8 +4,6 @@ import {
   DateDisplayFormat,
   TimeAndDisplayFormat,
   DateSendingFormat,
-  currentToOneYearBackDate,
-  NumberFormater,
   CommaFormter,
 } from "../../../../Common/Functions/date-formatter";
 import { SearchOutlined as Search } from "@ant-design/icons";
@@ -18,9 +16,7 @@ import {
   StartToEndDate,
   TextField,
   Notification,
-  DatePicker,
   Loader,
-  GroupedButtons,
 } from "../../../../Components/Elements";
 import {
   HideNotification,
@@ -38,11 +34,9 @@ import {
   disableGoBack,
 } from "../../../../store/actions/ui-actions";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
 
 const SearchCreditCardDispute = () => {
   const { Title } = Typography;
-  const navigate = useNavigate();
   const dispatch = useDispatch();
   const state = useSelector((state) => state);
 
@@ -71,8 +65,6 @@ const SearchCreditCardDispute = () => {
 
   const [row, setRow] = useState([]);
 
-  const [dataForSave, setDataForSave] = useState([]);
-
   // Case Status Functionality
   const [caseStatus, setCaseStatus] = useState("");
   const [caseStatusOptions, setCaseStatusOptions] = useState("");
@@ -94,11 +86,6 @@ const SearchCreditCardDispute = () => {
     ApprovalCode: "",
     TransactionAmount: -99999999999999999999,
     fk_csid: -1,
-  });
-
-  //Approve Dispute
-  const [approvalStatus, setApprovalStatus] = useState({
-    FK_DID: 0,
   });
 
   useEffect(() => {

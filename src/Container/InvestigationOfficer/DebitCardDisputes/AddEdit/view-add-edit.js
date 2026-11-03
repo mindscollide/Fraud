@@ -1,8 +1,6 @@
-import React, { useEffect, useState, useRef, useMemo } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 
-import { PlusOutlined as AddIcon } from "@ant-design/icons";
-
-import { Typography, Radio, Space, Empty, Tooltip, Row, Col } from "antd";
+import { Typography, Radio, Tooltip, Row, Col } from "antd";
 
 import {
   Paper,
@@ -10,28 +8,17 @@ import {
   SelectBox,
   DatePicker,
   Button,
-  Notification,
   Table,
-  Message,
   Loader,
-  FormattedInputs,
   // Upload,
-  uploadButton,
   Modal,
   GroupedButtons,
 } from "../../../../Components/Elements";
 
-import Helper from "../../../../Common/Functions/history_logout";
-
 import { DownloadUploadFile } from "../../../../store/actions/reports_actions";
-
-import moment from "moment";
 
 import {
   DateDisplayFormat,
-  DateSendingFormat,
-  RemoveTimeDashes,
-  NumberFormater,
   CommaFormter,
   TimeDisplayFormat,
 } from "../../../../Common/Functions/date-formatter";
@@ -54,7 +41,6 @@ import { useNavigate } from "react-router-dom";
 
 const ViewCustomerDetailsDC = () => {
   var cnic = localStorage.getItem("CNICNumber");
-  var IM = localStorage.getItem("IM");
   var userID = localStorage.getItem("CurrentUserID");
   const navigate = useNavigate();
   const { Title } = Typography;
@@ -62,8 +48,6 @@ const ViewCustomerDetailsDC = () => {
   const state = useSelector((state) => state);
 
   const dispatch = useDispatch();
-
-  const [fraudType, setFraudType] = useState("");
 
   const {
     setupForms,
