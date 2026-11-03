@@ -1,39 +1,26 @@
 import React, { useEffect, useState, useRef } from "react";
-import { PlusOutlined as AddIcon } from "@ant-design/icons";
-import { Typography, Radio, DatePicker, Space, Row, Col } from "antd";
+import { Typography, DatePicker, Row, Col } from "antd";
 import moment from "moment";
 import {
   Paper,
   InputWithBtn,
-  TextField,
-  SelectBox,
-  // DatePicker,
   Button,
-  FancyBox,
-  ConsolidateBox,
   Notification,
-  Message,
   Loader,
-  FormattedInputs,
   SelectBoxWithButton,
   StartToEndDate,
   GroupedButtons,
   Modal,
 } from "../../../../Components/Elements";
 import { useSelector, useDispatch } from "react-redux";
-import Title from "antd/lib/skeleton/Title";
-import CustomerDetailsDebitCardDispute from "./customer-details";
-import PreFilledCustomerDetails from "./view-add-edit";
-import AddNewCustomerDetails from "./add-new-customer-details";
+
 import {
   DateDisplayFormat,
   DateSendingFormat,
 } from "../../../../Common/Functions/date-formatter";
 import {
   RESETALLSTATE,
-  GetTransactionDetailsByAccountNumberBBK,
   GetAllAccountsByCnicBBK,
-  GetTransactionDetailsByCnicBBK,
   SearchTransactionDetailsByAccountNumberInIRISBBK,
   GetAllAccountsByMobileNumberBBK,
   customerNotFoundModal,
@@ -485,7 +472,9 @@ const AddEditBBKDispute2 = () => {
           </Col>
           <Col lg={4} md={4} sm={24}>
             <Button
-              applyClass={!isCnicNo && isAccountNo ? "toggleSelected" : "toggleUnselected"}
+              applyClass={
+                !isCnicNo && isAccountNo ? "toggleSelected" : "toggleUnselected"
+              }
               text="Account Number"
               className="downloadButton"
               click={changeSelectAccountNumber}
@@ -494,7 +483,11 @@ const AddEditBBKDispute2 = () => {
           </Col>
           <Col lg={4} md={4} sm={24}>
             <Button
-              applyClass={!isCnicNo && !isAccountNo ? "toggleSelected" : "toggleUnselected"}
+              applyClass={
+                !isCnicNo && !isAccountNo
+                  ? "toggleSelected"
+                  : "toggleUnselected"
+              }
               text="Mobile Number"
               className="downloadButton"
               disableBtn

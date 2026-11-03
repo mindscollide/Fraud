@@ -670,7 +670,7 @@ const EditCreditCardDispute = () => {
       name !== "MerchantName" &&
       name !== "AcquirerName" &&
       name !== "MerchantCity" &&
-      name !== "POSMode" &&
+      // name !== "POSMode" &&
       (value !== "" || value === false)
     ) {
       if (name !== "ON_OFF_US") {
@@ -711,20 +711,23 @@ const EditCreditCardDispute = () => {
         ...CreditCardTransactionDetailsObjects,
         [name]: "",
       });
-    } else if (name === "POSMode" && value !== "") {
-      var valueCheck = value.replace(/[^\d-]/g, "");
-      if (valueCheck != "") {
-        setCreditCardTransactionDetailsObjects({
-          ...CreditCardTransactionDetailsObjects,
-          [name]: valueCheck,
-        });
-      }
-    } else if (name === "POSMode" && value === "") {
-      setCreditCardTransactionDetailsObjects({
-        ...CreditCardTransactionDetailsObjects,
-        [name]: "",
-      });
-    } else if (
+    }
+
+    // else if (name === "POSMode" && value !== "") {
+    //   var valueCheck = value.replace(/[^\d-]/g, "");
+    //   if (valueCheck != "") {
+    //     setCreditCardTransactionDetailsObjects({
+    //       ...CreditCardTransactionDetailsObjects,
+    //       [name]: valueCheck,
+    //     });
+    //   }
+    // } else if (name === "POSMode" && value === "") {
+    //   setCreditCardTransactionDetailsObjects({
+    //     ...CreditCardTransactionDetailsObjects,
+    //     [name]: "",
+    //   });
+    // }
+    else if (
       (name === "TransactionBilledAmount" || name === "TransactionAmountPKR") &&
       value !== "" &&
       value !== -99999999999999999999
@@ -2063,7 +2066,7 @@ const EditCreditCardDispute = () => {
                 fullWidth
                 change={CCTDOHandler}
                 type="text"
-                textLength={6}
+                textLength={7}
               />
             </Col>
             <Col lg={6} md={6} sm={24} xs={24}>

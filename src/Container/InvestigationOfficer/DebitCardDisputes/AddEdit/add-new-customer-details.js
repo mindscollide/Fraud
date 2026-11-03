@@ -229,6 +229,7 @@ const AddNewCustomerDetailsDC = () => {
   //   for date
   const [DCDisputes, setDCDisputes] = useState({
     FK_FTID: 0,
+    Aging: -1,
     CaseReceivedChannel: "",
     CaseResolvedDate: "",
     CaseReceivedDate: removeDashesFromDate(date),
@@ -3791,7 +3792,7 @@ const AddNewCustomerDetailsDC = () => {
             </Col>
             <Col lg={6} md={6} sm={24} xs={24} className="u-text-align-center">
               <label>
-                <b>On Us / Off Us *</b>
+                <b>On Us / Off Us</b>
               </label>
               <br />
               <Radio.Group
@@ -3832,8 +3833,8 @@ const AddNewCustomerDetailsDC = () => {
                 textLength={50}
               />
             </Col>
-          </Row>
-          <Row gutter={16} className="u-margin-top-22px">
+            {/* </Row> */}
+            {/* <Row gutter={16} className="u-margin-top-22px"> */}
             <Col lg={6} md={6} sm={24} xs={24}>
               <SelectBox
                 label={lbl(SourceType, "Source *")}
@@ -4259,7 +4260,11 @@ const AddNewCustomerDetailsDC = () => {
             <Col lg={6} md={6} sm={24} xs={24}>
               <TextField
                 fullWidth
-                label={lbl(DCDisputes.Aging, "Aging")}
+                label={
+                  DCDisputes.Aging === null || DCDisputes.Aging === -1
+                    ? ""
+                    : "Aging"
+                }
                 placeholder={"Aging"}
                 size="small"
                 name="Aging"
@@ -4275,7 +4280,12 @@ const AddNewCustomerDetailsDC = () => {
             <Col lg={6} md={6} sm={24} xs={24}>
               <TextField
                 fullWidth
-                label={lbl(DCDisputes.CaseClosedTAT, "Case Closed TAT")}
+                label={
+                  DCDisputes.CaseClosedTAT === null ||
+                  DCDisputes.CaseClosedTAT === -1
+                    ? ""
+                    : "Case Closed TAT"
+                }
                 placeholder={"Case Closed TAT"}
                 size="small"
                 name="CaseClosedTAT"

@@ -1092,6 +1092,19 @@ const ViewCustomerDetailsDC = () => {
       FK_FTID: Number(dispute.fK_FTID) || 0,
     }));
   }, [investigationOfficer.GetDebitCardDisputesData?.debitCardDispute]);
+
+  // true when a field actually holds a value (treats "", null, undefined,
+  // empty arrays and the -99999999999999999999 "empty number" sentinel as empty)
+  const hasValue = (v) =>
+    v !== undefined &&
+    v !== null &&
+    v !== "" &&
+    v !== -99999999999999999999 &&
+    v !== "-99999999999999999999" &&
+    !(Array.isArray(v) && v.length === 0);
+
+  // show the label only when the field has a value, otherwise "" (placeholder only)
+  const lbl = (value, text) => (hasValue(value) ? text : "");
   return (
     <>
       <Title level={3}>View Debit Card Disputes</Title>
@@ -1110,7 +1123,8 @@ const ViewCustomerDetailsDC = () => {
               size="small"
               disable
               value={DCDispute.ReferenceNumber}
-              label={"Reference #"}
+              label={lbl(DCDispute.ReferenceNumber, "Reference #")}
+              placeholder={"Reference #"}
               fullWidth
             />
           </Col>
@@ -1120,7 +1134,8 @@ const ViewCustomerDetailsDC = () => {
               size="small"
               disable
               value={cnic}
-              label={"CNIC"}
+              label={lbl(cnic, "CNIC")}
+              placeholder={"CNIC"}
               fullWidth
             />
           </Col>
@@ -1130,7 +1145,8 @@ const ViewCustomerDetailsDC = () => {
               size="small"
               disable
               value={fDCusotmerAccount.CustomerName}
-              label={"Customer Name"}
+              label={lbl(fDCusotmerAccount.CustomerName, "Customer Name")}
+              placeholder={"Customer Name"}
               fullWidth
             />
           </Col>
@@ -1141,7 +1157,8 @@ const ViewCustomerDetailsDC = () => {
               name="fK_CTID"
               disable={true}
               value={cityValue}
-              label="City"
+              label={lbl(cityValue, "City")}
+              placeholder="City"
               fullWidth
             />
           </Col>
@@ -1151,24 +1168,19 @@ const ViewCustomerDetailsDC = () => {
               size="small"
               disable
               value={CardDetails.CardNumber}
-              label={"Card Number"}
+              label={lbl(CardDetails.CardNumber, "Card Number")}
+              placeholder={"Card Number"}
               fullWidth
             />
           </Col>
           <Col lg={6} md={6} sm={24} xs={24}>
-            {/* <SelectBox
-              name="Fraud Type"
-              disable
-              value={fraudType}
-              label="Select Fraud Type"
-            /> */}
-
             <TextField
               name="FraudType"
               size="small"
               disable
               value={fraudTypeName}
-              label="Fraud Type"
+              label={lbl(fraudTypeName, "Fraud Type")}
+              placeholder="Fraud Type"
               fullWidth
             />
           </Col>
@@ -1230,7 +1242,11 @@ const ViewCustomerDetailsDC = () => {
           <Col lg={6} md={6} sm={24}>
             <TextField
               fullWidth
-              label="Case Received Channel"
+              label={lbl(
+                DCDispute.CaseReceivedChannel,
+                "Case Received Channel"
+              )}
+              placeholder="Case Received Channel"
               size="small"
               textLength={30}
               name="CaseReceivedChannel"
@@ -1274,7 +1290,11 @@ const ViewCustomerDetailsDC = () => {
             <Paper>
               <TextField
                 fullWidth
-                label="Total Dispute Amount"
+                label={lbl(
+                  DCDispute.TotalTransactionAmount,
+                  "Total Dispute Amount"
+                )}
+                placeholder="Total Dispute Amount"
                 value={
                   DCDispute.TotalTransactionAmount === null ||
                   DCDispute.TotalTransactionAmount === -99999999999999999999
@@ -1322,6 +1342,10 @@ const ViewCustomerDetailsDC = () => {
               width="100%"
               DateRange
               placeholder={"Select TC 40 Reporting Date"}
+              label={lbl(
+                DCDispute.TC40ReportingDate,
+                "Select TC 40 Reporting Date"
+              )}
               value={
                 DCDispute.TC40ReportingDate
                   ? DateDisplayFormat(DCDispute.TC40ReportingDate)
@@ -1354,6 +1378,10 @@ const ViewCustomerDetailsDC = () => {
               size="large"
               width="100%"
               DateRange
+              label={lbl(
+                DCDispute.SafeReportingDate,
+                "Select Safe Reporting Date"
+              )}
               placeholder={"Select Safe Reporting Date"}
               name="SafeReportingDate"
               value={
@@ -1391,7 +1419,11 @@ const ViewCustomerDetailsDC = () => {
           <Col lg={6} md={6} sm={24} xs={24}>
             <TextField
               fullWidth
-              label="Point Of Compromise Identified"
+              label={lbl(
+                DCDispute.POCIdentified,
+                "Point Of Compromise Identified"
+              )}
+              placeholder="Point Of Compromise Identified"
               value={DCDispute.POCIdentified}
               required={DCDispute.POCIdentified}
               size="small"
@@ -1402,7 +1434,8 @@ const ViewCustomerDetailsDC = () => {
           <Col lg={6} md={6} sm={24} xs={24}>
             <TextField
               fullWidth
-              label="Case Decision"
+              label={lbl(DCDispute.CaseDecision, "Case Decision")}
+              placeholder="Case Decision"
               size="small"
               name="CaseDecision"
               value={DCDispute.CaseDecision}
@@ -1412,7 +1445,8 @@ const ViewCustomerDetailsDC = () => {
           <Col lg={6} md={6} sm={24} xs={24} className="u-margin-bottom-20px">
             <TextField
               fullWidth
-              label="In Favor Of Customer"
+              label={lbl(DCDispute.InFavourOfCM, "In Favor Of Customer")}
+              placeholder="In Favor Of Customer"
               size="small"
               name="InFavourOfCM"
               value={
@@ -1427,7 +1461,8 @@ const ViewCustomerDetailsDC = () => {
           <Col lg={6} md={6} sm={24} xs={24}>
             <TextField
               fullWidth
-              label="Customer Liability"
+              label={lbl(DCDispute.CustomerLiability, "Customer Liability")}
+              placeholder="Customer Liability"
               size="small"
               name="CustomerLiability"
               value={
@@ -1442,7 +1477,8 @@ const ViewCustomerDetailsDC = () => {
           <Col lg={12} md={12} sm={24} xs={24}>
             <TextField
               fullWidth
-              label="Remarks"
+              label={lbl(DCDispute.Remarks, "Remarks")}
+              placeholder="Remarks"
               size="small"
               name="Remarks"
               value={DCDispute.Remarks}
@@ -1452,7 +1488,8 @@ const ViewCustomerDetailsDC = () => {
           <Col lg={6} md={6} sm={24} xs={24} className="u-margin-top-22px">
             <TextField
               fullWidth
-              label="Event ID (SAS REF #)"
+              label={lbl(DCDispute.EventIDSAS, "Event ID (SAS REF #)")}
+              placeholder="Event ID (SAS REF #)"
               size="small"
               name="EventIDSAS"
               value={DCDispute.EventIDSAS}
@@ -1463,7 +1500,12 @@ const ViewCustomerDetailsDC = () => {
             <TextField
               fullWidth
               size="small"
-              label="Aging"
+              label={
+                DCDispute.Aging === null || DCDispute.Aging === -1
+                  ? ""
+                  : "Aging"
+              }
+              placeholder="Aging"
               name="Aging"
               value={
                 DCDispute.Aging === null || DCDispute.Aging === -1
@@ -1477,7 +1519,13 @@ const ViewCustomerDetailsDC = () => {
             <TextField
               fullWidth
               size="small"
-              label="Case Closed TAT"
+              label={
+                DCDispute.CaseClosedTAT === null ||
+                DCDispute.CaseClosedTAT === -1
+                  ? ""
+                  : "Case Closed TAT"
+              }
+              placeholder="Case Closed TAT"
               name="CaseClosedTAT"
               value={
                 DCDispute.CaseClosedTAT === null ||
@@ -1558,7 +1606,8 @@ const ViewCustomerDetailsDC = () => {
                   option={approvalReason}
                   propertyName={"title"}
                   change={approvalReasonHandler}
-                  label="Select Approval Reason"
+                  label={lbl(approvalReasonValue, "Select Approval Reason")}
+                  placeholder="Select Approval Reason"
                   required
                   value={approvalReasonValue}
                   name="SelectApprovalReason"
@@ -1571,7 +1620,8 @@ const ViewCustomerDetailsDC = () => {
                   multiline
                   rows={6}
                   autoComplete="off"
-                  label="Description"
+                  label={lbl(approveDispute.Comments, "Description")}
+                  placeholder="Description"
                   change={handleChangeApprove}
                   value={approveDispute.Comments}
                   fullWidth
@@ -1591,7 +1641,8 @@ const ViewCustomerDetailsDC = () => {
                   option={rejectionReason}
                   propertyName={"title"}
                   change={rejectionReasonHandler}
-                  label="Select Rejection Reason"
+                  label={lbl(rejectionReasonValue, "Select Rejection Reason")}
+                  placeholder="Select Rejection Reason"
                   required
                   value={rejectionReasonValue}
                   name="SelectRejectionReason"
@@ -1603,7 +1654,8 @@ const ViewCustomerDetailsDC = () => {
                 <TextField
                   multiline
                   rows={6}
-                  label="Description"
+                  label={lbl(rejectDispute.Comments, "Description")}
+                  placeholder="Description"
                   autoComplete="off"
                   change={handleChangeReject}
                   value={rejectDispute.Comments}

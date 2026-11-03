@@ -5,8 +5,15 @@ export const removeDashesFromDate = (data) => {
   return `${value[0]}${value[1]}${value[2]}`;
 };
 
-export const DateDisplayFormat = (data) =>
-  data.slice(6, 8) + "-" + data.slice(4, 6) + "-" + data.slice(0, 4);
+// export const DateDisplayFormat = (data) =>
+//   data.slice(6, 8) + "-" + data.slice(4, 6) + "-" + data.slice(0, 4);
+
+export const DateDisplayFormat = (data) => {
+  if (data === undefined || data === null || data === "") return "";
+  const str = String(data);
+  if (str.length < 8) return "";
+  return str.slice(6, 8) + "-" + str.slice(4, 6) + "-" + str.slice(0, 4);
+};
 
 //Remove ":"
 export const RemoveTimeDashes = (data) =>
@@ -17,13 +24,21 @@ export const TimeDisplayFormat = (data) =>
   data.slice(0, 2) + ":" + data.slice(2, 4) + ":" + data.slice(4, 6);
 
 // Time Format
-export const TimeAndDisplayFormat = (data) =>
-  data.replace(/^(\d{4})(\d\d)(\d\d)(\d\d)(\d\d)(\d\d)$/, "$4:$5:$6");
+// export const TimeAndDisplayFormat = (data) =>
+//   data.replace(/^(\d{4})(\d\d)(\d\d)(\d\d)(\d\d)(\d\d)$/, "$4:$5:$6");
 export const DateSendingFormat = (data) => {
   if (data.length > 0) {
     let value = data.split("-");
     return `${value[2]}${value[1]}${value[0]}`;
   }
+};
+
+// Time Format
+export const TimeAndDisplayFormat = (data) => {
+  if (data === undefined || data === null || data === "") return "";
+  const str = String(data);
+  if (str.length < 14) return "";
+  return str.slice(8, 10) + ":" + str.slice(10, 12) + ":" + str.slice(12, 14);
 };
 
 export const currentToOneYearBackDate = (format) => {

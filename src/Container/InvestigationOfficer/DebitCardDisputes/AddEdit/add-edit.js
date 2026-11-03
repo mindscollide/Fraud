@@ -387,11 +387,11 @@ const AddEditDebitCardDispute = () => {
                         click={accountSearchHandler}
                         change={accountNumberHandler}
                         value={accountNumber}
-                        // disable={accountFound}
+                        disableButton={!accountNumber}
                       />
                     </div>
                     <div className="dateRangePicker u-margin-top-15px u-display-flex u-justify-content-space-between">
-                      {/* {accountFound ? (
+                      {accountFound ? (
                         <StartToEndDate
                           size="large"
                           change={setDate}
@@ -410,7 +410,7 @@ const AddEditDebitCardDispute = () => {
                           DateRange={true}
                           required
                         />
-                      ) : null} */}
+                      ) : null}
                       {accountFound ? (
                         <Col lg={4} md={4} sm={24}>
                           <Button

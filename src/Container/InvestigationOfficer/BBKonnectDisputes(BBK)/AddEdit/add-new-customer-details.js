@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import { PlusOutlined as AddIcon } from "@ant-design/icons";
-import { Typography, Radio, Space, Empty, Tooltip, Row, Col } from "antd";
-import InputMask from "react-input-mask";
+import { Typography, Radio, Row, Col } from "antd";
+
 import CustomUpload from "../../../../Components/Elements/Upload/Upload";
 import { EditOutlined as Edit } from "@ant-design/icons";
 import moment from "moment";
@@ -3045,7 +3045,7 @@ const AddNewCustomerDetailsBBK = () => {
             <Col lg={6} md={6} sm={24} xs={24}>
               <SelectBox
                 label={lbl(cityValue, "Select City")}
-                placeholder={"Select City"}
+                placeholder={"Select City *"}
                 option={city}
                 value={cityValue}
                 change={CityNameHandler}
@@ -3056,7 +3056,7 @@ const AddNewCustomerDetailsBBK = () => {
             <Col lg={6} md={6} sm={24} xs={24}>
               <SelectBox
                 label={lbl(fraudTypeName, "Select Fraud Type")}
-                placeholder={"Select Fraud Type"}
+                placeholder={"Select Fraud Type *"}
                 option={fraudType}
                 name="Fraudtype"
                 value={fraudTypeName}
@@ -3180,7 +3180,6 @@ const AddNewCustomerDetailsBBK = () => {
             <Col lg={6} md={6} sm={24} xs={24}>
               <TimePicker
                 label={lbl(trsDetails.TransactionTime, "Transaction Time")}
-                required
                 name="TransactionTime"
                 size="large"
                 width="100%"
@@ -3224,7 +3223,6 @@ const AddNewCustomerDetailsBBK = () => {
                 placeholder={"Potential Save *"}
                 fullWidth
                 change={TransactionDeatilHandlerChange}
-                required
               />
             </Col>
           </Row>
@@ -3243,7 +3241,6 @@ const AddNewCustomerDetailsBBK = () => {
                 autoComplete="off"
                 Label={lbl(trsDetails.TransactionAmount, "Transaction Amount")}
                 placeholder={"Transaction Amount *"}
-                required
                 fullWidth
                 change={TransactionDeatilHandlerChange}
               />
@@ -3268,7 +3265,6 @@ const AddNewCustomerDetailsBBK = () => {
                 fullWidth
                 change={TransactionDeatilHandlerChange}
                 // disable={true}
-                required
               />
             </Col>
             <Col lg={6} md={6} sm={24} xs={24}>
@@ -3295,7 +3291,6 @@ const AddNewCustomerDetailsBBK = () => {
                 change={TransactionDeatilHandlerChange}
                 fullWidth
                 textLength={50}
-                required
               />
             </Col>
           </Row>
@@ -3325,7 +3320,6 @@ const AddNewCustomerDetailsBBK = () => {
                 change={TransactionDeatilHandlerChange}
                 fullWidth
                 textLength={50}
-                required
               />
             </Col>
             <Col lg={6} md={6} sm={24} xs={24}>
@@ -3336,7 +3330,6 @@ const AddNewCustomerDetailsBBK = () => {
                 value={SourceType}
                 change={SourceNameHandler}
                 name="SourceType"
-                required
               />
             </Col>
           </Row>
@@ -3425,7 +3418,7 @@ const AddNewCustomerDetailsBBK = () => {
                 type="text"
                 size="small"
                 textLength={20}
-                required
+                // required
               />
             </Col>
             <Col lg={6} md={6} sm={24} xs={24} className="u-text-align-center">
@@ -3464,26 +3457,22 @@ const AddNewCustomerDetailsBBK = () => {
               />
             </Col>
             <Col lg={6} md={6} sm={24}>
-              <Paper>
-                <TextField
-                  fullWidth
-                  label="Total Dispute Amount"
-                  value={
-                    BBKDispute.TotalTransactionAmount === null ||
-                    BBKDispute.TotalTransactionAmount === -99999999999999999999
-                      ? null
-                      : CommaFormter(BBKDispute.TotalTransactionAmount)
-                  }
-                  size="small"
-                  textLength={30}
-                  name="TotalTransactionAmount"
-                  disable={true}
-                />
-              </Paper>
+              <TextField
+                fullWidth
+                label="Total Dispute Amount"
+                value={
+                  BBKDispute.TotalTransactionAmount === null ||
+                  BBKDispute.TotalTransactionAmount === -99999999999999999999
+                    ? null
+                    : CommaFormter(BBKDispute.TotalTransactionAmount)
+                }
+                size="small"
+                textLength={30}
+                name="TotalTransactionAmount"
+                disable={true}
+              />
             </Col>
-          </Row>
 
-          <Row gutter={16} className="u-margin-top-22px">
             <Col lg={6} md={6} sm={24} xs={24} className=" u-text-align-center">
               <label>
                 <b className="u-font-size-0_7rem">Initial Block</b>
@@ -3610,7 +3599,7 @@ const AddNewCustomerDetailsBBK = () => {
                   BBKDispute.InFavorOfCustomer,
                   "In Favor Of Customer"
                 )}
-                placeholder={"In Favor Of Customer"}
+                placeholder={"In Favor Of Customer *"}
                 fullWidth
                 change={BBKDisputeHandler}
                 required
@@ -3629,7 +3618,7 @@ const AddNewCustomerDetailsBBK = () => {
                 size="small"
                 autoComplete="off"
                 Label={lbl(BBKDispute.CustomerLiability, "Customer Liability")}
-                placeholder={"Customer Liability"}
+                placeholder={"Customer Liability *"}
                 fullWidth
                 change={BBKDisputeHandler}
                 required
@@ -3648,7 +3637,7 @@ const AddNewCustomerDetailsBBK = () => {
                 size="small"
                 autoComplete="off"
                 Label={lbl(BBKDispute.Other, "Other")}
-                placeholder={"Other"}
+                placeholder={"Other *"}
                 fullWidth
                 change={BBKDisputeHandler}
                 required
@@ -3670,7 +3659,7 @@ const AddNewCustomerDetailsBBK = () => {
                 size="small"
                 autoComplete="off"
                 Label={lbl(BBKDispute.Insurance, "Insurance")}
-                placeholder={"Insurance"}
+                placeholder={"Insurance *"}
                 fullWidth
                 change={BBKDisputeHandler}
                 required
@@ -3689,7 +3678,7 @@ const AddNewCustomerDetailsBBK = () => {
                 size="small"
                 autoComplete="off"
                 Label={lbl(BBKDispute.Internally, "Internally")}
-                placeholder={"Internally"}
+                placeholder={"Internally *"}
                 fullWidth
                 change={BBKDisputeHandler}
                 required

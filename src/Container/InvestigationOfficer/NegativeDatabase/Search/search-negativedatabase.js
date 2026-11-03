@@ -500,7 +500,6 @@ const SearchNegativeDatabase = () => {
             change={handleData}
           />
         </Col>
-
         <Col lg={6} md={6} sm={24}>
           <SelectBox
             label={cityValue !== "" ? "Select City" : ""}
@@ -527,7 +526,6 @@ const SearchNegativeDatabase = () => {
             change={handleData}
           />
         </Col>
-
         <Col lg={6} md={6} sm={24}>
           <TextField
             fullWidth
@@ -543,7 +541,7 @@ const SearchNegativeDatabase = () => {
 
         <Col lg={6} md={6} sm={24}>
           <SelectBox
-            label={hasCaseStatus ? "Select Case Status" : ""}
+            label={caseStatus ? "Select Case Status" : ""}
             placeholder={"Select Case Status"}
             option={caseStatusOptions}
             name="fk_csid"
@@ -596,7 +594,18 @@ const SearchNegativeDatabase = () => {
         {actions.viewApprovalHistory && (
           <>
             <Table rows={row} columns={viewApprovalColumn} />
-            <GroupedButtons data={okayButtonProp} />
+            {/* <GroupedButtons data={okayButtonProp} /> */}
+            <div className="u-display-flex u-justify-content-center">
+              {/* <GroupedButtons data={okayButtonProp} /> */}
+              <Button
+                text="Close"
+                type={"primary"}
+                size="large"
+                applyClass="btnBorderStyledBeach"
+                click={handleCancel}
+                // click= () => handleCancel(),
+              />
+            </div>
           </>
         )}
       </Modal>
