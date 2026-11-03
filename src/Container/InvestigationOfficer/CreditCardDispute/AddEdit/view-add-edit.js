@@ -694,6 +694,18 @@ const ViewCustomerDetails = () => {
     }
   }, [investigationManager.SaveRejectionData]);
 
+  // true when a field actually holds a value (treats "", null, undefined,
+  // empty arrays and the -99999999999999999999 "empty number" sentinel as empty)
+  const hasValue = (v) =>
+    v !== undefined &&
+    v !== null &&
+    v !== "" &&
+    v !== -99999999999999999999 &&
+    !(Array.isArray(v) && v.length === 0);
+
+  // show the label only when the field has a value, otherwise "" (placeholder only)
+  const lbl = (value, text) => (hasValue(value) ? text : "");
+
   return (
     <>
       <Title level={3}>View Credit Card Disputes</Title>
@@ -712,7 +724,8 @@ const ViewCustomerDetails = () => {
                 name=""
                 size="small"
                 disable
-                label={"Reference #"}
+                label={lbl(disputeDetails.refrenceNumber, "Reference #")}
+                placeholder={"Reference #"}
                 fullWidth
                 value={disputeDetails.refrenceNumber}
               />
@@ -721,7 +734,8 @@ const ViewCustomerDetails = () => {
               <TextField
                 size="small"
                 value={disputeDetails.customerName}
-                label="Customer Name"
+                label={lbl(disputeDetails.customerName, "Customer Name")}
+                placeholder="Customer Name"
                 fullWidth
                 textLength={7}
                 name="CustomerName"
@@ -740,14 +754,16 @@ const ViewCustomerDetails = () => {
                 name="fK_CTID"
                 disable={true}
                 value={cityValue}
-                label="City"
+                label={lbl(cityValue, "City")}
+                placeholder="City"
                 fullWidth
               />
             </Col>
             <Col lg={6} md={6} sm={24} xs={24} className="CreditCardGrid">
               <TextField
                 size="small"
-                label="Card Number"
+                label={lbl(disputeDetails.cardNumber, "Card Number")}
+                placeholder="Card Number"
                 value={disputeDetails.cardNumber}
                 fullWidth
                 textLength={16}
@@ -760,7 +776,8 @@ const ViewCustomerDetails = () => {
               <TextField
                 size="small"
                 value={disputeDetails.cnicNumber}
-                label="CNIC"
+                label={lbl(disputeDetails.cnicNumber, "CNIC")}
+                placeholder="CNIC"
                 fullWidth
                 disable
                 name="CNICNumber"
@@ -775,25 +792,21 @@ const ViewCustomerDetails = () => {
                     ? null
                     : CommaFormter(disputeDetails.creditCardLimit)
                 }
-                label="Credit Card Limit"
+                label={lbl(disputeDetails.creditCardLimit, "Credit Card Limit")}
+                placeholder="Credit Card Limit"
                 fullWidth
                 disable
                 name="CreditCardLimit"
               />
             </Col>
             <Col lg={6} md={6} sm={24} xs={24}>
-              {/* <SelectBox
-                label="Fraud Type"
-                name="FK_FTID"
-                value={fraudType}
-                disable={true}
-              /> */}
               <TextField
                 name="FraudType"
                 size="small"
                 disable
                 value={fraudTypeName}
-                label="Fraud Type"
+                label={lbl(fraudTypeName, "Fraud Type")}
+                placeholder="Fraud Type"
                 fullWidth
               />
             </Col>
@@ -823,7 +836,11 @@ const ViewCustomerDetails = () => {
           <Row gutter={8}>
             <Col lg={6} md={6} sm={24} className="u-margin-top-22px">
               <DatePicker
-                label={"Case Received Date"}
+                label={lbl(
+                  disputeDetails.caseRecievedDate,
+                  "Case Received Date"
+                )}
+                placeholder={"Case Received Date"}
                 size="large"
                 width="100%"
                 DateRange
@@ -839,7 +856,11 @@ const ViewCustomerDetails = () => {
             <Col lg={6} md={6} sm={24} className="u-margin-top-22px">
               <TextField
                 fullWidth
-                label="Case Received Channel"
+                label={lbl(
+                  disputeDetails.caseReceivedChannel,
+                  "Case Received Channel"
+                )}
+                placeholder="Case Received Channel"
                 value={disputeDetails.caseReceivedChannel}
                 size="small"
                 textLength={30}
@@ -873,11 +894,14 @@ const ViewCustomerDetails = () => {
             </Col>
             <Col lg={6} md={6} sm={24}>
               <DatePicker
-                label={"Case Resolved Date"}
+                label={lbl(
+                  disputeDetails.caseResolvedDate,
+                  "Case Resolved Date"
+                )}
+                placeholder={"Case Resolved Date"}
                 size="large"
                 width="100%"
                 DateRange
-                placeholder={"Case Resolved Date"}
                 name="CaseResolvedDate"
                 value={
                   disputeDetails.caseResolvedDate
@@ -900,7 +924,11 @@ const ViewCustomerDetails = () => {
                   }
                   textLength={(999, 999, 999, 999, 999, 999, 999)}
                   size="small"
-                  Label={"Total Billed Amount*"}
+                  Label={lbl(
+                    disputeDetails.totalTransactionAmount,
+                    "Total Billed Amount"
+                  )}
+                  placeholder={"Total Billed Amount"}
                   fullWidth
                   disable
                 />
@@ -942,11 +970,14 @@ const ViewCustomerDetails = () => {
             </Col>
             <Col lg={6} md={6} sm={24}>
               <DatePicker
-                label={"Select TC 40 Reporting Date"}
+                label={lbl(
+                  disputeDetails.tC40ReportingDate,
+                  "Select TC 40 Reporting Date"
+                )}
+                placeholder={"Select TC 40 Reporting Date"}
                 size="large"
                 width="100%"
                 DateRange
-                placeholder={"TC 40 Reporting Date"}
                 name="TC40ReportingDate"
                 value={
                   disputeDetails.tC40ReportingDate
@@ -982,11 +1013,14 @@ const ViewCustomerDetails = () => {
             </Col>
             <Col lg={6} md={6} sm={24}>
               <DatePicker
-                label={"Select Safe Reporting Date"}
+                label={lbl(
+                  disputeDetails.safeReportingDate,
+                  "Select Safe Reporting Date"
+                )}
+                placeholder="Select Safe Reporting Date"
                 size="large"
                 width="100%"
                 DateRange
-                placeholder="Safe Reporting Date"
                 name="SafeReportingDate"
                 value={
                   disputeDetails.safeReportingDate
@@ -1009,7 +1043,8 @@ const ViewCustomerDetails = () => {
             <Col lg={6} md={6} sm={24} xs={24}>
               <TextField
                 fullWidth
-                label="Case Decision"
+                label={lbl(disputeDetails.caseDecision, "Case Decision")}
+                placeholder="Case Decision"
                 size="small"
                 name="CaseDecision"
                 value={disputeDetails.caseDecision}
@@ -1037,7 +1072,11 @@ const ViewCustomerDetails = () => {
             <Col lg={6} md={6} sm={24} xs={24}>
               <TextField
                 fullWidth
-                label="Point Of Compromise Identified"
+                label={lbl(
+                  disputeDetails.pocIdentified,
+                  "Point Of Compromise Identified"
+                )}
+                placeholder="Point Of Compromise Identified"
                 size="small"
                 name="POCIdentified"
                 value={disputeDetails.pocIdentified}
@@ -1047,7 +1086,8 @@ const ViewCustomerDetails = () => {
             <Col lg={6} md={6} sm={24} xs={24}>
               <FormattedInputs
                 fullWidth
-                Label="Recovery"
+                Label={lbl(disputeDetails.recovery, "Recovery")}
+                placeholder="Recovery"
                 size="small"
                 name="Recovery"
                 value={
@@ -1063,7 +1103,8 @@ const ViewCustomerDetails = () => {
             <Col lg={6} md={6} sm={24} xs={24} className="u-margin-top-21px">
               <TextField
                 fullWidth
-                label="Event ID SAS"
+                label={lbl(disputeDetails.eventIdSAS, "Event ID SAS")}
+                placeholder="Event ID SAS"
                 size="small"
                 name="EventIdSAS"
                 value={disputeDetails.eventIdSAS}
@@ -1074,7 +1115,12 @@ const ViewCustomerDetails = () => {
               <TextField
                 fullWidth
                 size="small"
-                label="Aging"
+                label={
+                  disputeDetails.aging === -1 || disputeDetails.aging === null
+                    ? ""
+                    : "Aging"
+                }
+                placeholder="Aging"
                 name="Aging"
                 value={
                   disputeDetails.aging === -1 || disputeDetails.aging === null
@@ -1088,7 +1134,13 @@ const ViewCustomerDetails = () => {
               <TextField
                 fullWidth
                 size="small"
-                label="Case Closed TAT"
+                label={
+                  disputeDetails.caseClosedTAT === -1 ||
+                  disputeDetails.caseClosedTAT === null
+                    ? ""
+                    : "Case Closed TAT"
+                }
+                placeholder="Case Closed TAT"
                 name="CaseClosedTAT"
                 value={
                   disputeDetails.caseClosedTAT === -1 ||
@@ -1170,7 +1222,8 @@ const ViewCustomerDetails = () => {
                   option={approvalReason}
                   propertyName={"title"}
                   change={approvalReasonHandler}
-                  label="Select Approval Reason"
+                  label={lbl(approvalReasonValue, "Select Approval Reason")}
+                  placeholder="Select Approval Reason"
                   required
                   value={approvalReasonValue}
                   name="SelectApprovalReason"
@@ -1183,7 +1236,8 @@ const ViewCustomerDetails = () => {
                   multiline
                   rows={6}
                   autoComplete="off"
-                  label="Description"
+                  label={lbl(approveDispute.Comments, "Description")}
+                  placeholder="Description"
                   change={handleChangeApprove}
                   value={approveDispute.Comments}
                   fullWidth
@@ -1203,7 +1257,8 @@ const ViewCustomerDetails = () => {
                   option={rejectionReason}
                   propertyName={"title"}
                   change={rejectionReasonHandler}
-                  label="Select Rejection Reason"
+                  label={lbl(rejectionReasonValue, "Select Rejection Reason")}
+                  placeholder="Select Rejection Reason"
                   required
                   value={rejectionReasonValue}
                   name="SelectRejectionReason"
@@ -1215,7 +1270,8 @@ const ViewCustomerDetails = () => {
                 <TextField
                   multiline
                   rows={6}
-                  label="Description"
+                  label={lbl(rejectDispute.Comments, "Description")}
+                  placeholder={"Description"}
                   autoComplete="off"
                   change={handleChangeReject}
                   value={rejectDispute.Comments}

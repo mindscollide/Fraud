@@ -962,21 +962,21 @@ const EditNegativeDataBase = () => {
         <Paper section padding="1">
           <Row gutter={16}>
             <Col lg={18} md={18} sm={18} xs={24}>
-              <h1
-                className="u-font-size-18px u-margin-top-15px u-margin-left-20px u-color-ec8d57"
-              >
+              <h1 className="u-font-size-18px u-margin-top-15px u-margin-left-20px u-color-ec8d57">
                 Customer Details
               </h1>
             </Col>
-            <Col lg={6} md={6} sm={6} xs={24} className="p-0 u-text-align-left">
-              <div
-                className="Level-Section u-padding-5px u-right-50px u-width-240px u-color-fff u-position-absolute"
-              >
+            <Col
+              lg={6}
+              md={6}
+              sm={6}
+              xs={24}
+              className="u-padding-0 u-margin-0 u-position-relative u-text-align-left"
+            >
+              <div className="Level-Section">
                 <div>
                   <i className="icon-card icon-size-one"></i>
-                  <div
-                    className="u-position-absolute u-right-75px u-top-5px"
-                  >
+                  <div className="LevelSectionDetails">
                     <span className="LevelHeading">CNIC Number</span>
                     <br />
                     <span className="SubHeading">{cnic}</span>
@@ -1199,7 +1199,7 @@ const EditNegativeDataBase = () => {
                 placeholder="HBL Reference Number"
                 label={"HBL Reference Number"}
                 fullWidth
-                textLength={1000}
+                textLength={20}
               />
             </Col>
             <Col lg={24} md={24} sm={24} xs={24}>
@@ -1248,86 +1248,84 @@ const EditNegativeDataBase = () => {
             ListOfComments.map((item, ind) =>
               item.Comment !== "" ? (
                 <div key={ind}>
-                    <Row>
-                      <Col lg={8} md={8} sm={24} xs={24}>
-                        <TextField
-                          name="Comment"
-                          size="small"
-                          value={item.Comment}
-                          placeholder="Comment"
-                          disable={true}
-                          label={"Comment"}
-                          fullWidth
-                          width="100%"
-                        />
-                      </Col>
-                      <Col lg={6} md={6} sm={24} xs={24}>
-                        <TextField
-                          name="Enterd By"
-                          size="small"
-                          value={item.UserFirstName + " " + item.UserLastName}
-                          placeholder="enterdby"
-                          disable={true}
-                          label={"Enterd By"}
-                          width="100%"
-                          fullWidth
-                        />
-                      </Col>
-                      <Col lg={8} md={8} sm={24} xs={24}>
-                        <InputWithBtn
-                          isUpperCase={false}
-                          name="On"
-                          applyClass="search2"
-                          textFieldSize="small"
-                          size="small"
-                          label="On"
-                          value={
-                            DateDisplayFormat(item.CreationDateTime) +
-                            " " +
-                            TimeAndDisplayFormat(item.CreationDateTime)
-                          }
-                          fullWidth
+                  <Row>
+                    <Col lg={8} md={8} sm={24} xs={24}>
+                      <TextField
+                        name="Comment"
+                        size="small"
+                        value={item.Comment}
+                        placeholder="Comment"
+                        disable={true}
+                        label={"Comment"}
+                        fullWidth
+                        width="100%"
+                      />
+                    </Col>
+                    <Col lg={6} md={6} sm={24} xs={24}>
+                      <TextField
+                        name="Enterd By"
+                        size="small"
+                        value={item.UserFirstName + " " + item.UserLastName}
+                        placeholder="enterdby"
+                        disable={true}
+                        label={"Enterd By"}
+                        width="100%"
+                        fullWidth
+                      />
+                    </Col>
+                    <Col lg={8} md={8} sm={24} xs={24}>
+                      <InputWithBtn
+                        isUpperCase={false}
+                        name="On"
+                        applyClass="search2"
+                        textFieldSize="small"
+                        size="small"
+                        label="On"
+                        value={
+                          DateDisplayFormat(item.CreationDateTime) +
+                          " " +
+                          TimeAndDisplayFormat(item.CreationDateTime)
+                        }
+                        fullWidth
+                        icon={
+                          <i className="icon-edit icon-size-one u-color-2f2f2f"></i>
+                        }
+                        disable1={true}
+                        disable={
+                          item.CreatedByUserID === currentUserID ? false : true
+                        }
+                        onchange={commentshandler}
+                        click={(e) => update(e, item)}
+                      />
+                    </Col>
+                    <Col lg={2} md={2} sm={24} xs={24}>
+                      {item.CreatedByUserID === currentUserID ? (
+                        <Button
+                          type="submit"
                           icon={
-                            <i className="icon-edit icon-size-one u-color-2f2f2f"></i>
+                            <i className="icon-trash icon-size-one pdfRed"></i>
                           }
-                          disable1={true}
-                          disable={
-                            item.CreatedByUserID === currentUserID
-                              ? false
-                              : true
-                          }
-                          onchange={commentshandler}
-                          click={(e) => update(e, item)}
+                          applyClass="DeleteButton"
+                          size="large"
+                          click={(e) => deleteit(e, item)}
                         />
-                      </Col>
-                      <Col lg={2} md={2} sm={24} xs={24}>
-                        {item.CreatedByUserID === currentUserID ? (
-                          <Button
-                            type="submit"
-                            icon={
-                              <i className="icon-trash icon-size-one pdfRed"></i>
-                            }
-                            applyClass="DeleteButton"
-                            size="large"
-                            click={(e) => deleteit(e, item)}
-                          />
-                        ) : (
-                          <Button
-                            type="submit"
-                            icon={
-                              <i className="icon-trash icon-size-one pdfRed"></i>
-                            }
-                            applyClass="DeleteButton"
-                            size="large"
-                            click={(e) => deleteit(e, item)}
-                            disableBtn
-                          />
-                        )}
-                      </Col>
-                    </Row>
-                    <div className="u-margin-bottom-25px" />
-                  </div>
-                ) : null
+                      ) : (
+                        <Button
+                          type="submit"
+                          icon={
+                            <i className="icon-trash icon-size-one pdfRed"></i>
+                          }
+                          applyClass="DeleteButton"
+                          size="large"
+                          click={(e) => deleteit(e, item)}
+                          disableBtn
+                        />
+                      )}
+                    </Col>
+                  </Row>
+                  <div className="u-margin-bottom-25px" />
+                </div>
+              ) : null
             )}
         </Paper>
         <div className="u-margin-top-45px" />

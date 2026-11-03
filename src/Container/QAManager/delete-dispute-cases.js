@@ -654,7 +654,7 @@ const DeleteDisputeCases = () => {
 
   const okayButtonProp = {
     primaryButton: {
-      text: "Ok",
+      text: "Close",
       class: "btnBorderStyledBeach",
       click: () => handleCancel(),
     },

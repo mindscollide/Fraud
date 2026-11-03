@@ -575,7 +575,7 @@ const SearchBBKDispute = () => {
 
   const okayButtonProp = {
     primaryButton: {
-      text: "Ok",
+      text: "Close",
       class: "btnBorderStyledBeach",
       click: () => handleCancel(),
     },
@@ -865,7 +865,7 @@ const SearchBBKDispute = () => {
       </Row>
 
       <Row gutter={8} className="u-margin-top-10px u-justify-content-center">
-        <Col lg={3} md={3} sm={24}>
+        <Col lg={4} md={4} sm={24}>
           <Button
             text="Search"
             icon={
@@ -878,7 +878,7 @@ const SearchBBKDispute = () => {
             click={handleSearchData}
           />
         </Col>
-        <Col lg={3} md={3} sm={24}>
+        <Col lg={4} md={4} sm={24}>
           <Button
             text="Reset"
             icon={<i className="icon-reset icon-size-zero"></i>}

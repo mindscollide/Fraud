@@ -952,7 +952,7 @@ const SearchCreditCardDispute = () => {
             <div className="u-display-flex u-justify-content-center">
               {/* <GroupedButtons data={okayButtonProp} /> */}
               <Button
-                text="Cancel"
+                text="Close"
                 type={"primary"}
                 size="large"
                 applyClass="btnBorderStyledBeach"

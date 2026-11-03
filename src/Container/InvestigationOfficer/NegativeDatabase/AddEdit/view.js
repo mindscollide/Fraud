@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { Typography, Row, Col } from "antd";
 import moment from "moment";
 import {
@@ -48,7 +48,7 @@ const ViewNDB = () => {
   const [fraudNotAFraudTypeName, setFraudNotAFraudTypeName] = useState([]);
   const [companySegmentType, setCompanySegmentType] = useState([]);
   const [companySegmentTypeName, setCompanySegmentTypeName] = useState([]);
-  const [cityValue, setCityValue] = useState("");
+  // const [cityValue, setCityValue] = useState("");
   const [date, setDate] = useState(
     moment(new Date()).format("DD-MM-YYYY, HH:mm:ss")
   );
@@ -617,16 +617,24 @@ const ViewNDB = () => {
         ...FDCustomer,
         CNICNumber: newFDCustomer.cnicNumber,
         CustomerName: newFDCustomer.customerName,
-        fK_CTID: newFDCustomer.fK_CID,
+        fK_CTID: newFDCustomer.fK_CTID,
       });
-      let cityValue = setupForms.CityData;
-      cityValue.map((data, index) => {
-        if (newFDCustomer.fK_CTID === data.pK_CTID) {
-          setCityValue(data.name);
-        }
-      });
+      // let cityValue = setupForms.CityData;
+      // cityValue.map((data, index) => {
+      //   if (newFDCustomer.fK_CTID === data.pK_CTID) {
+      //     setCityValue(data.name);
+      //   }
+      // });
     }
   }, [investigationOfficer.GetCreditCardDisputesData]);
+
+  const cityValue = useMemo(() => {
+    const list = setupForms.CityData || [];
+    const match = list.find(
+      (c) => Number(c.pK_CTID) === Number(FDCustomer.fK_CTID)
+    );
+    return match ? match.name : "";
+  }, [setupForms.CityData, FDCustomer.fK_CTID]);
 
   //FD Handler
 
@@ -802,39 +810,28 @@ const ViewNDB = () => {
     }
   };
 
-  useEffect(() => {
-    let valueCity = setupForms.CityData;
-    valueCity.map((data, index) => {
-      if (FDCustomer.fK_CTID === data.pK_CTID) {
-        setCityValue(data.name);
-      }
-    });
-  }, [setupForms.CityData]);
-
-  useEffect(() => {}, [cityValue]);
-
   return (
     <>
       {investigationOfficer.Loading ? <Loader /> : null}
       <form onSubmit={(e) => goToSaveHandler(e)}>
-        <Paper section padding="1">
+        <Paper section>
           <Row gutter={16}>
             <Col lg={18} md={18} sm={18} xs={24}>
-              <h1
-                className="u-font-size-18px u-margin-top-15px u-margin-left-20px u-color-ec8d57"
-              >
+              <h1 className="u-font-size-18px u-margin-top-15px u-margin-left-20px u-color-ec8d57">
                 Customer Details
               </h1>
             </Col>
-            <Col lg={6} md={6} sm={6} xs={24} className="p-0 u-text-align-left">
-              <div
-                className="Level-Section u-padding-5px u-right-50px u-width-240px u-color-fff u-position-absolute"
-              >
+            <Col
+              lg={6}
+              md={6}
+              sm={6}
+              xs={24}
+              className="u-padding-0 u-margin-0 u-position-relative u-text-align-left"
+            >
+              <div className="Level-Section">
                 <div>
                   <i className="icon-card icon-size-one"></i>
-                  <div
-                    className="u-position-absolute u-right-75px u-top-5px"
-                  >
+                  <div className="LevelSectionDetails">
                     <span className="LevelHeading">CNIC Number</span>
                     <br />
                     <span className="SubHeading">{cnic}</span>
@@ -998,7 +995,7 @@ const ViewNDB = () => {
               />
             </Col>
             <Col lg={6} md={6} sm={24} xs={24}>
-              <SelectBox
+              <TextField
                 label="City"
                 value={cityValue}
                 name="fK_CTID"
