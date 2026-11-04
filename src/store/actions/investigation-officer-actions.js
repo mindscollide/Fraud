@@ -528,6 +528,7 @@ const SearchCreditCardDisputes = (object, State) => {
       CustomerName: object.CustomerName,
       Fraudtype: object.Fraudtype,
       TransactionId: object.TransactionId,
+      ApprovalCode: object.ApprovalCode,
       FromDate: State.FromDate,
       ToDate: State.ToDate,
       TransactionAmount: parseFloat(object.TransactionAmount),
