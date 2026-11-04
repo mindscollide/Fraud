@@ -462,8 +462,10 @@ const AddEditNONAPIDispute = () => {
                         }
                         name="AccountNumber"
                         applyClass="account-number"
-                        label={accountNumber !== "" && "Select Account Number"}
-                        placeholder={"Select Account Number"}
+                        label={
+                          accountNumber.length !== 0 && "Select Account Number"
+                        }
+                        placeholder={"Select Account Number *"}
                         textFieldSize="small"
                         fullWidth
                         required
@@ -472,6 +474,7 @@ const AddEditNONAPIDispute = () => {
                         click={accountSearchHandler}
                         change={accountNumberHandler}
                         value={accountNumber}
+
                         // disable={btnStatusSelect}
                       />
                     </div>
@@ -541,7 +544,7 @@ const AddEditNONAPIDispute = () => {
                         name="CNIC"
                         applyClass="account-number"
                         label={selectedCnic !== "" && "Select CNIC"}
-                        placeholder={"Select CNIC"}
+                        placeholder={"Select CNIC *"}
                         textFieldSize="small"
                         fullWidth
                         autoComplete="off"

@@ -435,8 +435,10 @@ const AddEditBBKDispute2 = () => {
                         }
                         name="AccountNumber"
                         applyClass="account-number"
-                        label={accountNumber !== "" && "Select Account Number"}
-                        placeholder={"Select Account Number"}
+                        label={
+                          accountNumber.length !== 0 && "Select Account Number"
+                        }
+                        placeholder={"Select Account Number *"}
                         textFieldSize="small"
                         fullWidth
                         autoComplete="off"
