@@ -4600,7 +4600,7 @@ const UpdateAndApproveBBKDisputeDetails = (
 };
 
 //Search Transaction Details by AccountNumber
-const GetTransactionDetailsByAccountNumberBBK = (object) => {
+const GetTransactionDetailsByAccountNumberBBK = ({ object, setFound }) => {
   let navigate = Helper.navigate;
   let token = JSON.parse(localStorage.getItem("token"));
   let Data = {
@@ -4626,7 +4626,9 @@ const GetTransactionDetailsByAccountNumberBBK = (object) => {
       .then(async (response) => {
         if (response.data.responseCode === 417) {
           await dispatch(refreshToken());
-          dispatch(GetTransactionDetailsByAccountNumberBBK(object));
+          dispatch(
+            GetTransactionDetailsByAccountNumberBBK({ object, setFound })
+          );
         } else if (response.data.responseCode === 200) {
           await dispatch(RESETALLSTATE());
           if (response.data.responseResult.isExecuted === true) {
@@ -4636,6 +4638,7 @@ const GetTransactionDetailsByAccountNumberBBK = (object) => {
             ) {
               dispatch(accountNumberFoundModal(true));
               localStorage.setItem("AccountNumber", object);
+              setFound(true);
             } else {
               // localStorage.setItem("AccountNumber", object);
               dispatch(accountNumberFoundModal(false));

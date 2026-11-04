@@ -151,9 +151,9 @@ const CustomerDetailsBBKDispute = () => {
 
   //To call same API GetTransactionDetailsByCnicDC On Refresh
   useEffect(() => {
-    if (performance.navigation.type === performance.navigation.TYPE_RELOAD) {
-      dispatch(GetTransactionDetailsByCnicBBK(cnic));
-    }
+    // if (performance.navigation.type === performance.navigation.TYPE_RELOAD) {
+    //   dispatch(GetTransactionDetailsByCnicBBK(cnic));
+    // }
     dispatch(ensureLookup("city"));
   }, []);
 
@@ -290,13 +290,17 @@ const CustomerDetailsBBKDispute = () => {
       <Paper>
         <Row gutter={16}>
           <Col lg={18} md={18} sm={18} xs={24}>
-            <h1
-              className="u-font-size-18px u-margin-top-15px u-margin-left-20px u-color-ec8d57"
-            >
+            <h1 className="u-font-size-18px u-margin-top-15px u-margin-left-20px u-color-ec8d57">
               Customer Details
             </h1>
           </Col>
-          <Col lg={6} md={6} sm={6} xs={24} className="u-margin-0 u-position-relative u-text-align-left">
+          <Col
+            lg={6}
+            md={6}
+            sm={6}
+            xs={24}
+            className="u-margin-0 u-position-relative u-text-align-left"
+          >
             <div className="Level-Section">
               <div>
                 <i className="icon-card icon-size-one"></i>
