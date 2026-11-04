@@ -1,9 +1,6 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 
-
-import { PlusOutlined as AddIcon } from "@ant-design/icons";
-
-import { Typography, Radio, Space, Empty, Tooltip, Row, Col } from "antd";
+import { Typography, Radio, Tooltip, Row, Col } from "antd";
 
 import {
   Paper,
@@ -11,28 +8,17 @@ import {
   SelectBox,
   DatePicker,
   Button,
-  Notification,
   Table,
-  Message,
   Loader,
-  FormattedInputs,
   // Upload,
-  uploadButton,
   Modal,
   GroupedButtons,
 } from "../../../../Components/Elements";
 
-import Helper from "../../../../Common/Functions/history_logout";
-
 import { DownloadUploadFile } from "../../../../store/actions/reports_actions";
-
-import moment from "moment";
 
 import {
   DateDisplayFormat,
-  DateSendingFormat,
-  RemoveTimeDashes,
-  NumberFormater,
   CommaFormter,
   TimeDisplayFormat,
 } from "../../../../Common/Functions/date-formatter";
@@ -55,7 +41,6 @@ import { useNavigate } from "react-router-dom";
 
 const ViewCustomerDetailsDC = () => {
   var cnic = localStorage.getItem("CNICNumber");
-  var IM = localStorage.getItem("IM");
   var userID = localStorage.getItem("CurrentUserID");
   const navigate = useNavigate();
   const { Title } = Typography;
@@ -63,8 +48,6 @@ const ViewCustomerDetailsDC = () => {
   const state = useSelector((state) => state);
 
   const dispatch = useDispatch();
-
-  const [fraudType, setFraudType] = useState([]);
 
   const {
     setupForms,
@@ -133,22 +116,22 @@ const ViewCustomerDetailsDC = () => {
   ] = useState([]);
 
   //For Fraud ID to Name
-  useEffect(() => {
-    let customerDetails =
-      investigationOfficer.GetDebitCardDisputesData.debitCardDispute;
-    let nameFraud = setupForms.FraudTypeData;
-    if (customerDetails !== undefined && customerDetails !== null) {
-      nameFraud.map((data, index) => {
-        if (customerDetails.fK_FTID === data.pK_FTID) {
-          setFraudType(data.name);
-          setDCDispute({
-            ...DCDispute,
-            ["fK_FTID"]: parseInt(data.pK_FTID),
-          });
-        }
-      });
-    }
-  }, [setupForms.FraudTypeData]);
+  // useEffect(() => {
+  //   let customerDetails =
+  //     investigationOfficer.GetDebitCardDisputesData.debitCardDispute;
+  //   let nameFraud = setupForms.FraudTypeData;
+  //   if (customerDetails !== undefined && customerDetails !== null) {
+  //     nameFraud.map((data, index) => {
+  //       if (customerDetails.fK_FTID === data.pK_FTID) {
+  //         setFraudType(data.name);
+  //         setDCDispute({
+  //           ...DCDispute,
+  //           ["fK_FTID"]: parseInt(data.pK_FTID),
+  //         });
+  //       }
+  //     });
+  //   }
+  // }, [setupForms.FraudTypeData]);
 
   // manual transection list table column
   const colu = [
@@ -1037,28 +1020,98 @@ const ViewCustomerDetailsDC = () => {
     }
   }, [investigationManager.SaveRejectionData]);
 
-  const [cityValue, setCityValue] = useState("");
+  // const [cityValue, setCityValue] = useState("");
 
+  // useEffect(() => {
+  //   let valueCity = setupForms.CityData;
+  //   valueCity.map((data, index) => {
+  //     if (fDCusotmerAccount.fK_CTID === data.pK_CTID) {
+  //       setCityValue(data.name);
+  //     }
+  //   });
+  // }, [setupForms.CityData]);
+
+  // useEffect(() => {}, [cityValue]);
+
+  // useEffect(() => {
+  //   const customerDetails =
+  //     investigationOfficer.GetDebitCardDisputesData?.debitCardDispute;
+
+  //   const fraudTypes = setupForms.FraudTypeData || [];
+
+  //   if (!customerDetails) return;
+
+  //   const matchedFraud = fraudTypes.find(
+  //     (item) => Number(item.pK_FTID) === Number(customerDetails.fK_FTID)
+  //   );
+
+  //   setFraudType(matchedFraud?.name || "");
+
+  //   setDCDispute((prev) => ({
+  //     ...prev,
+  //     FK_FTID: Number(customerDetails.fK_FTID) || 0,
+  //   }));
+  // }, [
+  //   investigationOfficer.GetDebitCardDisputesData?.debitCardDispute,
+  //   setupForms.FraudTypeData,
+  // ]);
+
+  const cityValue = useMemo(() => {
+    const list = setupForms.CityData || [];
+    const match = list.find(
+      (c) => Number(c.pK_CTID) === Number(fDCusotmerAccount.fK_CTID)
+    );
+    return match ? match.name : "";
+  }, [setupForms.CityData, fDCusotmerAccount.fK_CTID]);
+
+  const fraudTypeName = useMemo(() => {
+    const dispute =
+      investigationOfficer.GetDebitCardDisputesData?.debitCardDispute;
+    if (!dispute) return "";
+
+    // 1) Prefer the name that comes directly in the dispute response
+    if (dispute.fraudType) return dispute.fraudType;
+
+    // 2) Fallback: look it up from the Fraud Type list using the ID
+    const list = setupForms.FraudTypeData || [];
+    const match = list.find(
+      (item) => Number(item.pK_FTID) === Number(dispute.fK_FTID)
+    );
+    return match?.name || "";
+  }, [
+    investigationOfficer.GetDebitCardDisputesData?.debitCardDispute,
+    setupForms.FraudTypeData,
+  ]);
+  // keep FK_FTID in the form state in sync
   useEffect(() => {
-    let valueCity = setupForms.CityData;
-    valueCity.map((data, index) => {
-      if (fDCusotmerAccount.fK_CTID === data.pK_CTID) {
-        setCityValue(data.name);
-      }
-    });
-  }, [setupForms.CityData]);
+    const dispute =
+      investigationOfficer.GetDebitCardDisputesData?.debitCardDispute;
+    if (!dispute) return;
+    setDCDispute((prev) => ({
+      ...prev,
+      FK_FTID: Number(dispute.fK_FTID) || 0,
+    }));
+  }, [investigationOfficer.GetDebitCardDisputesData?.debitCardDispute]);
 
-  useEffect(() => {}, [cityValue]);
+  // true when a field actually holds a value (treats "", null, undefined,
+  // empty arrays and the -99999999999999999999 "empty number" sentinel as empty)
+  const hasValue = (v) =>
+    v !== undefined &&
+    v !== null &&
+    v !== "" &&
+    v !== -99999999999999999999 &&
+    v !== "-99999999999999999999" &&
+    !(Array.isArray(v) && v.length === 0);
 
+  // show the label only when the field has a value, otherwise "" (placeholder only)
+  const lbl = (value, text) => (hasValue(value) ? text : "");
   return (
     <>
       <Title level={3}>View Debit Card Disputes</Title>
       <Paper section padding="1">
         <Row gutter={16}>
           <Col lg={18} md={18} sm={18} xs={24}>
-            <h1
-              className="u-font-size-18px u-margin-top-15px u-margin-left-20px u-color-ec8d57"
-            >
+            <h1 className="u-font-size-18px u-margin-top-15px u-margin-left-20px u-color-ec8d57">
               Customer Details
             </h1>
           </Col>
@@ -1070,7 +1123,8 @@ const ViewCustomerDetailsDC = () => {
               size="small"
               disable
               value={DCDispute.ReferenceNumber}
-              label={"Reference #"}
+              label={lbl(DCDispute.ReferenceNumber, "Reference #")}
+              placeholder={"Reference #"}
               fullWidth
             />
           </Col>
@@ -1080,7 +1134,8 @@ const ViewCustomerDetailsDC = () => {
               size="small"
               disable
               value={cnic}
-              label={"CNIC"}
+              label={lbl(cnic, "CNIC")}
+              placeholder={"CNIC"}
               fullWidth
             />
           </Col>
@@ -1090,17 +1145,21 @@ const ViewCustomerDetailsDC = () => {
               size="small"
               disable
               value={fDCusotmerAccount.CustomerName}
-              label={"Customer Name"}
+              label={lbl(fDCusotmerAccount.CustomerName, "Customer Name")}
+              placeholder={"Customer Name"}
               fullWidth
             />
           </Col>
 
           <Col lg={6} md={6} sm={24} xs={24}>
-            <SelectBox
-              label="City"
-              value={cityValue}
+            <TextField
+              size="small"
               name="fK_CTID"
               disable={true}
+              value={cityValue}
+              label={lbl(cityValue, "City")}
+              placeholder="City"
+              fullWidth
             />
           </Col>
           <Col lg={6} md={6} sm={24} xs={24}>
@@ -1109,16 +1168,20 @@ const ViewCustomerDetailsDC = () => {
               size="small"
               disable
               value={CardDetails.CardNumber}
-              label={"Card Number"}
+              label={lbl(CardDetails.CardNumber, "Card Number")}
+              placeholder={"Card Number"}
               fullWidth
             />
           </Col>
           <Col lg={6} md={6} sm={24} xs={24}>
-            <SelectBox
-              name="Fraud Type"
+            <TextField
+              name="FraudType"
+              size="small"
               disable
-              value={fraudType}
-              label="Select Fraud Type"
+              value={fraudTypeName}
+              label={lbl(fraudTypeName, "Fraud Type")}
+              placeholder="Fraud Type"
+              fullWidth
             />
           </Col>
           <Col lg={24} md={24} sm={24} className="u-margin-top-2pct">
@@ -1157,9 +1220,7 @@ const ViewCustomerDetailsDC = () => {
       <div className="u-margin-top-20px" />
       <Paper section padding="1">
         <Col lg={18} md={18} sm={18} xs={24}>
-          <h1
-            className="u-font-size-18px u-margin-top-15px u-margin-left-20px u-color-ec8d57"
-          >
+          <h1 className="u-font-size-18px u-margin-top-15px u-margin-left-20px u-color-ec8d57">
             Date
           </h1>
         </Col>
@@ -1181,7 +1242,11 @@ const ViewCustomerDetailsDC = () => {
           <Col lg={6} md={6} sm={24}>
             <TextField
               fullWidth
-              label="Case Received Channel"
+              label={lbl(
+                DCDispute.CaseReceivedChannel,
+                "Case Received Channel"
+              )}
+              placeholder="Case Received Channel"
               size="small"
               textLength={30}
               name="CaseReceivedChannel"
@@ -1225,7 +1290,11 @@ const ViewCustomerDetailsDC = () => {
             <Paper>
               <TextField
                 fullWidth
-                label="Total Dispute Amount"
+                label={lbl(
+                  DCDispute.TotalTransactionAmount,
+                  "Total Dispute Amount"
+                )}
+                placeholder="Total Dispute Amount"
                 value={
                   DCDispute.TotalTransactionAmount === null ||
                   DCDispute.TotalTransactionAmount === -99999999999999999999
@@ -1244,9 +1313,7 @@ const ViewCustomerDetailsDC = () => {
       <div className="u-margin-top-20px" />
       <Paper section padding="1">
         <Col lg={18} md={18} sm={18} xs={24} className="u-margin-bottom-20px">
-          <h1
-            className="u-font-size-18px u-margin-top-15px u-margin-left-20px u-color-ec8d57"
-          >
+          <h1 className="u-font-size-18px u-margin-top-15px u-margin-left-20px u-color-ec8d57">
             Other Details
           </h1>
         </Col>
@@ -1275,6 +1342,10 @@ const ViewCustomerDetailsDC = () => {
               width="100%"
               DateRange
               placeholder={"Select TC 40 Reporting Date"}
+              label={lbl(
+                DCDispute.TC40ReportingDate,
+                "Select TC 40 Reporting Date"
+              )}
               value={
                 DCDispute.TC40ReportingDate
                   ? DateDisplayFormat(DCDispute.TC40ReportingDate)
@@ -1307,6 +1378,10 @@ const ViewCustomerDetailsDC = () => {
               size="large"
               width="100%"
               DateRange
+              label={lbl(
+                DCDispute.SafeReportingDate,
+                "Select Safe Reporting Date"
+              )}
               placeholder={"Select Safe Reporting Date"}
               name="SafeReportingDate"
               value={
@@ -1322,9 +1397,7 @@ const ViewCustomerDetailsDC = () => {
       <div className="u-margin-top-20px" />
       <Paper section padding="1">
         <Col lg={18} md={18} sm={18} xs={24} className="u-margin-bottom-20px">
-          <h1
-            className="u-font-size-18px u-margin-top-15px u-margin-left-20px u-color-ec8d57"
-          >
+          <h1 className="u-font-size-18px u-margin-top-15px u-margin-left-20px u-color-ec8d57">
             Closure Details
           </h1>
         </Col>
@@ -1346,7 +1419,11 @@ const ViewCustomerDetailsDC = () => {
           <Col lg={6} md={6} sm={24} xs={24}>
             <TextField
               fullWidth
-              label="Point Of Compromise Identified"
+              label={lbl(
+                DCDispute.POCIdentified,
+                "Point Of Compromise Identified"
+              )}
+              placeholder="Point Of Compromise Identified"
               value={DCDispute.POCIdentified}
               required={DCDispute.POCIdentified}
               size="small"
@@ -1357,7 +1434,8 @@ const ViewCustomerDetailsDC = () => {
           <Col lg={6} md={6} sm={24} xs={24}>
             <TextField
               fullWidth
-              label="Case Decision"
+              label={lbl(DCDispute.CaseDecision, "Case Decision")}
+              placeholder="Case Decision"
               size="small"
               name="CaseDecision"
               value={DCDispute.CaseDecision}
@@ -1367,7 +1445,8 @@ const ViewCustomerDetailsDC = () => {
           <Col lg={6} md={6} sm={24} xs={24} className="u-margin-bottom-20px">
             <TextField
               fullWidth
-              label="In Favor Of Customer"
+              label={lbl(DCDispute.InFavourOfCM, "In Favor Of Customer")}
+              placeholder="In Favor Of Customer"
               size="small"
               name="InFavourOfCM"
               value={
@@ -1382,7 +1461,8 @@ const ViewCustomerDetailsDC = () => {
           <Col lg={6} md={6} sm={24} xs={24}>
             <TextField
               fullWidth
-              label="Customer Liability"
+              label={lbl(DCDispute.CustomerLiability, "Customer Liability")}
+              placeholder="Customer Liability"
               size="small"
               name="CustomerLiability"
               value={
@@ -1397,7 +1477,8 @@ const ViewCustomerDetailsDC = () => {
           <Col lg={12} md={12} sm={24} xs={24}>
             <TextField
               fullWidth
-              label="Remarks"
+              label={lbl(DCDispute.Remarks, "Remarks")}
+              placeholder="Remarks"
               size="small"
               name="Remarks"
               value={DCDispute.Remarks}
@@ -1407,7 +1488,8 @@ const ViewCustomerDetailsDC = () => {
           <Col lg={6} md={6} sm={24} xs={24} className="u-margin-top-22px">
             <TextField
               fullWidth
-              label="Event ID (SAS REF #)"
+              label={lbl(DCDispute.EventIDSAS, "Event ID (SAS REF #)")}
+              placeholder="Event ID (SAS REF #)"
               size="small"
               name="EventIDSAS"
               value={DCDispute.EventIDSAS}
@@ -1418,7 +1500,12 @@ const ViewCustomerDetailsDC = () => {
             <TextField
               fullWidth
               size="small"
-              label="Aging"
+              label={
+                DCDispute.Aging === null || DCDispute.Aging === -1
+                  ? ""
+                  : "Aging"
+              }
+              placeholder="Aging"
               name="Aging"
               value={
                 DCDispute.Aging === null || DCDispute.Aging === -1
@@ -1432,7 +1519,13 @@ const ViewCustomerDetailsDC = () => {
             <TextField
               fullWidth
               size="small"
-              label="Case Closed TAT"
+              label={
+                DCDispute.CaseClosedTAT === null ||
+                DCDispute.CaseClosedTAT === -1
+                  ? ""
+                  : "Case Closed TAT"
+              }
+              placeholder="Case Closed TAT"
               name="CaseClosedTAT"
               value={
                 DCDispute.CaseClosedTAT === null ||
@@ -1448,9 +1541,7 @@ const ViewCustomerDetailsDC = () => {
       <div className="u-margin-top-25px" />
       <Paper section padding="1">
         <Col lg={18} md={18} sm={18} xs={24}>
-          <h1
-            className="u-font-size-18px u-margin-top-15px u-margin-left-20px u-color-ec8d57"
-          >
+          <h1 className="u-font-size-18px u-margin-top-15px u-margin-left-20px u-color-ec8d57">
             Files Upload
           </h1>
         </Col>
@@ -1515,7 +1606,8 @@ const ViewCustomerDetailsDC = () => {
                   option={approvalReason}
                   propertyName={"title"}
                   change={approvalReasonHandler}
-                  label="Select Approval Reason"
+                  label={lbl(approvalReasonValue, "Select Approval Reason")}
+                  placeholder="Select Approval Reason"
                   required
                   value={approvalReasonValue}
                   name="SelectApprovalReason"
@@ -1528,7 +1620,8 @@ const ViewCustomerDetailsDC = () => {
                   multiline
                   rows={6}
                   autoComplete="off"
-                  label="Description"
+                  label={lbl(approveDispute.Comments, "Description")}
+                  placeholder="Description"
                   change={handleChangeApprove}
                   value={approveDispute.Comments}
                   fullWidth
@@ -1548,7 +1641,8 @@ const ViewCustomerDetailsDC = () => {
                   option={rejectionReason}
                   propertyName={"title"}
                   change={rejectionReasonHandler}
-                  label="Select Rejection Reason"
+                  label={lbl(rejectionReasonValue, "Select Rejection Reason")}
+                  placeholder="Select Rejection Reason"
                   required
                   value={rejectionReasonValue}
                   name="SelectRejectionReason"
@@ -1560,7 +1654,8 @@ const ViewCustomerDetailsDC = () => {
                 <TextField
                   multiline
                   rows={6}
-                  label="Description"
+                  label={lbl(rejectDispute.Comments, "Description")}
+                  placeholder="Description"
                   autoComplete="off"
                   change={handleChangeReject}
                   value={rejectDispute.Comments}

@@ -20,14 +20,6 @@ import {
   AddApprovalReason,
   RejectReason,
 } from "../../../../store/actions/investigation-manager-actions";
-import {
-  GetAllSource,
-  GetAllApprovalReasons,
-  GetAllRejectionReasons,
-  GetAllFraudType,
-  GetAllSourceOfIBChannelCreation,
-  GetAllCity,
-} from "../../../../store/actions/setup-forms-actions";
 
 import {
   DownloadUploadFile,
@@ -140,9 +132,6 @@ const ViewCustomerDetailsADC = () => {
   const [SourceType, setSourceType] = useState("");
 
   const [sourceOfIB, setSourceOfIB] = useState("");
-
-  // const [cityValue, setCityValue] = useState("");
-  // delete: const [cityValue, setCityValue] = useState("");
 
   const cityValue = useMemo(() => {
     const list = setupForms.CityData || [];
@@ -273,12 +262,6 @@ const ViewCustomerDetailsADC = () => {
           CustomerName: customerDetail.customerName,
           fK_CTID: customerDetail.fK_CTID,
         });
-        // let cityValue = setupForms.CityData;
-        // cityValue.map((data, index) => {
-        //   if (customerDetail.fK_CTID === data.pK_CTID) {
-        //     setCityValue(data.name);
-        //   }
-        // });
       }
       if (transactionDetail !== undefined && transactionDetail !== null) {
         let tem = [];
@@ -1193,13 +1176,6 @@ const ViewCustomerDetailsADC = () => {
               />
             </Col>
             <Col lg={6} md={6} sm={24} xs={24}>
-              {/* <SelectBox
-                label="City"
-                value={cityValue}
-                name="fK_CTID"
-                disable={true}
-              /> */}
-
               <TextField
                 size="small"
                 name="fK_CTID"

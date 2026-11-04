@@ -10,11 +10,11 @@
 }
 
 .u-color-ec8d57 {
-  color: #EC8D57;
+  color: #ec8d57;
 }
 
 .u-color-2f2f2f {
-  color: #2F2F2F;
+  color: #2f2f2f;
 }
 
 .u-color-b27706 {
@@ -258,6 +258,9 @@
 
 .u-padding-bottom-80px {
   padding-bottom: 80px;
+}
+.u-margin-left-15px {
+  margin-left: 15px !important;
 }
 
 .u-padding-left-20px {

@@ -416,9 +416,11 @@ const AddEditBBKDispute = () => {
     localStorage.setItem("State", JSON.stringify(State));
     localStorage.setItem("route", JSON.stringify(2));
     setInputDataACModal(inputDataAC);
-    await dispatch(GetTransactionDetailsByAccountNumberBBK(inputDataAC));
+    await dispatch(
+      GetTransactionDetailsByAccountNumberBBK({ object: inputDataAC, setFound })
+    );
     // dispatch(RESETALLSTATE());
-    setFound(true);
+    // setFound(true);
   };
 
   const accountForMobileSearchHandler = () => {
@@ -677,26 +679,28 @@ const AddEditBBKDispute = () => {
                   name="AccountNumber"
                   click={accountSearch2Handler}
                 />
-                <div className="dateRangePicker">
-                  <StartToEndDate
-                    DateRange={true}
-                    size="large"
-                    change={setDate}
-                    key={clearDateSelect}
-                    startvalue={
-                      State.FromDate !== null && State.FromDate !== ""
-                        ? DateDisplayFormat(State.FromDate)
-                        : null
-                    }
-                    endvalue={
-                      State.ToDate !== null && State.ToDate !== ""
-                        ? DateDisplayFormat(State.ToDate)
-                        : null
-                    }
-                    className="DatePickerDC"
-                    required
-                  />
-                </div>
+                {found && (
+                  <div className="dateRangePicker">
+                    <StartToEndDate
+                      DateRange={true}
+                      size="large"
+                      change={setDate}
+                      key={clearDateSelect}
+                      startvalue={
+                        State.FromDate !== null && State.FromDate !== ""
+                          ? DateDisplayFormat(State.FromDate)
+                          : null
+                      }
+                      endvalue={
+                        State.ToDate !== null && State.ToDate !== ""
+                          ? DateDisplayFormat(State.ToDate)
+                          : null
+                      }
+                      className="DatePickerDC"
+                      required
+                    />
+                  </div>
+                )}
               </>
             ) : (
               <>
@@ -726,7 +730,12 @@ const AddEditBBKDispute = () => {
                         }
                         name="AccountNumber"
                         applyClass="account-number"
-                        label="Select Account Number"
+                        label={
+                          accountNumber.length !== 0
+                            ? "Select Account Number"
+                            : ""
+                        }
+                        placeholder={"Select Account Number *"}
                         textFieldSize="small"
                         fullWidth
                         autoComplete="off"
@@ -735,7 +744,14 @@ const AddEditBBKDispute = () => {
                         click={accountForMobileSearchHandler}
                         change={accountNumberForMobileHandler}
                         value={accountNumber}
-                        disable={btnStatusSelect}
+                        // disable={btnStatusSelect}
+
+                        disableButton={
+                          accountNumber == null ||
+                          accountNumber === "" ||
+                          (Array.isArray(accountNumber) &&
+                            accountNumber.length === 0)
+                        }
                       />
                     </div>
                     <div className="dateRangePicker u-margin-top-15px">

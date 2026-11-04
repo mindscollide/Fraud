@@ -575,7 +575,7 @@ const SearchBBKDispute = () => {
 
   const okayButtonProp = {
     primaryButton: {
-      text: "Ok",
+      text: "Close",
       class: "btnBorderStyledBeach",
       click: () => handleCancel(),
     },
@@ -712,34 +712,7 @@ const SearchBBKDispute = () => {
             size="small"
             value={searchData.ReferenceNumber}
             change={(e) => handleSearch(e)}
-          />
-        </Col>
-        <Col lg={6} md={6} sm={24}>
-          <TextField
-            fullWidth
-            name={"AccountNumber"}
-            label={searchData.AccountNumber !== "" && "Account Number"}
-            placeholder={"Account Number"}
-            autoComplete="off"
-            size="small"
-            value={searchData.AccountNumber}
-            change={(e) => handleSearch(e)}
-            textLength={8}
-            minLength={8}
-          />
-        </Col>
-        <Col lg={6} md={6} sm={24}>
-          <TextField
-            fullWidth
-            name={"TransactionID"}
-            label={searchData.TransactionID !== "" && "Transaction ID"}
-            placeholder={"Transaction ID"}
-            autoComplete="off"
-            size="small"
-            value={searchData.TransactionID}
-            change={(e) => handleSearch(e)}
-            textLength={20}
-            minLength={20}
+            textLength={17}
           />
         </Col>
         <Col lg={6} md={6} sm={24}>
@@ -752,22 +725,10 @@ const SearchBBKDispute = () => {
             size="small"
             value={searchData.CustomerName}
             change={(e) => handleSearch(e)}
-            textLength={25}
-            minLength={25}
+            textLength={100}
           />
         </Col>
-      </Row>
-      <Row gutter={8} className="u-margin-top-22px">
-        <Col lg={6} md={6} sm={24}>
-          <SelectBox
-            label={cityValue?.length > 0 && "Select City"}
-            placeholder={"Select City"}
-            option={city}
-            value={cityValue}
-            change={CityNameHandler}
-            name="FK_CTID"
-          />
-        </Col>
+
         <Col lg={6} md={6} sm={24}>
           <TextField
             fullWidth
@@ -782,20 +743,50 @@ const SearchBBKDispute = () => {
             minLength={13}
           />
         </Col>
+
         <Col lg={6} md={6} sm={24}>
           <TextField
             fullWidth
-            name={"MobileNumber"}
-            label={searchData?.MobileNumber !== "" && "Mobile Number"}
-            placeholder={"Mobile Number"}
+            name={"AccountNumber"}
+            label={searchData.AccountNumber !== "" && "Account Number"}
+            placeholder={"Account Number"}
             autoComplete="off"
             size="small"
-            value={searchData.MobileNumber}
+            value={searchData.AccountNumber}
             change={(e) => handleSearch(e)}
-            textLength={13}
-            minLength={13}
+            textLength={14}
+            minLength={8}
           />
         </Col>
+      </Row>
+
+      <Row gutter={8} className="u-margin-top-22px">
+        <Col lg={6} md={6} sm={24}>
+          <TextField
+            fullWidth
+            name={"TransactionID"}
+            label={searchData.TransactionID !== "" && "Transaction ID"}
+            placeholder={"Transaction ID"}
+            autoComplete="off"
+            size="small"
+            value={searchData.TransactionID}
+            change={(e) => handleSearch(e)}
+            textLength={20}
+            minLength={20}
+          />
+        </Col>
+
+        <Col lg={6} md={6} sm={24}>
+          <SelectBox
+            label={cityValue?.length > 0 && "Select City"}
+            placeholder={"Select City"}
+            option={city}
+            value={cityValue}
+            change={CityNameHandler}
+            name="FK_CTID"
+          />
+        </Col>
+
         <Col lg={6} md={6} sm={24}>
           <SelectBox
             label={caseStatus?.length > 0 && "Select Case Status"}
@@ -806,9 +797,7 @@ const SearchBBKDispute = () => {
             change={caseStatusHandler}
           />
         </Col>
-      </Row>
 
-      <Row gutter={8} className="u-margin-top-22px">
         <Col lg={6} md={6} sm={24}>
           <SelectBox
             label={searchData.Fraudtype !== "" && "Select Fraud Type"}
@@ -819,6 +808,23 @@ const SearchBBKDispute = () => {
             change={fraudNameHandler}
           />
         </Col>
+      </Row>
+
+      <Row gutter={8} className="u-margin-top-22px">
+        <Col lg={6} md={6} sm={24}>
+          <TextField
+            fullWidth
+            name={"MobileNumber"}
+            label={searchData?.MobileNumber !== "" && "Mobile Number"}
+            placeholder={"Mobile Number"}
+            autoComplete="off"
+            size="small"
+            value={searchData.MobileNumber}
+            change={(e) => handleSearch(e)}
+            textLength={11}
+          />
+        </Col>
+
         <Col lg={6} md={6} sm={24}>
           <FormattedInputs
             fullWidth
@@ -857,6 +863,7 @@ const SearchBBKDispute = () => {
           />
         </Col>
       </Row>
+
       <Row gutter={8} className="u-margin-top-10px u-justify-content-center">
         <Col lg={4} md={4} sm={24}>
           <Button

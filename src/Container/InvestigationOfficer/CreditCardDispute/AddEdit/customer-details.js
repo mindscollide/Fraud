@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { PlusOutlined as AddIcon } from "@ant-design/icons";
 import { Tooltip, Typography, Radio, Col, Row } from "antd";
 import { EditOutlined as Edit } from "@ant-design/icons";
@@ -48,7 +48,7 @@ const CustomerDetailsCreditCardDispute = () => {
     fK_CTID: 0,
     // cityName: ''
   });
-  const [cityValue, setCityValue] = useState("");
+
   const [open, setOpen] = useState({
     flag: false,
     message: "",
@@ -57,6 +57,8 @@ const CustomerDetailsCreditCardDispute = () => {
   const [allTransactionDetailsByCNIC, setAllTransactionDetailsByCNIC] =
     useState([]);
   const [transactionDetails, setTransactionDetailsNIC] = useState([]);
+
+  console.log({ setupForms, investigationOfficer }, "cityValuwe");
 
   //Button Status Enable/Disable for Dispute Status
   const checkBtn = (flag) => {
@@ -204,26 +206,26 @@ const CustomerDetailsCreditCardDispute = () => {
     dispatch(ensureLookup("city"));
   }, []);
 
+  const selectedCity = useMemo(
+    () =>
+      (setupForms.CityData || []).find(
+        (c) => Number(c.pK_CTID) === Number(customer.fK_CTID)
+      ),
+    [setupForms.CityData, customer.fK_CTID]
+  );
+
   //Set Values for Input ResponseData
   useEffect(() => {
-    if (investigationOfficer.GetTransactionDetailsByCNICData) {
-      let newData =
-        investigationOfficer.GetTransactionDetailsByCNICData.customerDetails;
-      if (newData !== undefined && newData !== null) {
+    const data = investigationOfficer.GetTransactionDetailsByCNICData;
+    if (data) {
+      const newData = data.customerDetails;
+      if (newData) {
         setCustomer({
           custName: newData.customerName,
           fK_CTID: newData.fK_CTID,
         });
-        let valueCity = setupForms.CityData;
-        valueCity.map((data, index) => {
-          if (newData.fK_CTID === data.pK_CTID) {
-            setCityValue(data.name);
-          }
-        });
       }
-      setAllTransactionDetailsByCNIC(
-        investigationOfficer.GetTransactionDetailsByCNICData
-      );
+      setAllTransactionDetailsByCNIC(data);
     }
   }, [investigationOfficer.GetTransactionDetailsByCNICData]);
 
@@ -295,32 +297,34 @@ const CustomerDetailsCreditCardDispute = () => {
     }
   }, [transactionDetails]);
 
-  // sourceofib type names selection for drop down
-  useEffect(() => {
-    let valueCity = setupForms.CityData;
-    valueCity.map((data, index) => {
-      if (customer.fK_CTID === data.pK_CTID) {
-        setCityValue(data.name);
-        setCustomer({
-          ...customer,
-          ["fK_CTID"]: parseInt(data.pK_CTID),
-        });
-      }
-    });
-  }, [setupForms.CityData]);
+  // // sourceofib type names selection for drop down
+  // useEffect(() => {
+  //   let valueCity = setupForms.CityData;
+  //   valueCity.map((data, index) => {
+  //     if (customer.fK_CTID === data.pK_CTID) {
+  //       setCityValue(data.name);
+  //       setCustomer({
+  //         ...customer,
+  //         ["fK_CTID"]: parseInt(data.pK_CTID),
+  //       });
+  //     }
+  //   });
+  // }, [setupForms.CityData]);
 
   return (
     <>
       <Paper>
         <Row gutter={16}>
           <Col lg={18} md={18}>
-            <h1
-              className="u-font-size-18px u-margin-top-15px u-margin-left-20px u-color-ec8d57"
-            >
+            <h1 className="u-font-size-18px u-margin-top-15px u-margin-left-20px u-color-ec8d57">
               Customer Details
             </h1>
           </Col>
-          <Col lg={6} md={6} className="u-padding-0 u-position-relative u-text-align-left">
+          <Col
+            lg={6}
+            md={6}
+            className="u-padding-0 u-position-relative u-text-align-left"
+          >
             <div className="Level-Section">
               <div>
                 <i className="icon-card icon-size-one"></i>
@@ -349,9 +353,12 @@ const CustomerDetailsCreditCardDispute = () => {
             <Col lg={8} md={8}>
               <SelectBox
                 label="Select City"
-                value={cityValue}
+                value={selectedCity}
+                option={setupForms.CityData}
+                propertyName="name"
                 name="fK_CTID"
                 disable={true}
+                required
               />
             </Col>
             <Col lg={6} md={6} sm={24}>

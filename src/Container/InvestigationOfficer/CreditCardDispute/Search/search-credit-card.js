@@ -4,8 +4,6 @@ import {
   DateDisplayFormat,
   TimeAndDisplayFormat,
   DateSendingFormat,
-  currentToOneYearBackDate,
-  NumberFormater,
   CommaFormter,
 } from "../../../../Common/Functions/date-formatter";
 import { SearchOutlined as Search } from "@ant-design/icons";
@@ -18,9 +16,7 @@ import {
   StartToEndDate,
   TextField,
   Notification,
-  DatePicker,
   Loader,
-  GroupedButtons,
 } from "../../../../Components/Elements";
 import {
   HideNotification,
@@ -38,11 +34,9 @@ import {
   disableGoBack,
 } from "../../../../store/actions/ui-actions";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
 
 const SearchCreditCardDispute = () => {
   const { Title } = Typography;
-  const navigate = useNavigate();
   const dispatch = useDispatch();
   const state = useSelector((state) => state);
 
@@ -71,8 +65,6 @@ const SearchCreditCardDispute = () => {
 
   const [row, setRow] = useState([]);
 
-  const [dataForSave, setDataForSave] = useState([]);
-
   // Case Status Functionality
   const [caseStatus, setCaseStatus] = useState("");
   const [caseStatusOptions, setCaseStatusOptions] = useState("");
@@ -91,13 +83,9 @@ const SearchCreditCardDispute = () => {
     FK_CTID: 0,
     Fraudtype: "",
     TransactionId: "",
+    ApprovalCode: "",
     TransactionAmount: -99999999999999999999,
     fk_csid: -1,
-  });
-
-  //Approve Dispute
-  const [approvalStatus, setApprovalStatus] = useState({
-    FK_DID: 0,
   });
 
   useEffect(() => {
@@ -149,6 +137,7 @@ const SearchCreditCardDispute = () => {
       FK_CTID: 0,
       Fraudtype: "",
       TransactionId: "",
+      ApprovalCode: "",
       TransactionAmount: -99999999999999999999,
       fk_csid: -1,
     });
@@ -670,16 +659,16 @@ const SearchCreditCardDispute = () => {
     },
   ];
 
-  const okayButtonProp = {
-    primaryButton: {
-      text: "Ok",
-      class: "btnBorderStyledBeach",
-      click: () => handleCancel(),
-    },
-    secondaryButton: {
-      text: "",
-    },
-  };
+  // const okayButtonProp = {
+  //   primaryButton: {
+  //     text: "Ok",
+  //     class: "btnBorderStyledBeach",
+  //     click: () => handleCancel(),
+  //   },
+  //   secondaryButton: {
+  //     text: "",
+  //   },
+  // };
 
   const addButtonProps = {
     primaryButton: {
@@ -779,8 +768,7 @@ const SearchCreditCardDispute = () => {
             size="small"
             value={searchData.RefrenceNumber}
             change={(e) => handleSearch(e)}
-            max={20}
-            textLength={20}
+            textLength={17}
             autoComplete="off"
           />
         </Col>
@@ -793,6 +781,21 @@ const SearchCreditCardDispute = () => {
             size="small"
             value={searchData.CustomerName}
             change={(e) => handleSearch(e)}
+            autoComplete="off"
+            textLength={100}
+          />
+        </Col>
+        <Col lg={6} md={6} sm={24}>
+          <TextField
+            fullWidth
+            name={"CNICNumber"}
+            label={searchData?.CNICNumber !== "" ? "CNIC" : ""}
+            placeholder={"CNIC"}
+            size="small"
+            value={searchData.CNICNumber}
+            change={(e) => handleSearch(e)}
+            textLength={13}
+            minLength={13}
             autoComplete="off"
           />
         </Col>
@@ -807,20 +810,6 @@ const SearchCreditCardDispute = () => {
             change={(e) => handleSearch(e)}
             textLength={20}
             minLength={20}
-            autoComplete="off"
-          />
-        </Col>
-        <Col lg={6} md={6} sm={24}>
-          <TextField
-            fullWidth
-            name={"CNICNumber"}
-            label={searchData?.CNICNumber !== "" ? "CNIC" : ""}
-            placeholder={"CNIC"}
-            size="small"
-            value={searchData.CNICNumber}
-            change={(e) => handleSearch(e)}
-            textLength={13}
-            minLength={13}
             autoComplete="off"
           />
         </Col>
@@ -856,6 +845,22 @@ const SearchCreditCardDispute = () => {
             change={fraudNameHandler}
           />
         </Col>
+
+        <Col lg={6} md={6} sm={24}>
+          <TextField
+            fullWidth
+            name={"ApprovalCode"}
+            label={searchData?.ApprovalCode !== "" ? "Approval Code" : ""}
+            placeholder={"Approval Code"}
+            size="small"
+            autoComplete="off"
+            value={searchData.ApprovalCode}
+            change={(e) => handleSearch(e)}
+            textLength={7}
+          />
+        </Col>
+      </Row>
+      <Row gutter={8} className="u-margin-top-22px">
         <Col lg={6} md={6} sm={24}>
           <FormattedInputs
             name={"TransactionAmount"}
@@ -874,8 +879,6 @@ const SearchCreditCardDispute = () => {
             autoComplete="off"
           />
         </Col>
-      </Row>
-      <Row gutter={8} className="u-margin-top-22px">
         <Col lg={6} md={6} sm={24}>
           <StartToEndDate
             label={hasDateValue ? "Case Received Date" : ""}
@@ -944,7 +947,19 @@ const SearchCreditCardDispute = () => {
         {actions.viewApprovalHistory && (
           <>
             <Table rows={row} columns={viewApprovalColumn} />
-            <GroupedButtons data={okayButtonProp} />
+            {/* <GroupedButtons data={okayButtonProp} /> */}
+
+            <div className="u-display-flex u-justify-content-center">
+              {/* <GroupedButtons data={okayButtonProp} /> */}
+              <Button
+                text="Close"
+                type={"primary"}
+                size="large"
+                applyClass="btnBorderStyledBeach"
+                click={handleCancel}
+                // click= () => handleCancel(),
+              />
+            </div>
           </>
         )}
       </Modal>

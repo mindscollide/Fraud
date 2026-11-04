@@ -3174,7 +3174,15 @@ const UpdateADCDisputeDetails = (
       .then(async (response) => {
         if (response.data.responseCode === 417) {
           await dispatch(refreshToken());
-          dispatch(UpdateADCDisputeDetails(object, searchData, searchDataofdate, DataForGlobal, DataForGlobalDate));
+          dispatch(
+            UpdateADCDisputeDetails(
+              object,
+              searchData,
+              searchDataofdate,
+              DataForGlobal,
+              DataForGlobalDate
+            )
+          );
         } else if (response.data.responseCode === 200) {
           if (response.data.responseResult.isExecuted === true) {
             await dispatch(
@@ -3250,7 +3258,15 @@ const UpdateAndApproveADCDisputeDetails = (
       .then(async (response) => {
         if (response.data.responseCode === 417) {
           await dispatch(refreshToken());
-          dispatch(UpdateAndApproveADCDisputeDetails(object, searchData, searchDataofdate, DataForGlobal, DataForGlobalDate));
+          dispatch(
+            UpdateAndApproveADCDisputeDetails(
+              object,
+              searchData,
+              searchDataofdate,
+              DataForGlobal,
+              DataForGlobalDate
+            )
+          );
         } else if (response.data.responseCode === 200) {
           if (response.data.responseResult.isExecuted === true) {
             await dispatch(
@@ -3481,7 +3497,12 @@ const GetTransactionDetailsByAccountNumberADC = ({
       .then(async (response) => {
         if (response.data.responseCode === 417) {
           await dispatch(refreshToken());
-          dispatch(GetTransactionDetailsByAccountNumberADC({ object, setAccountFoundAccTab }));
+          dispatch(
+            GetTransactionDetailsByAccountNumberADC({
+              object,
+              setAccountFoundAccTab,
+            })
+          );
         } else if (response.data.responseCode === 200) {
           if (response.data.responseResult.isExecuted === true) {
             setAccountFoundAccTab(true);
@@ -4579,7 +4600,7 @@ const UpdateAndApproveBBKDisputeDetails = (
 };
 
 //Search Transaction Details by AccountNumber
-const GetTransactionDetailsByAccountNumberBBK = (object) => {
+const GetTransactionDetailsByAccountNumberBBK = ({ object, setFound }) => {
   let navigate = Helper.navigate;
   let token = JSON.parse(localStorage.getItem("token"));
   let Data = {
@@ -4605,7 +4626,9 @@ const GetTransactionDetailsByAccountNumberBBK = (object) => {
       .then(async (response) => {
         if (response.data.responseCode === 417) {
           await dispatch(refreshToken());
-          dispatch(GetTransactionDetailsByAccountNumberBBK(object));
+          dispatch(
+            GetTransactionDetailsByAccountNumberBBK({ object, setFound })
+          );
         } else if (response.data.responseCode === 200) {
           await dispatch(RESETALLSTATE());
           if (response.data.responseResult.isExecuted === true) {
@@ -4615,6 +4638,7 @@ const GetTransactionDetailsByAccountNumberBBK = (object) => {
             ) {
               dispatch(accountNumberFoundModal(true));
               localStorage.setItem("AccountNumber", object);
+              setFound(true);
             } else {
               // localStorage.setItem("AccountNumber", object);
               dispatch(accountNumberFoundModal(false));
@@ -6167,7 +6191,14 @@ const EditDisputeNegativeDB = (
       .then(async (response) => {
         if (response.data.responseCode === 417) {
           await dispatch(refreshToken());
-          dispatch(EditDisputeNegativeDB(object, searchData, DataForGlobal, DataForGlobalDate));
+          dispatch(
+            EditDisputeNegativeDB(
+              object,
+              searchData,
+              DataForGlobal,
+              DataForGlobalDate
+            )
+          );
         } else if (response.data.responseCode === 200) {
           if (response.data.responseResult.isExecuted === true) {
             if (flagForGlobalDispute === "true") {

@@ -1685,16 +1685,16 @@ const SearchDisputeIO = () => {
 
   const [row, setRow] = useState([]);
 
-  const okayButtonProp = {
-    primaryButton: {
-      text: "Ok",
-      class: "btnBorderStyledBeach",
-      click: () => handleCancel(),
-    },
-    secondaryButton: {
-      text: "",
-    },
-  };
+  // const okayButtonProp = {
+  //   primaryButton: {
+  //     text: "Ok",
+  //     class: "btnBorderStyledBeach",
+  //     click: () => handleCancel(),
+  //   },
+  //   secondaryButton: {
+  //     text: "",
+  //   },
+  // };
 
   const viewApprovalColumn = [
     {
@@ -1970,6 +1970,7 @@ const SearchDisputeIO = () => {
             size="small"
             value={searchData.ReferenceNumber}
             change={(e) => handleSearch(e)}
+            textLength={17}
           />
         </Col>
         <Col lg={8} md={8} sm={24}>
@@ -2133,7 +2134,17 @@ const SearchDisputeIO = () => {
         {actions.viewApprovalHistory && (
           <>
             <Table rows={row} columns={viewApprovalColumn} />
-            <GroupedButtons data={okayButtonProp} />
+            <div className="u-display-flex u-justify-content-center">
+              {/* <GroupedButtons data={okayButtonProp} /> */}
+              <Button
+                text="Close"
+                type={"primary"}
+                size="large"
+                applyClass="btnBorderStyledBeach"
+                click={handleCancel}
+                // click= () => handleCancel(),
+              />
+            </div>
           </>
         )}
       </Modal>

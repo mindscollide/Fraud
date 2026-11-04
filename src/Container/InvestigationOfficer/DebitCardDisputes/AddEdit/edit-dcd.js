@@ -503,7 +503,7 @@ const EditDebitCardDispute = () => {
     setSourceTypeName(
       nameSource.map((data, index) => {
         return data.name;
-      }),
+      })
     );
   }, [setupForms.SourceData]);
 
@@ -783,7 +783,7 @@ const EditDebitCardDispute = () => {
     setCity(
       valueCity.map((data, index) => {
         return data.name;
-      }),
+      })
     );
   }, [setupForms.CityData]);
 
@@ -807,7 +807,7 @@ const EditDebitCardDispute = () => {
       setFraudType(
         nameFraud.map((data, index) => {
           return data.name;
-        }),
+        })
       );
     }
   }, [setupForms.FraudTypeData]);
@@ -885,7 +885,7 @@ const EditDebitCardDispute = () => {
   // update transection data
   const update = (e, record) => {
     var objIndex = ListOfDebitCardTransactionDetailsObjects.findIndex(
-      (obj) => obj.TransactionID === record.TransactionID,
+      (obj) => obj.TransactionID === record.TransactionID
     );
     // trsDetails, setTrsDetails
     setRecordIndex(objIndex);
@@ -1498,8 +1498,8 @@ const EditDebitCardDispute = () => {
             setTransactionIDError,
             setTIDErrMsg,
             setSourceType,
-            setTransactionCurrencyCodeValue,
-          ),
+            setTransactionCurrencyCodeValue
+          )
         );
       }
     } else {
@@ -1510,8 +1510,8 @@ const EditDebitCardDispute = () => {
           setTransactionIDError,
           setTIDErrMsg,
           setSourceType,
-          setTransactionCurrencyCodeValue,
-        ),
+          setTransactionCurrencyCodeValue
+        )
       );
     }
   };
@@ -2482,7 +2482,7 @@ const EditDebitCardDispute = () => {
         obj.DisplayFileName === record.DisplayFileName &&
         obj.PK_CCDDID === record.PK_CCDDID &&
         obj.FK_CCDID === record.FK_CCDID &&
-        obj.FK_GSSUserID === record.FK_GSSUserID,
+        obj.FK_GSSUserID === record.FK_GSSUserID
     );
     var temp = [];
     ListOfDebitCardDisputeDocuments.map((data, index) => {
@@ -2511,7 +2511,7 @@ const EditDebitCardDispute = () => {
   const getFilter = () => {
     let filteredItems = ListOfDebitCardDisputeDocuments;
     filteredItems = ListOfDebitCardDisputeDocuments.filter(
-      (item) => item.DisplayFileName !== "",
+      (item) => item.DisplayFileName !== ""
     );
     return filteredItems;
   };
@@ -2683,7 +2683,7 @@ const EditDebitCardDispute = () => {
         return { ...item, key: i + "" };
       });
       setListOfTransactionDetailsAlreadyExsist(
-        GetTransactionDetailsByCNICArray,
+        GetTransactionDetailsByCNICArray
       );
     }
   }, [
@@ -2834,8 +2834,8 @@ const EditDebitCardDispute = () => {
                   searchData,
                   searchDataofdate,
                   DataForGlobal,
-                  DataForGlobalDate,
-                ),
+                  DataForGlobalDate
+                )
               );
               setAddInedx([]);
             } else {
@@ -2920,8 +2920,8 @@ const EditDebitCardDispute = () => {
                 searchData,
                 searchDataofdate,
                 DataForGlobal,
-                DataForGlobalDate,
-              ),
+                DataForGlobalDate
+              )
             );
           }
         }
@@ -3045,8 +3045,8 @@ const EditDebitCardDispute = () => {
                 searchData,
                 searchDataofdate,
                 DataForGlobal,
-                DataForGlobalDate,
-              ),
+                DataForGlobalDate
+              )
             );
             setAddInedx([]);
           } else {
@@ -3192,8 +3192,8 @@ const EditDebitCardDispute = () => {
                     searchData,
                     searchDataofdate,
                     DataForGlobal,
-                    DataForGlobalDate,
-                  ),
+                    DataForGlobalDate
+                  )
                 );
               }
               setAddInedx([]);
@@ -3284,8 +3284,8 @@ const EditDebitCardDispute = () => {
                   searchData,
                   searchDataofdate,
                   DataForGlobal,
-                  DataForGlobalDate,
-                ),
+                  DataForGlobalDate
+                )
               );
             }
             // }
@@ -3419,8 +3419,8 @@ const EditDebitCardDispute = () => {
                   searchData,
                   searchDataofdate,
                   DataForGlobal,
-                  DataForGlobalDate,
-                ),
+                  DataForGlobalDate
+                )
               );
             }
             setAddInedx([]);
@@ -3645,7 +3645,7 @@ const EditDebitCardDispute = () => {
     setCaseDecision(
       valueCaseDecision.map((data, index) => {
         return data.name;
-      }),
+      })
     );
   }, [setupForms.CaseDecisionData]);
 
@@ -3694,9 +3694,22 @@ const EditDebitCardDispute = () => {
     setTransactionCurrencyCode(
       valuetransactionCurrencyCode.map((data, index) => {
         return data.description;
-      }),
+      })
     );
   }, [setupForms.TransactionCurrencyCodeData]);
+
+  // true when a field actually holds a value (treats "", null, undefined,
+  // empty arrays and the -99999999999999999999 "empty number" sentinel as empty)
+  const hasValue = (v) =>
+    v !== undefined &&
+    v !== null &&
+    v !== "" &&
+    v !== -99999999999999999999 &&
+    v !== "-99999999999999999999" &&
+    !(Array.isArray(v) && v.length === 0);
+
+  // show the label only when the field has a value, otherwise "" (placeholder only)
+  const lbl = (value, text) => (hasValue(value) ? text : "");
 
   return (
     <>
@@ -3733,9 +3746,9 @@ const EditDebitCardDispute = () => {
               <TextField
                 name=""
                 size="small"
-                placeholder="Reference#"
+                placeholder="Reference #"
                 disable
-                label={"Reference #"}
+                label={lbl(DCDisputes.RefrenceNumber, "Reference #")}
                 fullWidth
                 value={DCDisputes.RefrenceNumber}
               />
@@ -3747,13 +3760,14 @@ const EditDebitCardDispute = () => {
                 placeholder="Customer Name"
                 disable
                 value={FDCustomer.CustomerName}
-                label={"Customer Name"}
+                label={lbl(FDCustomer.CustomerName, "Customer Name")}
                 fullWidth
               />
             </Col>
             <Col lg={6} md={6} sm={24} xs={24}>
               <SelectBox
-                label="Select City"
+                label={lbl(cityValue, "Select City")}
+                placeholder={"Select City *"}
                 option={city}
                 value={cityValue}
                 change={CityNameHandler}
@@ -3794,7 +3808,8 @@ const EditDebitCardDispute = () => {
             </Col>
             <Col lg={6} md={6} sm={24} xs={24}>
               <SelectBox
-                label="Select Fraud Type"
+                label={lbl(fraudTypeName, "Select Fraud Type")}
+                placeholder={"Select Fraud Type"}
                 option={fraudType}
                 name="FK_FTID"
                 value={fraudTypeName}
@@ -3831,8 +3846,9 @@ const EditDebitCardDispute = () => {
             <Col lg={6} md={6} sm={24} xs={24}>
               <InputWithBtn
                 onchange={TransactionIDchangehandler}
-                isUpperCase={true}
-                label="Transaction ID *"
+                // isUpperCase={true}
+                label={lbl(trsDetails.TransactionID, "Transaction ID *")}
+                placeholder={"Transaction ID *"}
                 fullWidth
                 helperText={TIDErrMsg}
                 textFieldSize="small"
@@ -3852,7 +3868,8 @@ const EditDebitCardDispute = () => {
               <TextField
                 name="HBLAccountNumber"
                 size="small"
-                label={"HBL Account Number *"}
+                label={lbl(trsDetails.HBLAccountNumber, "HBL Account Number *")}
+                placeholder={"HBL Account Number *"}
                 autoComplete="off"
                 value={trsDetails.HBLAccountNumber}
                 change={TransactionDeatilHandlerChange}
@@ -3867,7 +3884,11 @@ const EditDebitCardDispute = () => {
                 size="small"
                 autoComplete="off"
                 value={trsDetails.OtherBankAccountNumber}
-                label={"Other Bank Account Number *"}
+                label={lbl(
+                  trsDetails.OtherBankAccountNumber,
+                  "Other Bank Account Number *"
+                )}
+                placeholder={"Other Bank Account Number *"}
                 change={TransactionDeatilHandlerChange}
                 fullWidth
                 textLength={14}
@@ -3877,7 +3898,8 @@ const EditDebitCardDispute = () => {
               <TextField
                 name="OtherBankBranchCode"
                 size="small"
-                label={"Branch Code *"}
+                label={lbl(trsDetails.OtherBankBranchCode, "Branch Code *")}
+                placeholder={"Branch Code *"}
                 autoComplete="off"
                 value={trsDetails.OtherBankBranchCode}
                 change={TransactionDeatilHandlerChange}
@@ -3889,7 +3911,8 @@ const EditDebitCardDispute = () => {
               <TextField
                 name="OtherBankBranchName"
                 size="small"
-                label={"Branch Name *"}
+                label={lbl(trsDetails.OtherBankBranchName, "Branch Name *")}
+                placeholder={"Branch Name *"}
                 autoComplete="off"
                 value={trsDetails.OtherBankBranchName}
                 change={TransactionDeatilHandlerChange}
@@ -3903,6 +3926,7 @@ const EditDebitCardDispute = () => {
                 size="large"
                 width="100%"
                 DateRange
+                label={lbl(trsDetails.TransactionDate, "Transaction Date *")}
                 placeholder={"Transaction Date *"}
                 value={
                   trsDetails.TransactionDate
@@ -3918,6 +3942,7 @@ const EditDebitCardDispute = () => {
                 size="large"
                 width="100%"
                 placeholder={"Transaction Time *"}
+                label={lbl(trsDetails.TransactionTime, "Transaction Time *")}
                 value={trsDetails.TransactionTime}
                 change={TimeHandler}
               />
@@ -3933,7 +3958,8 @@ const EditDebitCardDispute = () => {
                 }
                 textLength={(999, 999, 999, 999, 999, 999, 999)}
                 size="small"
-                Label={"Potential Save *"}
+                Label={lbl(trsDetails.PotentialSave, "Potential Save *")}
+                placeholder={"Potential Save *"}
                 fullWidth
                 change={TransactionDeatilHandlerChange}
               />
@@ -3949,7 +3975,11 @@ const EditDebitCardDispute = () => {
                 }
                 textLength={(999, 999, 999, 999, 999, 999, 999)}
                 size="small"
-                Label={"Transaction Amount *"}
+                Label={lbl(
+                  trsDetails.TransactionAmount,
+                  "Transaction Amount *"
+                )}
+                placeholder={"Transaction Amount *"}
                 fullWidth
                 change={TransactionDeatilHandlerChange}
               />
@@ -3966,7 +3996,11 @@ const EditDebitCardDispute = () => {
                 }
                 textLength={(999, 999, 999, 999, 999, 999, 999)}
                 size="small"
-                Label={"Transaction Amount() *"}
+                Label={lbl(
+                  trsDetails.TransactionAmountOtherCurrency,
+                  "Transaction Amount() *"
+                )}
+                placeholder={"Transaction Amount() *"}
                 fullWidth
                 change={TransactionDeatilHandlerChange}
                 // disable={true}
@@ -3983,14 +4017,22 @@ const EditDebitCardDispute = () => {
                 }
                 textLength={(999, 999, 999, 999, 999, 999, 999)}
                 size="small"
-                Label={"Exposure / Dispute Amount *"}
+                Label={lbl(
+                  trsDetails.DisputeAmount,
+                  "Exposure / Dispute Amount *"
+                )}
+                placeholder={"Exposure / Dispute Amount *"}
                 fullWidth
                 change={TransactionDeatilHandlerChange}
               />
             </Col>
             <Col lg={6} md={6} sm={24} xs={24} className="u-margin-top-22px">
               <SelectBox
-                label="Select Transaction Currency Code"
+                label={lbl(
+                  transactionCurrencyCodeValue,
+                  "Select Transaction Currency Code"
+                )}
+                placeholder={"Select Transaction Currency Code"}
                 option={transactionCurrencyCode}
                 value={transactionCurrencyCodeValue}
                 change={transactionCurrencyCodeHandler}
@@ -4012,7 +4054,8 @@ const EditDebitCardDispute = () => {
                 name="ApprovalCode"
                 size="small"
                 autoComplete="off"
-                label={"Approval Code *"}
+                label={lbl(trsDetails.ApprovalCode, "Approval Code *")}
+                placeholder={"Approval Code *"}
                 value={trsDetails.ApprovalCode}
                 change={TransactionDeatilHandlerChange}
                 fullWidth
@@ -4023,7 +4066,8 @@ const EditDebitCardDispute = () => {
               <TextField
                 name="Response"
                 size="small"
-                label={"Response *"}
+                label={lbl(trsDetails.Response, "Response *")}
+                placeholder={"Response *"}
                 autoComplete="off"
                 value={trsDetails.Response}
                 change={TransactionDeatilHandlerChange}
@@ -4036,7 +4080,8 @@ const EditDebitCardDispute = () => {
                 name="POSMode"
                 size="small"
                 autoComplete="off"
-                label={"Point Of Sale Mode *"}
+                label={lbl(trsDetails.POSMode, "Point Of Sale Mode *")}
+                placeholder={"Point Of Sale Mode *"}
                 value={trsDetails.POSMode}
                 change={TransactionDeatilHandlerChange}
                 fullWidth
@@ -4048,7 +4093,8 @@ const EditDebitCardDispute = () => {
                 name="MerchantName"
                 size="small"
                 autoComplete="off"
-                label={"Merchant Name *"}
+                label={lbl(trsDetails.MerchantName, "Merchant Name *")}
+                placeholder={"Merchant Name *"}
                 value={trsDetails.MerchantName}
                 change={TransactionDeatilHandlerChange}
                 fullWidth
@@ -4059,7 +4105,8 @@ const EditDebitCardDispute = () => {
               <TextField
                 name="MerchantID"
                 size="small"
-                label={"Merchant ID *"}
+                label={lbl(trsDetails.MerchantID, "Merchant ID *")}
+                placeholder={"Merchant ID *"}
                 autoComplete="off"
                 value={trsDetails.MerchantID}
                 change={TransactionDeatilHandlerChange}
@@ -4071,7 +4118,8 @@ const EditDebitCardDispute = () => {
               <TextField
                 name="MerchantCity"
                 size="small"
-                label={"Merchant City *"}
+                label={lbl(trsDetails.MerchantCity, "Merchant City *")}
+                placeholder={"Merchant City *"}
                 autoComplete="off"
                 value={trsDetails.MerchantCity}
                 fullWidth
@@ -4082,7 +4130,7 @@ const EditDebitCardDispute = () => {
 
             <Col lg={6} md={6} sm={24} xs={24} className="u-text-align-center">
               <label>
-                <b>On Us / Off Us *</b>
+                <b>On Us / Off Us</b>
               </label>
               <br />
               <Radio.Group
@@ -4099,7 +4147,11 @@ const EditDebitCardDispute = () => {
                 name="CategoryCodeMCC"
                 size="small"
                 autoComplete="off"
-                label={"Merchant Category Code *"}
+                label={lbl(
+                  trsDetails.CategoryCodeMCC,
+                  "Merchant Category Code *"
+                )}
+                placeholder={"Merchant Category Code *"}
                 value={trsDetails.CategoryCodeMCC}
                 change={TransactionDeatilHandlerChange}
                 fullWidth
@@ -4111,16 +4163,18 @@ const EditDebitCardDispute = () => {
                 name="ARN"
                 size="small"
                 autoComplete="off"
-                label={"Approval Reference Number *"}
+                label={lbl(trsDetails.ARN, "Approval Reference Number *")}
+                placeholder={"Approval Reference Number *"}
                 change={TransactionDeatilHandlerChange}
                 value={trsDetails.ARN}
                 fullWidth
-                textLength={50}
+                textLength={17}
               />
             </Col>
             <Col lg={6} md={6} sm={24} xs={24}>
               <SelectBox
-                label="Source *"
+                label={lbl(SourceType, "Source *")}
+                placeholder="Source *"
                 option={sourceTypeName}
                 value={SourceType}
                 change={SourceNameHandler}
@@ -4131,7 +4185,8 @@ const EditDebitCardDispute = () => {
               <TextField
                 name="AcquirerID"
                 size="small"
-                label={"Acquirer ID *"}
+                label={lbl(trsDetails.AcquirerID, "Acquirer ID *")}
+                placeholder={"Acquirer ID *"}
                 value={trsDetails.AcquirerID}
                 autoComplete="off"
                 change={TransactionDeatilHandlerChange}
@@ -4144,7 +4199,11 @@ const EditDebitCardDispute = () => {
                 name="AcquirerTerminalID"
                 size="small"
                 autoComplete="off"
-                label={"Acquirer Terminal ID *"}
+                label={lbl(
+                  trsDetails.AcquirerTerminalID,
+                  "Acquirer Terminal ID *"
+                )}
+                placeholder={"Acquirer Terminal ID *"}
                 textLength={6}
                 value={
                   trsDetails.AcquirerTerminalID === ""
@@ -4160,7 +4219,11 @@ const EditDebitCardDispute = () => {
                 name="AcquirerInstitution"
                 size="small"
                 autoComplete="off"
-                label={"Acquirer Institution *"}
+                label={lbl(
+                  trsDetails.AcquirerInstitution,
+                  "Acquirer Institution *"
+                )}
+                placeholder={"Acquirer Institution *"}
                 value={trsDetails.AcquirerInstitution}
                 change={TransactionDeatilHandlerChange}
                 fullWidth
@@ -4220,7 +4283,8 @@ const EditDebitCardDispute = () => {
           <Row gutter={8}>
             <Col lg={6} md={6} sm={24} className="u-margin-top-22px">
               <DatePicker
-                label={"Case Received Date"}
+                label={lbl(DCDisputes.CaseReceivedDate, "Case Received Date")}
+                placeholder={"Case Received Date"}
                 disable={true}
                 size="large"
                 width="100%"
@@ -4238,7 +4302,11 @@ const EditDebitCardDispute = () => {
             <Col lg={6} md={6} sm={24} className="u-margin-top-22px">
               <TextField
                 fullWidth
-                label="Case Received Channel"
+                label={lbl(
+                  DCDisputes.CaseReceivedChannel,
+                  "Case Received Channel"
+                )}
+                placeholder="Case Received Channel"
                 value={DCDisputes.CaseReceivedChannel}
                 name="CaseReceivedChannel"
                 autoComplete="off"
@@ -4278,6 +4346,7 @@ const EditDebitCardDispute = () => {
                 size="large"
                 width="100%"
                 DateRange
+                label={lbl(DCDisputes.CaseResolvedDate, "Case Resolved Date")}
                 placeholder={"Case Resolved Date"}
                 name="CaseResolvedDate"
                 value={
@@ -4293,7 +4362,11 @@ const EditDebitCardDispute = () => {
               <Paper>
                 <TextField
                   fullWidth
-                  label="Total Dispute Amount"
+                  label={lbl(
+                    DCDisputes.TotalTransactionAmount,
+                    "Total Dispute Amount"
+                  )}
+                  placeholder="Total Dispute Amount"
                   value={
                     DCDisputes.TotalTransactionAmount === null ||
                     DCDisputes.TotalTransactionAmount === -99999999999999999999
@@ -4337,6 +4410,10 @@ const EditDebitCardDispute = () => {
                 size="large"
                 width="100%"
                 DateRange
+                label={lbl(
+                  DCDisputes.TC40ReportingDate,
+                  "Select TC 40 Reporting Date"
+                )}
                 placeholder={"Select TC 40 Reporting Date"}
                 name="TC40ReportingDate"
                 value={
@@ -4367,6 +4444,10 @@ const EditDebitCardDispute = () => {
                 size="large"
                 width="100%"
                 DateRange
+                label={lbl(
+                  DCDisputes.SafeReportingDate,
+                  "Select Safe Reporting Date"
+                )}
                 placeholder={"Select Safe Reporting Date"}
                 name="SafeReportingDate"
                 value={
@@ -4405,7 +4486,11 @@ const EditDebitCardDispute = () => {
               <TextField
                 disable={pOC}
                 fullWidth
-                label="Point Of Compromise Identified"
+                label={lbl(
+                  DCDisputes.POCIdentified,
+                  "Point Of Compromise Identified"
+                )}
+                placeholder="Point Of Compromise Identified"
                 size="small"
                 name="POCIdentified"
                 value={DCDisputes.POCIdentified}
@@ -4417,7 +4502,8 @@ const EditDebitCardDispute = () => {
             <Col lg={6} md={6} sm={24} xs={24}>
               <SelectBox
                 option={caseDecision}
-                label="Select Case Decision"
+                label={lbl(caseDecisionValue, "Select Case Decision")}
+                placeholder="Select Case Decision"
                 name="FK_CDEID"
                 value={caseDecisionValue}
                 change={CaseDecisionHandler}
@@ -4436,7 +4522,8 @@ const EditDebitCardDispute = () => {
                 }
                 size="small"
                 autoComplete="off"
-                Label={"In Favor of Customer"}
+                Label={lbl(DCDisputes.InFavourOfCM, "In Favor of Customer")}
+                placeholder={"In Favor of Customer"}
                 fullWidth
                 change={DCDisputeHandler}
               />
@@ -4454,7 +4541,8 @@ const EditDebitCardDispute = () => {
                 }
                 size="small"
                 autoComplete="off"
-                Label={"Customer Liability"}
+                Label={lbl(DCDisputes.CustomerLiability, "Customer Liability")}
+                placeholder={"Customer Liability"}
                 fullWidth
                 change={DCDisputeHandler}
               />
@@ -4462,7 +4550,8 @@ const EditDebitCardDispute = () => {
             <Col lg={12} md={12} sm={24} xs={24} className="u-margin-top-22px">
               <TextField
                 fullWidth
-                label="Remarks"
+                label={lbl(DCDisputes.Remarks, "Remarks")}
+                placeholder="Remarks"
                 size="small"
                 name="Remarks"
                 autoComplete="off"
@@ -4474,7 +4563,8 @@ const EditDebitCardDispute = () => {
             <Col lg={6} md={6} sm={24} xs={24} className="u-margin-top-22px">
               <TextField
                 fullWidth
-                label="Event ID (SAS REF #)"
+                label={lbl(DCDisputes.EventIDSAS, "Event ID (SAS REF #)")}
+                placeholder="Event ID (SAS REF #)"
                 size="small"
                 name="EventIDSAS"
                 autoComplete="off"
@@ -4486,7 +4576,8 @@ const EditDebitCardDispute = () => {
             <Col lg={6} md={6} sm={24} xs={24} className="u-margin-top-22px">
               <TextField
                 fullWidth
-                label="Aging"
+                label={lbl(DCDisputes.Aging, "Aging")}
+                placeholder="Aging"
                 size="small"
                 name="Aging"
                 value={
@@ -4501,7 +4592,8 @@ const EditDebitCardDispute = () => {
             <Col lg={6} md={6} sm={24} xs={24} className="u-margin-top-22px">
               <TextField
                 fullWidth
-                label="Case Closed TAT"
+                label={lbl(DCDisputes.CaseClosedTAT, "Case Closed TAT")}
+                placeholder="Case Closed TAT"
                 size="small"
                 name="CaseClosedTAT"
                 value={
