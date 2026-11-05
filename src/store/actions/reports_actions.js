@@ -622,84 +622,45 @@ const AgeingReportExcel = (data) => {
   form.append("RequestData", JSON.stringify(Data));
   return (dispatch) => {
     dispatch(downloadExcelFileInit());
-    if (data === 1) {
-      axios({
-        method: "post",
-        url: downloadExcelFile,
-        data: form,
-        headers: {
-          _token: token,
-          "Content-Disposition": "attachment; filename=template.xlsx",
-          "Content-Type":
-            "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-        },
-        responseType: "arraybuffer",
-      })
-        .then(async (response) => {
-          if (response.status === 417) {
-            await dispatch(refreshToken());
-            dispatch(AgeingReportExcel(data));
-          } else if (response.status === 200) {
-            const url = window.URL.createObjectURL(new Blob([response.data]));
-            const link = document.createElement("a");
-            link.href = url;
-            let newName;
-            if (data === 1) {
-              newName = "ageing-Summary-report.xlsx";
-            } else if (data === 2) {
-              newName = "ageing-Details-report.csv";
-            } else if (data === 3) {
-              newName = "ageing-AmountWise-report.csv";
-            }
-            link.setAttribute("download", newName);
-            document.body.appendChild(link);
-            link.click();
-
-            dispatch(LOADERREPORT(false));
+    // Summary (1), Details (2) and Amount Wise (3) all come back as .xlsx
+    axios({
+      method: "post",
+      url: downloadExcelFile,
+      data: form,
+      headers: {
+        _token: token,
+        "Content-Disposition": "attachment; filename=template.xlsx",
+        "Content-Type":
+          "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+      },
+      responseType: "arraybuffer",
+    })
+      .then(async (response) => {
+        if (response.status === 417) {
+          await dispatch(refreshToken());
+          dispatch(AgeingReportExcel(data));
+        } else if (response.status === 200) {
+          const url = window.URL.createObjectURL(new Blob([response.data]));
+          const link = document.createElement("a");
+          link.href = url;
+          let newName;
+          if (data === 1) {
+            newName = "ageing-Summary-report.xlsx";
+          } else if (data === 2) {
+            newName = "ageing-Details-report.xlsx";
+          } else if (data === 3) {
+            newName = "ageing-AmountWise-report.xlsx";
           }
-        })
-        .catch((response) => {
-          dispatch(SomeThingWentWrong(response));
-        });
-    } else {
-      axios({
-        method: "post",
-        url: downloadExcelFile,
-        data: form,
-        headers: {
-          _token: token,
-          "Content-Disposition": "attachment; filename=template.csv",
-          "Content-Type": "text/csv",
-        },
-        responseType: "arraybuffer",
-      })
-        .then(async (response) => {
-          if (response.status === 417) {
-            await dispatch(refreshToken());
-            dispatch(AgeingReportExcel(data));
-          } else if (response.status === 200) {
-            const url = window.URL.createObjectURL(new Blob([response.data]));
-            const link = document.createElement("a");
-            link.href = url;
-            let newName;
-            if (data === 1) {
-              newName = "ageing-Summary-report.xlsx";
-            } else if (data === 2) {
-              newName = "ageing-Details-report.csv";
-            } else if (data === 3) {
-              newName = "ageing-AmountWise-report.csv";
-            }
-            link.setAttribute("download", newName);
-            document.body.appendChild(link);
-            link.click();
+          link.setAttribute("download", newName);
+          document.body.appendChild(link);
+          link.click();
 
-            dispatch(LOADERREPORT(false));
-          }
-        })
-        .catch((response) => {
-          dispatch(SomeThingWentWrong(response));
-        });
-    }
+          dispatch(LOADERREPORT(false));
+        }
+      })
+      .catch((response) => {
+        dispatch(SomeThingWentWrong(response));
+      });
   };
 };
 

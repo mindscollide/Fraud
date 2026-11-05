@@ -94,16 +94,7 @@ import {
 } from "../../Common/Api/apis-config";
 import Helper from "../../Common/Functions/history_logout";
 import { SomeThingWentWrong } from "./ui-actions";
-import {
-  GetAllCity,
-  GetAllSourceOfIBChannelCreation,
-  GetAllSource,
-  GetAllFraudType,
-  GetAllApprovalReasons,
-  GetAllRejectionReasons,
-  GetAllCaseDecision,
-  GetAllTransactionCurrencyCode,
-} from "./setup-forms-actions";
+import { ensureLookup } from "./lookup-actions";
 
 const HideNotification = () => {
   return {
@@ -424,7 +415,7 @@ const GetTransactionDetailsByCnic = (object) => {
             } else {
               localStorage.setItem("cnic", object);
               dispatch(customerFoundModal(false));
-              await dispatch(GetAllCity());
+              await dispatch(ensureLookup("city"));
               navigate(
                 "/Fraud/CreditCardDispute/CustomerDetailsCreditCardDispute"
               );
@@ -528,6 +519,7 @@ const SearchCreditCardDisputes = (object, State) => {
       CustomerName: object.CustomerName,
       Fraudtype: object.Fraudtype,
       TransactionId: object.TransactionId,
+      ApprovalCode: object.ApprovalCode,
       FromDate: State.FromDate,
       ToDate: State.ToDate,
       TransactionAmount: parseFloat(object.TransactionAmount),
@@ -713,10 +705,10 @@ const GetCreditCardDisputesByCnic = (object, TTID) => {
               localStorage.removeItem("FK_TTID");
               navigate("/Fraud/CreditCardDispute/ViewCustomerDetails");
             }
-            await dispatch(GetAllFraudType());
-            await dispatch(GetAllCity());
-            await dispatch(GetAllApprovalReasons());
-            await dispatch(GetAllRejectionReasons());
+            await dispatch(ensureLookup("fraudType"));
+            await dispatch(ensureLookup("city"));
+            await dispatch(ensureLookup("approvalReasons"));
+            await dispatch(ensureLookup("rejectionReasons"));
           } else {
             dispatch(
               GetCreditCardDisputesByCnicFail(
@@ -766,9 +758,9 @@ const GetCreditCardDisputesForEditByCnicAndRefrenceNumber = (object) => {
                 response.data.responseResult
               )
             );
-            await dispatch(GetAllCaseDecision());
-            await dispatch(GetAllFraudType());
-            await dispatch(GetAllCity());
+            await dispatch(ensureLookup("caseDecision"));
+            await dispatch(ensureLookup("fraudType"));
+            await dispatch(ensureLookup("city"));
             navigate("/Fraud/CreditCardDispute/EditCreditCardDispute");
             if (
               response.data.responseResult.responseMessage ===
@@ -871,7 +863,7 @@ const UpdateCreditCardDisputeDetails = (object) => {
               await dispatch(
                 ShowNotification(response.data.responseResult.responseMessage)
               );
-              await dispatch(GetAllFraudType());
+              await dispatch(ensureLookup("fraudType"));
               await dispatch(SearchCreditCardDisputes(Data, date));
               localStorage.removeItem("FlagForGlobalDispute");
               navigate("/Fraud/CreditCardDispute/Search");
@@ -1212,7 +1204,7 @@ const UpdateAndApproveCreditCardDisputeDetails = (object) => {
               await dispatch(
                 ShowNotification(response.data.responseResult.responseMessage)
               );
-              await dispatch(GetAllFraudType());
+              await dispatch(ensureLookup("fraudType"));
               await dispatch(SearchCreditCardDisputes(Data, date));
               localStorage.removeItem("FlagForGlobalDispute");
               navigate("/Fraud/CreditCardDispute/Search");
@@ -1969,12 +1961,12 @@ const SearchDebitCardDisputesByCnicAndReferenceNumber = (object, TTID) => {
             await dispatch(
               GetDebitCardDisputesByCnicSuccess(response.data.responseResult)
             );
-            await dispatch(GetAllFraudType());
-            await dispatch(GetAllSource());
-            await dispatch(GetAllCaseDecision());
-            await dispatch(GetAllCity());
-            await dispatch(GetAllApprovalReasons());
-            await dispatch(GetAllRejectionReasons());
+            await dispatch(ensureLookup("fraudType"));
+            await dispatch(ensureLookup("source"));
+            await dispatch(ensureLookup("caseDecision"));
+            await dispatch(ensureLookup("city"));
+            await dispatch(ensureLookup("approvalReasons"));
+            await dispatch(ensureLookup("rejectionReasons"));
             localStorage.setItem("CNICNumber", object.CNICNumber);
             if (!TTID) {
               localStorage.removeItem("FK_TTID");
@@ -2030,11 +2022,11 @@ const GetDebitCardDisputesForEditByCnicAndRefrenceNumber = (object) => {
               )
             );
             navigate("/Fraud/DebitCardDisputes/EditDebitCardDispute");
-            await dispatch(GetAllFraudType());
-            await dispatch(GetAllSource());
-            await dispatch(GetAllCaseDecision());
-            await dispatch(GetAllCity());
-            await dispatch(GetAllTransactionCurrencyCode());
+            await dispatch(ensureLookup("fraudType"));
+            await dispatch(ensureLookup("source"));
+            await dispatch(ensureLookup("caseDecision"));
+            await dispatch(ensureLookup("city"));
+            await dispatch(ensureLookup("transactionCurrency"));
           } else {
             dispatch(
               GetDebitCardDisputesByCnicAndReferenceNumberForEditFail(
@@ -2291,7 +2283,7 @@ const UpdateDebitCardDisputeDetails = (
               await dispatch(
                 ShowNotification(response.data.responseResult.responseMessage)
               );
-              await dispatch(GetAllFraudType());
+              await dispatch(ensureLookup("fraudType"));
               await dispatch(
                 SearchDebitCardDisputes(searchData, searchDataofdate)
               );
@@ -2383,7 +2375,7 @@ const UpdateAndApproveDebitCardDisputeDetails = (
               await dispatch(
                 ShowNotification(response.data.responseResult.responseMessage)
               );
-              await dispatch(GetAllFraudType());
+              await dispatch(ensureLookup("fraudType"));
               await dispatch(
                 SearchDebitCardDisputes(searchData, searchDataofdate)
               );
@@ -3107,12 +3099,12 @@ const SearchTransactionDetailsADCByCNICAndReferenceNumber = (object, TTID) => {
             await dispatch(
               GetADCDisputesByCnicSuccess(response.data.responseResult)
             );
-            await dispatch(GetAllSourceOfIBChannelCreation());
-            await dispatch(GetAllFraudType());
-            await dispatch(GetAllSource());
-            await dispatch(GetAllCity());
-            dispatch(GetAllApprovalReasons());
-            dispatch(GetAllRejectionReasons());
+            await dispatch(ensureLookup("sourceOfIB"));
+            await dispatch(ensureLookup("fraudType"));
+            await dispatch(ensureLookup("source"));
+            await dispatch(ensureLookup("city"));
+            dispatch(ensureLookup("approvalReasons"));
+            dispatch(ensureLookup("rejectionReasons"));
             localStorage.setItem("CNICNumber", object.CNICNumber);
             if (!TTID) {
               localStorage.removeItem("FK_TTID");
@@ -3427,9 +3419,9 @@ const SearchADCDisputesForEditByCnicAndReferenceNumber = (object) => {
                 response.data.responseResult
               )
             );
-            await dispatch(GetAllSourceOfIBChannelCreation());
-            await dispatch(GetAllCaseDecision());
-            await dispatch(GetAllCity());
+            await dispatch(ensureLookup("sourceOfIB"));
+            await dispatch(ensureLookup("caseDecision"));
+            await dispatch(ensureLookup("city"));
             navigate("/Fraud/ADCD/EditADCDispute");
           } else {
             dispatch(
@@ -4356,11 +4348,11 @@ const SearchBBKDisputesByCnicAndReferenceNumber = (object, TTID) => {
             await dispatch(
               GetBBKDisputesByCnicSuccess(response.data.responseResult)
             );
-            await dispatch(GetAllFraudType());
-            await dispatch(GetAllSource());
-            await dispatch(GetAllApprovalReasons());
-            await dispatch(GetAllRejectionReasons());
-            await dispatch(GetAllCity());
+            await dispatch(ensureLookup("fraudType"));
+            await dispatch(ensureLookup("source"));
+            await dispatch(ensureLookup("approvalReasons"));
+            await dispatch(ensureLookup("rejectionReasons"));
+            await dispatch(ensureLookup("city"));
             localStorage.setItem("CNICNumber", object.CNICNumber);
             if (!TTID) {
               localStorage.removeItem("FK_TTID");
@@ -5632,11 +5624,11 @@ const SearchNonApiDisputesByCnicAndReferenceNumber = (object, TTID) => {
             await dispatch(
               GetNonApiDisputesByCnicViewSuccess(response.data.responseResult)
             );
-            await dispatch(GetAllFraudType());
-            await dispatch(GetAllSource());
-            await dispatch(GetAllApprovalReasons());
-            await dispatch(GetAllRejectionReasons());
-            await dispatch(GetAllCity());
+            await dispatch(ensureLookup("fraudType"));
+            await dispatch(ensureLookup("source"));
+            await dispatch(ensureLookup("approvalReasons"));
+            await dispatch(ensureLookup("rejectionReasons"));
+            await dispatch(ensureLookup("city"));
             localStorage.setItem("CNICNumber", object.CNICNumber);
             if (!TTID) {
               localStorage.removeItem("FK_TTID");

@@ -26,7 +26,7 @@ const InvestigationOfficerAPINONAPI = "http://192.168.18.243:36495/Fraud_NPI"; /
 const InvestigationOfficerAPINDB = "http://192.168.18.243:4655/Fraud_NegativeDatabase"; // Fraud_NegativeDatabase
 const InvestigationManagerAPI = "http://192.168.18.243:20272/Fraud_Approval"; // Fraud_Approval
 const downloadExcelFile = "http://192.168.18.243:9004/ExcelReport"; // Fraud_Reports service, Excel controller (all *ReportExcel downloads)
-const reportsFileDownloadApi = "http://192.168.18.243:9004/Fraud_Reports"; // Fraud_Reports service, JSON controller (FileDownload of uploaded dispute files)
+const reportsFileDownloadApi = "http://192.168.18.243:9004/ExcelReport"; // Fraud_Reports service, Excel controller (FileDownload of uploaded dispute files)
 
 // Legacy WOF endpoints kept as-is (unused, see note above)
 const findCustomerFromMisysApi = baseURL + findCustomerFromMisysServiceURL;
