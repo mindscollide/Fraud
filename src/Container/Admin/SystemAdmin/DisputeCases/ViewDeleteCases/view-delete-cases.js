@@ -371,6 +371,14 @@ const ViewDeleteCases = () => {
       width: "170px",
       render: (text) => CommaFormter(text),
     },
+
+    {
+      title: "View Status History",
+      // dataIndex: "statusDescription",
+      // key: "statusDescription",
+      align: "center",
+      width: "130px",
+    },
     {
       title: "Status",
       dataIndex: "statusDescription",
@@ -492,7 +500,7 @@ const ViewDeleteCases = () => {
             size="small"
             value={searchData.ReferenceNumber}
             placeholder={"Reference Number"}
-            textLength={20}
+            textLength={17}
             change={(e) => handleSearch(e)}
           />
         </Col>
@@ -546,13 +554,12 @@ const ViewDeleteCases = () => {
             selectedUserRoleName={selectedTransactionTypeName}
             setSelectedUserRoleName={setSelectedTransactionTypeName}
             lable={
-              selectedTransactionTypeName.length !== 0 && "Transaction Type *"
+              selectedTransactionTypeName.length !== 0 && "Transaction Type"
             }
             // change={transactionTypeHandler}
             option={transactionTypes}
             name="TransactionTypeIDs"
-            placeholder={"Transaction Type *"}
-            required
+            placeholder={"Transaction Type"}
           />
         </Col>
       </Row>

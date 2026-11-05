@@ -1,8 +1,6 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 
-import { PlusOutlined as AddIcon } from "@ant-design/icons";
-
-import { Typography, Radio, Space, Empty, Tooltip, Row, Col } from "antd";
+import { Typography, Radio, Tooltip, Row, Col } from "antd";
 
 import {
   Paper,
@@ -10,29 +8,20 @@ import {
   SelectBox,
   DatePicker,
   Button,
-  Notification,
   Table,
-  Message,
   Loader,
   FormattedInputs,
-  uploadButton,
   Modal,
   GroupedButtons,
 } from "../../../../Components/Elements";
 
-import Helper from "../../../../Common/Functions/history_logout";
-
-import {
-  RESETALLSTATEFORREPORTS,
-  DownloadUploadFile,
-} from "../../../../store/actions/reports_actions";
+import { DownloadUploadFile } from "../../../../store/actions/reports_actions";
 
 import moment from "moment";
 
 import {
   DateDisplayFormat,
   DateSendingFormat,
-  RemoveTimeDashes,
   NumberFormater,
   CommaFormter,
   TimeDisplayFormat,
@@ -63,11 +52,9 @@ const ViewCustomerDetailsBBK = () => {
 
   const navigate = useNavigate();
 
-  const [fraudType, setFraudType] = useState([]);
+  // const [fraudType,   setFraudType] = useState([]);
 
-  const [cityValue, setCityValue] = useState("");
-
-  const [fraudTypeName, setFraudTypeName] = useState([]);
+  // const [cityValue, setCityValue] = useState("");
 
   const [open, setOpen] = useState({
     flag: false,
@@ -89,11 +76,6 @@ const ViewCustomerDetailsBBK = () => {
     investigationManager,
   } = state;
   // for select rows from table
-  const [select, setSelect] = useState({
-    selectedRowKeys: [],
-    loading: false,
-  });
-  const [SourceType, setSourceType] = useState("");
 
   const [fDCusotmerAccount, sefDCusotmerAccount] = useState({
     AccountNumber: "",
@@ -106,6 +88,12 @@ const ViewCustomerDetailsBBK = () => {
     CardNumber: "",
     FK_DisputeTableID: 0,
   });
+
+  // const [FDCustomer, setFDCustomer] = useState({
+  //   CNICNumber: "",
+  //   CustomerName: "",
+  //   fK_CTID: 0,
+  // });
 
   const [BBKDispute, setBBKDispute] = useState({
     FK_FTID: 0,
@@ -134,7 +122,35 @@ const ViewCustomerDetailsBBK = () => {
     Aging: -1,
     FromDateForPreIdentifiedData: "",
     ToDateForPreIdentifiedData: "",
+    fK_FTID: 0,
+    // fK_CTID: 0,
   });
+  const cityValue = useMemo(() => {
+    const list = setupForms.CityData || [];
+    const match = list.find(
+      (c) => Number(c.pK_CTID) === Number(fDCusotmerAccount.fK_CTID)
+    );
+    return match ? match.name : "";
+  }, [setupForms.CityData, fDCusotmerAccount.fK_CTID]);
+
+  const fraudType = useMemo(() => {
+    const dispute = investigationOfficer.GetBBKDisputesData?.bbKonnectDispute;
+    const list = setupForms.FraudTypeData || [];
+    if (!dispute) return "";
+    const match = list.find(
+      (f) => Number(f.pK_FTID) === Number(dispute.fK_FTID)
+    );
+    return match ? match.name : "";
+  }, [
+    setupForms.FraudTypeData,
+    investigationOfficer.GetBBKDisputesData?.bbKonnectDispute,
+  ]);
+
+  // List of Transaction Details already esist
+  // const [
+  //   listOfTransactionDetailsAlreadyExsist,
+  //   setListOfTransactionDetailsAlreadyExsist,
+  // ] = useState([]);
 
   const BBKDisputeHandler = (e) => {
     let name = e.target.name;
@@ -211,73 +227,73 @@ const ViewCustomerDetailsBBK = () => {
     }
   };
 
-  const DateHandler = (e, val) => {
-    let id =
-      e.target.id !== undefined && e.target.id !== null ? e.target.id : null;
-    let name = e.target.name;
-    let value = e.target.value;
-    if (value !== "") {
-      setSearchData({
-        ...searchData,
-        [name]: DateSendingFormat(value),
-      });
-    }
-    if (name === "TransactionDate" && value !== "") {
-      setTrsDetails({
-        ...trsDetails,
-        [name]: DateSendingFormat(value),
-      });
-    }
-    if (name === "TransactionPostingDate" && value !== "") {
-      setTrsDetails({
-        ...trsDetails,
-        [name]: DateSendingFormat(value),
-      });
-    }
-    if (name === "InitialBlockingDate" && value !== "") {
-      setBBKDispute({
-        ...BBKDispute,
-        [name]: DateSendingFormat(value),
-      });
-    }
-    if (name === "CaseInitiatedDate" && value !== "") {
-      setBBKDispute({
-        ...BBKDispute,
-        [name]: DateSendingFormat(value),
-      });
-    }
-    if (name === "CustomerDisputeDate" && value !== "") {
-      setBBKDispute({
-        ...BBKDispute,
-        [name]: DateSendingFormat(value),
-      });
-    }
-    if (name === "CaseDetectionDate" && value !== "") {
-      setBBKDispute({
-        ...BBKDispute,
-        [name]: DateSendingFormat(value),
-      });
-    }
-    if (name === "CaseReceivedDate" && value !== "") {
-      setBBKDispute({
-        ...BBKDispute,
-        [name]: DateSendingFormat(value),
-      });
-    }
-  };
+  // const DateHandler = (e, val) => {
+  //   let id =
+  //     e.target.id !== undefined && e.target.id !== null ? e.target.id : null;
+  //   let name = e.target.name;
+  //   let value = e.target.value;
+  //   if (value !== "") {
+  //     setSearchData({
+  //       ...searchData,
+  //       [name]: DateSendingFormat(value),
+  //     });
+  //   }
+  //   if (name === "TransactionDate" && value !== "") {
+  //     setTrsDetails({
+  //       ...trsDetails,
+  //       [name]: DateSendingFormat(value),
+  //     });
+  //   }
+  //   if (name === "TransactionPostingDate" && value !== "") {
+  //     setTrsDetails({
+  //       ...trsDetails,
+  //       [name]: DateSendingFormat(value),
+  //     });
+  //   }
+  //   if (name === "InitialBlockingDate" && value !== "") {
+  //     setBBKDispute({
+  //       ...BBKDispute,
+  //       [name]: DateSendingFormat(value),
+  //     });
+  //   }
+  //   if (name === "CaseInitiatedDate" && value !== "") {
+  //     setBBKDispute({
+  //       ...BBKDispute,
+  //       [name]: DateSendingFormat(value),
+  //     });
+  //   }
+  //   if (name === "CustomerDisputeDate" && value !== "") {
+  //     setBBKDispute({
+  //       ...BBKDispute,
+  //       [name]: DateSendingFormat(value),
+  //     });
+  //   }
+  //   if (name === "CaseDetectionDate" && value !== "") {
+  //     setBBKDispute({
+  //       ...BBKDispute,
+  //       [name]: DateSendingFormat(value),
+  //     });
+  //   }
+  //   if (name === "CaseReceivedDate" && value !== "") {
+  //     setBBKDispute({
+  //       ...BBKDispute,
+  //       [name]: DateSendingFormat(value),
+  //     });
+  //   }
+  // };
 
   // uploadlist
   const [ListOfBBKDisputeDocuments, setListOfBBKDisputeDocuments] = useState(
-    [],
+    []
   );
 
-  const getFilter = () => {
-    let filteredItems = ListOfBBKDisputeDocuments;
-    filteredItems = ListOfBBKDisputeDocuments.filter(
-      (item) => item.OriginalFileName !== "",
-    );
-    return filteredItems;
-  };
+  // const getFilter = () => {
+  //   let filteredItems = ListOfBBKDisputeDocuments;
+  //   filteredItems = ListOfBBKDisputeDocuments.filter(
+  //     (item) => item.OriginalFileName !== ""
+  //   );
+  //   return filteredItems;
+  // };
 
   useEffect(() => {}, [BBKDispute]);
 
@@ -310,8 +326,8 @@ const ViewCustomerDetailsBBK = () => {
   }, [setupForms.FraudTypeData]);
 
   //   for current date
-  const date = moment().format("YYYY-MM-DD");
-  const current = new Date();
+  // const date = moment().format("YYYY-MM-DD");
+  // const current = new Date();
 
   const columns = [
     {
@@ -533,12 +549,12 @@ const ViewCustomerDetailsBBK = () => {
         CustomerName: newDataFDCustomer.customerName,
         fK_CTID: newDataFDCustomer.fK_CTID,
       });
-      let cityValue = setupForms.CityData;
-      cityValue.map((data, index) => {
-        if (newDataFDCustomer.fK_CTID === data.pK_CTID) {
-          setCityValue(data.name);
-        }
-      });
+      // let cityValue = setupForms.CityData;
+      // cityValue.map((data, index) => {
+      //   if (newDataFDCustomer.fK_CTID === data.pK_CTID) {
+      //     setCityValue(data.name);
+      //   }
+      // });
     }
     let newDataCardDetail = investigationOfficer.GetBBKDisputesData.cardDetails;
     if (newDataCardDetail !== undefined && newDataCardDetail !== null) {
@@ -555,7 +571,7 @@ const ViewCustomerDetailsBBK = () => {
         return { ...item, key: i + "" };
       });
       setListOfTransactionDetailsAlreadyExsist(
-        GetTransactionDetailsByCNICArray,
+        GetTransactionDetailsByCNICArray
       );
     }
     if (investigationOfficer.GetBBKDisputesData) {
@@ -801,7 +817,7 @@ const ViewCustomerDetailsBBK = () => {
     setApprovalReason(
       nameApproval.map((data, index) => {
         return data.reason;
-      }),
+      })
     );
   }, [setupForms.ApprovalReasonsData]);
 
@@ -812,7 +828,7 @@ const ViewCustomerDetailsBBK = () => {
       setRejectionReason(
         nameRejection.map((data, index) => {
           return data.reason;
-        }),
+        })
       );
     }
   }, [setupForms.RejectionReasonsData]);
@@ -861,16 +877,28 @@ const ViewCustomerDetailsBBK = () => {
     }
   }, [investigationManager.SaveRejectionData]);
 
-  useEffect(() => {
-    let valueCity = setupForms.CityData;
-    valueCity.map((data, index) => {
-      if (fDCusotmerAccount.fK_CTID === data.pK_CTID) {
-        setCityValue(data.name);
-      }
-    });
-  }, [setupForms.CityData]);
+  // useEffect(() => {
+  //   let valueCity = setupForms.CityData;
+  //   valueCity.map((data, index) => {
+  //     if (fDCusotmerAccount.fK_CTID === data.pK_CTID) {
+  //       setCityValue(data.name);
+  //     }
+  //   });
+  // }, [setupForms.CityData]);
 
-  useEffect(() => {}, [cityValue]);
+  // useEffect(() => {}, [cityValue]);
+
+  // true when a field actually holds a value (treats "", null, undefined,
+  // empty arrays and the -99999999999999999999 "empty number" sentinel as empty)
+  const hasValue = (v) =>
+    v !== undefined &&
+    v !== null &&
+    v !== "" &&
+    v !== -99999999999999999999 &&
+    !(Array.isArray(v) && v.length === 0);
+
+  // show the label only when the field has a value, otherwise "" (placeholder only)
+  const lbl = (value, text) => (hasValue(value) ? text : "");
 
   return (
     <>
@@ -890,7 +918,8 @@ const ViewCustomerDetailsBBK = () => {
               size="small"
               disable
               value={BBKDispute.ReferenceNumber}
-              label={"Reference #"}
+              label={lbl(BBKDispute.ReferenceNumber, "Reference #")}
+              placeholder={"Reference #"}
               fullWidth
             />
           </Col>
@@ -900,7 +929,8 @@ const ViewCustomerDetailsBBK = () => {
               size="small"
               disable
               value={cnic}
-              label={"CNIC"}
+              label={lbl(cnic, "CNIC")}
+              placeholder={"CNIC"}
               fullWidth
             />
           </Col>
@@ -910,19 +940,20 @@ const ViewCustomerDetailsBBK = () => {
               size="small"
               disable
               value={fDCusotmerAccount.CustomerName}
-              label={"Customer Name"}
+              label={lbl(fDCusotmerAccount.CustomerName, "Customer Name")}
+              placeholder={"Customer Name"}
               fullWidth
             />
           </Col>
 
           <Col lg={6} md={6} sm={24} xs={24}>
-            <SelectBox
-              label="City"
-              // option={city}
-              value={cityValue}
-              // change={CityNameHandler}
+            <TextField
+              size="small"
               name="fK_CTID"
               disable={true}
+              value={cityValue}
+              label="City"
+              fullWidth
             />
           </Col>
           <Col lg={6} md={6} sm={24} xs={24}>
@@ -930,7 +961,8 @@ const ViewCustomerDetailsBBK = () => {
               name="Fraud Type"
               disable
               value={fraudType}
-              label="Select Fraud Type"
+              label={lbl(fraudType, "Select Fraud Type")}
+              placeholder="Select Fraud Type"
             />
           </Col>
           <Col lg={24} md={24} sm={24} className="u-margin-top-2pct">
@@ -976,7 +1008,8 @@ const ViewCustomerDetailsBBK = () => {
         <Row gutter={8}>
           <Col lg={6} md={6} sm={24} className="u-margin-top-22px">
             <DatePicker
-              label={"Case Received Date"}
+              label={lbl(BBKDispute.CaseReceivedDate, "Case Received Date")}
+              placeholder={"Case Received Date"}
               size="large"
               width="100%"
               DateRange
@@ -993,7 +1026,11 @@ const ViewCustomerDetailsBBK = () => {
           <Col lg={6} md={6} sm={24} className="u-margin-top-22px">
             <TextField
               fullWidth
-              label="Case Received Channel"
+              label={lbl(
+                BBKDispute.CaseReceivedChannel,
+                "Case Received Channel"
+              )}
+              placeholder="Case Received Channel"
               value={BBKDispute.CaseReceivedChannel}
               name="CaseReceivedChannel"
               change={BBKDisputeHandler}
@@ -1033,6 +1070,7 @@ const ViewCustomerDetailsBBK = () => {
               size="large"
               width="100%"
               DateRange
+              label={lbl(BBKDispute.CaseResolvedDate, "Case Resolved Date")}
               placeholder={"Case Resolved Date"}
               name="CaseResolvedDate"
               value={
@@ -1048,7 +1086,11 @@ const ViewCustomerDetailsBBK = () => {
             <Paper>
               <TextField
                 fullWidth
-                label="Total Dispute Amount"
+                label={lbl(
+                  BBKDispute.TotalTransactionAmount,
+                  "Total Dispute Amount"
+                )}
+                placeholder="Total Dispute Amount"
                 value={
                   BBKDispute.TotalTransactionAmount === null ||
                   BBKDispute.TotalTransactionAmount === -99999999999999999999
@@ -1088,11 +1130,14 @@ const ViewCustomerDetailsBBK = () => {
           </Col>
           <Col lg={6} md={6} sm={24}>
             <DatePicker
-              label={"Initial Blocking Date"}
+              label={lbl(
+                BBKDispute.InitialBlockingDate,
+                "Initial Blocking Date"
+              )}
+              placeholder={"Initial Blocking Date"}
               size="large"
               width="100%"
               DateRange
-              placeholder={"Initial Blocking Date"}
               name="InitialBlockingDate"
               value={
                 BBKDispute.InitialBlockingDate
@@ -1105,11 +1150,11 @@ const ViewCustomerDetailsBBK = () => {
           </Col>
           <Col lg={6} md={6} sm={24}>
             <DatePicker
-              label={"Case Initiated Date"}
+              label={lbl(BBKDispute.CaseInitiatedDate, "Case Initiated Date")}
+              placeholder={"Case Initiated Date"}
               size="large"
               width="100%"
               DateRange
-              placeholder={"Case Initiated Date"}
               name="CaseInitiatedDate"
               value={
                 BBKDispute.CaseInitiatedDate
@@ -1122,7 +1167,10 @@ const ViewCustomerDetailsBBK = () => {
           </Col>
           <Col lg={6} md={6} sm={24}>
             <DatePicker
-              label={"Customer Dispute Date"}
+              label={lbl(
+                BBKDispute.CustomerDisputeDate,
+                "Customer Dispute Date"
+              )}
               size="large"
               width="100%"
               DateRange
@@ -1139,7 +1187,7 @@ const ViewCustomerDetailsBBK = () => {
           </Col>
           <Col lg={6} md={6} sm={24}>
             <DatePicker
-              label={"Case Detection Date"}
+              label={lbl(BBKDispute.CaseDetectionDate, "Case Detection Date")}
               size="large"
               width="100%"
               DateRange
@@ -1167,7 +1215,8 @@ const ViewCustomerDetailsBBK = () => {
           <Col lg={6} md={6} sm={24} xs={24} className="u-margin-top-22px">
             <TextField
               fullWidth
-              label="Case Decision"
+              label={lbl(BBKDispute.CaseDecision, "Case Decision")}
+              placeholder="Case Decision"
               size="small"
               name="CaseDecision"
               textLength={50}
@@ -1189,7 +1238,8 @@ const ViewCustomerDetailsBBK = () => {
               textLength={(999, 999, 999, 999, 999, 999, 999)}
               size="small"
               autoComplete="off"
-              Label={"In Favor Of Customer"}
+              Label={lbl(BBKDispute.InFavorOfCustomer, "In Favor Of Customer")}
+              placeholder={"In Favor Of Customer *"}
               fullWidth
               change={BBKDisputeHandler}
               required
@@ -1207,7 +1257,8 @@ const ViewCustomerDetailsBBK = () => {
               }
               textLength={(999, 999, 999, 999, 999, 999, 999)}
               size="small"
-              Label={"Customer Liability"}
+              Label={lbl(BBKDispute.CustomerLiability, "Customer Liability")}
+              placeholder={"Customer Liability"}
               fullWidth
               change={BBKDisputeHandler}
               disable={true}
@@ -1224,7 +1275,8 @@ const ViewCustomerDetailsBBK = () => {
               }
               textLength={(999, 999, 999, 999, 999, 999, 999)}
               size="small"
-              Label={"Other"}
+              Label={lbl(BBKDispute.Other, "Other")}
+              placeholder={"Other"}
               fullWidth
               change={BBKDisputeHandler}
               disable={true}
@@ -1241,7 +1293,8 @@ const ViewCustomerDetailsBBK = () => {
               }
               textLength={(999, 999, 999, 999, 999, 999, 999)}
               size="small"
-              Label={"Insurance"}
+              Label={lbl(BBKDispute.Insurance, "Insurance")}
+              placeholder={"Insurance"}
               fullWidth
               change={BBKDisputeHandler}
               disable={true}
@@ -1257,7 +1310,8 @@ const ViewCustomerDetailsBBK = () => {
                   : BBKDispute.Internally
               }
               size="small"
-              Label={"Internally"}
+              Label={lbl(BBKDispute.Internally, "Internally")}
+              placeholder={"Internally"}
               fullWidth
               change={BBKDisputeHandler}
               disable={true}
@@ -1266,7 +1320,8 @@ const ViewCustomerDetailsBBK = () => {
           <Col lg={6} md={6} sm={24} xs={24} className="u-margin-top-22px">
             <TextField
               fullWidth
-              label="Analyst Name"
+              label={lbl(BBKDispute.AnalystName, "Analyst Name")}
+              placeholder="Analyst Name"
               size="small"
               name="AnalystName"
               value={BBKDispute.AnalystName}
@@ -1302,7 +1357,8 @@ const ViewCustomerDetailsBBK = () => {
           <Col lg={6} md={6} sm={24} xs={24} className="u-margin-top-22px">
             <TextField
               fullWidth
-              label="Remarks"
+              label={lbl(BBKDispute.Remarks, "Remarks")}
+              placeholder="Remarks"
               size="small"
               name="Remarks"
               value={BBKDispute.Remarks}
@@ -1315,7 +1371,12 @@ const ViewCustomerDetailsBBK = () => {
             <TextField
               fullWidth
               size="small"
-              label="Aging"
+              label={
+                BBKDispute.Aging === null || BBKDispute.Aging === -1
+                  ? ""
+                  : "Aging"
+              }
+              placeholder="Aging"
               name="Aging"
               value={
                 BBKDispute.Aging === null || BBKDispute.Aging === -1
@@ -1330,7 +1391,13 @@ const ViewCustomerDetailsBBK = () => {
             <TextField
               fullWidth
               size="small"
-              label="Case Closed TAT"
+              label={
+                BBKDispute.CaseClosedTAT === null ||
+                BBKDispute.CaseClosedTAT === -1
+                  ? ""
+                  : "Case Closed TAT"
+              }
+              placeholder="Case Closed TAT"
               name="CaseClosedTAT"
               value={
                 BBKDispute.CaseClosedTAT === null ||
@@ -1413,7 +1480,8 @@ const ViewCustomerDetailsBBK = () => {
                   option={approvalReason}
                   propertyName={"title"}
                   change={approvalReasonHandler}
-                  label="Select Approval Reason"
+                  label={lbl(approvalReasonValue, "Select Approval Reason")}
+                  placeholder="Select Approval Reason *"
                   required
                   value={approvalReasonValue}
                   name="SelectApprovalReason"
@@ -1426,7 +1494,8 @@ const ViewCustomerDetailsBBK = () => {
                   multiline
                   rows={6}
                   autoComplete="off"
-                  label="Description"
+                  label={lbl(approveDispute.Comments, "Description")}
+                  placeholder="Description *"
                   change={handleChangeApprove}
                   value={approveDispute.Comments}
                   fullWidth
@@ -1446,7 +1515,8 @@ const ViewCustomerDetailsBBK = () => {
                   option={rejectionReason}
                   propertyName={"title"}
                   change={rejectionReasonHandler}
-                  label="Select Rejection Reason"
+                  label={lbl(rejectionReasonValue, "Select Rejection Reason")}
+                  placeholder="Select Rejection Reason *"
                   required
                   value={rejectionReasonValue}
                   name="SelectRejectionReason"
@@ -1458,7 +1528,8 @@ const ViewCustomerDetailsBBK = () => {
                 <TextField
                   multiline
                   rows={6}
-                  label="Description"
+                  label={lbl(rejectDispute.Comments, "Description")}
+                  placeholder="Description *"
                   autoComplete="off"
                   change={handleChangeReject}
                   value={rejectDispute.Comments}

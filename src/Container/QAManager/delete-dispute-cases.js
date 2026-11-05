@@ -652,16 +652,16 @@ const DeleteDisputeCases = () => {
     },
   };
 
-  const okayButtonProp = {
-    primaryButton: {
-      text: "Close",
-      class: "btnBorderStyledBeach",
-      click: () => handleCancel(),
-    },
-    secondaryButton: {
-      text: "",
-    },
-  };
+  // const okayButtonProp = {
+  //   primaryButton: {
+  //     text: "Close",
+  //     class: "btnBorderStyledBeach",
+  //     click: () => handleCancel(),
+  //   },
+  //   secondaryButton: {
+  //     text: "",
+  //   },
+  // };
 
   const viewApprovalColumn = [
     {
@@ -969,7 +969,7 @@ const DeleteDisputeCases = () => {
                 Are you sure you want to delete this?
               </Title>
             </div>
-            <div className="u-padding-20px u-display-flex u-justify-content-center">
+            {/* <div className="u-padding-20px u-display-flex u-justify-content-center">
               <p className="m-0 u-color-b27706">
                 Type your Comments<span className="u-color-ce0000">*</span>
               </p>
@@ -984,8 +984,33 @@ const DeleteDisputeCases = () => {
                 name="Comments"
                 textLength={500}
               />
-            </div>
-            <GroupedButtons data={buttonProps} />
+            </div> */}
+
+            <Row gutter={8}>
+              <Col lg={6} md={6} sm={4} xs={4}>
+                <p className="m-0 u-color-b27706">
+                  Type your Reasons <span className="u-color-ce0000">*</span>
+                </p>
+              </Col>
+              <Col lg={18} md={18} sm={20} xs={20}>
+                <TextField
+                  multiline
+                  rows={4}
+                  change={Comments}
+                  value={rejectionComment}
+                  fullWidth
+                  name="Comments"
+                  autoComplete="off"
+                  required={true}
+                />
+              </Col>
+            </Row>
+            <Row
+              gutter={8}
+              className="u-margin-top-10px u-justify-content-center"
+            >
+              <GroupedButtons data={buttonProps} />
+            </Row>
           </>
         )}
       </Modal>
@@ -999,7 +1024,16 @@ const DeleteDisputeCases = () => {
         {actions.viewApprovalHistory && (
           <>
             <Table rows={row} columns={viewApprovalColumn} />
-            <GroupedButtons data={okayButtonProp} />
+            {/* <GroupedButtons data={okayButtonProp} /> */}
+            <div className="u-display-flex u-justify-content-center">
+              <Button
+                text="Close"
+                type={"primary"}
+                size="large"
+                applyClass="btnBorderStyledBeach"
+                click={handleCancel}
+              />
+            </div>
           </>
         )}
       </Modal>
