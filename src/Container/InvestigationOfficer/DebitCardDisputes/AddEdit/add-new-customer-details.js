@@ -2,6 +2,7 @@ import React, { useEffect, useState, useRef } from "react";
 import { PlusOutlined as AddIcon } from "@ant-design/icons";
 import { Typography, Radio, Space, Empty, Tooltip, Row, Col } from "antd";
 import InputMask from "react-input-mask";
+import { validCardNumber } from "../../../../Common/Functions/validations";
 import CustomUpload from "../../../../Components/Elements/Upload/Upload";
 import { EditOutlined as Edit } from "@ant-design/icons";
 import moment from "moment";
@@ -2717,6 +2718,15 @@ const AddNewCustomerDetailsDC = () => {
   //  FOR SAVE
   const goToSaveHandler = async (e) => {
     e.preventDefault();
+    // Saving without a fraud type makes the dispute invisible on every
+    // screen (the backend joins on FraudType), so require one.
+    if (!(Number(DCDisputes.FK_FTID) > 0)) {
+      setOpen({
+        flag: true,
+        message: "Please select a Fraud Type",
+      });
+      return;
+    }
     if (saveValue === 1) {
       if (
         ListOfDebitCardTransactionDetailsObjects.length > 0 ||
@@ -2724,7 +2734,7 @@ const AddNewCustomerDetailsDC = () => {
       ) {
         let checkCard = CardDetails.CardNumber;
         const specialChars = /[`!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
-        if (specialChars.test(checkCard) || checkCard.length < 19) {
+        if (!validCardNumber(checkCard)) {
           setOpen({
             flag: true,
             message: "Enter Correct Card Number",
@@ -2898,7 +2908,7 @@ const AddNewCustomerDetailsDC = () => {
       ) {
         let checkCard = CardDetails.CardNumber;
         const specialChars = /[`!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
-        if (specialChars.test(checkCard) || checkCard.length < 19) {
+        if (!validCardNumber(checkCard)) {
           setOpen({
             flag: true,
             message: "Enter Correct Card Number ",

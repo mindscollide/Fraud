@@ -341,21 +341,21 @@ const EditCreditCardDispute = () => {
         investigationOfficer
           .GetCreditCardDisputesForEditByCnicAndRefrenceNumberData.cardDetails;
       if (cardDetails !== undefined && cardDetails !== null) {
-        setCardDetails({
-          ...CardDetails,
+        setCardDetails((prev) => ({
+          ...prev,
           ["CardNumber"]: cardDetails.cardNumber,
-        });
+        }));
       }
       let fDCustomer =
         investigationOfficer
           .GetCreditCardDisputesForEditByCnicAndRefrenceNumberData.fdCustomer;
       if (fDCustomer !== undefined && fDCustomer !== null) {
-        setFDCustomer({
-          ...FDCustomer,
+        setFDCustomer((prev) => ({
+          ...prev,
           ["CNICNumber"]: fDCustomer.cnicNumber,
           ["CustomerName"]: fDCustomer.customerName,
           ["FK_CTID"]: fDCustomer.fK_CTID,
-        });
+        }));
         let nameCity = setupForms.CityData;
         nameCity.map((data, index) => {
           if (fDCustomer.fK_CTID === data.pK_CTID) {
@@ -367,8 +367,8 @@ const EditCreditCardDispute = () => {
         investigationOfficer
           .GetCreditCardDisputesForEditByCnicAndRefrenceNumberData.ccDispute;
       if (cCDispute !== undefined && cCDispute !== null) {
-        setCCDispute({
-          ...CCDispute,
+        setCCDispute((prev) => ({
+          ...prev,
           ["RefrenceNumber"]: cCDispute.refrenceNumber,
           ["CreditCardLimit"]: cCDispute.creditCardLimit,
           ["FK_FTID"]: cCDispute.fK_FTID,
@@ -389,7 +389,7 @@ const EditCreditCardDispute = () => {
           ["EventIdSAS"]: cCDispute.eventIdSAS,
           ["Aging"]: cCDispute.aging,
           ["CaseClosedTAT"]: cCDispute.caseClosedTAT,
-        });
+        }));
         let nameFraud = setupForms.FraudTypeData;
         nameFraud.map((data, index) => {
           if (cCDispute.fK_FTID === data.pK_FTID) {
@@ -460,15 +460,15 @@ const EditCreditCardDispute = () => {
   useEffect(() => {
     let currentDate = CCDispute.TC40ReportingDate;
     if (CCDispute.IsTC40Reporting === true && currentDate === "") {
-      setCCDispute({
-        ...CCDispute,
+      setCCDispute((prev) => ({
+        ...prev,
         ["TC40ReportingDate"]: removeDashesFromDate(date),
-      });
+      }));
     } else if (CCDispute.IsTC40Reporting === false) {
-      setCCDispute({
-        ...CCDispute,
+      setCCDispute((prev) => ({
+        ...prev,
         ["TC40ReportingDate"]: "",
-      });
+      }));
     }
   }, [CCDispute.IsTC40Reporting]);
 
@@ -476,32 +476,32 @@ const EditCreditCardDispute = () => {
   useEffect(() => {
     let currentDate = CCDispute.SafeReportingDate;
     if (CCDispute.isSafeReporting === true && currentDate === "") {
-      setCCDispute({
-        ...CCDispute,
+      setCCDispute((prev) => ({
+        ...prev,
         ["SafeReportingDate"]: removeDashesFromDate(date),
-      });
+      }));
     }
     if (CCDispute.isSafeReporting === false) {
-      setCCDispute({
-        ...CCDispute,
+      setCCDispute((prev) => ({
+        ...prev,
         ["SafeReportingDate"]: "",
-      });
+      }));
     }
   }, [CCDispute.isSafeReporting]);
 
   //Empty POC
   useEffect(() => {
     if (CCDispute.IsPOC === true) {
-      setCCDispute({
-        ...CCDispute,
+      setCCDispute((prev) => ({
+        ...prev,
         ["POCIdentified"]: CCDispute.POCIdentified,
-      });
+      }));
     }
     if (CCDispute.IsPOC === false) {
-      setCCDispute({
-        ...CCDispute,
+      setCCDispute((prev) => ({
+        ...prev,
         ["POCIdentified"]: "",
-      });
+      }));
     }
   }, [CCDispute.IsPOC]);
 
@@ -1245,6 +1245,15 @@ const EditCreditCardDispute = () => {
 
   const goToSaveHandler = (e) => {
     e.preventDefault();
+    // Saving without a fraud type makes the dispute invisible on every
+    // screen (the backend joins on FraudType), so require one.
+    if (!(Number(CCDispute.FK_FTID) > 0)) {
+      setOpen({
+        flag: true,
+        message: "Please select a Fraud Type",
+      });
+      return;
+    }
     if (saveValue === 1) {
       if (ListOfCreditCardTransactionDetailsObjects.length > 0) {
         let checkCard = CardDetails.CardNumber;
@@ -1670,10 +1679,10 @@ const EditCreditCardDispute = () => {
   };
 
   useEffect(() => {
-    setFDCustomer({
-      ...FDCustomer,
+    setFDCustomer((prev) => ({
+      ...prev,
       ["CNICNumber"]: cnic,
-    });
+    }));
   }, []);
 
   useEffect(() => {}, [fraudType]);
@@ -1694,10 +1703,10 @@ const EditCreditCardDispute = () => {
     valueCity.map((data, index) => {
       if (FDCustomer.FK_CTID === data.pK_CTID) {
         setCityValue(data.name);
-        setFDCustomer({
-          ...FDCustomer,
+        setFDCustomer((prev) => ({
+          ...prev,
           ["FK_CTID"]: parseInt(data.pK_CTID),
-        });
+        }));
       }
     });
   }, [setupForms.CityData]);
@@ -1712,10 +1721,7 @@ const EditCreditCardDispute = () => {
         OriginalFileName: newData.originalFileName,
         DisplayFileName: newData.displayFileName,
       };
-      setListOfCreditCardDisputeDocuments([
-        ...ListOfCreditCardDisputeDocuments,
-        Data,
-      ]);
+      setListOfCreditCardDisputeDocuments((prev) => [...prev, Data]);
       dispatch(setStateOfUploadDocumentCreditCard());
     }
   }, [reports.uploadDocumentsList]);
@@ -1729,6 +1735,15 @@ const EditCreditCardDispute = () => {
       })
     );
   }, [setupForms.FraudTypeData]);
+
+  // Show the saved fraud type's name once both the record and the list are in
+  // (on a reload the record can arrive first; City and Case Decision do the same).
+  useEffect(() => {
+    const match = setupForms.FraudTypeData.find(
+      (data) => data.pK_FTID === CCDispute.FK_FTID
+    );
+    if (match) setFraudTypeName(match.name);
+  }, [setupForms.FraudTypeData, CCDispute.FK_FTID]);
 
   useEffect(() => {}, [CCDispute]);
 
@@ -1784,10 +1799,10 @@ const EditCreditCardDispute = () => {
     valueCaseDecision.map((data, index) => {
       if (CCDispute.FK_CDEID === data.pK_CDEID) {
         setCaseDecisionValue(data.name);
-        setCCDispute({
-          ...CCDispute,
+        setCCDispute((prev) => ({
+          ...prev,
           ["FK_CDEID"]: parseInt(data.pK_CDEID),
-        });
+        }));
       }
     });
   }, [setupForms.CaseDecisionData]);

@@ -40,7 +40,18 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 const ViewCustomerDetailsDC = () => {
-  var cnic = localStorage.getItem("CNICNumber");
+  // Search screens store CNICNumber JSON.stringify'd ("\"42101-...\""), so
+  // unwrap it; a plain value (the fetch action stores it unquoted) is used
+  // as-is, so an all-digit CNIC stays a string instead of becoming a number.
+  const parseStoredCnic = () => {
+    const raw = localStorage.getItem("CNICNumber");
+    try {
+      const parsed = JSON.parse(raw);
+      return typeof parsed === "string" ? parsed : raw;
+    } catch (e) {
+      return raw;
+    }
+  };
   var userID = localStorage.getItem("CurrentUserID");
   const navigate = useNavigate();
   const { Title } = Typography;
@@ -621,7 +632,7 @@ const ViewCustomerDetailsDC = () => {
 
   useEffect(() => {
     const ReferenceNumber = JSON.parse(localStorage.getItem("ReferenceNumber"));
-    const CNICNumber = localStorage.getItem("CNICNumber");
+    const CNICNumber = parseStoredCnic();
     let Data = { CNICNumber: CNICNumber, ReferenceNumber: ReferenceNumber };
     if (performance.navigation.type === performance.navigation.TYPE_RELOAD) {
       if (TTIDQM === null) {
@@ -664,6 +675,7 @@ const ViewCustomerDetailsDC = () => {
     if (newData !== undefined && newData !== null) {
       setDCDispute({
         FK_FTID: newData.fK_FTID,
+        FraudType: newData.fraudType,
         CaseReceivedChannel: newData.caseReceivedChannel,
         CaseResolvedDate: newData.caseResolvedDate,
         CaseReceivedDate: newData.caseReceivedDate,
@@ -1064,24 +1076,20 @@ const ViewCustomerDetailsDC = () => {
     return match ? match.name : "";
   }, [setupForms.CityData, fDCusotmerAccount.fK_CTID]);
 
+  // Read from the page's own copy of the record (DCDispute), like every other
+  // field: a later failed fetch resets the store's GetDebitCardDisputesData,
+  // which used to blank only this field.
   const fraudTypeName = useMemo(() => {
-    const dispute =
-      investigationOfficer.GetDebitCardDisputesData?.debitCardDispute;
-    if (!dispute) return "";
-
-    // 1) Prefer the name that comes directly in the dispute response
-    if (dispute.fraudType) return dispute.fraudType;
+    // 1) Prefer the name that came directly in the dispute response
+    if (DCDispute.FraudType) return DCDispute.FraudType;
 
     // 2) Fallback: look it up from the Fraud Type list using the ID
     const list = setupForms.FraudTypeData || [];
     const match = list.find(
-      (item) => Number(item.pK_FTID) === Number(dispute.fK_FTID)
+      (item) => Number(item.pK_FTID) === Number(DCDispute.FK_FTID)
     );
     return match?.name || "";
-  }, [
-    investigationOfficer.GetDebitCardDisputesData?.debitCardDispute,
-    setupForms.FraudTypeData,
-  ]);
+  }, [DCDispute.FraudType, DCDispute.FK_FTID, setupForms.FraudTypeData]);
   // keep FK_FTID in the form state in sync
   useEffect(() => {
     const dispute =
@@ -1102,6 +1110,9 @@ const ViewCustomerDetailsDC = () => {
     v !== -99999999999999999999 &&
     v !== "-99999999999999999999" &&
     !(Array.isArray(v) && v.length === 0);
+
+  // CNIC from the loaded record; localStorage only until the record arrives
+  const cnic = fDCusotmerAccount.CNICNumber || parseStoredCnic() || "";
 
   // show the label only when the field has a value, otherwise "" (placeholder only)
   const lbl = (value, text) => (hasValue(value) ? text : "");
@@ -1227,6 +1238,8 @@ const ViewCustomerDetailsDC = () => {
         <Row gutter={8}>
           <Col lg={6} md={6} sm={24} className="u-margin-bottom-20px">
             <DatePicker
+              label={lbl(DCDispute.CaseReceivedDate, "Case Received Date")}
+              placeholder={"Case Received Date"}
               size="large"
               width="100%"
               DateRange
@@ -1274,6 +1287,8 @@ const ViewCustomerDetailsDC = () => {
           </Col>
           <Col lg={6} md={6} sm={24} className="u-margin-bottom-20px">
             <DatePicker
+              label={lbl(DCDispute.CaseResolvedDate, "Case Resolved Date")}
+              placeholder={"Case Resolved Date"}
               size="large"
               width="100%"
               DateRange

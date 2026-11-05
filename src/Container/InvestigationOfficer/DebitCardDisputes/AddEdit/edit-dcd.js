@@ -812,6 +812,26 @@ const EditDebitCardDispute = () => {
     }
   }, [setupForms.FraudTypeData]);
 
+  // Show the case's fraud type whichever arrives last, the list or the case
+  // (the record effect only resolves it if the list was already loaded).
+  useEffect(() => {
+    const dispute =
+      investigationOfficer.GetDebitCardDisputesForEditByCnicAndRefrenceNumberData
+        ?.dcDispute;
+    if (!dispute || !(Number(dispute.fK_FTID) > 0)) return;
+    const match = (setupForms.FraudTypeData || []).find(
+      (f) => Number(f.pK_FTID) === Number(dispute.fK_FTID)
+    );
+    if (match) {
+      setFraudTypeName(match.name);
+    } else if (dispute.fraudType) {
+      setFraudTypeName(dispute.fraudType);
+    }
+  }, [
+    setupForms.FraudTypeData,
+    investigationOfficer.GetDebitCardDisputesForEditByCnicAndRefrenceNumberData,
+  ]);
+
   const deleteit = (e, record) => {
     setRecords(record);
     showModal();
@@ -2709,6 +2729,15 @@ const EditDebitCardDispute = () => {
   //  FOR SAVE
   const goToSaveHandler = async (e) => {
     e.preventDefault();
+    // Saving without a fraud type makes the dispute invisible on every
+    // screen (the backend joins on FraudType), so require one.
+    if (!(Number(DCDisputes.FK_FTID) > 0)) {
+      setOpen({
+        flag: true,
+        message: "Please select a Fraud Type",
+      });
+      return;
+    }
     if (saveValue === 1) {
       if (ListOfDebitCardTransactionDetailsObjects.length > 0) {
         let checkCard = CardDetails.CardNumber;

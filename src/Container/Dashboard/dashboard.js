@@ -8,6 +8,7 @@ import { useSelector ,useDispatch} from "react-redux";
 import {SomeThingWentWrongRemove} from '../../store/actions/ui-actions'
 import { useNavigate } from "react-router-dom";
 import Helper from "../../Common/Functions/history_logout";
+import { preloadLookups } from "../../store/actions/lookup-actions";
 const Dashboard = () => {
   const state = useSelector((state) => state);
   const navigate = useNavigate();
@@ -85,6 +86,11 @@ const Dashboard = () => {
   const UserDetails = JSON.parse(localStorage.getItem("UserDetails")); 
   const role = parseInt(JSON.parse(localStorage.getItem("role")));
   const [AppContent, setAppContent] = useState(UserSelection(token, role));
+  // signIn preloads the dropdown lists, but a page reload empties the store,
+  // so load them again here (ensureLookup skips lists already loaded).
+  useEffect(() => {
+    dispatch(preloadLookups(role));
+  }, []);
   return  (
     <>
         <Layout style={Style.Shell}>

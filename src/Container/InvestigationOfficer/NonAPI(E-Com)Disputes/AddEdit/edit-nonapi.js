@@ -2592,6 +2592,15 @@ const EditNONAPIDispute = () => {
   //  FOR SAVE
   const goToSaveHandler = async (e) => {
     e.preventDefault();
+    // Saving without a fraud type makes the dispute invisible on every
+    // screen (the backend joins on FraudType), so require one.
+    if (!(Number(NPIDisputes.FK_FTID) > 0)) {
+      setOpen({
+        flag: true,
+        message: "Please select a Fraud Type",
+      });
+      return;
+    }
     if (saveValue === 1) {
       if (ListOfNPITransactionDetailsObjects.length > 0) {
         let checkCard = CardDetails.CardNumber;
