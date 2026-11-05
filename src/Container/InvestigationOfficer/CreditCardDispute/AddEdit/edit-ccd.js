@@ -303,11 +303,13 @@ const EditCreditCardDispute = () => {
       var ReferenceNumber = JSON.parse(localStorage.getItem("ReferenceNumber"));
       var CNICNumber = localStorage.getItem("cnic");
       let data = { CNICNumber: CNICNumber, ReferenceNumber: ReferenceNumber };
-      if (performance.navigation.type === performance.navigation.TYPE_RELOAD) {
-        await dispatch(
-          GetCreditCardDisputesForEditByCnicAndRefrenceNumber(data)
-        );
-      }
+      // Coming from Search the record is already in the store (that click
+      // fetched it), so only fetch when it isn't: after a page reload or a
+      // direct link, the store is empty or holds a different case.
+      const loaded =
+        investigationOfficer
+          .GetCreditCardDisputesForEditByCnicAndRefrenceNumberData?.ccDispute;
+      if (loaded?.refrenceNumber === ReferenceNumber) return;
       await dispatch(GetCreditCardDisputesForEditByCnicAndRefrenceNumber(data));
     };
     loadOnReload();
