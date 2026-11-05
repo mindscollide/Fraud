@@ -1897,6 +1897,8 @@ const SearchDisputeIO = () => {
   useEffect(() => {
     let data = {
       IsNegativeDatabase: false,
+      // also list "Created" (Negative Database records show up in this search)
+      IncludeCreated: true,
     };
     dispatch(ensureLookup("status", data));
     dispatch(ensureLookup("city"));
