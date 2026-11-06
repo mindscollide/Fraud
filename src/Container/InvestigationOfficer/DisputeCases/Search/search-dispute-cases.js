@@ -1946,20 +1946,11 @@ const SearchDisputeIO = () => {
             setSelected={setSelected}
             selectedUserRoleName={selectedTransactionTypeName}
             setSelectedUserRoleName={setSelectedTransactionTypeName}
-            lable={
-              selected?.length > 0 ? (
-                <>
-                  Transaction Type <span className={styles.required}>*</span>
-                </>
-              ) : (
-                ""
-              )
-            }
-            placeholder={"Transaction Type *"}
+            lable={selected?.length > 0 ? <>Transaction Type</> : ""}
+            placeholder={"Transaction Type"}
             change={transactionTypeHandler}
             option={transactionTypes}
             name="TransactionTypeIDs"
-            required
           />
         </Col>
         <Col lg={8} md={8} sm={24}>
@@ -1999,6 +1990,7 @@ const SearchDisputeIO = () => {
             autoComplete="off"
             value={searchData.AccountNumber}
             change={(e) => handleSearch(e)}
+            textLength={14}
           />
         </Col>
         <Col lg={6} md={6} sm={24} className="u-margin-top-22px">
@@ -2008,6 +2000,7 @@ const SearchDisputeIO = () => {
             autoComplete="off"
             label={searchData?.CustomerName !== "" ? "Customer Name" : ""}
             placeholder={"Customer Name"}
+            textLength={100}
             size="small"
             value={searchData.CustomerName}
             change={(e) => handleSearch(e)}
@@ -2044,6 +2037,7 @@ const SearchDisputeIO = () => {
             size="small"
             value={searchData.TransactionId}
             change={(e) => handleSearch(e)}
+            textLength={20}
           />
         </Col>
         <Col lg={6} md={6} sm={24} className="u-margin-top-22px">
