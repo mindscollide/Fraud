@@ -816,8 +816,8 @@ const EditDebitCardDispute = () => {
   // (the record effect only resolves it if the list was already loaded).
   useEffect(() => {
     const dispute =
-      investigationOfficer.GetDebitCardDisputesForEditByCnicAndRefrenceNumberData
-        ?.dcDispute;
+      investigationOfficer
+        .GetDebitCardDisputesForEditByCnicAndRefrenceNumberData?.dcDispute;
     if (!dispute || !(Number(dispute.fK_FTID) > 0)) return;
     const match = (setupForms.FraudTypeData || []).find(
       (f) => Number(f.pK_FTID) === Number(dispute.fK_FTID)
@@ -2719,7 +2719,7 @@ const EditDebitCardDispute = () => {
         ReferenceNumber: ReferenceNumber,
       };
       if (performance.navigation.type === performance.navigation.TYPE_RELOAD) {
-        dispatch(GetDebitCardDisputesForEditByCnicAndRefrenceNumber(data2));
+        // dispatch(GetDebitCardDisputesForEditByCnicAndRefrenceNumber(data2));
         await dispatch(ensureLookup("fraudType"));
       }
     };

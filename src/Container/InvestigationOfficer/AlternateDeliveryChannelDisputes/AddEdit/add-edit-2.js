@@ -264,17 +264,6 @@ const AddEditACDispute = () => {
     },
   };
 
-  const okayButtonProp = {
-    primaryButton: {
-      text: "Ok",
-      class: "btnBorderStyledBeach",
-      click: () => handleCancel(),
-    },
-    secondaryButton: {
-      text: "",
-    },
-  };
-
   // Selected Dropdown value
   const accountNumberHandler = (e, value) => {
     setAccountNumber(value);

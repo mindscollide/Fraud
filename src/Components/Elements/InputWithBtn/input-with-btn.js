@@ -33,9 +33,13 @@ const InputWithBtn = ({
   // CNIC / Account / Mobile search fields: one rounded bar with an attached
   // orange button, and a placeholder whose required "*" is red
   const isSearchField = applyClass === "search-cnic";
-  const placeholderText = placeholder ? placeholder.replace(/\s*\*\s*$/, "") : "";
+  const placeholderText = placeholder
+    ? placeholder.replace(/\s*\*\s*$/, "")
+    : "";
   const showFakePlaceholder =
-    isSearchField && placeholderText !== "" && (value === "" || value === null || value === undefined);
+    isSearchField &&
+    placeholderText !== "" &&
+    (value === "" || value === null || value === undefined);
 
   return (
     <div

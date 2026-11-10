@@ -308,22 +308,22 @@ const ViewCustomerDetailsBBK = () => {
   ] = useState([]);
 
   //For Fraud ID to Name
-  useEffect(() => {
-    let customerDetails =
-      investigationOfficer.GetBBKDisputesData.bbKonnectDispute;
-    let nameFraud = setupForms.FraudTypeData;
-    if (customerDetails !== undefined && customerDetails !== null) {
-      nameFraud.map((data, index) => {
-        if (customerDetails.fK_FTID === data.pK_FTID) {
-          setFraudType(data.name);
-          setBBKDispute({
-            ...BBKDispute,
-            ["fK_FTID"]: parseInt(data.pK_FTID),
-          });
-        }
-      });
-    }
-  }, [setupForms.FraudTypeData]);
+  // useEffect(() => {
+  //   let customerDetails =
+  //     investigationOfficer.GetBBKDisputesData.bbKonnectDispute;
+  //   let nameFraud = setupForms.FraudTypeData;
+  //   if (customerDetails !== undefined && customerDetails !== null) {
+  //     nameFraud.map((data, index) => {
+  //       if (customerDetails.fK_FTID === data.pK_FTID) {
+  //         setFraudType(data.name);
+  //         setBBKDispute({
+  //           ...BBKDispute,
+  //           ["fK_FTID"]: parseInt(data.pK_FTID),
+  //         });
+  //       }
+  //     });
+  //   }
+  // }, [setupForms.FraudTypeData]);
 
   //   for current date
   // const date = moment().format("YYYY-MM-DD");
@@ -957,12 +957,30 @@ const ViewCustomerDetailsBBK = () => {
             />
           </Col>
           <Col lg={6} md={6} sm={24} xs={24}>
-            <SelectBox
+            {/* <SelectBox
               name="Fraud Type"
               disable
               value={fraudType}
               label={lbl(fraudType, "Select Fraud Type")}
               placeholder="Select Fraud Type"
+            /> */}
+
+            {/* <SelectBox
+              // name="Fraud Type"
+              name="pK_FTID"
+              disable
+              value={fraudType}
+              label={lbl(fraudType, "Select Fraud Type")}
+              placeholder="Select Fraud Type"
+            /> */}
+
+            <TextField
+              size="small"
+              name="pK_FTID"
+              disable={true}
+              value={fraudType}
+              label="Fraud Type"
+              fullWidth
             />
           </Col>
           <Col lg={24} md={24} sm={24} className="u-margin-top-2pct">

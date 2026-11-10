@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import styles from "./style.module.css";
 import { Input, Row, Col } from "antd";
-import { UserOutlined } from "@ant-design/icons";
 import {
   Button,
   InputWithBtn,
@@ -23,10 +22,13 @@ import {
 import TextField from "../../../Components/Elements/InputFields/TextField/text-field";
 import Select from "../../../Components/Elements/InputFields/SelectBox/select-box";
 import GroupedButtons from "../../../Components/Elements/GroupedButtons/grouped-buttons";
-import {
-  GetAllRoles,
-} from "../../../store/actions/setup-forms-actions";
+import { GetAllRoles } from "../../../store/actions/setup-forms-actions";
 import { ensureLookup } from "../../../store/actions/lookup-actions";
+import {
+  UserOutlined,
+  EyeOutlined,
+  EyeInvisibleOutlined,
+} from "@ant-design/icons";
 
 const SignUp = () => {
   // to be use when get the api
@@ -46,6 +48,7 @@ const SignUp = () => {
     open: false,
     message: "",
   });
+  const [showPassword, setShowPassword] = useState(false);
 
   const errorMessagesStr = {
     notVerified: `could not be verified`,
@@ -531,7 +534,7 @@ const SignUp = () => {
           ) {
             setEmailAfterVerifyError("Enter your correct Email address");
           } else if (credentials.emailAddress.content === "") {
-            setEmailAfterVerifyError("Please enter Email Address");
+            setEmailAfterVerifyError("Please enter LDAP ID");
           }
           setCredentials({
             ...credentials,
@@ -684,7 +687,7 @@ const SignUp = () => {
   const verifyEmailPassword = async (email, password) => {
     // for Error message
     if (email === "") {
-      await setEmailAfterVerifyError("Please enter Email Address");
+      await setEmailAfterVerifyError("Please enter LDAP ID");
       await setCredentials({
         ...credentials,
         emailAddress: {
@@ -714,219 +717,252 @@ const SignUp = () => {
 
   return (
     <>
-    <AuthLayout
-      mode="signup"
-      onSwitch={() => dispatch(clearestate())}
-      switchRef={switchToLogin}
-    >
-            <div className={styles.signupForm}>
-              <h1 className={styles.formTitle}>Create Account</h1>
-              <p className={styles.formSubtitle}>Send a signup request with your LDAP ID</p>
-              <div className={styles.margin6p} />
-              {/* first step code */}
-              {auth.isError ? (
-                <>
-                  <div className={styles.ldapField}>
-                    <Input
-                      onChange={setFieldsHandler}
-                      placeholder="Enter LDAP ID"
-                      size="large"
-                      fullWidth
-                      name="emailAddress"
-                      autoComplete="off"
-                      autoFocus
-                    />
-                    <span className={styles.ldapIcon}>
-                      <i className="icon-user icon-size-one"></i>
-                    </span>
-                  </div>
-                  <InputWithBtn
-                    placeholder="Enter Password"
-                    onchange={setFieldsHandler}
-                    autoComplete="off"
-                    className={styles.passwordInputField}
-                    type="text"
-                    size="medium"
-                    name="password"
-                    fullWidth
-                    textFieldSize="small"
-                    click={() =>
-                      verifyEmailPassword(
-                        credentials.emailAddress.content,
-                        credentials.password.content
-                      )
-                    }
-                    applyClass="next"
-                    classpas="disc"
-                    icon={
-                      credentials.password.isError === false ? (
-                        <i className="icon-check  icon-size-one"></i>
-                      ) : (
-                        <i className="icon-arrow-right icon-size-one"></i>
-                      )
-                    }
-                  />
-                  {/* ErrorBar of Email */}
-                  {credentials.password.isFail && (
-                    <ErrorBar errorText="This is a error" />
-                  )}
-                  {credentials.emailAddress.isFail && (
-                    <ErrorBar errorText={emailAfterVerifyError} />
-                  )}
-                  <Col md={24} lg={24} className="u-text-align-center">
-                    <div className={styles.marginTop30px} />
-                    <Button
-                      text="Go Back"
-                      icon={null}
-                      endIcon=""
-                      applyClass="btnSecondarySolidReset"
-                      disable={false}
-                      click={goback}
-                    />
-                  </Col>
-                </>
-              ) : (
-                <>
-                  <Row gutter={[10]} className="u-text-align-left">
-                    <Col md={12} lg={12}>
-                      <label className={styles.lableNotRequired}>LDAP ID</label>
-                      <TextField
-                        size="small"
-                        placeholder="Enter Email"
-                        disable
-                        value={bio.email.content}
-                      />
-                      {/* <ErrorBar errorText="" /> */}
-                    </Col>
-                    <Col md={12} lg={12}>
-                      <label className={styles.lableNotRequired}>
-                        Username
-                      </label>
-                      <TextField
-                        size="small"
-                        placeholder="Enter User Name"
-                        disable
-                        value={bio.userName.content}
-                      />
-                      {/* <ErrorBar errorText="" /> */}
-                    </Col>
-                  </Row>
+      <AuthLayout
+        mode="signup"
+        onSwitch={() => dispatch(clearestate())}
+        switchRef={switchToLogin}
+      >
+        <div className={styles.signupForm}>
+          <h1 className={styles.formTitle}>Create Account</h1>
+          <p className={styles.formSubtitle}>
+            Send a signup request with your LDAP ID
+          </p>
+          <div className={styles.margin6p} />
+          {/* first step code */}
+          {auth.isError ? (
+            <>
+              <div className={styles.ldapField}>
+                <Input
+                  onChange={setFieldsHandler}
+                  placeholder="Enter LDAP ID"
+                  size="large"
+                  fullWidth
+                  name="emailAddress"
+                  autoComplete="off"
+                  autoFocus
+                />
+                <span className={styles.ldapIcon}>
+                  <i className="icon-user icon-size-one"></i>
+                </span>
+              </div>
+              {/* <InputWithBtn
+                placeholder="Enter Password"
+                onchange={setFieldsHandler}
+                autoComplete="off"
+                className={styles.passwordInputField}
+                type="text"
+                size="medium"
+                name="password"
+                fullWidth
+                textFieldSize="small"
+                click={() =>
+                  verifyEmailPassword(
+                    credentials.emailAddress.content,
+                    credentials.password.content
+                  )
+                }
+                applyClass="next"
+                classpas="disc"
+                icon={
+                  credentials.password.isError === false ? (
+                    <i className="icon-check  icon-size-one"></i>
+                  ) : (
+                    <i className="icon-arrow-right icon-size-one"></i>
+                  )
+                }
+              /> */}
 
-                  <Row
-                    gutter={[10]}
-                    className="u-text-align-left"
-                    style={{ marginTop: 14 }}
-                  >
-                    <Col md={12} lg={12}>
-                      <label className={styles.lable}>First Name</label>
-                      <TextField
-                        size="small"
-                        placeholder="Enter First Name"
-                        name="firstName"
-                        change={setFieldsHandler}
-                        value={bio.firstName.content}
-                        required={true}
-                      />
-
-                      {bio.firstName.isError && (
-                        <ErrorBar errorText={bio.firstName.errorMessage} />
-                      )}
-                    </Col>
-                    <Col md={12} lg={12}>
-                      <label className={styles.lable}>Last Name</label>
-                      <TextField
-                        size="small"
-                        placeholder="Enter Last Name"
-                        name="lastName"
-                        change={setFieldsHandler}
-                        value={bio.lastName.content}
-                        required={true}
-                      />
-                      {bio.lastName.isError && (
-                        <ErrorBar errorText={bio.lastName.errorMessage} />
-                      )}
-                    </Col>
-                  </Row>
-
-                  <Row
-                    gutter={[10]}
-                    className="u-text-align-left"
-                    style={{ marginTop: 14 }}
-                  >
-                    <Col
-                      lg={12}
-                      md={12}
-                      sm={24}
-                      className="MultipleSelectClass SignUp"
-                    >
-                      <label className={styles.lable}>Transaction Type</label>
-                      <MultipleSelectCheckmarks
-                        selected={selected}
-                        setSelected={setSelected}
-                        selectedUserRoleName={selectedTransactionTypeName}
-                        setSelectedUserRoleName={setSelectedTransactionTypeName}
-                        change={transactionTypeHandler}
-                        option={transactionTypes}
-                        name="transactionType"
-                        placeholder="Select Transaction Type"
-                        required
-                      />
-                      {bio.transactionType.isError && (
-                        <ErrorBar
-                          errorText={bio.transactionType.errorMessage}
-                        />
-                      )}
-                    </Col>
-                    <Col lg={12} md={12} sm={24}>
-                      <label className={styles.lable}>Region</label>
-                      <Select
-                        value={regionName}
-                        option={region}
-                        placeholder="Select Region"
-                        name="FK_RID"
-                        change={regionHandler}
-                        required={true}
-                      />
-                      {bio.FK_RID.isError && (
-                        <ErrorBar errorText={bio.FK_RID.errorMessage} />
-                      )}
-                    </Col>
-                  </Row>
-
-                  <Row
-                    gutter={[10]}
-                    className="u-text-align-left"
-                    style={{ marginTop: 14 }}
-                  >
-                    <Col md={24} lg={24}>
-                      <label className={styles.lable}>Role</label>
-                      <Select
-                        value={userRoleName}
-                        option={userRole}
-                        placeholder="Select"
-                        name="FK_GSSUserRoleID"
-                        change={roleHandler}
-                        required={true}
-                      />
-                      {bio.FK_GSSUserRoleID.isError && (
-                        <ErrorBar
-                          errorText={bio.FK_GSSUserRoleID.errorMessage}
-                        />
-                      )}
-                      {auth.pendingError ? (
-                        <ErrorBar errorText={auth.ResponseMessage} />
-                      ) : null}
-                    </Col>
-                    <Col md={24} lg={24} className="u-text-align-center">
-                      <div className={styles.marginTop30px} />
-                      <GroupedButtons data={buttonProps} />
-                    </Col>
-                  </Row>
-                </>
+              <div className={styles.passwordWrapper}>
+                <InputWithBtn
+                  placeholder="Enter Password"
+                  onchange={setFieldsHandler}
+                  autoComplete="off"
+                  className={styles.passwordInputField}
+                  type="text"
+                  size="medium"
+                  name="password"
+                  fullWidth
+                  textFieldSize="small"
+                  click={() =>
+                    verifyEmailPassword(
+                      credentials.emailAddress.content,
+                      credentials.password.content
+                    )
+                  }
+                  applyClass="next"
+                  classpas={showPassword ? "" : "disc"} // <-- toggled
+                  icon={
+                    credentials.password.isError === false ? (
+                      <i className="icon-check  icon-size-one"></i>
+                    ) : (
+                      <i className="icon-arrow-right icon-size-one u-padding-top-5px"></i>
+                    )
+                  }
+                />
+                <button
+                  type="button"
+                  className={styles.eyeToggle}
+                  onClick={() => setShowPassword((prev) => !prev)}
+                  aria-label={showPassword ? "Hide password" : "Show password"}
+                >
+                  {showPassword ? <EyeOutlined /> : <EyeInvisibleOutlined />}
+                </button>
+              </div>
+              {/* ErrorBar of Email */}
+              {credentials.password.isFail && (
+                <ErrorBar errorText="This is a error" />
               )}
-              {/* second step component  */}
-            </div>
-    </AuthLayout>
+              {credentials.emailAddress.isFail && (
+                <ErrorBar errorText={emailAfterVerifyError} />
+              )}
+              <Col md={24} lg={24} className="u-text-align-center">
+                <div className={styles.marginTop30px} />
+                <Button
+                  text="Go Back"
+                  icon={null}
+                  endIcon=""
+                  applyClass="btnSecondarySolidReset"
+                  disable={false}
+                  click={goback}
+                />
+              </Col>
+            </>
+          ) : (
+            <>
+              <Row gutter={[10]} className="u-text-align-left">
+                <Col md={12} lg={12}>
+                  <label className={styles.lableNotRequired}>LDAP ID</label>
+                  <TextField
+                    size="small"
+                    placeholder="Enter Email"
+                    disable
+                    value={bio.email.content}
+                  />
+                  {/* <ErrorBar errorText="" /> */}
+                </Col>
+                <Col md={12} lg={12}>
+                  <label className={styles.lableNotRequired}>Username</label>
+                  <TextField
+                    size="small"
+                    placeholder="Enter User Name"
+                    disable
+                    value={bio.userName.content}
+                  />
+                  {/* <ErrorBar errorText="" /> */}
+                </Col>
+              </Row>
+
+              <Row
+                gutter={[10]}
+                className="u-text-align-left"
+                style={{ marginTop: 14 }}
+              >
+                <Col md={12} lg={12}>
+                  <label className={styles.lable}>First Name</label>
+                  <TextField
+                    size="small"
+                    placeholder="Enter First Name"
+                    name="firstName"
+                    change={setFieldsHandler}
+                    value={bio.firstName.content}
+                    required={true}
+                  />
+
+                  {bio.firstName.isError && (
+                    <ErrorBar errorText={bio.firstName.errorMessage} />
+                  )}
+                </Col>
+                <Col md={12} lg={12}>
+                  <label className={styles.lable}>Last Name</label>
+                  <TextField
+                    size="small"
+                    placeholder="Enter Last Name"
+                    name="lastName"
+                    change={setFieldsHandler}
+                    value={bio.lastName.content}
+                    required={true}
+                  />
+                  {bio.lastName.isError && (
+                    <ErrorBar errorText={bio.lastName.errorMessage} />
+                  )}
+                </Col>
+              </Row>
+
+              <Row
+                gutter={[10]}
+                className="u-text-align-left"
+                style={{ marginTop: 14 }}
+              >
+                <Col
+                  lg={12}
+                  md={12}
+                  sm={24}
+                  className="MultipleSelectClass SignUp"
+                >
+                  <label className={styles.lable}>Transaction Type</label>
+                  <MultipleSelectCheckmarks
+                    selected={selected}
+                    setSelected={setSelected}
+                    selectedUserRoleName={selectedTransactionTypeName}
+                    setSelectedUserRoleName={setSelectedTransactionTypeName}
+                    change={transactionTypeHandler}
+                    option={transactionTypes}
+                    name="transactionType"
+                    placeholder="Select Transaction Type"
+                    required
+                  />
+                  {bio.transactionType.isError && (
+                    <ErrorBar errorText={bio.transactionType.errorMessage} />
+                  )}
+                </Col>
+                <Col lg={12} md={12} sm={24}>
+                  <label className={styles.lable}>Region</label>
+                  <Select
+                    value={regionName}
+                    option={region}
+                    placeholder="Select Region"
+                    name="FK_RID"
+                    change={regionHandler}
+                    required={true}
+                  />
+                  {bio.FK_RID.isError && (
+                    <ErrorBar errorText={bio.FK_RID.errorMessage} />
+                  )}
+                </Col>
+              </Row>
+
+              <Row
+                gutter={[10]}
+                className="u-text-align-left"
+                style={{ marginTop: 14 }}
+              >
+                <Col md={24} lg={24}>
+                  <label className={styles.lable}>Role</label>
+                  <Select
+                    value={userRoleName}
+                    option={userRole}
+                    placeholder="Select"
+                    name="FK_GSSUserRoleID"
+                    change={roleHandler}
+                    required={true}
+                  />
+                  {bio.FK_GSSUserRoleID.isError && (
+                    <ErrorBar errorText={bio.FK_GSSUserRoleID.errorMessage} />
+                  )}
+                  {auth.pendingError ? (
+                    <ErrorBar errorText={auth.ResponseMessage} />
+                  ) : null}
+                </Col>
+                <Col md={24} lg={24} className="u-text-align-center">
+                  <div className={styles.marginTop30px} />
+                  <GroupedButtons data={buttonProps} />
+                </Col>
+              </Row>
+            </>
+          )}
+          {/* second step component  */}
+        </div>
+      </AuthLayout>
       <Notification setOpen={setOpen} open={open.open} message={open.message} />
       {auth.Loading ? <Loader /> : null}
     </>

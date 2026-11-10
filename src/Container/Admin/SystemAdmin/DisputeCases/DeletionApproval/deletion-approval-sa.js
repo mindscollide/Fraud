@@ -59,9 +59,9 @@ const PendingDeletionApprovals = () => {
   const { setupForms, investigationOfficer } = state;
   const [btnStatus, setBtnStatus] = useState(true);
   const [approvalReason, setApprovalReason] = useState([]);
-  const [approvalReasonValue, setApprovalReasonValue] = useState([]);
+  const [approvalReasonValue, setApprovalReasonValue] = useState(null);
   const [rejectionReason, setRejectionReason] = useState([]);
-  const [rejectionReasonValue, setRejectionReasonValue] = useState([]);
+  const [rejectionReasonValue, setRejectionReasonValue] = useState(null);
   //Get All State
   const [allPendingForApproval, setAllPendingForApproval] = useState([]);
   localStorage.setItem("IM", JSON.stringify(true));
@@ -185,21 +185,30 @@ const PendingDeletionApprovals = () => {
     );
   }, [setupForms.ApprovalReasonsData]);
 
-  // Selected Dropdown value of Approval
+  // // Selected Dropdown value of Approval
+  // const approvalReasonHandler = (e, value) => {
+  //   setApprovalReasonValue(value);
+  //   let setApprovalReason = setupForms.ApprovalReasonsData;
+  //   setApprovalReason.map((data, index) => {
+  //     if (value === data.reason) {
+  //       let id = data.pK_ARID;
+  //       setApproveDispute({
+  //         ...approveDispute,
+  //         ["FK_AORID"]: parseInt(id),
+  //       });
+  //     }
+  //   });
+  // };
   const approvalReasonHandler = (e, value) => {
-    setApprovalReasonValue(value);
-    let setApprovalReason = setupForms.ApprovalReasonsData;
-    setApprovalReason.map((data, index) => {
-      if (value === data.reason) {
-        let id = data.pK_ARID;
-        setApproveDispute({
-          ...approveDispute,
-          ["FK_AORID"]: parseInt(id),
-        });
-      }
-    });
+    setApprovalReasonValue(value || null);
+    const match = value
+      ? setupForms.ApprovalReasonsData.find((d) => d.reason === value)
+      : null;
+    setApproveDispute((prev) => ({
+      ...prev,
+      FK_AORID: match ? parseInt(match.pK_ARID) : 0,
+    }));
   };
-
   // Approval Description
   const handleChangeApprove = (e) => {
     setApproveDispute({
@@ -207,21 +216,16 @@ const PendingDeletionApprovals = () => {
       ["Comments"]: e.target.value,
     });
   };
-  // Selected Dropdown value of Rejection
   const rejectionReasonHandler = (e, value) => {
-    setRejectionReasonValue(value);
-    let setRejectionReason = setupForms.RejectionReasonsData;
-    setRejectionReason.map((data, index) => {
-      if (value === data.reason) {
-        let id = data.pK_RRID;
-        setRejectDispute({
-          ...rejectDispute,
-          ["FK_AORID"]: parseInt(id),
-        });
-      }
-    });
+    setRejectionReasonValue(value || null);
+    const match = value
+      ? setupForms.RejectionReasonsData.find((d) => d.reason === value)
+      : null;
+    setRejectDispute((prev) => ({
+      ...prev,
+      FK_AORID: match ? parseInt(match.pK_RRID) : 0,
+    }));
   };
-
   const handleChangeReject = (e) => {
     setRejectDispute({
       ...rejectDispute,
@@ -362,25 +366,35 @@ const PendingDeletionApprovals = () => {
     }
   }, [setupForms.RejectionReasonsData]);
 
+  // useEffect(() => {
+  //   let comment = approveDispute.Comments;
+  //   if (approvalReasonValue?.length > 0 && comment?.length > 0) {
+  //     setBtnStatus(false);
+  //   } else {
+  //     setBtnStatus(true);
+  //   }
+  // }, [approvalReasonValue, approveDispute.Comments]);
+
+  // useEffect(() => {
+  //   let comment = rejectDispute.Comments;
+  //   if (rejectionReasonValue.length > 0 && comment.length > 0) {
+  //     setBtnStatus(false);
+  //   } else {
+  //     setBtnStatus(true);
+  //   }
+  // }, [rejectionReasonValue, rejectDispute.Comments]);
+
+  //Modal Buttons For Approve
+
   useEffect(() => {
-    let comment = approveDispute.Comments;
-    if (approvalReasonValue.length > 0 && comment.length > 0) {
-      setBtnStatus(false);
-    } else {
-      setBtnStatus(true);
-    }
+    const comment = approveDispute.Comments;
+    setBtnStatus(!(approvalReasonValue?.length > 0 && comment?.length > 0));
   }, [approvalReasonValue, approveDispute.Comments]);
 
   useEffect(() => {
-    let comment = rejectDispute.Comments;
-    if (rejectionReasonValue.length > 0 && comment.length > 0) {
-      setBtnStatus(false);
-    } else {
-      setBtnStatus(true);
-    }
+    const comment = rejectDispute.Comments;
+    setBtnStatus(!(rejectionReasonValue?.length > 0 && comment?.length > 0));
   }, [rejectionReasonValue, rejectDispute.Comments]);
-
-  //Modal Buttons For Approve
   const buttonPropsApprove = {
     primaryButton: {
       disable: btnStatus,
@@ -722,7 +736,17 @@ const PendingDeletionApprovals = () => {
     let userid = UserID.userID;
     dispatch(GetAllPendingForDeletionSystemAdmin(userid));
   };
+  // true when a field actually holds a value (treats "", null, undefined,
+  // empty arrays and the -99999999999999999999 "empty number" sentinel as empty)
+  const hasValue = (v) =>
+    v !== undefined &&
+    v !== null &&
+    v !== "" &&
+    v !== -99999999999999999999 &&
+    !(Array.isArray(v) && v.length === 0);
 
+  // show the label only when the field has a value, otherwise "" (placeholder only)
+  const lbl = (value, text) => (hasValue(value) ? text : "");
   return (
     <>
       <Title level={4}>Pending Approvals</Title>
@@ -790,11 +814,13 @@ const PendingDeletionApprovals = () => {
           <>
             <div className="u-padding-bottom-40px u-padding-left-20px u-padding-right-20px u-display-flex u-justify-content-center">
               <Col lg={24} md={24} sm={24} xs={24}>
+                {/* Approval select */}
                 <SelectBox
                   option={approvalReason}
                   propertyName={"title"}
                   change={approvalReasonHandler}
-                  label="Select Approval Reason"
+                  label={lbl(approvalReasonValue, "Select Approval Reason")}
+                  placeholder={"Select Approval Reason *"}
                   required
                   value={approvalReasonValue}
                   name="SelectApprovalReason"
@@ -806,7 +832,8 @@ const PendingDeletionApprovals = () => {
                 <TextField
                   multiline
                   rows={6}
-                  label="Description"
+                  label={lbl(approveDispute.Comments, "Comments")}
+                  placeholder={"Comments *"}
                   autoComplete="off"
                   change={handleChangeApprove}
                   value={approveDispute.Comments}
@@ -827,7 +854,8 @@ const PendingDeletionApprovals = () => {
                   option={rejectionReason}
                   propertyName={"title"}
                   change={rejectionReasonHandler}
-                  label="Select Rejection Reason"
+                  label={lbl(rejectionReasonValue, "Select Rejection Reason")}
+                  placeholder={"Select Rejection Reason *"}
                   required
                   value={rejectionReasonValue}
                   name="SelectRejectionReason"
@@ -839,7 +867,8 @@ const PendingDeletionApprovals = () => {
                 <TextField
                   multiline
                   rows={6}
-                  label="Description"
+                  label={lbl(rejectDispute.Comments, "Comment")}
+                  placeholder={"Comments *"}
                   autoComplete="off"
                   change={handleChangeReject}
                   value={rejectDispute.Comments}
@@ -863,7 +892,17 @@ const PendingDeletionApprovals = () => {
         {actions.viewApprovalHistory && (
           <>
             <Table rows={row} columns={viewApprovalColumn} />
-            <GroupedButtons data={okayButtonProp} />
+            <div className="u-display-flex u-justify-content-center">
+              {/* <GroupedButtons data={okayButtonProp} /> */}
+              <Button
+                text="Close"
+                type={"primary"}
+                size="large"
+                applyClass="btnBorderStyledBeach"
+                click={handleCancel}
+                // click= () => handleCancel(),
+              />
+            </div>
           </>
         )}
       </Modal>

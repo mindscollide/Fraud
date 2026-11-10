@@ -955,7 +955,17 @@ const EditNegativeDataBase = () => {
     });
     setListOfComments(temp);
   };
+  // true when a field actually holds a value (treats "", null, undefined,
+  // empty arrays and the -99999999999999999999 "empty number" sentinel as empty)
+  const hasValue = (v) =>
+    v !== undefined &&
+    v !== null &&
+    v !== "" &&
+    v !== -99999999999999999999 &&
+    !(Array.isArray(v) && v.length === 0);
 
+  // show the label only when the field has a value, otherwise "" (placeholder only)
+  const lbl = (value, text) => (hasValue(value) ? text : "");
   return (
     <>
       <form onSubmit={(e) => goToSaveHandler(e)}>
@@ -990,7 +1000,11 @@ const EditNegativeDataBase = () => {
             <Col lg={6} md={6} sm={24} xs={24}>
               <SelectBox
                 name="IndividualInvolved"
-                label="Select Individual Involved"
+                label={lbl(
+                  individualInvolvedTypeName,
+                  "Select Individual Involved"
+                )}
+                placeholder="Select Individual Involved *"
                 option={individualInvolvedType}
                 value={individualInvolvedTypeName}
                 change={individualNameHandler}
@@ -1003,14 +1017,16 @@ const EditNegativeDataBase = () => {
                 option={channelType}
                 value={channelTypeName}
                 change={channelNameHandler}
-                label="Select Channel"
+                label={lbl(channelTypeName, "Select Channel")}
+                placeholder="Select Channel *"
                 required
               />
             </Col>
             <Col lg={6} md={6} sm={24} xs={24}>
               <SelectBox
                 name="ForgedDocuments"
-                label="Select Type of Documents"
+                label={lbl(forgedDocumentsTypeName, "Select Type of Documents")}
+                placeholder="Select Type of Documents *"
                 option={forgedDocumentsType}
                 change={documentsNameHandler}
                 value={forgedDocumentsTypeName}
@@ -1034,10 +1050,10 @@ const EditNegativeDataBase = () => {
                 value={FDCustomer.CustomerName}
                 change={FDCustomerHandler}
                 size="small"
-                placeholder="Customer Name"
                 textLength={200}
                 required
-                label={"Customer Name"}
+                label={lbl(FDCustomer.CustomerName, "Customer Name")}
+                placeholder={"Customer Name *"}
                 fullWidth
               />
             </Col>
@@ -1048,10 +1064,10 @@ const EditNegativeDataBase = () => {
                 value={neg.OldNIC}
                 change={negHandler}
                 size="small"
-                placeholder="Old NIC"
                 textLength={13}
                 minLength={13}
-                label={"Old NIC"}
+                label={lbl(neg.OldNIC, "Old NIC")}
+                placeholder={"Old NIC"}
                 fullWidth
               />
             </Col>
@@ -1062,17 +1078,18 @@ const EditNegativeDataBase = () => {
                 autoComplete="off"
                 size="small"
                 change={negHandler}
-                placeholder="Company Name"
                 textLength={200}
                 required
-                label={"Company Name"}
+                label={lbl(neg.CompanyName, "Company Name")}
+                placeholder={"Company Name *"}
                 fullWidth
               />
             </Col>
             <Col lg={6} md={6} sm={24} xs={24}>
               <SelectBox
                 name="CompanySegment"
-                label="Company Segment"
+                label={lbl(companySegmentTypeName, "Company Segment")}
+                placeholder={"Company Segment *"}
                 option={companySegmentType}
                 change={companySegmentHandler}
                 value={companySegmentTypeName}
@@ -1086,9 +1103,9 @@ const EditNegativeDataBase = () => {
                 change={negHandler}
                 autoComplete="off"
                 size="small"
-                placeholder="Company Address"
+                placeholder="Company Address *"
                 required
-                label={"Company Address"}
+                label={lbl(neg.CompanyAddress, "Company Address")}
                 fullWidth
               />
             </Col>
@@ -1099,11 +1116,11 @@ const EditNegativeDataBase = () => {
                 change={negHandler}
                 size="small"
                 autoComplete="off"
-                placeholder="Office Phone"
+                placeholder="Office Phone *"
                 required
                 textLength={11}
                 minLength={11}
-                label={"Office Phone"}
+                label={lbl(neg.OfficePhone, "Office Phone")}
                 fullWidth
               />
             </Col>
@@ -1114,10 +1131,10 @@ const EditNegativeDataBase = () => {
                 value={neg.ResidenceAddress}
                 size="small"
                 autoComplete="off"
-                placeholder="Residence Address"
+                placeholder="Residence Address *"
                 textLength={200}
                 required
-                label={"Residence Address"}
+                label={lbl(neg.ResidenceAddress, "Residence Address")}
                 fullWidth
               />
             </Col>
@@ -1128,11 +1145,11 @@ const EditNegativeDataBase = () => {
                 change={negHandler}
                 size="small"
                 autoComplete="off"
-                placeholder="Residence Phone"
+                placeholder="Residence Phone *"
                 textLength={11}
                 minLength={11}
                 required
-                label={"Residence Phone"}
+                label={lbl(neg.ResidencePhone, "Residence Phone")}
                 fullWidth
               />
             </Col>
@@ -1143,17 +1160,18 @@ const EditNegativeDataBase = () => {
                 change={negHandler}
                 autoComplete="off"
                 size="small"
-                placeholder="Mobile No"
+                placeholder="Mobile No *"
                 textLength={11}
                 minLength={11}
                 required
-                label={"Mobile No"}
+                label={lbl(neg.MobileNumber, "Mobile No")}
                 fullWidth
               />
             </Col>
             <Col lg={6} md={6} sm={24} xs={24}>
               <SelectBox
-                label="Select City"
+                label={lbl(cityValue, "Select City")}
+                placeholder="Select City *"
                 option={city}
                 value={cityValue}
                 change={CityNameHandler}
@@ -1167,11 +1185,11 @@ const EditNegativeDataBase = () => {
                 size="small"
                 change={negHandler}
                 value={neg.CityCode}
-                placeholder="City Code"
                 autoComplete="off"
                 textLength={4}
                 required
-                label={"City Code"}
+                label={lbl(neg.CityCode, "City Code")}
+                placeholder={"City Code *"}
                 fullWidth
               />
             </Col>
@@ -1182,9 +1200,9 @@ const EditNegativeDataBase = () => {
                 change={negHandler}
                 size="small"
                 autoComplete="off"
-                placeholder="Reference #"
+                label={lbl(neg.Reference, "Reference #")}
+                placeholder="Reference # *"
                 required
-                label={"Reference #"}
                 fullWidth
                 disable
               />
@@ -1197,7 +1215,7 @@ const EditNegativeDataBase = () => {
                 change={negHandler}
                 size="small"
                 placeholder="HBL Reference Number"
-                label={"HBL Reference Number"}
+                label={lbl(neg.HBLReferenceNumber, "HBL Reference Number")}
                 fullWidth
                 textLength={20}
               />
@@ -1209,7 +1227,8 @@ const EditNegativeDataBase = () => {
                   type="text"
                   name="comments"
                   size="small"
-                  label={"Comments"}
+                  label={lbl(comments.Comment, "Comments")}
+                  placeholder={"Comments"}
                   autoComplete="off"
                   textLength={200}
                   value={comments.Comment}
@@ -1228,7 +1247,8 @@ const EditNegativeDataBase = () => {
                   name="comments"
                   size="small"
                   autoComplete="off"
-                  label={"Comments"}
+                  label={lbl(comments.Comment, "Comments")}
+                  placeholder="Comments"
                   textLength={200}
                   value={comments.Comment}
                   fullWidth
@@ -1256,7 +1276,7 @@ const EditNegativeDataBase = () => {
                         value={item.Comment}
                         placeholder="Comment"
                         disable={true}
-                        label={"Comment"}
+                        label={lbl(item.Comment, "Comment")}
                         fullWidth
                         width="100%"
                       />
