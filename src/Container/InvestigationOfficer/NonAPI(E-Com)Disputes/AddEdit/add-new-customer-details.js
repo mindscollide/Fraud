@@ -539,7 +539,7 @@ const AddNewCustomerDetailsNONAPI = () => {
       width: "220px",
     },
     {
-      title: "HBL Account Number",
+      title: "Account Number",
       dataIndex: "HBLAccountNumber",
       key: "HBLAccountNumber",
       align: "center",
@@ -801,7 +801,7 @@ const AddNewCustomerDetailsNONAPI = () => {
       width: "220px",
     },
     {
-      title: "HBL Account Number",
+      title: "Account Number",
       dataIndex: "hblAccountNumber",
       key: "hblAccountNumber",
       align: "center",
@@ -3303,8 +3303,8 @@ const AddNewCustomerDetailsNONAPI = () => {
                 name="HBLAccountNumber"
                 size="small"
                 autoComplete="off"
-                label={lbl(trsDetails.HBLAccountNumber, "HBL Account Number *")}
-                placeholder={"HBL Account Number *"}
+                label={lbl(trsDetails.HBLAccountNumber, "Account Number *")}
+                placeholder={"Account Number *"}
                 value={trsDetails.HBLAccountNumber}
                 change={TransactionDeatilHandlerChange}
                 fullWidth

@@ -465,7 +465,7 @@ const EditNONAPIDispute = () => {
       width: "220px",
     },
     {
-      title: "HBL Account Number",
+      title: "Account Number",
       dataIndex: "hblAccountNumber",
       key: "hblAccountNumber",
       align: "center",
@@ -1231,7 +1231,7 @@ const EditNONAPIDispute = () => {
       width: "220px",
     },
     {
-      title: "HBL Account Number",
+      title: "Account Number",
       dataIndex: "HBLAccountNumber",
       key: "HBLAccountNumber",
       align: "center",
@@ -3628,7 +3628,7 @@ const EditNONAPIDispute = () => {
                 name="HBLAccountNumber"
                 size="small"
                 autoComplete="off"
-                label={"HBL Account Number *"}
+                label={"Account Number *"}
                 value={trsDetails.HBLAccountNumber}
                 change={TransactionDeatilHandlerChange}
                 fullWidth

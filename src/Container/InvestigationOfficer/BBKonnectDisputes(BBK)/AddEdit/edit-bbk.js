@@ -608,10 +608,10 @@ const EditBBKDispute = () => {
           var i = index;
           i = index + 1;
           return { ...item, key: i + "" };
-        },
+        }
       );
       setListOfTransactionDetailsAlreadyExsist(
-        GetTransactionDetailsByCNICArray,
+        GetTransactionDetailsByCNICArray
       );
     }
   }, [investigationOfficer.GetTransactionDetailsByAccountNumberBBKexsitData]);
@@ -651,7 +651,7 @@ const EditBBKDispute = () => {
     setSourceTypeName(
       nameSource.map((data, index) => {
         return data.name;
-      }),
+      })
     );
   }, [setupForms.SourceData]);
 
@@ -662,7 +662,7 @@ const EditBBKDispute = () => {
       setFraudType(
         nameFraud.map((data, index) => {
           return data.name;
-        }),
+        })
       );
     }
   }, [setupForms.FraudTypeData]);
@@ -693,7 +693,7 @@ const EditBBKDispute = () => {
       width: "220px",
     },
     {
-      title: "HBL Account Number",
+      title: "Account Number",
       dataIndex: "hblAccountNumber",
       key: "hblAccountNumber",
       align: "center",
@@ -839,7 +839,7 @@ const EditBBKDispute = () => {
   // update transection data
   const update = (e, record) => {
     var objIndex = TransactionDetails.findIndex(
-      (obj) => obj.TransactionID === record.TransactionID,
+      (obj) => obj.TransactionID === record.TransactionID
     );
     // trsDetails, setTrsDetails
     setRecordIndex(objIndex);
@@ -892,7 +892,7 @@ const EditBBKDispute = () => {
       width: "220px",
     },
     {
-      title: "HBL Account Number",
+      title: "Account Number",
       dataIndex: "HBLAccountNumber",
       key: "HBLAccountNumber",
       align: "center",
@@ -1282,7 +1282,7 @@ const EditBBKDispute = () => {
     setTransactionCurrencyCode(
       valuetransactionCurrencyCode.map((data, index) => {
         return data.description;
-      }),
+      })
     );
   }, [setupForms.TransactionCurrencyCodeData]);
 
@@ -1333,8 +1333,8 @@ const EditBBKDispute = () => {
             setTransactionIDError,
             setTIDErrMsg,
             setSourceType,
-            setTransactionCurrencyCodeValue,
-          ),
+            setTransactionCurrencyCodeValue
+          )
         );
       }
     } else {
@@ -1345,8 +1345,8 @@ const EditBBKDispute = () => {
           setTransactionIDError,
           setTIDErrMsg,
           setSourceType,
-          setTransactionCurrencyCodeValue,
-        ),
+          setTransactionCurrencyCodeValue
+        )
       );
     }
   };
@@ -2349,7 +2349,7 @@ const EditBBKDispute = () => {
   const getFilter = () => {
     let filteredItems = ListOfDocuments;
     filteredItems = ListOfDocuments.filter(
-      (item) => item.DisplayFileName !== "",
+      (item) => item.DisplayFileName !== ""
     );
     return filteredItems;
   };
@@ -2414,7 +2414,7 @@ const EditBBKDispute = () => {
         obj.OriginalFileName === record.OriginalFileName &&
         obj.PK_BBCDDID === record.PK_BBCDDID &&
         obj.FK_BBCDID === record.FK_BBCDID &&
-        obj.FK_GSSUserID === record.FK_GSSUserID,
+        obj.FK_GSSUserID === record.FK_GSSUserID
     );
     var temp = [];
     ListOfDocuments.map((data, index) => {
@@ -2480,7 +2480,7 @@ const EditBBKDispute = () => {
     setCaseDecision(
       valueCaseDecision.map((data, index) => {
         return data.name;
-      }),
+      })
     );
   }, [setupForms.CaseDecisionData]);
 
@@ -2640,7 +2640,7 @@ const EditBBKDispute = () => {
         return { ...item, key: i + "" };
       });
       setListOfTransactionDetailsAlreadyExsist(
-        GetTransactionDetailsByCNICArray,
+        GetTransactionDetailsByCNICArray
       );
     }
   }, [investigationOfficer.GetBBKDisputesForEditByCnicAndRefrenceNumberData]);
@@ -2798,8 +2798,8 @@ const EditBBKDispute = () => {
                 searchData,
                 searchDataofdate,
                 DataForGlobal,
-                DataForGlobalDate,
-              ),
+                DataForGlobalDate
+              )
             );
             setAddInedx([]);
           } else {
@@ -2853,8 +2853,8 @@ const EditBBKDispute = () => {
                 searchData,
                 searchDataofdate,
                 DataForGlobal,
-                DataForGlobalDate,
-              ),
+                DataForGlobalDate
+              )
             );
             setAddInedx([]);
           }
@@ -2987,8 +2987,8 @@ const EditBBKDispute = () => {
                   searchData,
                   searchDataofdate,
                   DataForGlobal,
-                  DataForGlobalDate,
-                ),
+                  DataForGlobalDate
+                )
               );
               setAddInedx([]);
             } else {
@@ -3047,8 +3047,8 @@ const EditBBKDispute = () => {
                 searchData,
                 searchDataofdate,
                 DataForGlobal,
-                DataForGlobalDate,
-              ),
+                DataForGlobalDate
+              )
             );
             setAddInedx([]);
           }
@@ -3192,8 +3192,8 @@ const EditBBKDispute = () => {
                   searchData,
                   searchDataofdate,
                   DataForGlobal,
-                  DataForGlobalDate,
-                ),
+                  DataForGlobalDate
+                )
               );
             }
             setAddInedx([]);
@@ -3254,8 +3254,8 @@ const EditBBKDispute = () => {
                   searchData,
                   searchDataofdate,
                   DataForGlobal,
-                  DataForGlobalDate,
-                ),
+                  DataForGlobalDate
+                )
               );
             }
             setAddInedx([]);
@@ -3394,8 +3394,8 @@ const EditBBKDispute = () => {
                     searchData,
                     searchDataofdate,
                     DataForGlobal,
-                    DataForGlobalDate,
-                  ),
+                    DataForGlobalDate
+                  )
                 );
               }
               // }
@@ -3463,8 +3463,8 @@ const EditBBKDispute = () => {
                   searchData,
                   searchDataofdate,
                   DataForGlobal,
-                  DataForGlobalDate,
-                ),
+                  DataForGlobalDate
+                )
               );
             }
             setAddInedx([]);
@@ -3501,7 +3501,7 @@ const EditBBKDispute = () => {
     setCity(
       valueCity.map((data, index) => {
         return data.name;
-      }),
+      })
     );
   }, [setupForms.CityData]);
 
@@ -3654,7 +3654,7 @@ const EditBBKDispute = () => {
                 size="small"
                 autoComplete="off"
                 value={trsDetails.HBLAccountNumber}
-                label={"HBL Account Number*"}
+                label={"Account Number*"}
                 // textLength={4}
                 change={TransactionDeatilHandlerChange}
                 fullWidth

@@ -29,12 +29,7 @@ const IMNONAPIDisputes = () => {
           <TextField fullWidth label="Account Number" size="small" required />
         </Col>
         <Col lg={8} md={8} sm={24}>
-          <TextField
-            fullWidth
-            label="HBL Account Number"
-            size="small"
-            required
-          />
+          <TextField fullWidth label="Account Number" size="small" required />
         </Col>
         <Col lg={8} md={8} sm={24}>
           <TextField

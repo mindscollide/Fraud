@@ -526,7 +526,7 @@ const EditDebitCardDispute = () => {
       width: "220px",
     },
     {
-      title: "HBL Account Number",
+      title: "Account Number",
       dataIndex: "hblAccountNumber",
       key: "hblAccountNumber",
       align: "center",
@@ -1215,7 +1215,7 @@ const EditDebitCardDispute = () => {
       width: "220px",
     },
     {
-      title: "HBL Account Number",
+      title: "Account Number",
       dataIndex: "HBLAccountNumber",
       key: "HBLAccountNumber",
       align: "center",
@@ -3897,8 +3897,8 @@ const EditDebitCardDispute = () => {
               <TextField
                 name="HBLAccountNumber"
                 size="small"
-                label={lbl(trsDetails.HBLAccountNumber, "HBL Account Number *")}
-                placeholder={"HBL Account Number *"}
+                label={lbl(trsDetails.HBLAccountNumber, "Account Number *")}
+                placeholder={"Account Number *"}
                 autoComplete="off"
                 value={trsDetails.HBLAccountNumber}
                 change={TransactionDeatilHandlerChange}

@@ -130,7 +130,7 @@ const IMADCDisputes = () => {
         <Col lg={8} md={8} sm={24}>
           <TextField
             fullWidth
-            label="HBL Account Number"
+            label="Account Number"
             size="small"
             required
             name="HBLAccountNumber"
