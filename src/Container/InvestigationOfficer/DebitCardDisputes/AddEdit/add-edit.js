@@ -391,36 +391,35 @@ const AddEditDebitCardDispute = () => {
                       />
                     </div>
                     <div className="dateRangePicker u-margin-top-15px u-display-flex u-justify-content-space-between">
-                      {accountFound ? (
-                        <StartToEndDate
-                          size="large"
-                          change={setDate}
-                          key={clearDateSelect}
-                          startvalue={
-                            State.FromDate !== null && State.FromDate !== ""
-                              ? DateDisplayFormat(State.FromDate)
-                              : null
+                      <StartToEndDate
+                        size="large"
+                        change={setDate}
+                        key={clearDateSelect}
+                        startvalue={
+                          State.FromDate !== null && State.FromDate !== ""
+                            ? DateDisplayFormat(State.FromDate)
+                            : null
+                        }
+                        endvalue={
+                          State.ToDate !== null && State.ToDate !== ""
+                            ? DateDisplayFormat(State.ToDate)
+                            : null
+                        }
+                        className="DatePickerDC"
+                        DateRange={true}
+                        required
+                      />
+                      <Col lg={4} md={4} sm={24}>
+                        <Button
+                          applyClass="btnDarkSolid"
+                          text="Search"
+                          className="downloadButton"
+                          disable={
+                            !accountFound || !State.FromDate || !State.ToDate
                           }
-                          endvalue={
-                            State.ToDate !== null && State.ToDate !== ""
-                              ? DateDisplayFormat(State.ToDate)
-                              : null
-                          }
-                          className="DatePickerDC"
-                          DateRange={true}
-                          required
+                          click={searchHandlerForAccount}
                         />
-                      ) : null}
-                      {accountFound ? (
-                        <Col lg={4} md={4} sm={24}>
-                          <Button
-                            applyClass="btnDarkSolid"
-                            text="Search"
-                            className="downloadButton"
-                            click={searchHandlerForAccount}
-                          />
-                        </Col>
-                      ) : null}
+                      </Col>
                     </div>
                   </>
                 ) : null}

@@ -24,7 +24,9 @@ const prefersReducedMotion = () =>
 const AuthLayout = ({ mode, onSwitch, switchRef, children }) => {
   const navigate = useNavigate();
   const isLogin = mode === "login";
-  const [slideIn] = useState(() => lastAuthMode !== null && lastAuthMode !== mode);
+  const [slideIn] = useState(
+    () => lastAuthMode !== null && lastAuthMode !== mode
+  );
   const [expanding, setExpanding] = useState(false);
 
   useEffect(() => {
@@ -53,12 +55,12 @@ const AuthLayout = ({ mode, onSwitch, switchRef, children }) => {
 
   return (
     <div
-      className={`${styles.shell} ${isLogin ? styles.loginMode : styles.signupMode} ${
-        slideIn ? styles.slideIn : ""
-      } ${expanding ? styles.expanding : ""}`}
+      className={`${styles.shell} ${
+        isLogin ? styles.loginMode : styles.signupMode
+      } ${slideIn ? styles.slideIn : ""} ${expanding ? styles.expanding : ""}`}
     >
       <section className={styles.formSide}>
-        <div className={styles.brand}>Fraud Digitization Portal</div>
+        {/* <div className={styles.brand}>Fraud Digitization Portal</div> */}
         <div className={styles.formInner}>{children}</div>
       </section>
 
@@ -83,7 +85,11 @@ const AuthLayout = ({ mode, onSwitch, switchRef, children }) => {
               ? "New to the portal? Send a signup request and start your journey with us."
               : "To keep connected with us, please sign in with your LDAP ID."}
           </p>
-          <button type="button" className={styles.ghostButton} onClick={switchPage}>
+          <button
+            type="button"
+            className={styles.ghostButton}
+            onClick={switchPage}
+          >
             {isLogin ? "SIGN UP" : "SIGN IN"}
           </button>
         </div>

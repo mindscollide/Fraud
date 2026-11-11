@@ -7,11 +7,7 @@ import {
   EyeOutlined,
   EyeInvisibleOutlined,
 } from "@ant-design/icons";
-import {
-  Loader,
-  Notification,
-  AuthLayout,
-} from "../../../Components/Elements";
+import { Loader, Notification, AuthLayout } from "../../../Components/Elements";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -138,9 +134,11 @@ const Login = () => {
     <>
       <AuthLayout mode="login">
         <form onSubmit={(e) => validateHandler(e)} className={styles.form}>
+          <h1 className={styles.formTitle}>Fraud Digitization Portal</h1>
           <h1 className={styles.formTitle}>Sign in to the Portal</h1>
-          <p className={styles.formSubtitle}>Use your LDAP User ID and password</p>
-
+          <p className={styles.formSubtitle}>
+            Use your LDAP User ID and password
+          </p>
 
           <Input
             name="UserName"
@@ -169,7 +167,9 @@ const Login = () => {
             }
             onChange={setCredentialHandler}
             autoComplete="off"
-            className={`${styles.field} ${showPassword ? "" : styles.passwordInputField}`}
+            className={`${styles.field} ${
+              showPassword ? "" : styles.passwordInputField
+            }`}
             type="text"
           />
 
@@ -182,7 +182,6 @@ const Login = () => {
           <button type="submit" className={styles.primaryButton}>
             SIGN IN
           </button>
-
         </form>
       </AuthLayout>
       <Notification setOpen={setOpen} open={open.open} message={open.message} />

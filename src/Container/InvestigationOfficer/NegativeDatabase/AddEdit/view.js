@@ -8,12 +8,8 @@ import {
 } from "../../../../store/actions/investigation-officer-actions";
 import {
   Paper,
-  InputWithBtn,
   TextField,
   SelectBox,
-  GroupedButtons,
-  Modal,
-  Button,
   Notification,
   Loader,
 } from "../../../../Components/Elements";
@@ -22,7 +18,6 @@ import { useNavigate } from "react-router-dom";
 import { ensureLookup } from "../../../../store/actions/lookup-actions";
 import {
   DateDisplayFormat,
-  TimeDisplayFormat,
   TimeAndDisplayFormat,
   removeDashesFromDate,
 } from "../../../../Common/Functions/date-formatter";
@@ -34,7 +29,6 @@ const ViewNDB = () => {
 
   const { setupForms, investigationOfficer } = state;
 
-  const { Title } = Typography;
   const dispatch = useDispatch();
   const [channelType, setChannelType] = useState([]);
   const [channelTypeName, setChannelTypeName] = useState([]);

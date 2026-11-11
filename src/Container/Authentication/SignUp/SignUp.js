@@ -714,7 +714,7 @@ const SignUp = () => {
   };
 
   useEffect(() => {}, [auth.isFail, auth.isError]);
-
+  console.log(bio, "biobiobiobio");
   return (
     <>
       <AuthLayout
@@ -723,6 +723,7 @@ const SignUp = () => {
         switchRef={switchToLogin}
       >
         <div className={styles.signupForm}>
+          <h1 className={styles.formTitle}>Fraud Digitization Portal</h1>
           <h1 className={styles.formTitle}>Create Account</h1>
           <p className={styles.formSubtitle}>
             Send a signup request with your LDAP ID

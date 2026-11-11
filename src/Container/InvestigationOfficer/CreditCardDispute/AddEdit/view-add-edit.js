@@ -107,26 +107,47 @@ const ViewCustomerDetails = () => {
 
   useEffect(() => {}, [disputeDetails]);
 
+  // useEffect(() => {
+  //   const ReferenceNumber = JSON.parse(localStorage.getItem("ReferenceNumber"));
+  //   const CNICNumber = localStorage.getItem("CNICNumber");
+  //   let Data = { CNICNumber: CNICNumber, ReferenceNumber: ReferenceNumber };
+  //   if (performance.navigation.type === performance.navigation.TYPE_RELOAD) {
+  //     if (TTIDQM === null) {
+  //       if (TTID === "1") {
+  //         dispatch(GetCreditCardDisputesByCnic(Data, TTID));
+  //         navigate("/Fraud/DisputeCases/ViewCustomerDetails");
+  //       } else {
+  //         dispatch(GetCreditCardDisputesByCnic(Data));
+  //       }
+  //     } else {
+  //       let TTIDvalue = true;
+  //       dispatch(enableGoBack());
+  //       dispatch(GetCreditCardDisputesByCnic(Data, TTIDvalue));
+  //     }
+  //   }
+  // }, []);
+
   useEffect(() => {
+    const hasData =
+      investigationOfficer.GetCreditCardDisputesData?.disputeDetails;
+    if (hasData) return; // came from the table click, data already loaded
+
     const ReferenceNumber = JSON.parse(localStorage.getItem("ReferenceNumber"));
     const CNICNumber = localStorage.getItem("CNICNumber");
-    let Data = { CNICNumber: CNICNumber, ReferenceNumber: ReferenceNumber };
-    if (performance.navigation.type === performance.navigation.TYPE_RELOAD) {
-      if (TTIDQM === null) {
-        if (TTID === "1") {
-          dispatch(GetCreditCardDisputesByCnic(Data, TTID));
-          navigate("/Fraud/DisputeCases/ViewCustomerDetails");
-        } else {
-          dispatch(GetCreditCardDisputesByCnic(Data));
-        }
+    const Data = { CNICNumber, ReferenceNumber };
+
+    if (TTIDQM === null) {
+      if (TTID === "1") {
+        dispatch(GetCreditCardDisputesByCnic(Data, TTID));
+        navigate("/Fraud/DisputeCases/ViewCustomerDetails");
       } else {
-        let TTIDvalue = true;
-        dispatch(enableGoBack());
-        dispatch(GetCreditCardDisputesByCnic(Data, TTIDvalue));
+        dispatch(GetCreditCardDisputesByCnic(Data));
       }
+    } else {
+      dispatch(enableGoBack());
+      dispatch(GetCreditCardDisputesByCnic(Data, true));
     }
   }, []);
-
   useEffect(() => {
     setFDCustomer({
       ...FDCustomer,

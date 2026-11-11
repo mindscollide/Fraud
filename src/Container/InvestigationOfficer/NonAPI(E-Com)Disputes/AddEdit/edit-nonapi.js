@@ -1,6 +1,6 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState } from "react";
 import { PlusOutlined as AddIcon } from "@ant-design/icons";
-import { Typography, Radio, Space, Empty, Tooltip, Row, Col } from "antd";
+import { Typography, Radio, Tooltip, Row, Col } from "antd";
 import InputMask from "react-input-mask";
 import CustomUpload from "../../../../Components/Elements/Upload/Upload";
 import { EditOutlined as Edit } from "@ant-design/icons";
@@ -14,15 +14,11 @@ import {
   DatePicker,
   TimePicker,
   Button,
-  FancyBox,
-  ConsolidateBox,
   Notification,
   Table,
-  Message,
   Loader,
   FormattedInputs,
   // Upload,
-  uploadButton,
   Modal,
   GroupedButtons,
 } from "../../../../Components/Elements";
@@ -49,7 +45,6 @@ import {
   TimeDisplayFormat,
   removeDashesFromDate,
 } from "../../../../Common/Functions/date-formatter";
-import { ConsoleSqlOutlined } from "@ant-design/icons";
 
 const EditNONAPIDispute = () => {
   var cnic2 = localStorage.getItem("cnic2");
@@ -2560,13 +2555,34 @@ const EditNONAPIDispute = () => {
   };
 
   //UseEffectForEditAPI
+  // useEffect(() => {
+  //   var ReferenceNumber = JSON.parse(localStorage.getItem("ReferenceNumber"));
+  //   var CNICNumber = JSON.parse(localStorage.getItem("CNICNumber"));
+  //   let data = { CNICNumber: CNICNumber, ReferenceNumber: ReferenceNumber };
+  //   if (performance.navigation.type === performance.navigation.TYPE_RELOAD) {
+  //     dispatch(GetNonApiDisputesForEditByCnicAndReferenceNumber(data));
+  //   }
+  // }, []);
+
+  //UseEffectForEditAPI
   useEffect(() => {
-    var ReferenceNumber = JSON.parse(localStorage.getItem("ReferenceNumber"));
-    var CNICNumber = JSON.parse(localStorage.getItem("CNICNumber"));
-    let data = { CNICNumber: CNICNumber, ReferenceNumber: ReferenceNumber };
-    if (performance.navigation.type === performance.navigation.TYPE_RELOAD) {
-      dispatch(GetNonApiDisputesForEditByCnicAndReferenceNumber(data));
-    }
+    const ReferenceNumber = JSON.parse(localStorage.getItem("ReferenceNumber"));
+    const CNICNumber = String(localStorage.getItem("CNICNumber"));
+
+    // Data already in the store for this reference number means we arrived
+    // via the table click (which already fetched it), so don't fetch again.
+    // After a real browser reload the store is empty, so we fetch.
+    const loaded =
+      investigationOfficer.GetNonApiDisputesForEditByCnicAndRefrenceNumberData
+        ?.npiDispute?.refrenceNumber;
+    if (loaded && String(loaded) === String(ReferenceNumber)) return;
+
+    dispatch(
+      GetNonApiDisputesForEditByCnicAndReferenceNumber({
+        CNICNumber,
+        ReferenceNumber,
+      })
+    );
   }, []);
 
   //CMCity Handler
@@ -3488,7 +3504,17 @@ const EditNONAPIDispute = () => {
       })
     );
   }, [setupForms.TransactionCurrencyCodeData]);
+  // true when a field actually holds a value (treats "", null, undefined,
+  // empty arrays and the -99999999999999999999 "empty number" sentinel as empty)
+  const hasValue = (v) =>
+    v !== undefined &&
+    v !== null &&
+    v !== "" &&
+    v !== -99999999999999999999 &&
+    !(Array.isArray(v) && v.length === 0);
 
+  // show the label only when the field has a value, otherwise "" (placeholder only)
+  const lbl = (value, text) => (hasValue(value) ? text : "");
   return (
     <>
       <form onSubmit={(e) => goToSaveHandler(e)}>
@@ -3523,10 +3549,10 @@ const EditNONAPIDispute = () => {
               <TextField
                 name=""
                 size="small"
-                placeholder="Reference#"
                 disable
-                label={"Reference #"}
                 fullWidth
+                placeholder="Reference#"
+                label={lbl(NPIDisputes.RefrenceNumber, "Reference #")}
                 value={NPIDisputes.RefrenceNumber}
               />
             </Col>
@@ -3534,21 +3560,22 @@ const EditNONAPIDispute = () => {
               <TextField
                 name=""
                 size="small"
-                placeholder="Customer Name"
                 disable
-                value={FDCustomer.CustomerName}
-                label={"Customer Name"}
                 fullWidth
+                placeholder="Customer Name"
+                label={lbl(FDCustomer.CustomerName, "Customer Name")}
+                value={FDCustomer.CustomerName}
               />
             </Col>
             <Col lg={6} md={6} sm={24} xs={24}>
               <SelectBox
-                label="Select City"
+                name="FK_CTID"
+                required
                 option={city}
                 value={cityValue}
                 change={CityNameHandler}
-                name="FK_CTID"
-                required
+                placeholder="Select City"
+                label={lbl(cityValue, "Select City")}
               />
             </Col>
             <Col lg={6} md={6} sm={24} xs={24}>
@@ -3571,12 +3598,13 @@ const EditNONAPIDispute = () => {
             </Col>
             <Col lg={6} md={6} sm={24} xs={24}>
               <SelectBox
-                label="Select Fraud Type"
-                option={fraudType}
                 name="Fraudtype"
+                required
+                option={fraudType}
                 value={fraudTypeName}
                 change={fraudNameHandler}
-                required
+                placeholder="Select Fraud Type"
+                label={lbl(fraudTypeName, "Select Fraud Type")}
               />
             </Col>
           </Row>
@@ -3609,7 +3637,8 @@ const EditNONAPIDispute = () => {
               <InputWithBtn
                 onchange={TransactionIDchangehandler}
                 isUpperCase={true}
-                label="Transaction ID *"
+                label={lbl(trsDetails.TransactionID, "Transaction ID *")}
+                placeholder={"Transaction ID *"}
                 fullWidth
                 helperText={TIDErrMsg}
                 textFieldSize="small"
@@ -3628,7 +3657,8 @@ const EditNONAPIDispute = () => {
                 name="HBLAccountNumber"
                 size="small"
                 autoComplete="off"
-                label={"Account Number *"}
+                label={lbl(trsDetails.HBLAccountNumber, "Account Number *")}
+                placeholder={"Account Number *"}
                 value={trsDetails.HBLAccountNumber}
                 change={TransactionDeatilHandlerChange}
                 fullWidth
@@ -3642,7 +3672,11 @@ const EditNONAPIDispute = () => {
                 size="small"
                 autoComplete="off"
                 value={trsDetails.OtherBankAccountNumber}
-                label={"Other Bank Account Number *"}
+                placeholder={"Other Bank Account Number *"}
+                label={lbl(
+                  trsDetails.OtherBankAccountNumber,
+                  "Other Bank Account Number *"
+                )}
                 change={TransactionDeatilHandlerChange}
                 fullWidth
                 textLength={14}
@@ -3653,7 +3687,8 @@ const EditNONAPIDispute = () => {
                 name="OtherBankBranchCode"
                 size="small"
                 autoComplete="off"
-                label={"Branch Code *"}
+                placeholder={"Branch Code *"}
+                label={lbl(trsDetails.OtherBankBranchCode, "Branch Code *")}
                 value={trsDetails.OtherBankBranchCode}
                 change={TransactionDeatilHandlerChange}
                 fullWidth
@@ -3665,7 +3700,8 @@ const EditNONAPIDispute = () => {
                 name="OtherBankBranchName"
                 size="small"
                 autoComplete="off"
-                label={"Branch Name *"}
+                placeholder={"Branch Name *"}
+                label={lbl(trsDetails.OtherBankBranchName, "Branch Name *")}
                 value={trsDetails.OtherBankBranchName}
                 change={TransactionDeatilHandlerChange}
                 fullWidth
@@ -3674,7 +3710,7 @@ const EditNONAPIDispute = () => {
             </Col>
             <Col lg={6} md={6} sm={24} xs={24}>
               <DatePicker
-                label={"Transaction Date *"}
+                label={lbl(trsDetails.TransactionDate, "Transaction Date *")}
                 name="TransactionDate"
                 size="large"
                 width="100%"
@@ -3690,7 +3726,7 @@ const EditNONAPIDispute = () => {
             </Col>
             <Col lg={6} md={6} sm={24} xs={24}>
               <TimePicker
-                label={"Transaction Time *"}
+                label={lbl(trsDetails.TransactionTime, "Transaction Time *")}
                 name="TransactionTime"
                 size="large"
                 width="100%"
@@ -3710,7 +3746,8 @@ const EditNONAPIDispute = () => {
                 }
                 textLength={(999, 999, 999, 999, 999, 999, 999)}
                 size="small"
-                Label={"Potential Save *"}
+                placeholder={"Potential Save *"}
+                Label={lbl(trsDetails.PotentialSave, "Potential Save *")}
                 fullWidth
                 change={TransactionDeatilHandlerChange}
               />
@@ -3726,7 +3763,11 @@ const EditNONAPIDispute = () => {
                 }
                 textLength={(999, 999, 999, 999, 999, 999, 999)}
                 size="small"
-                Label={"Transaction Amount *"}
+                placeholder={"Transaction Amount *"}
+                Label={lbl(
+                  trsDetails.TransactionAmount,
+                  "Transaction Amount *"
+                )}
                 fullWidth
                 change={TransactionDeatilHandlerChange}
               />
@@ -3742,14 +3783,22 @@ const EditNONAPIDispute = () => {
                 }
                 textLength={(999, 999, 999, 999, 999, 999, 999)}
                 size="small"
-                Label={"Exposure / Dispute Amount *"}
+                placeholder={"Exposure / Dispute Amount *"}
+                Label={lbl(
+                  trsDetails.DisputeAmount,
+                  "Exposure / Dispute Amount *"
+                )}
                 fullWidth
                 change={TransactionDeatilHandlerChange}
               />
             </Col>
             <Col lg={6} md={6} sm={24} xs={24} className="u-margin-top-22px">
               <SelectBox
-                label="Select Transaction Currency Code"
+                placeholder="Select Transaction Currency Code"
+                label={lbl(
+                  transactionCurrencyCodeValue,
+                  "Select Transaction Currency Code"
+                )}
                 option={transactionCurrencyCode}
                 value={transactionCurrencyCodeValue}
                 change={transactionCurrencyCodeHandler}
@@ -3761,7 +3810,8 @@ const EditNONAPIDispute = () => {
                 name="ApprovalCode"
                 size="small"
                 autoComplete="off"
-                label={"Approval Code *"}
+                placeholder={"Approval Code *"}
+                label={lbl(trsDetails.ApprovalCode, "Approval Code *")}
                 value={trsDetails.ApprovalCode}
                 change={TransactionDeatilHandlerChange}
                 fullWidth
@@ -3773,7 +3823,8 @@ const EditNONAPIDispute = () => {
                 name="Response"
                 size="small"
                 autoComplete="off"
-                label={"Response *"}
+                placeholder={"Response *"}
+                label={lbl(trsDetails.Response, "Response *")}
                 value={trsDetails.Response}
                 change={TransactionDeatilHandlerChange}
                 fullWidth
@@ -3785,7 +3836,8 @@ const EditNONAPIDispute = () => {
                 name="POSMode"
                 size="small"
                 autoComplete="off"
-                label={"Point Of Sale Mode *"}
+                placeholder={"Point Of Sale Mode *"}
+                label={lbl(trsDetails.POSMode, "Point Of Sale Mode *")}
                 value={trsDetails.POSMode}
                 change={TransactionDeatilHandlerChange}
                 fullWidth
@@ -3797,7 +3849,8 @@ const EditNONAPIDispute = () => {
                 name="MerchantName"
                 size="small"
                 autoComplete="off"
-                label={"Merchant Name *"}
+                placeholder={"Merchant Name *"}
+                label={lbl(trsDetails.MerchantName, "Merchant Name *")}
                 value={trsDetails.MerchantName}
                 change={TransactionDeatilHandlerChange}
                 fullWidth
@@ -3809,7 +3862,8 @@ const EditNONAPIDispute = () => {
                 name="MerchantID"
                 size="small"
                 autoComplete="off"
-                label={"Merchant ID *"}
+                placeholder={"Merchant ID *"}
+                label={lbl(trsDetails.MerchantID, "Merchant ID *")}
                 value={trsDetails.MerchantID}
                 change={TransactionDeatilHandlerChange}
                 fullWidth
@@ -3821,7 +3875,8 @@ const EditNONAPIDispute = () => {
                 name="MerchantCity"
                 size="small"
                 autoComplete="off"
-                label={"Merchant City *"}
+                placeholder={"Merchant City *"}
+                label={lbl(trsDetails.MerchantCity, "Merchant City *")}
                 value={trsDetails.MerchantCity}
                 fullWidth
                 change={TransactionDeatilHandlerChange}
@@ -3830,7 +3885,7 @@ const EditNONAPIDispute = () => {
             </Col>
             <Col lg={6} md={6} sm={24} xs={24} className="u-text-align-center">
               <label>
-                <b>On Us / Off Us *</b>
+                <b>On Us / Off Us</b>
               </label>
               <br />
               <Radio.Group
@@ -3846,7 +3901,11 @@ const EditNONAPIDispute = () => {
               <TextField
                 name="CategoryCodeMCC"
                 size="small"
-                label={"Merchant Category Code *"}
+                placeholder={"Merchant Category Code *"}
+                label={lbl(
+                  trsDetails.CategoryCodeMCC,
+                  "Merchant Category Code *"
+                )}
                 autoComplete="off"
                 value={trsDetails.CategoryCodeMCC}
                 change={TransactionDeatilHandlerChange}
@@ -3859,7 +3918,8 @@ const EditNONAPIDispute = () => {
                 name="ARN"
                 size="small"
                 autoComplete="off"
-                label={"Approval Reference Number *"}
+                placeholder={"Approval Reference Number *"}
+                label={lbl(trsDetails.ARN, "Approval Reference Number *")}
                 change={TransactionDeatilHandlerChange}
                 value={trsDetails.ARN}
                 fullWidth
@@ -3868,7 +3928,8 @@ const EditNONAPIDispute = () => {
             </Col>
             <Col lg={6} md={6} sm={24} xs={24}>
               <SelectBox
-                label="Source *"
+                placeholder="Source *"
+                label={lbl(SourceType, "Source *")}
                 option={sourceTypeName}
                 value={SourceType}
                 change={SourceNameHandler}
@@ -3879,7 +3940,8 @@ const EditNONAPIDispute = () => {
               <TextField
                 name="AcquirerID"
                 size="small"
-                label={"Acquirer ID *"}
+                placeholder={"Acquirer ID *"}
+                label={lbl(trsDetails.AcquirerID, "Acquirer ID *")}
                 autoComplete="off"
                 value={trsDetails.AcquirerID}
                 change={TransactionDeatilHandlerChange}
@@ -3892,7 +3954,11 @@ const EditNONAPIDispute = () => {
                 name="AcquirerTerminalID"
                 size="small"
                 autoComplete="off"
-                label={"Acquirer Terminal ID *"}
+                placeholder={"Acquirer Terminal ID *"}
+                label={lbl(
+                  trsDetails.AcquirerTerminalID,
+                  "Acquirer Terminal ID *"
+                )}
                 textLength={6}
                 value={
                   trsDetails.AcquirerTerminalID === ""
@@ -3907,7 +3973,11 @@ const EditNONAPIDispute = () => {
               <TextField
                 name="AcquirerInstitution"
                 size="small"
-                label={"Acquirer Institution *"}
+                placeholder={"Acquirer Institution *"}
+                label={lbl(
+                  trsDetails.AcquirerInstitution,
+                  "Acquirer Institution *"
+                )}
                 autoComplete="off"
                 value={trsDetails.AcquirerInstitution}
                 change={TransactionDeatilHandlerChange}
@@ -3968,7 +4038,8 @@ const EditNONAPIDispute = () => {
           <Row gutter={8}>
             <Col lg={6} md={6} sm={24} className="u-margin-top-22px">
               <DatePicker
-                label={"Case Received Date"}
+                placeholder={"Case Received Date"}
+                label={lbl(NPIDisputes.CaseReceivedDate, "Case Received Date")}
                 disable={true}
                 size="large"
                 width="100%"
@@ -3985,7 +4056,11 @@ const EditNONAPIDispute = () => {
             <Col lg={6} md={6} sm={24} className="u-margin-top-22px">
               <TextField
                 fullWidth
-                label="Case Received Channel"
+                placeholder="Case Received Channel"
+                label={lbl(
+                  NPIDisputes.CaseReceivedChannel,
+                  "Case Received Channel"
+                )}
                 autoComplete="off"
                 value={NPIDisputes.CaseReceivedChannel}
                 name="CaseReceivedChannel"
@@ -4026,6 +4101,7 @@ const EditNONAPIDispute = () => {
                 width="100%"
                 DateRange
                 placeholder={"Case Resolved Date"}
+                label={lbl(NPIDisputes.CaseResolvedDate, "Case Resolved Date")}
                 name="CaseResolvedDate"
                 value={
                   NPIDisputes.CaseResolvedDate
@@ -4040,7 +4116,11 @@ const EditNONAPIDispute = () => {
               <Paper>
                 <TextField
                   fullWidth
-                  label="Total Dispute Amount"
+                  placeholder="Total Dispute Amount"
+                  label={lbl(
+                    NPIDisputes.TotalTransactionAmount,
+                    "Total Dispute Amount"
+                  )}
                   value={
                     NPIDisputes.TotalTransactionAmount === null ||
                     NPIDisputes.TotalTransactionAmount === -99999999999999999999
@@ -4086,12 +4166,15 @@ const EditNONAPIDispute = () => {
             </Col>
             <Col lg={6} md={6} sm={24}>
               <DatePicker
-                label={"TC40 Reporting Date"}
+                placeholder={"TC40 Reporting Date"}
+                label={lbl(
+                  NPIDisputes.TC40ReportingDate,
+                  "TC40 Reporting Date"
+                )}
                 disable={isTC40ReportingDate}
                 size="large"
                 width="100%"
                 DateRange
-                placeholder={"Select TC 40 Reporting Date"}
                 name="TC40ReportingDate"
                 value={
                   NPIDisputes.TC40ReportingDate
@@ -4125,7 +4208,11 @@ const EditNONAPIDispute = () => {
               <TextField
                 disable={pOC}
                 fullWidth
-                label="Point Of Compromise Identified"
+                placeholder="Point Of Compromise Identified"
+                label={lbl(
+                  NPIDisputes.POCIdentified,
+                  "Point Of Compromise Identified"
+                )}
                 size="small"
                 name="POCIdentified"
                 value={NPIDisputes.POCIdentified}
@@ -4137,7 +4224,8 @@ const EditNONAPIDispute = () => {
             <Col lg={6} md={6} sm={24} xs={24} className="u-margin-top-15px">
               <TextField
                 fullWidth
-                label="Remarks"
+                placeholder="Remarks"
+                label={lbl(NPIDisputes.Remarks, "Remarks")}
                 size="small"
                 name="Remarks"
                 autoComplete="off"
@@ -4149,7 +4237,8 @@ const EditNONAPIDispute = () => {
             <Col lg={6} md={6} sm={24} xs={24} className="u-margin-top-15px">
               <TextField
                 fullWidth
-                label="Event ID (SAS REF #)"
+                placeholder="Event ID (SAS REF #)"
+                label={lbl(NPIDisputes.EventIDSAS, "Event ID (SAS REF #)")}
                 size="small"
                 autoComplete="off"
                 name="EventIDSAS"
@@ -4161,7 +4250,11 @@ const EditNONAPIDispute = () => {
             <Col lg={6} md={6} sm={24} xs={24} className="u-margin-top-15px">
               <TextField
                 fullWidth
-                label="Aging"
+                placeholder="Aging"
+                label={lbl(
+                  NPIDisputes.Aging === -1 ? null : NPIDisputes.Aging,
+                  "Aging"
+                )}
                 size="small"
                 name="Aging"
                 value={
@@ -4176,7 +4269,13 @@ const EditNONAPIDispute = () => {
             <Col lg={6} md={6} sm={24} xs={24} className="u-margin-top-15px">
               <TextField
                 fullWidth
-                label="Case Closed TAT"
+                placeholder="Case Closed TAT"
+                label={lbl(
+                  NPIDisputes.CaseClosedTAT === -1
+                    ? null
+                    : NPIDisputes.CaseClosedTAT,
+                  "Case Closed TAT"
+                )}
                 size="small"
                 name="CaseClosedTAT"
                 value={
