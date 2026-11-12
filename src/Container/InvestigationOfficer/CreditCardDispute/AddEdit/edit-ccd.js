@@ -39,11 +39,7 @@ import {
   removeDashesFromDate,
 } from "../../../../Common/Functions/date-formatter";
 import moment from "moment";
-import {
-  GetAllFraudType,
-  GetAllCaseDecision,
-  GetAllCity,
-} from "../../../../store/actions/setup-forms-actions";
+
 import {
   HideNotification,
   // SaveCreditCardDisputes,
@@ -89,8 +85,6 @@ const EditCreditCardDispute = () => {
   const [records, setRecords] = useState([]);
 
   const [recordIndex, setRecordIndex] = useState();
-
-  const [ButtonText, setButtonText] = useState("Add Record");
 
   const state = useSelector((state) => state);
 
@@ -665,6 +659,23 @@ const EditCreditCardDispute = () => {
   const CCTDOHandler = (e) => {
     let name = e.target.name;
     let value = e.target.value;
+
+    const NO_DASH_FIELDS = [
+      "ApprovalCode",
+      "POSMode",
+      "CategoryCodeMCC",
+      "AcquirerID",
+      "ARN",
+      "MerchantNumber",
+    ];
+
+    if (NO_DASH_FIELDS.includes(name)) {
+      setCreditCardTransactionDetailsObjects((prev) => ({
+        ...prev,
+        [name]: value.replace(/-/g, "").trimStart(),
+      }));
+      return;
+    }
     if (
       name !== "TransactionBilledAmount" &&
       name !== "TransactionID" &&
@@ -2139,16 +2150,8 @@ const EditCreditCardDispute = () => {
                 textLength={100}
               />
             </Col>
-            <Col lg={6} md={6} sm={24} xs={24}>
-              <div
-                style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  height: "100%",
-                }}
-              >
+            <Col lg={6} md={6} sm={24} xs={24} className="u-text-align-center">
+              <div>
                 <label>
                   <b>On Us / Off Us</b>
                 </label>
@@ -2340,23 +2343,27 @@ const EditCreditCardDispute = () => {
             </Col>
 
             <Col lg={3} md={3} sm={24} xs={24} className="u-text-align-center">
-              <label>
-                <b>Case Resolved</b>
-              </label>
-              <br />
-              <Radio.Group
-                name="IsCaseResolved"
-                value={CCDispute.IsCaseResolved}
-                onChange={CCDisputeHandler}
-                disabled={true}
-              >
-                <Radio disabled value={true}>
-                  Yes
-                </Radio>
-                <Radio disabled value={false}>
-                  No
-                </Radio>
-              </Radio.Group>
+              <div>
+                <label>
+                  <b>Case Resolved</b>
+                </label>
+                <br />
+                <span className="u-margin-left-15px">
+                  <Radio.Group
+                    name="IsCaseResolved"
+                    value={CCDispute.IsCaseResolved}
+                    onChange={CCDisputeHandler}
+                    disabled={true}
+                  >
+                    <Radio disabled value={true}>
+                      Yes
+                    </Radio>
+                    <Radio disabled value={false}>
+                      No
+                    </Radio>
+                  </Radio.Group>
+                </span>
+              </div>
             </Col>
 
             <Col lg={5} md={5} sm={24}>
@@ -2410,18 +2417,22 @@ const EditCreditCardDispute = () => {
           </Col>
           <Row gutter={16} className="u-margin-top-22px">
             <Col lg={3} md={3} sm={24} xs={24} className="u-text-align-center">
-              <label>
-                <b>TC 40 Reporting</b>
-              </label>
-              <br />
-              <Radio.Group
-                name="IsTC40Reporting"
-                value={CCDispute.IsTC40Reporting}
-                onChange={CCDisputeHandler}
-              >
-                <Radio value={true}>Yes</Radio>
-                <Radio value={false}>No</Radio>
-              </Radio.Group>
+              <div>
+                <label>
+                  <b>TC 40 Reporting</b>
+                </label>
+                <br />
+                <span className="u-margin-left-15px">
+                  <Radio.Group
+                    name="IsTC40Reporting"
+                    value={CCDispute.IsTC40Reporting}
+                    onChange={CCDisputeHandler}
+                  >
+                    <Radio value={true}>Yes</Radio>
+                    <Radio value={false}>No</Radio>
+                  </Radio.Group>
+                </span>
+              </div>
             </Col>
             <Col lg={6} md={6} sm={24}>
               <DatePicker
@@ -2444,18 +2455,22 @@ const EditCreditCardDispute = () => {
               />
             </Col>
             <Col lg={3} md={3} sm={24} xs={24} className="u-text-align-center">
-              <label>
-                <b>Safe Reporting</b>
-              </label>
-              <br />
-              <Radio.Group
-                name="isSafeReporting"
-                value={CCDispute.isSafeReporting}
-                onChange={CCDisputeHandler}
-              >
-                <Radio value={true}>Yes</Radio>
-                <Radio value={false}>No</Radio>
-              </Radio.Group>
+              <div>
+                <label>
+                  <b>Safe Reporting</b>
+                </label>
+                <br />
+                <span className="u-margin-left-15px">
+                  <Radio.Group
+                    name="isSafeReporting"
+                    value={CCDispute.isSafeReporting}
+                    onChange={CCDisputeHandler}
+                  >
+                    <Radio value={true}>Yes</Radio>
+                    <Radio value={false}>No</Radio>
+                  </Radio.Group>
+                </span>
+              </div>
             </Col>
             <Col lg={6} md={6} sm={24}>
               <DatePicker

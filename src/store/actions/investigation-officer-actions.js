@@ -816,7 +816,8 @@ const UpdateCreditCardDisputeDetails = (object) => {
     CustomerName: "",
     TransactionId: "",
     TotalTransactionAmount: -100000000000000000000,
-    fk_csid: 1,
+    fk_csid: -1,
+    FK_CTID: 0,
   };
   let DataForGlobalDate = {
     from: "",
@@ -844,6 +845,7 @@ const UpdateCreditCardDisputeDetails = (object) => {
             dispatch(
               UpdateCreditCardDisputeSuccess(response.data.responseResult)
             );
+
             if (flagForGlobalDispute === "true") {
               await localStorage.setItem("CaseStatus", Data.fk_csid);
               await localStorage.setItem("parent", "sub1");
@@ -851,6 +853,7 @@ const UpdateCreditCardDisputeDetails = (object) => {
               await dispatch(
                 ShowNotification(response.data.responseResult.responseMessage)
               );
+
               await dispatch(
                 SearchGlobalDisputes(DataForGlobal, DataForGlobalDate)
               );

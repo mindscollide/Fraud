@@ -409,7 +409,7 @@ const AddEditDebitCardDispute = () => {
                         DateRange={true}
                         required
                       />
-                      <Col lg={4} md={4} sm={24}>
+                      {/* <Col lg={4} md={4} sm={24}>
                         <Button
                           applyClass="btnDarkSolid"
                           text="Search"
@@ -419,7 +419,7 @@ const AddEditDebitCardDispute = () => {
                           }
                           click={searchHandlerForAccount}
                         />
-                      </Col>
+                      </Col> */}
                     </div>
                   </>
                 ) : null}

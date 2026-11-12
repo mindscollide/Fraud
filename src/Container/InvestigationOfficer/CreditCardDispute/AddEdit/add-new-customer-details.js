@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState } from "react";
 
 import { PlusOutlined as AddIcon } from "@ant-design/icons";
 
@@ -6,7 +6,7 @@ import { EditOutlined as Edit } from "@ant-design/icons";
 
 import InputMask from "react-input-mask";
 
-import { Typography, Radio, Tooltip, Empty, Row, Col } from "antd";
+import { Typography, Radio, Row, Col } from "antd";
 
 import moment from "moment";
 
@@ -482,6 +482,22 @@ const AddNewCustomerDetails = () => {
   const CCTDOHandler = (e) => {
     let name = e.target.name;
     let value = e.target.value;
+    const NO_DASH_FIELDS = [
+      "ApprovalCode",
+      "POSMode",
+      "CategoryCodeMCC",
+      "AcquirerID",
+      "ARN",
+      "MerchantNumber",
+    ];
+
+    if (NO_DASH_FIELDS.includes(name)) {
+      setCreditCardTransactionDetailsObjects((prev) => ({
+        ...prev,
+        [name]: value.replace(/-/g, "").trimStart(),
+      }));
+      return;
+    }
     if (
       name !== "TransactionBilledAmount" &&
       name !== "TransactionID" &&
@@ -2112,19 +2128,23 @@ const AddNewCustomerDetails = () => {
               />
             </Col>
             <Col lg={6} md={6} sm={24} xs={24} className="u-text-align-center">
-              <label>
-                <b>On Us / Off Us</b>
-              </label>
-              <br />
-              <Radio.Group
-                name="ON_OFF_US"
-                value={CreditCardTransactionDetailsObjects.ON_OFF_US}
-                onChange={CCTDOHandler}
-                required
-              >
-                <Radio value={true}>Yes</Radio>
-                <Radio value={false}>No</Radio>
-              </Radio.Group>
+              <div>
+                <label>
+                  <b>On Us / Off Us</b>
+                </label>
+                <br />
+                <span className="u-margin-left-15px">
+                  <Radio.Group
+                    name="ON_OFF_US"
+                    value={CreditCardTransactionDetailsObjects.ON_OFF_US}
+                    onChange={CCTDOHandler}
+                    required
+                  >
+                    <Radio value={true}>Yes</Radio>
+                    <Radio value={false}>No</Radio>
+                  </Radio.Group>
+                </span>
+              </div>
             </Col>
             <Col lg={6} md={6} sm={24} xs={24}>
               <TextField
@@ -2300,23 +2320,27 @@ const AddNewCustomerDetails = () => {
               />
             </Col>
             <Col lg={6} md={6} sm={24} xs={24} className="u-text-align-center">
-              <label>
-                <b>Case Resolved</b>
-              </label>
-              <br />
-              <Radio.Group
-                name="IsCaseResolved"
-                value={CCDispute.IsCaseResolved}
-                onChange={CCDisputeHandler}
-                disable={true}
-              >
-                <Radio disabled value={true}>
-                  Yes
-                </Radio>
-                <Radio disabled value={false}>
-                  No
-                </Radio>
-              </Radio.Group>
+              <div>
+                <label>
+                  <b>Case Resolved</b>
+                </label>
+                <br />
+                <span className="u-margin-left-15px">
+                  <Radio.Group
+                    name="IsCaseResolved"
+                    value={CCDispute.IsCaseResolved}
+                    onChange={CCDisputeHandler}
+                    disable={true}
+                  >
+                    <Radio disabled value={true}>
+                      Yes
+                    </Radio>
+                    <Radio disabled value={false}>
+                      No
+                    </Radio>
+                  </Radio.Group>
+                </span>
+              </div>
             </Col>
             <Col lg={6} md={6} sm={24}>
               <DatePicker
@@ -2368,18 +2392,22 @@ const AddNewCustomerDetails = () => {
           </Row>
           <Row gutter={8} className="u-margin-top-10px">
             <Col lg={6} md={6} sm={24} xs={24} className="u-text-align-center">
-              <label>
-                <b>TC 40 Reporting</b>
-              </label>
-              <br />
-              <Radio.Group
-                name="IsTC40Reporting"
-                value={CCDispute.IsTC40Reporting}
-                onChange={CCDisputeHandler}
-              >
-                <Radio value={true}>Yes</Radio>
-                <Radio value={false}>No</Radio>
-              </Radio.Group>
+              <div>
+                <label>
+                  <b>TC 40 Reporting</b>
+                </label>
+                <br />
+                <span className="u-margin-left-15px">
+                  <Radio.Group
+                    name="IsTC40Reporting"
+                    value={CCDispute.IsTC40Reporting}
+                    onChange={CCDisputeHandler}
+                  >
+                    <Radio value={true}>Yes</Radio>
+                    <Radio value={false}>No</Radio>
+                  </Radio.Group>
+                </span>
+              </div>
             </Col>
             <Col lg={6} md={6} sm={24}>
               <DatePicker
@@ -2403,18 +2431,22 @@ const AddNewCustomerDetails = () => {
               />
             </Col>
             <Col lg={6} md={6} sm={24} xs={24} className="u-text-align-center">
-              <label>
-                <b>Safe Reporting</b>
-              </label>
-              <br />
-              <Radio.Group
-                name="isSafeReporting"
-                value={CCDispute.isSafeReporting}
-                onChange={CCDisputeHandler}
-              >
-                <Radio value={true}>Yes</Radio>
-                <Radio value={false}>No</Radio>
-              </Radio.Group>
+              <div>
+                <label>
+                  <b>Safe Reporting</b>
+                </label>
+                <br />
+                <span className="u-margin-left-15px">
+                  <Radio.Group
+                    name="isSafeReporting"
+                    value={CCDispute.isSafeReporting}
+                    onChange={CCDisputeHandler}
+                  >
+                    <Radio value={true}>Yes</Radio>
+                    <Radio value={false}>No</Radio>
+                  </Radio.Group>
+                </span>
+              </div>
             </Col>
             <Col lg={6} md={6} sm={24}>
               <DatePicker
@@ -2459,19 +2491,22 @@ const AddNewCustomerDetails = () => {
               />
             </Col>
             <Col lg={6} md={6} sm={24} xs={24} className="u-text-align-center">
-              <label>
-                <b>Point Of Compromise Identified</b>
-              </label>
-              <br />
-              <Radio.Group
-                name="IsPOC"
-                value={CCDispute.IsPOC}
-                onChange={CCDisputeHandler}
-              >
-                <Radio value={true}>Yes</Radio>
-                <Radio value={false}>No</Radio>
-              </Radio.Group>
+              <div>
+                <label>
+                  <b>Point Of Compromise Identified</b>
+                </label>
+                <br />
+                <Radio.Group
+                  name="IsPOC"
+                  value={CCDispute.IsPOC}
+                  onChange={CCDisputeHandler}
+                >
+                  <Radio value={true}>Yes</Radio>
+                  <Radio value={false}>No</Radio>
+                </Radio.Group>
+              </div>
             </Col>
+
             <Col lg={12} md={12} sm={24} xs={24}>
               <TextField
                 disable={pOC}

@@ -203,20 +203,20 @@ const SignUp = () => {
     }
   };
 
-  useEffect(() => {
-    if (
-      auth.ResponseMessage !=
-        "User already exists in Fraud System. Please use other credentials" &&
-      auth.ResponseMessage !=
-        "Signup request for the Login ID is in pending state. Please use a different ID"
-    ) {
-      setOpen({
-        ...open,
-        open: true,
-        message: auth.ResponseMessage,
-      });
-    }
-  }, [auth.ResponseMessage]);
+  // useEffect(() => {
+  //   if (
+  //     auth.ResponseMessage !=
+  //       "User already exists in Fraud System. Please use other credentials" &&
+  //     auth.ResponseMessage !=
+  //       "Signup request for the Login ID is in pending state. Please use a different ID"
+  //   ) {
+  //     setOpen({
+  //       ...open,
+  //       open: true,
+  //       message: auth.ResponseMessage,
+  //     });
+  //   }
+  // }, [auth.ResponseMessage]);
 
   // handler just to set values from fields to state:
   const setFieldsHandler = (e) => {

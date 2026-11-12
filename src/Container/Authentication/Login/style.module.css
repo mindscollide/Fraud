@@ -7,14 +7,14 @@
 
 .formTitle {
   margin: 0 0 6px;
-  color: #EC8D57;
+  color: #ec8d57;
   font-size: 28px;
   font-weight: 700;
 }
 
 .formSubtitle {
   margin: 0 0 22px;
-  color: #8C8C8C;
+  color: #8c8c8c;
   font-size: 13px;
 }
 
@@ -22,8 +22,8 @@
 .form :global(.ant-input-affix-wrapper).field {
   margin-top: 14px;
   height: 46px;
-  background: #FFF8F3 !important;
-  border: 1px solid #FFF8F3 !important;
+  background: #fff8f3 !important;
+  border: 1px solid #fff8f3 !important;
   border-radius: 10px !important;
   transition: border-color 0.2s, background-color 0.2s;
 }
@@ -33,36 +33,50 @@
 }
 
 .form :global(.ant-input-affix-wrapper-focused).field {
-  background: #FFFFFF !important;
-  border-color: #EC8D57 !important;
+  background: #ffffff !important;
+  border-color: #ec8d57 !important;
 }
 
 .form :global(.ant-input-prefix) {
   margin-right: 10px;
-  color: #EC8D57;
+  color: #ec8d57;
 }
 
 .eye {
   display: inline-flex;
-  color: #8C8C8C;
+  color: #8c8c8c;
   cursor: pointer;
 }
 
 .eye:hover {
-  color: #EC8D57;
+  color: #ec8d57;
 }
 
 .passwordInputField {
   -webkit-text-security: disc;
 }
 
-.error {
+/* .error {
   margin-top: 12px;
   padding: 6px 10px;
   border-radius: 8px;
-  background: #FDECEC;
-  color: #CE0000;
+  background: #fdecec;
+  color: #ce0000;
   font-size: 12px;
+}
+
+.fade {
+  transition: opacity 0.15s linear;
+} */
+
+.error {
+  color: #ffffff;
+  font-size: 11px;
+  width: 100%;
+  background: #ce0000;
+  padding: 2px;
+  text-align: center !important;
+  margin-top: 10px;
 }
 
 .fade {
@@ -76,8 +90,8 @@
   padding: 12px 40px;
   border: none;
   border-radius: 999px;
-  background: #EC8D57;
-  color: #FFFFFF;
+  background: #ec8d57;
+  color: #ffffff;
   font-family: inherit;
   font-size: 13px;
   font-weight: 600;
@@ -88,10 +102,14 @@
 }
 
 .primaryButton:hover {
-  background: #D07C4D;
+  background: #d07c4d;
   box-shadow: 0 10px 22px rgba(236, 141, 87, 0.45);
 }
 
 .primaryButton:active {
   transform: scale(0.97);
+}
+.fieldError {
+  margin-top: 6px; /* adjust to match your .field margin-bottom */
+  margin-bottom: 12px;
 }

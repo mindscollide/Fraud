@@ -2937,7 +2937,7 @@ const EditDebitCardDispute = () => {
               CustomerName: "",
               TransactionId: "",
               TotalTransactionAmount: -100000000000000000000,
-              fk_csid: 1,
+              fk_csid: -1,
             };
             let DataForGlobalDate = {
               from: "",
