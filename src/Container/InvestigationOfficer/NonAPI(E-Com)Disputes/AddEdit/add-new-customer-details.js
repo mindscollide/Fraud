@@ -3571,18 +3571,22 @@ const AddNewCustomerDetailsNONAPI = () => {
               />
             </Col>
             <Col lg={6} md={6} sm={24} xs={24} className="u-text-align-center">
-              <label>
-                <b>On Us / Off Us</b>
-              </label>
-              <br />
-              <Radio.Group
-                name="ON_OFF_US"
-                value={trsDetails.ON_OFF_US}
-                onChange={TransactionDeatilHandlerChange}
-              >
-                <Radio value={true}>Yes</Radio>
-                <Radio value={false}>No</Radio>
-              </Radio.Group>
+              <div>
+                <label>
+                  <b>On Us / Off Us</b>
+                </label>
+                <br />
+                <span className="u-margin-left-15px">
+                  <Radio.Group
+                    name="ON_OFF_US"
+                    value={trsDetails.ON_OFF_US}
+                    onChange={TransactionDeatilHandlerChange}
+                  >
+                    <Radio value={true}>Yes</Radio>
+                    <Radio value={false}>No</Radio>
+                  </Radio.Group>
+                </span>
+              </div>
             </Col>
             <Col lg={6} md={6} sm={24} xs={24}>
               <TextField

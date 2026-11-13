@@ -1482,7 +1482,7 @@ const ViewCustomerDetailsADC = () => {
             <Col lg={6} md={6} sm={24} xs={24}>
               <FormattedInputs
                 fullWidth
-                Label="Expected Recovery From HBL"
+                Label="Expected Recovery From Bank"
                 size="small"
                 name="ExpectedRecoveryFromHBLBeneficiary"
                 value={

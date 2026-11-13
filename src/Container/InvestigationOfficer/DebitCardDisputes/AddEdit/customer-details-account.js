@@ -1,36 +1,25 @@
 import React, { useEffect, useState } from "react";
 import { PlusOutlined as AddIcon } from "@ant-design/icons";
-import { Tooltip, Typography, Radio, Col, Row } from "antd";
-import { EditOutlined as Edit } from "@ant-design/icons";
+import { Tooltip, Col, Row } from "antd";
 import {
   Paper,
-  InputWithBtn,
   TextField,
   Table,
   SelectBox,
-  DatePicker,
   Button,
-  FancyBox,
-  ConsolidateBox,
   Notification,
-  Message,
   Loader,
-  FormattedInputs,
 } from "../../../../Components/Elements";
 import {
   HideNotification,
   GetDebitCardDisputesForEditByCnicAndRefrenceNumber,
   GetTransactionDetailsByAccountNumber,
   SearchDebitCardDisputesByCnicAndReferenceNumber,
-  RESETALLSTATE,
 } from "../../../../store/actions/investigation-officer-actions";
 import { ensureLookup } from "../../../../store/actions/lookup-actions";
 import { enableGoBack } from "../../../../store/actions/ui-actions";
 import {
   DateDisplayFormat,
-  DateSendingFormat,
-  currentToOneYearBackDate,
-  NumberFormater,
   CommaFormter,
 } from "../../../../Common/Functions/date-formatter";
 import { useDispatch, useSelector } from "react-redux";
@@ -39,8 +28,6 @@ import { useNavigate } from "react-router-dom";
 const CustomerDetailsDebitCardDisputeAccount = () => {
   var accountNumber = localStorage.getItem("AccountNumber");
 
-  const { Title } = Typography;
-
   const [btnStatus, setBtnStatus] = useState(false);
 
   const dispatch = useDispatch();
@@ -48,10 +35,6 @@ const CustomerDetailsDebitCardDisputeAccount = () => {
   const state = useSelector((state) => state);
 
   const navigate = useNavigate();
-
-  const [CNIC, setCNIC] = useState({
-    CNIC: "",
-  });
 
   const [customer, setCustomer] = useState({
     custName: "",
@@ -65,7 +48,6 @@ const CustomerDetailsDebitCardDisputeAccount = () => {
     flag: false,
     message: "",
   });
-  const [transactionDetails, setTransactionDetailsNIC] = useState([]);
 
   const { investigationOfficer, setupForms } = state;
 
@@ -331,13 +313,17 @@ const CustomerDetailsDebitCardDisputeAccount = () => {
       <Paper>
         <Row gutter={16}>
           <Col lg={18} md={18} sm={18} xs={24}>
-            <h1
-              className="u-font-size-18px u-margin-top-15px u-margin-left-20px u-color-ec8d57"
-            >
+            <h1 className="u-font-size-18px u-margin-top-15px u-margin-left-20px u-color-ec8d57">
               Customer Details
             </h1>
           </Col>
-          <Col lg={6} md={6} sm={6} xs={24} className="u-margin-0 u-position-relative u-text-align-left">
+          <Col
+            lg={6}
+            md={6}
+            sm={6}
+            xs={24}
+            className="u-margin-0 u-position-relative u-text-align-left"
+          >
             <div className="Level-Section">
               <div>
                 <i className="icon-card icon-size-one"></i>

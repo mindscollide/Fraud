@@ -1964,17 +1964,17 @@ const SearchDebitCardDisputesByCnicAndReferenceNumber = (object, TTID) => {
             await dispatch(
               GetDebitCardDisputesByCnicSuccess(response.data.responseResult)
             );
+            localStorage.setItem("CNICNumber", object.CNICNumber);
+            if (!TTID) {
+              localStorage.removeItem("FK_TTID");
+              navigate("/Fraud/DebitCardDisputes/ViewCustomerDetails");
+            }
             await dispatch(ensureLookup("fraudType"));
             await dispatch(ensureLookup("source"));
             await dispatch(ensureLookup("caseDecision"));
             await dispatch(ensureLookup("city"));
             await dispatch(ensureLookup("approvalReasons"));
             await dispatch(ensureLookup("rejectionReasons"));
-            localStorage.setItem("CNICNumber", object.CNICNumber);
-            if (!TTID) {
-              localStorage.removeItem("FK_TTID");
-              navigate("/Fraud/DebitCardDisputes/ViewCustomerDetails");
-            }
           } else {
             dispatch(
               GetDebitCardDisputesByCnicFail(

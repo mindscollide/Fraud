@@ -1,6 +1,6 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState } from "react";
 import { PlusOutlined as AddIcon } from "@ant-design/icons";
-import { Typography, Radio, Space, Empty, Tooltip, Row, Col } from "antd";
+import { Typography, Radio, Tooltip, Row, Col } from "antd";
 import InputMask from "react-input-mask";
 import CustomUpload from "../../../../Components/Elements/Upload/Upload";
 import { EditOutlined as Edit } from "@ant-design/icons";
@@ -14,15 +14,10 @@ import {
   DatePicker,
   TimePicker,
   Button,
-  FancyBox,
-  ConsolidateBox,
   Notification,
   Table,
-  Message,
   Loader,
   FormattedInputs,
-  // Upload,
-  uploadButton,
   Modal,
   GroupedButtons,
 } from "../../../../Components/Elements";
@@ -1571,18 +1566,29 @@ const EditDebitCardDispute = () => {
       name !== "DisputeAmount" &&
       name !== "TransactionCurrencyCode" &&
       name !== "MerchantName" &&
-      name !== "MerchantID" &&
+      // name !== "MerchantID" &&
       name !== "MerchantCity" &&
-      name !== "CategoryCodeMCC" &&
+      // name !== "CategoryCodeMCC" &&
       name !== "AcquirerID" &&
       name !== "AcquirerTerminalID" &&
-      name !== "POSMode" &&
+      // name !== "POSMode" &&qe
       name !== "ON_OFF_US" &&
       (value !== "" || value === false)
     ) {
+      // setTrsDetails({
+      //   ...trsDetails,
+      //   [name]: value.trimStart(),
+      // });
+
       setTrsDetails({
         ...trsDetails,
-        [name]: value.trimStart(),
+        [name]:
+          name === "ApprovalCode" ||
+          name === "ARN" ||
+          name === "POSMode" ||
+          name === "CategoryCodeMCC"
+            ? value.replace(/-/g, "").trimStart()
+            : value.trimStart(),
       });
     } else if (name === "ON_OFF_US") {
       setTrsDetails({
@@ -1601,20 +1607,19 @@ const EditDebitCardDispute = () => {
           [name]: valueCheck.trimStart(),
         });
       }
-    } else if (name === "POSMode" && value !== "") {
-      var valueCheck = value.replace(/[^\d-]/g, "");
-      if (valueCheck != "") {
-        setTrsDetails({
-          ...trsDetails,
-          [name]: valueCheck,
-        });
-      }
-    } else if (name === "POSMode" && value === "") {
-      setTrsDetails({
-        ...trsDetails,
-        [name]: "",
-      });
-    } else if (name === "OtherBankAccountNumber" && value !== "") {
+    }
+    // else if (name === "POSMode" && value !== "") {
+    //   var valueCheck = value.replace(/[^\d]/g, ""); // was /[^\d-]/g
+    //   if (valueCheck != "") {
+    //     setTrsDetails({ ...trsDetails, [name]: valueCheck });
+    //   }
+    // } else if (name === "POSMode" && value === "") {
+    //   setTrsDetails({
+    //     ...trsDetails,
+    //     [name]: "",
+    //   });
+    // }
+    else if (name === "OtherBankAccountNumber" && value !== "") {
       var valueCheck = value.replace(/[^\d-]/g, "");
       if (valueCheck != "") {
         setTrsDetails({
@@ -1653,34 +1658,37 @@ const EditDebitCardDispute = () => {
         ...trsDetails,
         [name]: "",
       });
-    } else if (name === "MerchantID" && value !== "") {
-      var valueCheck = value.replace(/[^\d-]/g, "");
-      if (valueCheck != "") {
-        setTrsDetails({
-          ...trsDetails,
-          [name]: valueCheck,
-        });
-      }
-    } else if (name === "MerchantID" && value === "") {
-      setTrsDetails({
-        ...trsDetails,
-        [name]: "",
-      });
-    } else if (name === "CategoryCodeMCC" && value !== "") {
-      var valueCheck = value.replace(/[^\d-]/g, "");
-      if (valueCheck != "") {
-        setTrsDetails({
-          ...trsDetails,
-          [name]: valueCheck,
-        });
-      }
-    } else if (name === "CategoryCodeMCC" && value === "") {
-      setTrsDetails({
-        ...trsDetails,
-        [name]: "",
-      });
-    } else if (name === "AcquirerID" && value !== "") {
-      var valueCheck = value.replace(/[^\d-]/g, "");
+    }
+    // else if (name === "MerchantID" && value !== "") {
+    //   var valueCheck = value.replace(/[^\d-]/g, "");
+    //   if (valueCheck != "") {
+    //     setTrsDetails({
+    //       ...trsDetails,
+    //       [name]: valueCheck,
+    //     });
+    //   }
+    // } else if (name === "MerchantID" && value === "") {
+    //   setTrsDetails({
+    //     ...trsDetails,
+    //     [name]: "",
+    //   });
+    // }
+    // else if (name === "CategoryCodeMCC" && value !== "") {
+    //   var valueCheck = value.replace(/[^\d]/g, "");
+    //   if (valueCheck != "") {
+    //     setTrsDetails({
+    //       ...trsDetails,
+    //       [name]: valueCheck,
+    //     });
+    //   }
+    // } else if (name === "CategoryCodeMCC" && value === "") {
+    //   setTrsDetails({
+    //     ...trsDetails,
+    //     [name]: "",
+    //   });
+    // }
+    else if (name === "AcquirerID" && value !== "") {
+      var valueCheck = value.replace(/[^\/-d]/g, "");
       if (valueCheck != "") {
         setTrsDetails({
           ...trsDetails,
@@ -3875,7 +3883,6 @@ const EditDebitCardDispute = () => {
             <Col lg={6} md={6} sm={24} xs={24}>
               <InputWithBtn
                 onchange={TransactionIDchangehandler}
-                // isUpperCase={true}
                 label={lbl(trsDetails.TransactionID, "Transaction ID *")}
                 placeholder={"Transaction ID *"}
                 fullWidth
@@ -4114,7 +4121,7 @@ const EditDebitCardDispute = () => {
                 value={trsDetails.POSMode}
                 change={TransactionDeatilHandlerChange}
                 fullWidth
-                textLength={6}
+                textLength={30}
               />
             </Col>
             <Col lg={6} md={6} sm={24} xs={24}>
@@ -4158,18 +4165,22 @@ const EditDebitCardDispute = () => {
             </Col>
 
             <Col lg={6} md={6} sm={24} xs={24} className="u-text-align-center">
-              <label>
-                <b>On Us / Off Us</b>
-              </label>
-              <br />
-              <Radio.Group
-                name="ON_OFF_US"
-                value={trsDetails.ON_OFF_US}
-                onChange={TransactionDeatilHandlerChange}
-              >
-                <Radio value={true}>Yes</Radio>
-                <Radio value={false}>No</Radio>
-              </Radio.Group>
+              <div>
+                <label>
+                  <b>On Us / Off Us</b>
+                </label>
+                <br />
+                <span className="u-margin-left-15px">
+                  <Radio.Group
+                    name="ON_OFF_US"
+                    value={trsDetails.ON_OFF_US}
+                    onChange={TransactionDeatilHandlerChange}
+                  >
+                    <Radio value={true}>Yes</Radio>
+                    <Radio value={false}>No</Radio>
+                  </Radio.Group>
+                </span>
+              </div>
             </Col>
             <Col lg={6} md={6} sm={24} xs={24}>
               <TextField
@@ -4184,7 +4195,7 @@ const EditDebitCardDispute = () => {
                 value={trsDetails.CategoryCodeMCC}
                 change={TransactionDeatilHandlerChange}
                 fullWidth
-                textLength={6}
+                textLength={7}
               />
             </Col>
             <Col lg={6} md={6} sm={24} xs={24}>
@@ -4310,7 +4321,7 @@ const EditDebitCardDispute = () => {
             </h1>
           </Col>
           <Row gutter={8}>
-            <Col lg={6} md={6} sm={24} className="u-margin-top-22px">
+            <Col lg={5} md={5} sm={24} className="u-margin-top-22px">
               <DatePicker
                 label={lbl(DCDisputes.CaseReceivedDate, "Case Received Date")}
                 placeholder={"Case Received Date"}
@@ -4328,7 +4339,7 @@ const EditDebitCardDispute = () => {
                 // defaultValue="{moment()}"
               />
             </Col>
-            <Col lg={6} md={6} sm={24} className="u-margin-top-22px">
+            <Col lg={5} md={5} sm={24} className="u-margin-top-22px">
               <TextField
                 fullWidth
                 label={lbl(
@@ -4346,31 +4357,34 @@ const EditDebitCardDispute = () => {
               />
             </Col>
             <Col
-              lg={6}
-              md={6}
+              lg={4}
+              md={4}
               sm={24}
               xs={24}
               className="u-text-align-center u-margin-top-15px"
             >
-              <label>
-                <b>Case Resolved</b>
-              </label>
-              <br />
-              <Radio.Group
-                name="IsCaseResolved"
-                value={DCDisputes.IsCaseResolved}
-                onChange={DCDisputeHandler}
-                disable={true}
-              >
-                <Radio disabled value={true}>
-                  Yes
-                </Radio>
-                <Radio disabled value={false}>
-                  No
-                </Radio>
-              </Radio.Group>
+              <div>
+                <label>
+                  <b>Case Resolved</b>
+                </label>
+                <br />
+                <span className="u-margin-left-15px"></span>
+                <Radio.Group
+                  name="IsCaseResolved"
+                  value={DCDisputes.IsCaseResolved}
+                  onChange={DCDisputeHandler}
+                  disable={true}
+                >
+                  <Radio disabled value={true}>
+                    Yes
+                  </Radio>
+                  <Radio disabled value={false}>
+                    No
+                  </Radio>
+                </Radio.Group>
+              </div>
             </Col>
-            <Col lg={6} md={6} sm={24} className="u-margin-top-22px">
+            <Col lg={5} md={5} sm={24} className="u-margin-top-22px">
               <DatePicker
                 size="large"
                 width="100%"
@@ -4387,7 +4401,7 @@ const EditDebitCardDispute = () => {
                 disable
               />
             </Col>
-            <Col lg={6} md={6} sm={24} className="u-margin-top-22px">
+            <Col lg={5} md={5} sm={24} className="u-margin-top-22px">
               <Paper>
                 <TextField
                   fullWidth
@@ -4419,21 +4433,25 @@ const EditDebitCardDispute = () => {
             </h1>
           </Col>
           <Row gutter={8}>
-            <Col lg={6} md={6} sm={24} xs={24}>
-              <label>
-                <b>TC 40 Reporting</b>
-              </label>
-              <br />
-              <Radio.Group
-                name="IsTC40Reporting"
-                value={DCDisputes.IsTC40Reporting}
-                onChange={DCDisputeHandler}
-              >
-                <Radio value={true}>Yes</Radio>
-                <Radio value={false}>No</Radio>
-              </Radio.Group>
+            <Col lg={4} md={4} sm={24} xs={24} className="u-text-align-center">
+              <div>
+                <label>
+                  <b>TC 40 Reporting</b>
+                </label>
+                <br />
+                <span className="u-margin-left-15px">
+                  <Radio.Group
+                    name="IsTC40Reporting"
+                    value={DCDisputes.IsTC40Reporting}
+                    onChange={DCDisputeHandler}
+                  >
+                    <Radio value={true}>Yes</Radio>
+                    <Radio value={false}>No</Radio>
+                  </Radio.Group>
+                </span>
+              </div>
             </Col>
-            <Col lg={6} md={6} sm={24}>
+            <Col lg={5} md={5} sm={24}>
               <DatePicker
                 disable={isTC40ReportingDate}
                 size="large"
@@ -4453,21 +4471,25 @@ const EditDebitCardDispute = () => {
                 change={DateHandler}
               />
             </Col>
-            <Col lg={6} md={6} sm={24} xs={24} className="u-text-align-center">
-              <label>
-                <b>Safe Reporting</b>
-              </label>
-              <br />
-              <Radio.Group
-                name="IsSafeReportingDate"
-                value={DCDisputes.IsSafeReportingDate}
-                onChange={DCDisputeHandler}
-              >
-                <Radio value={true}>Yes</Radio>
-                <Radio value={false}>No</Radio>
-              </Radio.Group>
+            <Col lg={4} md={4} sm={24} xs={24} className="u-text-align-center">
+              <div>
+                <label>
+                  <b>Safe Reporting</b>
+                </label>
+                <br />
+                <span className="u-margin-left-15px">
+                  <Radio.Group
+                    name="IsSafeReportingDate"
+                    value={DCDisputes.IsSafeReportingDate}
+                    onChange={DCDisputeHandler}
+                  >
+                    <Radio value={true}>Yes</Radio>
+                    <Radio value={false}>No</Radio>
+                  </Radio.Group>
+                </span>
+              </div>
             </Col>
-            <Col lg={6} md={6} sm={24}>
+            <Col lg={5} md={5} sm={24}>
               <DatePicker
                 disable={safeReportingDate}
                 size="large"
@@ -4496,20 +4518,23 @@ const EditDebitCardDispute = () => {
               Closure Details
             </h1>
           </Col>
-          <Row gutter={8}>
-            <Col lg={6} md={6} sm={24} xs={24} className="u-margin-bottom-20px">
-              <label>
-                <b>Point Of Compromise Identified</b>
-              </label>
-              <br />
-              <Radio.Group
-                name="IsPOC"
-                value={DCDisputes.IsPOC}
-                onChange={DCDisputeHandler}
-              >
-                <Radio value={true}>Yes</Radio>
-                <Radio value={false}>No</Radio>
-              </Radio.Group>
+          <Row gutter={8} className="u-margin-bottom-20px">
+            <Col lg={6} md={6} sm={24} xs={24} className="u-text-align-center">
+              <div>
+                <label>
+                  <b>Point Of Compromise Identified</b>
+                </label>
+                <br />
+                {/* <span className="u-margin-left-15px"></span> */}
+                <Radio.Group
+                  name="IsPOC"
+                  value={DCDisputes.IsPOC}
+                  onChange={DCDisputeHandler}
+                >
+                  <Radio value={true}>Yes</Radio>
+                  <Radio value={false}>No</Radio>
+                </Radio.Group>
+              </div>
             </Col>
             <Col lg={6} md={6} sm={24} xs={24}>
               <TextField
