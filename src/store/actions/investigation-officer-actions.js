@@ -1670,6 +1670,12 @@ const SearchCustomerByCnic = (object) => {
   };
 };
 
+// GetAllAccountsByCnic (DC and BBK) answers with cnicStatus "Found" |
+// "NotInIris" | "NotInFraudDb" (SRS 14.1.1 / 17.1.1). A backend without the
+// field only has isExecuted (true = IRIS returned accounts).
+const cnicLookupStatus = (result) =>
+  result.cnicStatus || (result.isExecuted === true ? "Found" : "NotInIris");
+
 const GetAllAccountsByCnic = ({ object, setCnicFound }) => {
   let token = JSON.parse(localStorage.getItem("token"));
   let Data = {
@@ -1693,14 +1699,21 @@ const GetAllAccountsByCnic = ({ object, setCnicFound }) => {
           await dispatch(refreshToken());
           dispatch(GetAllAccountsByCnic({ object, setCnicFound }));
         } else if (response.data.responseCode === 200) {
-          if (response.data.responseResult.isExecuted === true) {
-            dispatch(GetAllAccountsSuccess(response.data.responseResult));
-            setCnicFound(true);
-          } else {
+          const result = response.data.responseResult;
+          const status = cnicLookupStatus(result);
+          if (status === "NotInIris") {
+            // "System will not create new record": no account dropdown
             dispatch(customerNotFoundModal(true));
-            dispatch(
-              GetAllAccountsFail(response.data.responseResult.responseMessage)
-            );
+            dispatch(GetAllAccountsFail(result.responseMessage));
+          } else {
+            // ask "create a new record?" first; Proceed shows the dropdown.
+            // Opened before the accounts land so the page doesn't reveal the
+            // dropdown behind the dialog.
+            if (status === "NotInFraudDb") dispatch(customerFoundModal(true));
+            dispatch(GetAllAccountsSuccess(result));
+            if (status !== "NotInFraudDb" && setCnicFound) {
+              setCnicFound(true);
+            }
           }
         } else {
           dispatch(GetAllAccountsFail(response.data.responseMessage));
@@ -3743,7 +3756,7 @@ const GetBBKDisputesByCnicAndReferenceNumberForEditFail = (response) => {
 
 //APIS
 //GetAllAccountsByCnicBBK
-const GetAllAccountsByCnicBBK = (object) => {
+const GetAllAccountsByCnicBBK = (object, setCnicFound) => {
   let token = JSON.parse(localStorage.getItem("token"));
   let Data = {
     CNIC: object,
@@ -3764,15 +3777,21 @@ const GetAllAccountsByCnicBBK = (object) => {
       .then(async (response) => {
         if (response.data.responseCode === 417) {
           await dispatch(refreshToken());
-          dispatch(GetAllAccountsByCnicBBK(object));
+          dispatch(GetAllAccountsByCnicBBK(object, setCnicFound));
         } else if (response.data.responseCode === 200) {
-          if (response.data.responseResult.isExecuted === true) {
-            dispatch(GetAllAccountsBBKSuccess(response.data.responseResult));
-          } else {
+          const result = response.data.responseResult;
+          const status = cnicLookupStatus(result);
+          if (status === "NotInIris") {
+            // "System will not create new record": no account dropdown
             dispatch(customerNotFoundModal(true));
-            dispatch(
-              GetAllAccountsFail(response.data.responseResult.responseMessage)
-            );
+            dispatch(GetAllAccountsFail(result.responseMessage));
+          } else {
+            // ask "create a new record?" first; Proceed shows the dropdown
+            if (status === "NotInFraudDb") dispatch(customerFoundModal(true));
+            dispatch(GetAllAccountsBBKSuccess(result));
+            if (status !== "NotInFraudDb" && setCnicFound) {
+              setCnicFound(true);
+            }
           }
         } else {
           dispatch(GetAllAccountsBBKFail(response.data.responseMessage));

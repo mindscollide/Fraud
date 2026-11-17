@@ -47,6 +47,9 @@ const AddEditDebitCardDispute = () => {
   const [account, setAccount] = useState([]);
   const [accountNumber, setAccountNumber] = useState("");
   const [accountFound, setAccountFound] = useState(false);
+  // officer already answered "create a new record?" for this CNIC (it isn't
+  // in the Fraud DB), so the same question at the account step is skipped
+  const [cnicConfirmed, setCnicConfirmed] = useState(false);
 
   // Account Number flow
   const [inputDataAC, setInputDataAC] = useState("");
@@ -76,6 +79,7 @@ const AddEditDebitCardDispute = () => {
   // Clears everything that belongs to the searched CNIC (accounts, selection, date step)
   const clearCnicResults = () => {
     setCnicFound(false);
+    setCnicConfirmed(false);
     setAccount([]);
     setAccountNumber("");
     setAccountFound(false);
@@ -183,11 +187,26 @@ const AddEditDebitCardDispute = () => {
     }
   };
 
-  // Proceed: not in Fraud DB — lock the account and show the date range + Search for IRIS
+  // Proceed: not in Fraud DB. Asked after the CNIC search (no dropdown yet):
+  // show the account dropdown. Asked after an account was picked: lock the
+  // account and show the date range + Search for IRIS.
   const newDataHAndler = () => {
     dispatch(customerFoundModal(false));
+    if (!cnicFound) {
+      setCnicConfirmed(true);
+      setCnicFound(true);
+      return;
+    }
     setAccountFound(true);
   };
+
+  // the CNIC was already confirmed as a new record: answer the account-step
+  // question for the officer instead of asking twice
+  const skipAccountConfirm =
+    investigationOfficer.CustomerFoundModal && cnicFound && cnicConfirmed;
+  useEffect(() => {
+    if (skipAccountConfirm) newDataHAndler();
+  }, [skipAccountConfirm]);
 
   const searchHandlerForAccount = () => {
     localStorage.setItem("State", JSON.stringify(State));
@@ -304,12 +323,13 @@ const AddEditDebitCardDispute = () => {
     },
   };
 
-  // The dropdown shows only once the CNIC search actually returned accounts
+  // The dropdown shows only once the CNIC search actually returned accounts,
+  // and, for a CNIC not in the Fraud DB, only after Proceed (newDataHAndler)
   useEffect(() => {
     let numberAccount = investigationOfficer.AccountsData;
     if (numberAccount && numberAccount.length > 0) {
       setAccount(numberAccount);
-      setCnicFound(true);
+      if (!investigationOfficer.CustomerFoundModal) setCnicFound(true);
     } else {
       setAccount([]);
       setCnicFound(false);
@@ -580,10 +600,10 @@ const AddEditDebitCardDispute = () => {
 
       <Modal
         closeModal={handleCancel}
-        modalState={investigationOfficer.CustomerFoundModal}
+        modalState={investigationOfficer.CustomerFoundModal && !skipAccountConfirm}
         width={650}
       >
-        {investigationOfficer.CustomerFoundModal && (
+        {investigationOfficer.CustomerFoundModal && !skipAccountConfirm && (
           <>
             <div>
               <div className="NoRecordFound">
