@@ -313,7 +313,7 @@ const CustomerDetailsCreditCardDispute = () => {
 
   return (
     <>
-      <Paper>
+      <Paper section>
         <Row gutter={16}>
           <Col lg={18} md={18}>
             <h1 className="u-font-size-18px u-margin-top-15px u-margin-left-20px u-color-ec8d57">

@@ -3518,6 +3518,16 @@ const EditBBKDispute = () => {
     });
   }, [setupForms.CityData]);
 
+  const hasValue = (v) =>
+    v !== undefined &&
+    v !== null &&
+    v !== "" &&
+    v !== -99999999999999999999 &&
+    !(Array.isArray(v) && v.length === 0);
+
+  // show the label only when the field has a value, otherwise "" (placeholder only)
+  const lbl = (value, text) => (hasValue(value) ? text : "");
+
   return (
     <>
       <form onSubmit={(e) => goToSaveHandler(e)}>
@@ -3553,9 +3563,9 @@ const EditBBKDispute = () => {
                 name="Reference"
                 value={BBKDispute.ReferenceNumber}
                 size="small"
-                placeholder="Reference#"
+                placeholder="Reference #"
                 disable
-                label={"Reference #"}
+                label={lbl(BBKDispute.ReferenceNumber, "Reference #")}
                 fullWidth
               />
             </Col>
@@ -3565,14 +3575,15 @@ const EditBBKDispute = () => {
                 size="small"
                 placeholder="Customer Name"
                 value={Customer.CustomerName}
-                label={"Customer Name"}
+                label={lbl(Customer.CustomerName, "Customer Name")}
                 fullWidth
                 disable
               />
             </Col>
             <Col lg={6} md={6} sm={24} xs={24}>
               <SelectBox
-                label="Select City"
+                label={lbl(cityValue, "Select City")}
+                placeholder="Select City *"
                 option={city}
                 value={cityValue}
                 change={CityNameHandler}
@@ -3582,7 +3593,8 @@ const EditBBKDispute = () => {
             </Col>
             <Col lg={6} md={6} sm={24} xs={24}>
               <SelectBox
-                label="Select Fraud Type"
+                label={lbl(fraudTypeName, "Select Fraud Type")}
+                placeholder="Select Fraud Type"
                 option={fraudType}
                 name="Fraudtype"
                 value={fraudTypeName}
@@ -3619,8 +3631,8 @@ const EditBBKDispute = () => {
             <Col lg={6} md={6} sm={24} xs={24} className="u-margin-top-22px">
               <InputWithBtn
                 onchange={TransactionIDchangehandler}
-                isUpperCase={true}
-                label="Transaction ID*"
+                label={lbl(trsDetails.TransactionID, "Transaction ID *")}
+                placeholder="Transaction ID *"
                 fullWidth
                 helperText={TIDErrMsg}
                 textFieldSize="small"
@@ -3641,7 +3653,11 @@ const EditBBKDispute = () => {
                 size="small"
                 autoComplete="off"
                 value={trsDetails.OtherBankAccountNumber}
-                label={"Other Bank Account Number*"}
+                label={lbl(
+                  trsDetails.OtherBankAccountNumber,
+                  "Other Bank Account Number *"
+                )}
+                placeholder={"Other Bank Account Number *"}
                 // textLength={4}
                 change={TransactionDeatilHandlerChange}
                 fullWidth
@@ -3654,7 +3670,8 @@ const EditBBKDispute = () => {
                 size="small"
                 autoComplete="off"
                 value={trsDetails.HBLAccountNumber}
-                label={"Account Number*"}
+                label={lbl(trsDetails.HBLAccountNumber, "Account Number *")}
+                placeholder={"Account Number *"}
                 // textLength={4}
                 change={TransactionDeatilHandlerChange}
                 fullWidth
@@ -3668,7 +3685,8 @@ const EditBBKDispute = () => {
                 size="small"
                 autoComplete="off"
                 value={trsDetails.MobileNumber}
-                label={"Mobile Number*"}
+                label={lbl(trsDetails.MobileNumber, "Mobile Number *")}
+                placeholder={"Mobile Number *"}
                 // textLength={4}
                 change={TransactionDeatilHandlerChange}
                 fullWidth
@@ -3677,12 +3695,12 @@ const EditBBKDispute = () => {
             </Col>
             <Col lg={6} md={6} sm={24} xs={24}>
               <DatePicker
-                label={"Transaction Date"}
+                label={lbl(trsDetails.TransactionDate, "Transaction Date *")}
+                placeholder={"Transaction Date *"}
                 name="TransactionDate"
                 size="large"
                 width="100%"
                 DateRange
-                placeholder={"Transaction Date*"}
                 value={
                   trsDetails.TransactionDate
                     ? DateDisplayFormat(trsDetails.TransactionDate)
@@ -3693,23 +3711,26 @@ const EditBBKDispute = () => {
             </Col>
             <Col lg={6} md={6} sm={24} xs={24}>
               <TimePicker
-                label={"Transaction Time"}
+                label={lbl(trsDetails.TransactionTime, "Transaction Time *")}
                 name="TransactionTime"
                 size="large"
                 width="100%"
-                placeholder={"Transaction Time*"}
+                placeholder={"Transaction Time *"}
                 value={trsDetails.TransactionTime}
                 change={TimeHandler}
               />
             </Col>
             <Col lg={6} md={6} sm={24} xs={24}>
               <DatePicker
-                label={"Transaction Posting Date"}
+                label={lbl(
+                  trsDetails.TransactionPostingDate,
+                  "Transaction Posting Date"
+                )}
                 name="TransactionPostingDate"
                 size="large"
                 width="100%"
                 DateRange
-                placeholder={"Transaction Posting Date*"}
+                placeholder={"Transaction Posting Date *"}
                 value={
                   trsDetails.TransactionPostingDate
                     ? DateDisplayFormat(trsDetails.TransactionPostingDate)
@@ -3729,7 +3750,8 @@ const EditBBKDispute = () => {
                 }
                 textLength={(999, 999, 999, 999, 999, 999, 999)}
                 size="small"
-                Label={"Potential Save*"}
+                Label={lbl(trsDetails.PotentialSave, "Potential Save *")}
+                placeholder={"Potential Save *"}
                 fullWidth
                 change={TransactionDeatilHandlerChange}
               />
@@ -3745,7 +3767,11 @@ const EditBBKDispute = () => {
                 }
                 textLength={(999, 999, 999, 999, 999, 999, 999)}
                 size="small"
-                Label={"Transaction Amount*"}
+                Label={lbl(
+                  trsDetails.TransactionAmount,
+                  "Transaction Amount *"
+                )}
+                placeholder={"Transaction Amount *"}
                 fullWidth
                 change={TransactionDeatilHandlerChange}
               />
@@ -3761,7 +3787,11 @@ const EditBBKDispute = () => {
                 }
                 textLength={(999, 999, 999, 999, 999, 999, 999)}
                 size="small"
-                Label={"Exposure / Dispute Amount*"}
+                Label={lbl(
+                  trsDetails.DisputeAmount,
+                  "Exposure / Dispute Amount *"
+                )}
+                placeholder={"Exposure / Dispute Amount *"}
                 fullWidth
                 change={TransactionDeatilHandlerChange}
                 // disable={true}
@@ -3769,7 +3799,11 @@ const EditBBKDispute = () => {
             </Col>
             <Col lg={6} md={6} sm={24} xs={24} className="u-margin-top-22px">
               <SelectBox
-                label="Select Transaction Currency Code"
+                label={lbl(
+                  transactionCurrencyCodeValue,
+                  "Select Transaction Currency Code"
+                )}
+                placeholder="Select Transaction Currency Code"
                 option={transactionCurrencyCode}
                 value={transactionCurrencyCodeValue}
                 change={transactionCurrencyCodeHandler}
@@ -3780,7 +3814,8 @@ const EditBBKDispute = () => {
               <TextField
                 name="Response"
                 size="small"
-                label={"Response*"}
+                label={lbl(trsDetails.Response, "Response *")}
+                placeholder={"Response *"}
                 autoComplete="off"
                 value={trsDetails.Response}
                 change={TransactionDeatilHandlerChange}
@@ -3792,7 +3827,8 @@ const EditBBKDispute = () => {
               <TextField
                 name="TransactionMode"
                 size="small"
-                label={"Transaction Mode*"}
+                label={lbl(trsDetails.TransactionMode, "Transaction Mode *")}
+                placeholder={"Transaction Mode *"}
                 autoComplete="off"
                 value={trsDetails.TransactionMode}
                 change={TransactionDeatilHandlerChange}
@@ -3804,7 +3840,8 @@ const EditBBKDispute = () => {
               <TextField
                 name="TransactionCity"
                 size="small"
-                label={"Transaction City *"}
+                label={lbl(trsDetails.TransactionCity, "Transaction City *")}
+                placeholder={"Transaction City *"}
                 autoComplete="off"
                 value={trsDetails.TransactionCity}
                 change={TransactionDeatilHandlerChange}
@@ -3814,7 +3851,8 @@ const EditBBKDispute = () => {
             </Col>
             <Col lg={6} md={6} sm={24} xs={24}>
               <SelectBox
-                label="Source*"
+                label={lbl(SourceType, "Source *")}
+                placeholder="Source *"
                 option={sourceTypeName}
                 value={SourceType}
                 change={SourceNameHandler}
@@ -3874,7 +3912,8 @@ const EditBBKDispute = () => {
           <Row gutter={8}>
             <Col lg={6} md={6} sm={24} className="u-margin-top-22px">
               <DatePicker
-                label={"Case Received Date"}
+                label={lbl(BBKDispute.CaseReceivedDate, "Case Received Date")}
+                placeholder={"Case Received Date"}
                 size="large"
                 width="100%"
                 DateRange
@@ -3891,7 +3930,11 @@ const EditBBKDispute = () => {
             <Col lg={6} md={6} sm={24} className="u-margin-top-22px">
               <TextField
                 fullWidth
-                label="Case Received Channel"
+                label={lbl(
+                  BBKDispute.CaseReceivedChannel,
+                  "Case Received Channel"
+                )}
+                placeholder="Case Received Channel"
                 autoComplete="off"
                 value={BBKDispute.CaseReceivedChannel}
                 name="CaseReceivedChannel"
@@ -3908,23 +3951,27 @@ const EditBBKDispute = () => {
               xs={24}
               className="u-text-align-center u-margin-top-15px"
             >
-              <label>
-                <b>Case Resolved</b>
-              </label>
-              <br />
-              <Radio.Group
-                name="IsCaseResolved"
-                value={BBKDispute.IsCaseResolved}
-                onChange={BBKDisputeHandler}
-                disable={true}
-              >
-                <Radio disabled value={true}>
-                  Yes
-                </Radio>
-                <Radio disabled value={false}>
-                  No
-                </Radio>
-              </Radio.Group>
+              <div>
+                <label>
+                  <b>Case Resolved</b>
+                </label>
+                <br />
+                <span className="u-margin-left-15px">
+                  <Radio.Group
+                    name="IsCaseResolved"
+                    value={BBKDispute.IsCaseResolved}
+                    onChange={BBKDisputeHandler}
+                    disable={true}
+                  >
+                    <Radio disabled value={true}>
+                      Yes
+                    </Radio>
+                    <Radio disabled value={false}>
+                      No
+                    </Radio>
+                  </Radio.Group>
+                </span>
+              </div>
             </Col>
             <Col lg={6} md={6} sm={24} className="u-margin-top-22px">
               <DatePicker
@@ -3932,6 +3979,7 @@ const EditBBKDispute = () => {
                 width="100%"
                 DateRange
                 placeholder={"Case Resolved Date"}
+                label={lbl(BBKDispute.CaseResolvedDate, "Case Resolved Date")}
                 name="CaseResolvedDate"
                 value={
                   BBKDispute.CaseResolvedDate
@@ -3946,7 +3994,11 @@ const EditBBKDispute = () => {
               <Paper>
                 <TextField
                   fullWidth
-                  label="Total Dispute Amount"
+                  label={lbl(
+                    BBKDispute.TotalTransactionAmount,
+                    "Total Dispute Amount"
+                  )}
+                  placeholder="Total Dispute Amount"
                   value={
                     BBKDispute.TotalTransactionAmount === null ||
                     BBKDispute.TotalTransactionAmount === -99999999999999999999
@@ -3960,34 +4012,35 @@ const EditBBKDispute = () => {
                 />
               </Paper>
             </Col>
-            <Col
-              lg={6}
-              md={6}
-              sm={24}
-              xs={24}
-              className="u-margin-top-17px u-text-align-center"
-            >
-              <label>
-                <b className="u-font-size-0_7rem">Initial Block</b>
-              </label>
-              <br />
-              <Radio.Group
-                name="IsInitialBlock"
-                value={BBKDispute.IsInitialBlock}
-                onChange={BBKDisputeHandler}
-              >
-                <Radio value={true}>Yes</Radio>
-                <Radio value={false}>No</Radio>
-              </Radio.Group>
+            <Col lg={6} md={6} sm={24} xs={24} className="u-text-align-center">
+              <div>
+                <label>
+                  <b>Initial Block</b>
+                </label>
+                <br />
+                <span className="u-margin-left-15px">
+                  <Radio.Group
+                    name="IsInitialBlock"
+                    value={BBKDispute.IsInitialBlock}
+                    onChange={BBKDisputeHandler}
+                  >
+                    <Radio value={true}>Yes</Radio>
+                    <Radio value={false}>No</Radio>
+                  </Radio.Group>
+                </span>
+              </div>
             </Col>
             <Col lg={6} md={6} sm={24}>
               <DatePicker
-                label={"Initial Blocking Date"}
+                label={lbl(
+                  BBKDispute.InitialBlockingDate,
+                  "Initial Blocking Date"
+                )}
+                placeholder={"Initial Blocking Date"}
                 disable={isInitialDate}
                 size="large"
                 width="100%"
                 DateRange
-                placeholder={"Initial Blocking Date"}
                 name="InitialBlockingDate"
                 value={
                   BBKDispute.InitialBlockingDate
@@ -4000,11 +4053,11 @@ const EditBBKDispute = () => {
             </Col>
             <Col lg={6} md={6} sm={24}>
               <DatePicker
-                label={"Case Initiated Date"}
+                label={lbl(BBKDispute.CaseInitiatedDate, "Case Initiated Date")}
+                placeholder={"Case Initiated Date"}
                 size="large"
                 width="100%"
                 DateRange
-                placeholder={"Case Initiated Date"}
                 name="CaseInitiatedDate"
                 value={
                   BBKDispute.CaseInitiatedDate
@@ -4017,7 +4070,10 @@ const EditBBKDispute = () => {
             </Col>
             <Col lg={6} md={6} sm={24}>
               <DatePicker
-                label={"Customer Dispute Date"}
+                label={lbl(
+                  BBKDispute.CustomerDisputeDate,
+                  "Customer Dispute Date"
+                )}
                 size="large"
                 width="100%"
                 DateRange
@@ -4034,7 +4090,7 @@ const EditBBKDispute = () => {
             </Col>
             <Col lg={6} md={6} sm={24}>
               <DatePicker
-                label={"Case Detection Date"}
+                label={lbl(BBKDispute.CaseDetectionDate, "Case Detection Date")}
                 size="large"
                 width="100%"
                 DateRange
@@ -4062,7 +4118,8 @@ const EditBBKDispute = () => {
             <Col lg={6} md={6} sm={24} xs={24} className="u-margin-top-22px">
               <SelectBox
                 option={caseDecision}
-                label="Select Case Decision"
+                label={lbl(caseDecisionValue, "Select Case Decision")}
+                placeholder="Select Case Decision"
                 name="FK_CDEID"
                 value={caseDecisionValue}
                 change={CaseDecisionHandler}
@@ -4080,7 +4137,11 @@ const EditBBKDispute = () => {
                 textLength={(999, 999, 999, 999, 999, 999, 999)}
                 size="small"
                 autoComplete="off"
-                Label={"In Favor Of Customer"}
+                Label={lbl(
+                  BBKDispute.InFavorOfCustomer,
+                  "In Favor Of Customer"
+                )}
+                placeholder={"In Favor Of Customer *"}
                 fullWidth
                 change={BBKDisputeHandler}
                 required
@@ -4097,7 +4158,8 @@ const EditBBKDispute = () => {
                 }
                 textLength={(999, 999, 999, 999, 999, 999, 999)}
                 size="small"
-                Label={"Customer Liability"}
+                Label={lbl(BBKDispute.CustomerLiability, "Customer Liability")}
+                placeholder={"Customer Liability *"}
                 fullWidth
                 change={BBKDisputeHandler}
                 required
@@ -4114,7 +4176,8 @@ const EditBBKDispute = () => {
                 }
                 textLength={(999, 999, 999, 999, 999, 999, 999)}
                 size="small"
-                Label={"Other"}
+                Label={lbl(BBKDispute.Other, "Other")}
+                placeholder={"Other"}
                 fullWidth
                 change={BBKDisputeHandler}
                 required
@@ -4131,7 +4194,8 @@ const EditBBKDispute = () => {
                 }
                 textLength={(999, 999, 999, 999, 999, 999, 999)}
                 size="small"
-                Label={"Insurance"}
+                Label={lbl(BBKDispute.Insurance, "Insurance")}
+                placeholder={"Insurance *"}
                 fullWidth
                 required
                 change={BBKDisputeHandler}
@@ -4148,7 +4212,8 @@ const EditBBKDispute = () => {
                 }
                 textLength={(999, 999, 999, 999, 999, 999, 999)}
                 size="small"
-                Label={"Internally"}
+                Label={lbl(BBKDispute.Internally, "Internally")}
+                placeholder={"Internally *"}
                 fullWidth
                 required
                 change={BBKDisputeHandler}
@@ -4157,7 +4222,8 @@ const EditBBKDispute = () => {
             <Col lg={6} md={6} sm={24} xs={24} className="u-margin-top-22px">
               <TextField
                 fullWidth
-                label="Analyst Name"
+                label={lbl(BBKDispute.AnalystName, "Analyst Name")}
+                placeholder="Analyst Name"
                 size="small"
                 autoComplete="off"
                 name="AnalystName"
@@ -4166,30 +4232,29 @@ const EditBBKDispute = () => {
                 textLength={50}
               />
             </Col>
-            <Col
-              lg={6}
-              md={6}
-              sm={24}
-              xs={24}
-              className="u-margin-top-15px u-text-align-center"
-            >
-              <label>
-                <b>Tracking Sheet Attached</b>
-              </label>
-              <br />
-              <Radio.Group
-                name="IsTrackingSheetAttached"
-                value={BBKDispute.IsTrackingSheetAttached}
-                onChange={BBKDisputeHandler}
-              >
-                <Radio value={true}>Yes</Radio>
-                <Radio value={false}>No</Radio>
-              </Radio.Group>
+            <Col lg={6} md={6} sm={24} xs={24} className="u-text-align-center">
+              <div>
+                <label>
+                  <b>Tracking Sheet Attached</b>
+                </label>
+                <br />
+                <span className="u-margin-left-15px">
+                  <Radio.Group
+                    name="IsTrackingSheetAttached"
+                    value={BBKDispute.IsTrackingSheetAttached}
+                    onChange={BBKDisputeHandler}
+                  >
+                    <Radio value={true}>Yes</Radio>
+                    <Radio value={false}>No</Radio>
+                  </Radio.Group>
+                </span>
+              </div>
             </Col>
             <Col lg={6} md={6} sm={24} xs={24} className="u-margin-top-22px">
               <TextField
                 fullWidth
-                label="Remarks"
+                label={lbl(BBKDispute.Remarks, "Remarks")}
+                placeholder="Remarks"
                 size="small"
                 autoComplete="off"
                 name="Remarks"
@@ -4201,7 +4266,12 @@ const EditBBKDispute = () => {
             <Col lg={6} md={6} sm={24} xs={24} className="u-margin-top-22px">
               <TextField
                 fullWidth
-                label="Aging"
+                label={
+                  BBKDispute.Aging === null || BBKDispute.Aging === -1
+                    ? ""
+                    : "Aging"
+                }
+                placeholder="Aging"
                 size="small"
                 name="Aging"
                 value={
@@ -4216,7 +4286,13 @@ const EditBBKDispute = () => {
             <Col lg={6} md={6} sm={24} xs={24} className="u-margin-top-22px">
               <TextField
                 fullWidth
-                label="Case Closed TAT"
+                label={
+                  BBKDispute.CaseClosedTAT === null ||
+                  BBKDispute.CaseClosedTAT === -1
+                    ? ""
+                    : "Case Closed TAT"
+                }
+                placeholder="Case Closed TAT"
                 size="small"
                 name="CaseClosedTAT"
                 value={

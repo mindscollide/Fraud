@@ -360,6 +360,8 @@ const EditCreditCardDispute = () => {
       let cCDispute =
         investigationOfficer
           .GetCreditCardDisputesForEditByCnicAndRefrenceNumberData.ccDispute;
+
+      console.log(cCDispute, "cCDisputecCDispute");
       if (cCDispute !== undefined && cCDispute !== null) {
         setCCDispute((prev) => ({
           ...prev,
@@ -451,53 +453,6 @@ const EditCreditCardDispute = () => {
 
   // for enable current date
   //Set Tc40 reporting date in object
-  useEffect(() => {
-    let currentDate = CCDispute.TC40ReportingDate;
-    if (CCDispute.IsTC40Reporting === true && currentDate === "") {
-      setCCDispute((prev) => ({
-        ...prev,
-        ["TC40ReportingDate"]: removeDashesFromDate(date),
-      }));
-    } else if (CCDispute.IsTC40Reporting === false) {
-      setCCDispute((prev) => ({
-        ...prev,
-        ["TC40ReportingDate"]: "",
-      }));
-    }
-  }, [CCDispute.IsTC40Reporting]);
-
-  // //Set safe reporting date in object
-  useEffect(() => {
-    let currentDate = CCDispute.SafeReportingDate;
-    if (CCDispute.isSafeReporting === true && currentDate === "") {
-      setCCDispute((prev) => ({
-        ...prev,
-        ["SafeReportingDate"]: removeDashesFromDate(date),
-      }));
-    }
-    if (CCDispute.isSafeReporting === false) {
-      setCCDispute((prev) => ({
-        ...prev,
-        ["SafeReportingDate"]: "",
-      }));
-    }
-  }, [CCDispute.isSafeReporting]);
-
-  //Empty POC
-  useEffect(() => {
-    if (CCDispute.IsPOC === true) {
-      setCCDispute((prev) => ({
-        ...prev,
-        ["POCIdentified"]: CCDispute.POCIdentified,
-      }));
-    }
-    if (CCDispute.IsPOC === false) {
-      setCCDispute((prev) => ({
-        ...prev,
-        ["POCIdentified"]: "",
-      }));
-    }
-  }, [CCDispute.IsPOC]);
 
   //CCDispute Handler
   const CCDisputeHandler = (e) => {
@@ -1829,6 +1784,56 @@ const EditCreditCardDispute = () => {
 
   // for read-only numeric fields where 0 also means "empty"
   const nonZero = (v) => (v === 0 ? null : v);
+
+  const prevTC40 = useRef(false);
+  const prevSafe = useRef(false);
+  const prevPOC = useRef(false);
+
+  // TC40 reporting date
+  useEffect(() => {
+    if (
+      CCDispute.IsTC40Reporting === true &&
+      CCDispute.TC40ReportingDate === ""
+    ) {
+      setCCDispute((prev) => ({
+        ...prev,
+        TC40ReportingDate: removeDashesFromDate(date),
+      }));
+    } else if (
+      CCDispute.IsTC40Reporting === false &&
+      prevTC40.current === true
+    ) {
+      setCCDispute((prev) => ({ ...prev, TC40ReportingDate: "" }));
+    }
+    prevTC40.current = CCDispute.IsTC40Reporting;
+  }, [CCDispute.IsTC40Reporting]);
+
+  // Safe reporting date
+  useEffect(() => {
+    if (
+      CCDispute.isSafeReporting === true &&
+      CCDispute.SafeReportingDate === ""
+    ) {
+      setCCDispute((prev) => ({
+        ...prev,
+        SafeReportingDate: removeDashesFromDate(date),
+      }));
+    } else if (
+      CCDispute.isSafeReporting === false &&
+      prevSafe.current === true
+    ) {
+      setCCDispute((prev) => ({ ...prev, SafeReportingDate: "" }));
+    }
+    prevSafe.current = CCDispute.isSafeReporting;
+  }, [CCDispute.isSafeReporting]);
+
+  // POC: clear only when the user switches Yes -> No
+  useEffect(() => {
+    if (CCDispute.IsPOC === false && prevPOC.current === true) {
+      setCCDispute((prev) => ({ ...prev, POCIdentified: "" }));
+    }
+    prevPOC.current = CCDispute.IsPOC;
+  }, [CCDispute.IsPOC]);
 
   return (
     <>

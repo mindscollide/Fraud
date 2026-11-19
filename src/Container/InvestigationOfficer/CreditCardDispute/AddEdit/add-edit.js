@@ -1,27 +1,14 @@
 import React, { useEffect, useState, useRef } from "react";
-import { PlusOutlined as AddIcon } from "@ant-design/icons";
-import { Typography, Radio, Row, Col } from "antd";
-import moment from "moment";
+import { Typography, Row, Col } from "antd";
 import {
-  Paper,
   InputWithBtn,
   GroupedButtons,
   Modal,
-  TextField,
-  SelectBox,
-  DatePicker,
   Button,
-  FancyBox,
-  ConsolidateBox,
   Notification,
-  Message,
   Loader,
-  FormattedInputs,
 } from "../../../../Components/Elements";
 import { useSelector, useDispatch } from "react-redux";
-import Title from "antd/lib/skeleton/Title";
-import CustomerDetailsCreditCardDispute from "./customer-details";
-import AddNewCustomerDetails from "./add-new-customer-details";
 import {
   GetIRISCustomerByCnicCC,
   GetTransactionDetailsByCnic,
@@ -30,14 +17,10 @@ import {
   customerNotFoundModal,
   customerFoundModal,
 } from "../../../../store/actions/investigation-officer-actions";
-import { useNavigate } from "react-router-dom";
 
 const AddEditCreditCardDispute = () => {
   const { Title } = Typography;
   const [btnStatus, setBtnStatus] = useState(true);
-  const [found, setFound] = useState(false);
-  const [notFound, setNotFound] = useState(false);
-  const navigate = useNavigate();
   const [inputData, setInputData] = useState("");
   const dispatch = useDispatch();
   const state = useSelector((state) => state);
@@ -50,7 +33,6 @@ const AddEditCreditCardDispute = () => {
     flag: false,
     message: "",
   });
-  const [isModalVisible, setIsModalVisible] = useState(false);
 
   //Cancel Modal
   const handleCancel = () => {

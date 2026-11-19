@@ -4693,10 +4693,12 @@ const GetTransactionDetailsByMobileNumberBBK = (object) => {
       },
     })
       .then(async (response) => {
+        console.log(response, "responseresponse");
         if (response.data.responseCode === 417) {
           await dispatch(refreshToken());
           dispatch(GetTransactionDetailsByMobileNumberBBK(object));
         } else if (response.data.responseCode === 200) {
+          await dispatch(RESETALLSTATE());
           if (response.data.responseResult.isExecuted === true) {
             if (
               response.data.responseResult.responseMessage === "Record Found"
@@ -4711,11 +4713,19 @@ const GetTransactionDetailsByMobileNumberBBK = (object) => {
             }
           } else {
             dispatch(mobileNumberFoundModal(true));
-            dispatch(GetTransactionDetailsByMobileNumberBBKFail(response.data));
+            dispatch(
+              GetTransactionDetailsByMobileNumberBBKFail(
+                response.data.responseResult.responseMessage
+              )
+            );
           }
         } else {
           // dispatch(RESETALLSTATE());
-          dispatch(GetTransactionDetailsByMobileNumberBBKFail(response.data));
+          dispatch(
+            GetTransactionDetailsByMobileNumberBBKFail(
+              response.data.responseResult.responseMessage
+            )
+          );
         }
       })
       .catch((response) => {

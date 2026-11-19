@@ -3105,7 +3105,6 @@ const AddNewCustomerDetailsBBK = () => {
             <Col lg={6} md={6} sm={24} xs={24}>
               <InputWithBtn
                 onchange={TransactionIDchangehandler}
-                isUpperCase={true}
                 label={lbl(trsDetails.TransactionID, "Transaction ID *")}
                 placeholder={"Transaction ID *"}
                 fullWidth
@@ -3431,23 +3430,27 @@ const AddNewCustomerDetailsBBK = () => {
               />
             </Col>
             <Col lg={6} md={6} sm={24} xs={24} className="u-text-align-center">
-              <label>
-                <b>Case Resolved</b>
-              </label>
-              <br />
-              <Radio.Group
-                name="IsCaseResolved"
-                value={BBKDispute.IsCaseResolved}
-                onChange={BBKDisputeHandler}
-                disable={true}
-              >
-                <Radio disabled value={true}>
-                  Yes
-                </Radio>
-                <Radio disabled value={false}>
-                  No
-                </Radio>
-              </Radio.Group>
+              <div>
+                <label>
+                  <b>Case Resolved</b>
+                </label>
+                <br />
+                <span className="u-margin-left-15px">
+                  <Radio.Group
+                    name="IsCaseResolved"
+                    value={BBKDispute.IsCaseResolved}
+                    onChange={BBKDisputeHandler}
+                    disable={true}
+                  >
+                    <Radio disabled value={true}>
+                      Yes
+                    </Radio>
+                    <Radio disabled value={false}>
+                      No
+                    </Radio>
+                  </Radio.Group>
+                </span>
+              </div>
             </Col>
             <Col lg={6} md={6} sm={24}>
               <DatePicker
@@ -3483,18 +3486,22 @@ const AddNewCustomerDetailsBBK = () => {
             </Col>
 
             <Col lg={6} md={6} sm={24} xs={24} className=" u-text-align-center">
-              <label>
-                <b className="u-font-size-0_7rem">Initial Block</b>
-              </label>
-              <br />
-              <Radio.Group
-                name="IsInitialBlock"
-                value={BBKDispute.IsInitialBlock}
-                onChange={BBKDisputeHandler}
-              >
-                <Radio value={true}>Yes</Radio>
-                <Radio value={false}>No</Radio>
-              </Radio.Group>
+              <div>
+                <label>
+                  <b>Initial Block</b>
+                </label>
+                <br />
+                <span className="u-margin-left-15px">
+                  <Radio.Group
+                    name="IsInitialBlock"
+                    value={BBKDispute.IsInitialBlock}
+                    onChange={BBKDisputeHandler}
+                  >
+                    <Radio value={true}>Yes</Radio>
+                    <Radio value={false}>No</Radio>
+                  </Radio.Group>
+                </span>
+              </div>
             </Col>
             <Col lg={6} md={6} sm={24}>
               <DatePicker
@@ -3707,18 +3714,22 @@ const AddNewCustomerDetailsBBK = () => {
               />
             </Col>
             <Col lg={6} md={6} sm={24} xs={24} className="u-text-align-center">
-              <label>
-                <b>Tracking Sheet Attached</b>
-              </label>
-              <br />
-              <Radio.Group
-                name="IsTrackingSheetAttached"
-                value={BBKDispute.IsTrackingSheetAttached}
-                onChange={BBKDisputeHandler}
-              >
-                <Radio value={true}>Yes</Radio>
-                <Radio value={false}>No</Radio>
-              </Radio.Group>
+              <div>
+                <label>
+                  <b>Tracking Sheet Attached</b>
+                </label>
+                <br />
+                <span className="u-margin-left-15px">
+                  <Radio.Group
+                    name="IsTrackingSheetAttached"
+                    value={BBKDispute.IsTrackingSheetAttached}
+                    onChange={BBKDisputeHandler}
+                  >
+                    <Radio value={true}>Yes</Radio>
+                    <Radio value={false}>No</Radio>
+                  </Radio.Group>
+                </span>
+              </div>
             </Col>
           </Row>
 

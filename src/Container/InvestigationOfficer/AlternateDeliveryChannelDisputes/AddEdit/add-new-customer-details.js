@@ -1,6 +1,6 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState } from "react";
 import { PlusOutlined as AddIcon } from "@ant-design/icons";
-import { Typography, Radio, Space, Empty, Tooltip, Row, Col } from "antd";
+import { Typography, Radio, Row, Col } from "antd";
 import InputMask from "react-input-mask";
 import CustomUpload from "../../../../Components/Elements/Upload/Upload";
 
@@ -1457,6 +1457,20 @@ const AddNewCustomerDetailsADC = () => {
   const TransactionDeatilHandlerChange = (e) => {
     let name = e.target.name;
     let value = e.target.value;
+
+    const NO_DASH_FIELDS = [
+      "ApprovalCode",
+      "POSMode",
+      "MerchantCategoryCodeMCC",
+    ];
+
+    if (NO_DASH_FIELDS.includes(name)) {
+      setTrsDetails((prev) => ({
+        ...prev,
+        [name]: value.replace(/-/g, "").trimStart(),
+      }));
+      return;
+    }
 
     if (
       // name !=="HBLAccountNumber" &&
@@ -3479,9 +3493,7 @@ const AddNewCustomerDetailsADC = () => {
             <Col lg={6} md={6} sm={24} xs={24}>
               {lbl(
                 trsDetails.IPAddress,
-                <p className="PlaceholderCard">
-                  IP Address<span className="important"> *</span>
-                </p>
+                <p className="PlaceholderCard">IP Address *</p>
               )}
 
               <InputMask

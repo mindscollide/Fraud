@@ -1806,7 +1806,7 @@ const AddNewCustomerDetails = () => {
     <>
       <form onSubmit={(e) => goToSaveHandler(e)}>
         <Paper section>
-          <Row>
+          <Row gutter={16}>
             <Col lg={18} md={18}>
               <h1 className="u-font-size-18px u-margin-top-15px u-margin-left-20px u-color-ec8d57">
                 Customer Details
@@ -2286,7 +2286,7 @@ const AddNewCustomerDetails = () => {
             </Col>
           </Row>
           <Row gutter={8} className="u-margin-top-22px">
-            <Col lg={6} md={6} sm={24}>
+            <Col lg={5} md={5} sm={24}>
               <DatePicker
                 label={lbl(CCDispute.CaseReceivedDate, "Case Received Date")}
                 placeholder={"Case Received Date"}
@@ -2303,7 +2303,7 @@ const AddNewCustomerDetails = () => {
                 disable={true}
               />
             </Col>
-            <Col lg={6} md={6} sm={24}>
+            <Col lg={5} md={5} sm={24}>
               <TextField
                 fullWidth
                 label={lbl(
@@ -2319,7 +2319,7 @@ const AddNewCustomerDetails = () => {
                 change={CCDisputeHandler}
               />
             </Col>
-            <Col lg={6} md={6} sm={24} xs={24} className="u-text-align-center">
+            <Col lg={4} md={4} sm={24} xs={24} className="u-text-align-center">
               <div>
                 <label>
                   <b>Case Resolved</b>
@@ -2342,7 +2342,7 @@ const AddNewCustomerDetails = () => {
                 </span>
               </div>
             </Col>
-            <Col lg={6} md={6} sm={24}>
+            <Col lg={5} md={5} sm={24}>
               <DatePicker
                 label={lbl(CCDispute.CaseResolvedDate, "Case Resolved Date")}
                 size="large"
@@ -2359,7 +2359,7 @@ const AddNewCustomerDetails = () => {
                 disable
               />
             </Col>
-            <Col lg={6} md={6} sm={24}>
+            <Col lg={5} md={5} sm={24}>
               <TextField
                 fullWidth
                 label={lbl(
@@ -2391,7 +2391,7 @@ const AddNewCustomerDetails = () => {
             </Col>
           </Row>
           <Row gutter={8} className="u-margin-top-10px">
-            <Col lg={6} md={6} sm={24} xs={24} className="u-text-align-center">
+            <Col lg={3} md={3} sm={24} xs={24} className="u-text-align-center">
               <div>
                 <label>
                   <b>TC 40 Reporting</b>
@@ -2430,7 +2430,7 @@ const AddNewCustomerDetails = () => {
                 change={DateHandler}
               />
             </Col>
-            <Col lg={6} md={6} sm={24} xs={24} className="u-text-align-center">
+            <Col lg={3} md={3} sm={24} xs={24} className="u-text-align-center">
               <div>
                 <label>
                   <b>Safe Reporting</b>
