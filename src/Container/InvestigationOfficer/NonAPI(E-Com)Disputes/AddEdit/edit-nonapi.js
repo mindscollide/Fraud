@@ -3636,7 +3636,6 @@ const EditNONAPIDispute = () => {
             <Col lg={6} md={6} sm={24} xs={24}>
               <InputWithBtn
                 onchange={TransactionIDchangehandler}
-                isUpperCase={true}
                 label={lbl(trsDetails.TransactionID, "Transaction ID *")}
                 placeholder={"Transaction ID *"}
                 fullWidth

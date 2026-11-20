@@ -690,7 +690,7 @@ const AddEditBBKDispute2 = () => {
           <>
             <div>
               <div className="NoRecordFound">
-                <p>No records available for CNIC Number in Fraud DB</p>
+                <p>No records available for CNIC Number in System Database</p>
                 <span>{inputData}</span>
               </div>
             </div>
@@ -715,7 +715,7 @@ const AddEditBBKDispute2 = () => {
           <>
             <div>
               <div className="NoRecordFound">
-                <p>No records available for CNIC Number in IRIS.</p>
+                <p>No records available for CNIC Number in Bank Database.</p>
                 <span>{inputData}</span>
               </div>
             </div>
@@ -749,7 +749,9 @@ const AddEditBBKDispute2 = () => {
           <>
             <div>
               <div className="NoRecordFound">
-                <p>No records available for Account Number in Fraud DB</p>
+                <p>
+                  No records available for Account Number in System Database
+                </p>
                 <span>{accountNumber}</span>
               </div>
             </div>
@@ -774,7 +776,7 @@ const AddEditBBKDispute2 = () => {
           <>
             <div>
               <div className="NoRecordFound">
-                <p>No records available for Account Number in IRIS.</p>
+                <p>No records available for Account Number in Bank Database.</p>
                 <span>{accountNumber}</span>
               </div>
             </div>

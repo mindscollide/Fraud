@@ -202,8 +202,8 @@ const AddEditNONAPIDispute = () => {
     // setCnicFound(true);
   };
 
-  // Proceed: not in Fraud DB — fetch the CNICs linked to this account so
-  // the user can pick one before searching IRIS
+  // Proceed: not in System Database — fetch the CNICs linked to this account so
+  // the user can pick one before searching Bank Database
   const newDataHAndlerForAccount = async () => {
     dispatch(accountNumberFoundModal(false));
     const cnics = await dispatch(
@@ -215,7 +215,7 @@ const AddEditNONAPIDispute = () => {
     }
   };
 
-  // Search IRIS with the account + the CNIC picked from the dropdown
+  // Search Bank Database with the account + the CNIC picked from the dropdown
   const searchHandlerForAccountCnic = () => {
     if (!selectedCnic) return;
     localStorage.setItem("State", JSON.stringify(State));
@@ -607,7 +607,7 @@ const AddEditNONAPIDispute = () => {
           <>
             <div>
               <div className="NoRecordFound">
-                <p>No records available for CNIC Number in Fraud DB</p>
+                <p>No records available for CNIC Number in System Database</p>
                 <span>{inputData}</span>
               </div>
             </div>
@@ -632,7 +632,7 @@ const AddEditNONAPIDispute = () => {
           <>
             <div>
               <div className="NoRecordFound">
-                <p>No records available for CNIC Number in IRIS.</p>
+                <p>No records available for CNIC Number in Bank Database.</p>
                 <span>{inputData}</span>
               </div>
             </div>
@@ -666,7 +666,9 @@ const AddEditNONAPIDispute = () => {
           <>
             <div>
               <div className="NoRecordFound">
-                <p>No records available for Account Number in Fraud DB</p>
+                <p>
+                  No records available for Account Number in System Database
+                </p>
                 <span>{inputDataACModal}</span>
               </div>
             </div>

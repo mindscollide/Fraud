@@ -3218,9 +3218,12 @@ const AddNewCustomerDetailsNONAPI = () => {
               /> */}
             </Col>
             <Col lg={6} md={6} sm={24} xs={24}>
-              <p className="PlaceholderCard">
-                Card Number<span className="important">*</span>
-              </p>
+              {lbl(
+                CardDetails.CardNumber,
+                <p className="PlaceholderCard">
+                  Card Number<span className="important"> *</span>
+                </p>
+              )}
               <InputMask
                 type="text"
                 className="CreditCardInputField"
@@ -3235,8 +3238,6 @@ const AddNewCustomerDetailsNONAPI = () => {
                 required
               />
             </Col>
-          </Row>
-          <Row gutter={16} className="u-margin-bottom-22px">
             <Col lg={6} md={6} sm={24} xs={24}>
               <SelectBox
                 label={lbl(fraudTypeName, "Select Fraud Type")}
@@ -3249,6 +3250,9 @@ const AddNewCustomerDetailsNONAPI = () => {
               />
             </Col>
           </Row>
+          {/* <Row gutter={16} className="u-margin-bottom-22px">
+          
+          </Row> */}
           <Row>
             <Col lg={24} md={24} sm={24} className="u-margin-top-2pct">
               <div className="TransactionHeading">
@@ -3280,7 +3284,6 @@ const AddNewCustomerDetailsNONAPI = () => {
             <Col lg={6} md={6} sm={24} xs={24}>
               <InputWithBtn
                 onchange={TransactionIDchangehandler}
-                isUpperCase={true}
                 label={lbl(trsDetails.TransactionID, "Transaction ID *")}
                 placeholder={"Transaction ID *"}
                 fullWidth

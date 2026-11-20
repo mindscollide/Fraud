@@ -1,8 +1,6 @@
-import React, { useEffect, useState, useRef, useMemo } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 
-import { PlusOutlined as AddIcon } from "@ant-design/icons";
-
-import { Typography, Radio, Space, Empty, Tooltip, Row, Col } from "antd";
+import { Typography, Radio, Tooltip, Row, Col } from "antd";
 
 import {
   Paper,
@@ -10,31 +8,17 @@ import {
   SelectBox,
   DatePicker,
   Button,
-  Notification,
   Table,
-  Message,
   Loader,
-  FormattedInputs,
   // Upload,
-  uploadButton,
   Modal,
   GroupedButtons,
 } from "../../../../Components/Elements";
 
-import Helper from "../../../../Common/Functions/history_logout";
-
-import moment from "moment";
-
-import {
-  setStateOfUploadDocumentCreditCard,
-  DownloadUploadFile,
-} from "../../../../store/actions/reports_actions";
+import { DownloadUploadFile } from "../../../../store/actions/reports_actions";
 
 import {
   DateDisplayFormat,
-  DateSendingFormat,
-  RemoveTimeDashes,
-  NumberFormater,
   CommaFormter,
   TimeDisplayFormat,
 } from "../../../../Common/Functions/date-formatter";

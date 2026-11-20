@@ -2115,7 +2115,7 @@ const SearchTransactionDetailsByAccountNumberInIRIS = (object) => {
 };
 
 // Debit card account-number search: look up the CNIC for the account first,
-// then run the IRIS search (which needs the CNIC to find the customer)
+// then run the Bank Database search (which needs the CNIC to find the customer)
 const SearchTransactionDetailsByAccountNumberWithCnicLookup = (object) => {
   let token = JSON.parse(localStorage.getItem("token"));
   return (dispatch) => {
@@ -2163,7 +2163,7 @@ const SearchTransactionDetailsByAccountNumberWithCnicLookup = (object) => {
 };
 
 // Account-number search (Debit Card / ADC / Non-API): fetch every CNIC linked to the account
-// (joint holders) so the user can pick one before the IRIS search.
+// (joint holders) so the user can pick one before the Bank Database search.
 // Resolves to the CNIC list; [] when none (the not-found modal is opened).
 const GetAllCnicByAccountNumber = (
   accountNumber,

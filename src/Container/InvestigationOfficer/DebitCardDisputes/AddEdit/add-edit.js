@@ -171,7 +171,7 @@ const AddEditDebitCardDispute = () => {
     }
   };
 
-  // Account picked from the dropdown: check Fraud DB for CNIC + account
+  // Account picked from the dropdown: check System Database for CNIC + account
   const accountSearchHandler = () => {
     if (inputData && accountNumber) {
       dispatch(
@@ -183,7 +183,7 @@ const AddEditDebitCardDispute = () => {
     }
   };
 
-  // Proceed: not in Fraud DB — lock the account and show the date range + Search for IRIS
+  // Proceed: not in System Database — lock the account and show the date range + Search for Bank Database
   const newDataHAndler = () => {
     dispatch(customerFoundModal(false));
     setAccountFound(true);
@@ -210,8 +210,8 @@ const AddEditDebitCardDispute = () => {
     dispatch(GetTransactionDetailsByAccountNumber(inputDataAC));
   };
 
-  // Proceed: not in Fraud DB — fetch the CNICs linked to this account so
-  // the user can pick one before searching IRIS
+  // Proceed: not in System Database — fetch the CNICs linked to this account so
+  // the user can pick one before searching Bank Database
   const newDataHAndlerForAccount = async () => {
     dispatch(accountNumberFoundModal(false));
     const cnics = await dispatch(GetAllCnicByAccountNumber(inputDataAC));
@@ -221,7 +221,7 @@ const AddEditDebitCardDispute = () => {
     }
   };
 
-  // Search IRIS with the account + the CNIC picked from the dropdown
+  // Search Bank Database with the account + the CNIC picked from the dropdown
   const searchHandlerForAccountCnic = () => {
     // if (!selectedCnic ) return;
     if (!selectedCnic || !State.FromDate || !State.ToDate) return;
@@ -238,12 +238,12 @@ const AddEditDebitCardDispute = () => {
 
   // ---- Modal buttons ----
 
-  // Discard / Ok on "CNIC not in IRIS": start over
+  // Discard / Ok on "CNIC not in Bank Database": start over
   const handleCancel = () => {
     resetPage();
   };
 
-  // Ok on "not found in IRIS": close it but keep the inputs so the
+  // Ok on "not found in Bank Database": close it but keep the inputs so the
   // user can change the date range / CNIC and search again
   const handleCancel2 = () => {
     dispatch(accountNumberNotFoundModal(false));
@@ -586,7 +586,7 @@ const AddEditDebitCardDispute = () => {
           <>
             <div>
               <div className="NoRecordFound">
-                <p>No records available for CNIC Number in Fraud DB</p>
+                <p>No records available for CNIC Number in System Database</p>
                 <span>{inputData}</span>
               </div>
             </div>
@@ -610,7 +610,7 @@ const AddEditDebitCardDispute = () => {
           <>
             <div>
               <div className="NoRecordFound">
-                <p>No records available for CNIC Number in IRIS.</p>
+                <p>No records available for CNIC Number in Bank Database.</p>
                 <span>{inputData}</span>
               </div>
             </div>
@@ -643,7 +643,9 @@ const AddEditDebitCardDispute = () => {
           <>
             <div>
               <div className="NoRecordFound">
-                <p>No records available for Account Number in Fraud DB</p>
+                <p>
+                  No records available for Account Number in System Database
+                </p>
                 <span>{inputDataACModal}</span>
               </div>
             </div>
@@ -662,7 +664,7 @@ const AddEditDebitCardDispute = () => {
         modalState={investigationOfficer.AccountNumberNotFoundModal}
         width={650}
       >
-        {/* Not found in IRIS / no CNIC for the account */}
+        {/* Not found in Bank Database / no CNIC for the account */}
         {investigationOfficer.AccountNumberNotFoundModal && (
           <>
             <div>

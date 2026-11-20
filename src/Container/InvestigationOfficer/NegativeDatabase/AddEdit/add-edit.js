@@ -218,7 +218,7 @@ const AddEditNegativeDatabase = () => {
         <>
           <div>
             <div className="NoRecordFound">
-              <p>No records available for CNIC Number in Fraud DB</p>
+              <p>No records available for CNIC Number in System Database</p>
               <span>{inputData}</span>
             </div>
           </div>

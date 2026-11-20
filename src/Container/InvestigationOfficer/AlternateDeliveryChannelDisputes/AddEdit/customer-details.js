@@ -167,7 +167,7 @@ const CustomerDetailsADCD = () => {
   // for add new dispute for exsitin deispute
   const addDisputeData = () => {
     localStorage.setItem("flag", JSON.stringify(1));
-    // raw CNIC (CNICNumber may be JSON-stringified) for the Add New screen's IRIS search
+    // raw CNIC (CNICNumber may be JSON-stringified) for the Add New screen's Bank Database search
     localStorage.setItem("cnic2", (cnic || "").replace(/"/g, ""));
 
     navigate("/Fraud/ADCD/AddEditADC");
@@ -326,9 +326,7 @@ const CustomerDetailsADCD = () => {
       <Paper>
         <Row>
           <Col lg={18} md={18} sm={18} xs={24}>
-            <h1
-              className="u-font-size-18px u-margin-top-15px u-margin-left-20px u-color-ec8d57"
-            >
+            <h1 className="u-font-size-18px u-margin-top-15px u-margin-left-20px u-color-ec8d57">
               Customer Details
             </h1>
           </Col>

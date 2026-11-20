@@ -98,7 +98,7 @@ const InvestigationOfficerReducers = (state = initialState, action) => {
             ? action.response.responseMessage
             : action.response.responseResult.responseMessage,
       };
-    // FOR IRIS FAIL MODAL HANDLER
+    // FOR Bank Database FAIL MODAL HANDLER
     case actions.GET_LOADER_FALSE:
       return { ...state, Loading: false };
 
