@@ -387,7 +387,7 @@ const SearchDisputeIO = () => {
       "ReferenceNumber",
       JSON.stringify(record.referenceNumber)
     );
-    localStorage.setItem("CNICNumber", JSON.stringify(record.cnicNumber));
+    localStorage.setItem("CNICNumber", record.cnicNumber);
     let Data = {
       CNICNumber: record.cnicNumber,
       ReferenceNumber: record.referenceNumber,
@@ -413,6 +413,7 @@ const SearchDisputeIO = () => {
       navigate("/Fraud/DebitCardDisputes/ViewCustomerDetails");
     }
     if (record.fK_TTID === 3) {
+      await localStorage.setItem("FK_TTID", record.fK_TTID);
       let ADCData = {
         CNICNumber: record.cnicNumber,
         RefrenceNumber: record.referenceNumber,
@@ -439,6 +440,8 @@ const SearchDisputeIO = () => {
         ReferenceNumber: record.referenceNumber,
       };
       dispatch(enableGoBack());
+
+      console.log(BBKData, "SearchBBKDisputesByCnicAndReferenceNumber");
       await dispatch(SearchBBKDisputesByCnicAndReferenceNumber(BBKData));
       navigate("/Fraud/BBKonnect/ViewCustomerDetailsBBK");
     }
@@ -1091,7 +1094,11 @@ const SearchDisputeIO = () => {
         {/* this data will be pass to modal when View Approval Icon will be clicked */}
         {actions.viewApprovalHistory && (
           <>
-            <Table rows={row} columns={viewApprovalColumn} />
+            <Table
+              rows={row}
+              columns={viewApprovalColumn}
+              scroll={{ x: "max-content", y: 350 }}
+            />
             <div className="u-display-flex u-justify-content-center">
               {/* <GroupedButtons data={okayButtonProp} /> */}
               <Button

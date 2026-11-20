@@ -1536,7 +1536,10 @@ const InvestigationOfficerReducers = (state = initialState, action) => {
       return {
         ...state,
         SearchNDDisputeData: SearchNDBDisputeArray,
-        ResponseMessage: action.response.responseMessage,
+        ResponseMessage:
+          action.response.responseMessage === "Record Found"
+            ? ""
+            : action.response.responseMessage,
         Loading: false,
         ShowNotifiation: true,
       };

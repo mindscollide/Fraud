@@ -1385,7 +1385,6 @@ const AddNewCustomerDetailsBBK = () => {
 
     if (
       name !== "OtherBankAccountNumber" &&
-      // name !=="HBLAccountNumber" &&
       name !== "MobileNumber" &&
       name !== "TransactionDate" &&
       name !== "TransactionPostingDate" &&
@@ -1396,7 +1395,6 @@ const AddNewCustomerDetailsBBK = () => {
       name !== "DisputeAmount" &&
       name !== "TransactionCurrencyCode" &&
       name !== "TransactionCity" &&
-      // name !=="ApprovalCode" &&
       (value !== "" || value === false)
     ) {
       setTrsDetails({

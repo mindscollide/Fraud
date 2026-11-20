@@ -669,6 +669,7 @@ const DeleteDisputeCases = () => {
       dataIndex: "creationDate",
       key: "creationDate",
       align: "center",
+      width: 100,
       render: (text) => DateDisplayFormat(text),
     },
     {
@@ -676,6 +677,8 @@ const DeleteDisputeCases = () => {
       dataIndex: "creationDate",
       key: "creationDate",
       align: "center",
+      width: 80,
+
       render: (text) => TimeAndDisplayFormat(text),
     },
     {
@@ -683,24 +686,28 @@ const DeleteDisputeCases = () => {
       dataIndex: "statusDescription",
       key: "statusDescription",
       align: "center",
+      width: 80,
     },
     {
       title: "Reason",
       dataIndex: "reason",
       key: "reason",
       align: "center",
+      width: 200,
     },
     {
       title: "Description",
       dataIndex: "comments",
       key: "comments",
       align: "center",
+      width: 200,
     },
     {
       title: "Action By",
       dataIndex: "userName",
       key: "userName",
       align: "center",
+      width: 150,
     },
   ];
 
@@ -1017,13 +1024,18 @@ const DeleteDisputeCases = () => {
       <Modal
         closeModal={handleCancel}
         modalState={isModalVisible2}
-        width={700}
+        width={1000}
+        // height={500}
         modalTitle={<Title level={3}>View Status History</Title>}
       >
         {/* this data will be pass to modal when View Approval Icon will be clicked */}
         {actions.viewApprovalHistory && (
           <>
-            <Table rows={row} columns={viewApprovalColumn} />
+            <Table
+              rows={row}
+              columns={viewApprovalColumn}
+              scroll={{ x: "max-content", y: 350 }}
+            />
             {/* <GroupedButtons data={okayButtonProp} /> */}
             <div className="u-display-flex u-justify-content-center">
               <Button

@@ -1214,8 +1214,8 @@ const EditNegativeDataBase = () => {
                 autoComplete="off"
                 change={negHandler}
                 size="small"
-                placeholder="HBL Reference Number"
-                label={lbl(neg.HBLReferenceNumber, "HBL Reference Number")}
+                placeholder="Bank Reference Number"
+                label={lbl(neg.HBLReferenceNumber, "Bank Reference Number")}
                 fullWidth
                 textLength={20}
               />

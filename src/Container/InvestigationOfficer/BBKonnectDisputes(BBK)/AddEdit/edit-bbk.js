@@ -1,7 +1,6 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState } from "react";
 import { PlusOutlined as AddIcon } from "@ant-design/icons";
-import { Typography, Radio, Space, Empty, Tooltip, Row, Col } from "antd";
-import InputMask from "react-input-mask";
+import { Typography, Radio, Tooltip, Row, Col } from "antd";
 import CustomUpload from "../../../../Components/Elements/Upload/Upload";
 import { EditOutlined as Edit } from "@ant-design/icons";
 
@@ -50,9 +49,6 @@ import {
 const EditBBKDispute = () => {
   var cnic = localStorage.getItem("CNICNumber");
   var accountNumber = localStorage.getItem("accountNumber");
-  let roleForheader = localStorage.getItem("route");
-  let DAtesSearch = JSON.parse(localStorage.getItem("State"));
-  var cnic2 = localStorage.getItem("cnic2");
 
   const { Title } = Typography;
 
@@ -60,13 +56,7 @@ const EditBBKDispute = () => {
 
   const state = useSelector((state) => state);
 
-  const {
-    investigationOfficer,
-    setupForms,
-    loading,
-    reports,
-    selectedRowKeys,
-  } = state;
+  const { investigationOfficer, setupForms, reports, selectedRowKeys } = state;
 
   //   for  Customer Details section state handler
   const [customerDetails, setCustomerDetails] = useState({

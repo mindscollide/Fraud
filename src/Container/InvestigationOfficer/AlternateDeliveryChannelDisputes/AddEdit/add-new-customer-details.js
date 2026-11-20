@@ -1481,7 +1481,6 @@ const AddNewCustomerDetailsADC = () => {
       name !== "DisputeAmount" &&
       name !== "TransactionAmount" &&
       // name !== "MerchantCity" &&
-      // name !=="ApprovalCode" &&
       // name !== "MerchantID" &&
       // name !== "MerchantCategoryCodeMCC" &&
       name !== "MobileNumber" &&
@@ -1546,36 +1545,7 @@ const AddNewCustomerDetailsADC = () => {
         ...trsDetails,
         [name]: "",
       });
-    }
-    // else if (name === "MerchantID" && value !== "") {
-    //   var valueCheck = value.replace(/[^\d-]/g, "");
-    //   if (valueCheck != "") {
-    //     setTrsDetails({
-    //       ...trsDetails,
-    //       [name]: valueCheck,
-    //     });
-    //   }
-    // } else if (name === "MerchantID" && value === "") {
-    //   setTrsDetails({
-    //     ...trsDetails,
-    //     [name]: "",
-    //   });
-    // }
-    // else if (name === "MerchantCategoryCodeMCC" && value !== "") {
-    //   var valueCheck = value.replace(/[^\d-]/g, "");
-    //   if (valueCheck != "") {
-    //     setTrsDetails({
-    //       ...trsDetails,
-    //       [name]: valueCheck,
-    //     });
-    //   }
-    // } else if (name === "MerchantCategoryCodeMCC" && value === "") {
-    //   setTrsDetails({
-    //     ...trsDetails,
-    //     [name]: "",
-    //   });
-    // }
-    else if (name === "MobileNumber" && value !== "") {
+    } else if (name === "MobileNumber" && value !== "") {
       var valueCheck = value.replace(/[^\d]/g, "");
       if (valueCheck != "") {
         setTrsDetails({
@@ -1588,22 +1558,7 @@ const AddNewCustomerDetailsADC = () => {
         ...trsDetails,
         [name]: "",
       });
-    }
-    // else if (name === "IMEINumber" && value !== "") {
-    //   var valueCheck = value.replace(/[^\d-]/g, "");
-    //   if (valueCheck != "") {
-    //     setTrsDetails({
-    //       ...trsDetails,
-    //       [name]: valueCheck,
-    //     });
-    //   }
-    // } else if (name === "IMEINumber" && value === "") {
-    //   setTrsDetails({
-    //     ...trsDetails,
-    //     [name]: "",
-    //   });
-    // }
-    else if (
+    } else if (
       (name === "TransactionAmount" || name === "DisputeAmount") &&
       value !== "" &&
       value !== -99999999999999999999

@@ -6244,6 +6244,10 @@ const EditDisputeNegativeDB = (
           );
         } else if (response.data.responseCode === 200) {
           if (response.data.responseResult.isExecuted === true) {
+            console.log(
+              flagForGlobalDispute,
+              "flagForGlobalDisputeflagForGlobalDisputeflagForGlobalDispute"
+            );
             if (flagForGlobalDispute === "true") {
               await localStorage.setItem("CaseStatus", DataForGlobal.fk_csid);
               await localStorage.setItem("parent", "sub1");
@@ -6260,6 +6264,10 @@ const EditDisputeNegativeDB = (
               await localStorage.setItem("CaseStatus", searchData.fk_csid);
               await localStorage.setItem("parent", "sub2");
               await localStorage.setItem("child", "13");
+              console.log(
+                response.data.responseResult.responseMessage,
+                "ResponseMessageResponseMessage"
+              );
               await dispatch(
                 ShowNotification(response.data.responseResult.responseMessage)
               );

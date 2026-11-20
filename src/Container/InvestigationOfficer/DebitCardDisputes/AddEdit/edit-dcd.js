@@ -83,7 +83,6 @@ const EditDebitCardDispute = () => {
     CNICNumber: "",
     CustomerName: "",
     FK_CTID: 0,
-    // CMCity: "",
   });
 
   // for select rows from table
@@ -358,7 +357,6 @@ const EditDebitCardDispute = () => {
       name !== "IsPOC" &&
       name !== "CustomerLiability" &&
       name !== "InFavourOfCM"
-      // (value !=="" || value === false)
     ) {
       setDCDisputes({
         ...DCDisputes,

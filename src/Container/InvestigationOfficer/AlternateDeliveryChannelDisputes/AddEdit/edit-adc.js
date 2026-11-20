@@ -1,6 +1,6 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState } from "react";
 import { PlusOutlined as AddIcon } from "@ant-design/icons";
-import { Typography, Radio, Space, Empty, Tooltip, Row, Col } from "antd";
+import { Typography, Radio, Tooltip, Row, Col } from "antd";
 import InputMask from "react-input-mask";
 import CustomUpload from "../../../../Components/Elements/Upload/Upload";
 import { EditOutlined as Edit } from "@ant-design/icons";
@@ -13,15 +13,11 @@ import {
   DatePicker,
   TimePicker,
   Button,
-  FancyBox,
-  ConsolidateBox,
   Notification,
   Table,
-  Message,
   Loader,
   FormattedInputs,
   // Upload,
-  uploadButton,
   Modal,
   GroupedButtons,
 } from "../../../../Components/Elements";
@@ -57,8 +53,6 @@ const EditADCDispute = () => {
   var cnic2 = localStorage.getItem("cnic2");
 
   var accountNumber = localStorage.getItem("accountNumber");
-  let roleForheader = localStorage.getItem("route");
-  let DAtesSearch = JSON.parse(localStorage.getItem("State"));
   const { Title } = Typography;
 
   const dispatch = useDispatch();
@@ -1293,18 +1287,28 @@ const EditADCDispute = () => {
   const TransactionDeatilHandlerChange = (e) => {
     let name = e.target.name;
     let value = e.target.value;
+    const NO_DASH_FIELDS = [
+      "ApprovalCode",
+      "POSMode",
+      "MerchantCategoryCodeMCC",
+    ];
+
+    if (NO_DASH_FIELDS.includes(name)) {
+      setTrsDetails((prev) => ({
+        ...prev,
+        [name]: value.replace(/-/g, "").trimStart(),
+      }));
+      return;
+    }
 
     if (
-      // name !=="HBLAccountNumber" &&
       name !== "TransactionDate" &&
       name !== "BeneficiaryAccountNumber" &&
       name !== "BeneficiaryBankName" &&
       name !== "BranchCode" &&
       name !== "DisputeAmount" &&
       name !== "TransactionAmount" &&
-      // name !=="ApprovalCode" &&
       name !== "MerchantID" &&
-      name !== "MerchantCategoryCodeMCC" &&
       name !== "MobileNumber" &&
       name !== "IMEINumber" &&
       name !== "ON_OFF_US" &&
@@ -1368,19 +1372,6 @@ const EditADCDispute = () => {
         });
       }
     } else if (name === "MerchantID" && value === "") {
-      setTrsDetails({
-        ...trsDetails,
-        [name]: "",
-      });
-    } else if (name === "MerchantCategoryCodeMCC" && value !== "") {
-      var valueCheck = value.replace(/[^\d-]/g, "");
-      if (valueCheck != "") {
-        setTrsDetails({
-          ...trsDetails,
-          [name]: valueCheck,
-        });
-      }
-    } else if (name === "MerchantCategoryCodeMCC" && value === "") {
       setTrsDetails({
         ...trsDetails,
         [name]: "",
@@ -3851,6 +3842,10 @@ const EditADCDispute = () => {
           </Row>
           <Row gutter={16} className="u-margin-top-22px">
             <Col lg={6} md={6} sm={24} xs={24}>
+              {lbl(
+                trsDetails.IPAddress,
+                <p className="PlaceholderCard">IP Address *</p>
+              )}
               <InputMask
                 type="text"
                 className="CreditCardInputField"

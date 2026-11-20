@@ -881,7 +881,11 @@ const SearchADCD = () => {
         {/* this data will be pass to modal when View Approval Icon will be clicked */}
         {actions.viewApprovalHistory && (
           <>
-            <Table rows={row} columns={viewApprovalColumn} />
+            <Table
+              rows={row}
+              columns={viewApprovalColumn}
+              scroll={{ x: "max-content", y: 350 }}
+            />
             <div className="u-display-flex u-justify-content-center">
               {/* <GroupedButtons data={okayButtonProp} /> */}
               <Button

@@ -1026,8 +1026,8 @@ const ViewNDB = () => {
                 value={neg.HBLReferenceNumber}
                 change={negHandler}
                 size="small"
-                placeholder="HBL Reference Number"
-                label={"HBL Reference Number"}
+                placeholder="Bank Reference Number"
+                label={"Bank Reference Number"}
                 fullWidth
                 disable
               />

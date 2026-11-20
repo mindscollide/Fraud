@@ -249,8 +249,6 @@ const AddNewCustomerDetailsDC = () => {
       name !== "IsPOC" &&
       name !== "CustomerLiability" &&
       name !== "InFavourOfCM"
-      // &&
-      // (value !=="" || value === false)
     ) {
       setDCDisputes({
         ...DCDisputes,
