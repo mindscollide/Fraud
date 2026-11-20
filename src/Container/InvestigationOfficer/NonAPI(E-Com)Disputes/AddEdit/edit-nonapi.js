@@ -1586,22 +1586,33 @@ const EditNONAPIDispute = () => {
   const TransactionDeatilHandlerChange = (e) => {
     let name = e.target.name;
     let value = e.target.value;
+    const NO_DASH_FIELDS = [
+      "ApprovalCode",
+      "POSMode",
+      "CategoryCodeMCC",
+      "AcquirerID",
+      "ARN",
+      "MerchantNumber",
+    ];
+    if (NO_DASH_FIELDS.includes(name)) {
+      setTrsDetails((prev) => ({
+        ...prev,
+        [name]: value.replace(/-/g, "").trimStart(),
+      }));
+      return;
+    }
     if (
       name !== "TransactionDate" &&
       name !== "OtherBankAccountNumber" &&
       name !== "OtherBankBranchCode" &&
       name !== "PotentialSave" &&
       name !== "TransactionAmount" &&
-      name !== "POSMode" &&
       name !== "DisputeAmount" &&
       name !== "TransactionCurrencyCode" &&
       name !== "MerchantName" &&
       name !== "MerchantID" &&
       name !== "MerchantCity" &&
-      name !== "CategoryCodeMCC" &&
-      name !== "AcquirerID" &&
       name !== "AcquirerTerminalID" &&
-      name !== "ApprovalCode" &&
       name !== "ON_OFF_US" &&
       (value !== "" || value === false)
     ) {
@@ -1626,32 +1637,6 @@ const EditNONAPIDispute = () => {
           [name]: valueCheck.trimStart(),
         });
       }
-    } else if (name === "ApprovalCode" && value !== "") {
-      var valueCheck = value.replace(/[^\d-]/g, "");
-      if (valueCheck != "") {
-        setTrsDetails({
-          ...trsDetails,
-          [name]: valueCheck,
-        });
-      }
-    } else if (name === "ApprovalCode" && value === "") {
-      setTrsDetails({
-        ...trsDetails,
-        [name]: "",
-      });
-    } else if (name === "POSMode" && value !== "") {
-      var valueCheck = value.replace(/[^\d-]/g, "");
-      if (valueCheck != "") {
-        setTrsDetails({
-          ...trsDetails,
-          [name]: valueCheck,
-        });
-      }
-    } else if (name === "POSMode" && value === "") {
-      setTrsDetails({
-        ...trsDetails,
-        [name]: "",
-      });
     } else if (name === "OtherBankAccountNumber" && value !== "") {
       var valueCheck = value.replace(/[^\d-]/g, "");
       if (valueCheck != "") {
@@ -1700,32 +1685,6 @@ const EditNONAPIDispute = () => {
         });
       }
     } else if (name === "MerchantID" && value === "") {
-      setTrsDetails({
-        ...trsDetails,
-        [name]: "",
-      });
-    } else if (name === "CategoryCodeMCC" && value !== "") {
-      var valueCheck = value.replace(/[^\d-]/g, "");
-      if (valueCheck != "") {
-        setTrsDetails({
-          ...trsDetails,
-          [name]: valueCheck,
-        });
-      }
-    } else if (name === "CategoryCodeMCC" && value === "") {
-      setTrsDetails({
-        ...trsDetails,
-        [name]: "",
-      });
-    } else if (name === "AcquirerID" && value !== "") {
-      var valueCheck = value.replace(/[^\d-]/g, "");
-      if (valueCheck != "") {
-        setTrsDetails({
-          ...trsDetails,
-          [name]: valueCheck,
-        });
-      }
-    } else if (name === "AcquirerID" && value === "") {
       setTrsDetails({
         ...trsDetails,
         [name]: "",
@@ -3629,7 +3588,7 @@ const EditNONAPIDispute = () => {
         <Paper section padding="1">
           <Col lg={18} md={18} sm={18} xs={24}>
             <h1 className="u-font-size-18px u-margin-top-15px u-margin-left-20px u-color-ec8d57">
-              Manual Transactions
+              Manual Transactionsaasdsa
             </h1>
           </Col>
           <Row gutter={16}>

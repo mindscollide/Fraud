@@ -659,33 +659,6 @@ const SearchCreditCardDispute = () => {
     },
   ];
 
-  // const okayButtonProp = {
-  //   primaryButton: {
-  //     text: "Ok",
-  //     class: "btnBorderStyledBeach",
-  //     click: () => handleCancel(),
-  //   },
-  //   secondaryButton: {
-  //     text: "",
-  //   },
-  // };
-
-  const addButtonProps = {
-    primaryButton: {
-      text: "Proceed",
-      icon: null,
-      endIcon: <i className="icon-proceed icon-size-one"></i>,
-      class: "btnBorderStyledBeach",
-    },
-    secondaryButton: {
-      text: "Discard",
-      icon: <i className="icon-close icon-size-one"></i>,
-      endIcon: "",
-      class: "btnBorderStyledRed",
-      click: () => handleCancel(),
-    },
-  };
-
   // Selected Dropdown value
   const caseStatusHandler = (e, value) => {
     setCaseStatus(value);
@@ -957,7 +930,6 @@ const SearchCreditCardDispute = () => {
                 size="large"
                 applyClass="btnBorderStyledBeach"
                 click={handleCancel}
-                // click= () => handleCancel(),
               />
             </div>
           </>

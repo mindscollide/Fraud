@@ -1373,6 +1373,21 @@ const AddNewCustomerDetailsNONAPI = () => {
   const TransactionDeatilHandlerChange = (e) => {
     let name = e.target.name;
     let value = e.target.value;
+    const NO_DASH_FIELDS = [
+      "ApprovalCode",
+      "POSMode",
+      "CategoryCodeMCC",
+      "AcquirerID",
+      "ARN",
+      "MerchantNumber",
+    ];
+    if (NO_DASH_FIELDS.includes(name)) {
+      setTrsDetails((prev) => ({
+        ...prev,
+        [name]: value.replace(/-/g, "").trimStart(),
+      }));
+      return;
+    }
     if (
       name !== "TransactionDate" &&
       name !== "OtherBankAccountNumber" &&
@@ -1384,10 +1399,7 @@ const AddNewCustomerDetailsNONAPI = () => {
       name !== "MerchantName" &&
       name !== "MerchantID" &&
       name !== "MerchantCity" &&
-      // name !== "CategoryCodeMCC" &&
-      // name !== "AcquirerID" &&
       name !== "AcquirerTerminalID" &&
-      name !== "POSMode" &&
       name !== "ON_OFF_US" &&
       (value !== "" || value === false)
     ) {
@@ -1412,32 +1424,6 @@ const AddNewCustomerDetailsNONAPI = () => {
           [name]: valueCheck.trimStart(),
         });
       }
-    } else if (name === "ApprovalCode" && value !== "") {
-      var valueCheck = value.replace(/[^\d-]/g, "");
-      if (valueCheck != "") {
-        setTrsDetails({
-          ...trsDetails,
-          [name]: valueCheck,
-        });
-      }
-    } else if (name === "ApprovalCode" && value === "") {
-      setTrsDetails({
-        ...trsDetails,
-        [name]: "",
-      });
-    } else if (name === "POSMode" && value !== "") {
-      var valueCheck = value.replace(/[^\d-]/g, "");
-      if (valueCheck != "") {
-        setTrsDetails({
-          ...trsDetails,
-          [name]: valueCheck,
-        });
-      }
-    } else if (name === "POSMode" && value === "") {
-      setTrsDetails({
-        ...trsDetails,
-        [name]: "",
-      });
     } else if (name === "OtherBankAccountNumber" && value !== "") {
       var valueCheck = value.replace(/[^\d-]/g, "");
       if (valueCheck != "") {
@@ -1490,36 +1476,7 @@ const AddNewCustomerDetailsNONAPI = () => {
         ...trsDetails,
         [name]: "",
       });
-    }
-    // else if (name === "CategoryCodeMCC" && value !== "") {
-    //   var valueCheck = value.replace(/[^\d-]/g, "");
-    //   if (valueCheck != "") {
-    //     setTrsDetails({
-    //       ...trsDetails,
-    //       [name]: valueCheck,
-    //     });
-    //   }
-    // } else if (name === "CategoryCodeMCC" && value === "") {
-    //   setTrsDetails({
-    //     ...trsDetails,
-    //     [name]: "",
-    //   });
-    // }
-    // else if (name === "AcquirerID" && value !== "") {
-    //   var valueCheck = value.replace(/[^\d-]/g, "");
-    //   if (valueCheck != "") {
-    //     setTrsDetails({
-    //       ...trsDetails,
-    //       [name]: valueCheck,
-    //     });
-    //   }
-    // } else if (name === "AcquirerID" && value === "") {
-    //   setTrsDetails({
-    //     ...trsDetails,
-    //     [name]: "",
-    //   });
-    // }
-    else if (name === "AcquirerTerminalID" && value !== "") {
+    } else if (name === "AcquirerTerminalID" && value !== "") {
       var valueCheck = value.replace(/[^\d-]/g, "");
       if (valueCheck != "") {
         setTrsDetails({
