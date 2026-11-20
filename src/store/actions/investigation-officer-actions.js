@@ -1338,7 +1338,9 @@ const GetTransactionDetailsByCnicDebitCardIRISFail = (response) => {
   };
 };
 
-const GetTransactionDetailsByCnicDC = (object) => {
+// onNotFound (optional): called instead of the "create a new record?" modal
+// when the CNIC has no disputes to show, so the caller can fall back
+const GetTransactionDetailsByCnicDC = (object, onNotFound) => {
   let navigate = Helper.navigate;
   let token = JSON.parse(localStorage.getItem("token"));
   let Data = {
@@ -1363,32 +1365,39 @@ const GetTransactionDetailsByCnicDC = (object) => {
       .then(async (response) => {
         if (response.data.responseCode === 417) {
           await dispatch(refreshToken());
-          dispatch(GetTransactionDetailsByCnicDC(object));
-        } else if (response.data.responseCode === 200) {
-          if (response.data.responseResult.isExecuted === true) {
-            if (
-              response.data.responseResult.responseMessage === "Record Found"
-            ) {
-              dispatch(
-                GetTransactionDetailsByCnicDebitCardSuccess(
-                  response.data.responseResult
-                )
-              );
-              localStorage.setItem("CNICNumber", object);
-              navigate(
-                "/Fraud/DebitCardDisputes/CustomerDetailsDebitCardDispute"
-              );
-            }
-          } else {
-            localStorage.setItem("CNICNumber", object);
-            dispatch(customerFoundModal(true));
-            dispatch(GetTransactionDetailsByCnicDebitFail(response.data));
-          }
-        } else {
+          dispatch(GetTransactionDetailsByCnicDC(object, onNotFound));
+        } else if (
+          response.data.responseCode === 200 &&
+          response.data.responseResult?.isExecuted === true &&
+          response.data.responseResult.responseMessage === "Record Found"
+        ) {
+          dispatch(
+            GetTransactionDetailsByCnicDebitCardSuccess(
+              response.data.responseResult
+            )
+          );
+          localStorage.setItem("CNICNumber", object);
+          navigate("/Fraud/DebitCardDisputes/CustomerDetailsDebitCardDispute");
+        } else if (onNotFound) {
+          dispatch(LOADERFALSE());
+          onNotFound();
+        } else if (
+          response.data.responseCode === 200 &&
+          response.data.responseResult?.isExecuted !== true
+        ) {
+          localStorage.setItem("CNICNumber", object);
+          dispatch(customerFoundModal(true));
+          dispatch(GetTransactionDetailsByCnicDebitFail(response.data));
+        } else if (response.data.responseCode !== 200) {
           dispatch(GetTransactionDetailsByCnicDebitFail(response.data));
         }
       })
       .catch((response) => {
+        if (onNotFound) {
+          dispatch(LOADERFALSE());
+          onNotFound();
+          return;
+        }
         dispatch(SomeThingWentWrong(response));
         dispatch(LOADERFALSE());
       });
@@ -1705,6 +1714,16 @@ const GetAllAccountsByCnic = ({ object, setCnicFound }) => {
             // "System will not create new record": no account dropdown
             dispatch(customerNotFoundModal(true));
             dispatch(GetAllAccountsFail(result.responseMessage));
+          } else if (status === "Found" && result.existsInFraudDb === true) {
+            // SRS 14.1.1: the CNIC already has disputes in the Fraud DB, so go
+            // straight to its Customer Details page. If that lookup has nothing
+            // to show, fall back to the account dropdown.
+            dispatch(
+              GetTransactionDetailsByCnicDC(object, () => {
+                dispatch(GetAllAccountsSuccess(result));
+                if (setCnicFound) setCnicFound(true);
+              })
+            );
           } else {
             // ask "create a new record?" first; Proceed shows the dropdown.
             // Opened before the accounts land so the page doesn't reveal the

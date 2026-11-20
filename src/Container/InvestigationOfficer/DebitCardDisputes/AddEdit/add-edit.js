@@ -46,7 +46,6 @@ const AddEditDebitCardDispute = () => {
   const [cnicFound, setCnicFound] = useState(false);
   const [account, setAccount] = useState([]);
   const [accountNumber, setAccountNumber] = useState("");
-  const [accountFound, setAccountFound] = useState(false);
   // officer already answered "create a new record?" for this CNIC (it isn't
   // in the Fraud DB), so the same question at the account step is skipped
   const [cnicConfirmed, setCnicConfirmed] = useState(false);
@@ -82,7 +81,6 @@ const AddEditDebitCardDispute = () => {
     setCnicConfirmed(false);
     setAccount([]);
     setAccountNumber("");
-    setAccountFound(false);
   };
 
   // Clears the CNIC choices fetched for the searched account
@@ -127,7 +125,6 @@ const AddEditDebitCardDispute = () => {
   // Selected account from the dropdown (CNIC flow)
   const accountNumberHandler = (e, value) => {
     setAccountNumber(value || "");
-    setAccountFound(false);
   };
 
   // Selected CNIC from the dropdown (Account Number flow)
@@ -177,6 +174,10 @@ const AddEditDebitCardDispute = () => {
 
   // Account picked from the dropdown: check Fraud DB for CNIC + account
   const accountSearchHandler = () => {
+    if (!State.FromDate || !State.ToDate) {
+      setOpen({ flag: true, message: "Please select a date range" });
+      return;
+    }
     if (inputData && accountNumber) {
       dispatch(
         GetTransactionDetailsByAccountAndCnicDC({
@@ -188,8 +189,9 @@ const AddEditDebitCardDispute = () => {
   };
 
   // Proceed: not in Fraud DB. Asked after the CNIC search (no dropdown yet):
-  // show the account dropdown. Asked after an account was picked: lock the
-  // account and show the date range + Search for IRIS.
+  // show the account dropdown + date range. Asked after an account was
+  // picked: search IRIS with that account and date range, which opens the
+  // new dispute form.
   const newDataHAndler = () => {
     dispatch(customerFoundModal(false));
     if (!cnicFound) {
@@ -197,7 +199,7 @@ const AddEditDebitCardDispute = () => {
       setCnicFound(true);
       return;
     }
-    setAccountFound(true);
+    searchHandlerForAccount();
   };
 
   // the CNIC was already confirmed as a new record: answer the account-step
@@ -410,9 +412,11 @@ const AddEditDebitCardDispute = () => {
                         disableButton={!accountNumber}
                       />
                     </div>
+                    {/* SRS 14.1.1: the date range (default 6 months back)
+                        goes with the account choice; Proceed on "create a
+                        new record?" searches IRIS with it */}
                     <div className="dateRangePicker u-margin-top-15px u-display-flex u-justify-content-space-between">
-                      {accountFound ? (
-                        <StartToEndDate
+                      <StartToEndDate
                           size="large"
                           change={setDate}
                           key={clearDateSelect}
@@ -430,17 +434,6 @@ const AddEditDebitCardDispute = () => {
                           DateRange={true}
                           required
                         />
-                      ) : null}
-                      {accountFound ? (
-                        <Col lg={4} md={4} sm={24}>
-                          <Button
-                            applyClass="btnDarkSolid"
-                            text="Search"
-                            className="downloadButton"
-                            click={searchHandlerForAccount}
-                          />
-                        </Col>
-                      ) : null}
                     </div>
                   </>
                 ) : null}
