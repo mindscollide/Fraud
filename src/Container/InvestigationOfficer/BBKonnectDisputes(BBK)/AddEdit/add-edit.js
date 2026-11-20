@@ -50,6 +50,9 @@ const AddEditBBKDispute = () => {
   const [isCnicNo, setIsCnicNo] = useState(true);
   const [isAccountNo, setIsAccountNo] = useState(true);
   const [cnicFound, setCnicFound] = useState(false);
+  // officer already answered "create a new record?" for this CNIC (it isn't
+  // in the Fraud DB), so the same question at the account step is skipped
+  const [cnicConfirmed, setCnicConfirmed] = useState(false);
   const [account, setAccount] = useState([]);
   const [accountForMobile, setAccountForMobile] = useState([]);
   const [accountNumber, setAccountNumber] = useState([]);
@@ -205,8 +208,16 @@ const AddEditBBKDispute = () => {
     }
   };
 
+  // Proceed: not in Fraud DB. Asked after the CNIC search (no dropdown yet):
+  // show the account dropdown. Asked after an account was picked: show the
+  // date range + Search for IRIS.
   const newDataHAndler = async (e) => {
     await dispatch(customerFoundModal(false));
+    if (!cnicFound) {
+      setCnicConfirmed(true);
+      setCnicFound(true);
+      return;
+    }
     setAccountFound(true);
     setBtnStatusSelect(true);
     // setIsModalVisible(false);
@@ -265,10 +276,19 @@ const AddEditBBKDispute = () => {
     setInputData("");
     setInputDataMobile("");
     setCnicFound(false);
+    setCnicConfirmed(false);
     dispatch(RESETALLSTATE());
     setAccountNumber("");
     setAccountFound(false);
   };
+
+  // the CNIC was already confirmed as a new record: answer the account-step
+  // question for the officer instead of asking twice
+  const skipAccountConfirm =
+    investigationOfficer.CustomerFoundModal && cnicFound && cnicConfirmed;
+  useEffect(() => {
+    if (skipAccountConfirm) newDataHAndler();
+  }, [skipAccountConfirm]);
 
   //   check data input for enable button for search
   const cnicSearchHandler = () => {
@@ -276,15 +296,18 @@ const AddEditBBKDispute = () => {
     // setAccountNumber("");
     // setIsModalVisible(false);
     // dispatch(RESETALLSTATE());
+    // the dropdown appears once the lookup says the CNIC is found (or the
+    // officer confirms creating a new record), not straight away
+    setCnicFound(false);
+    setCnicConfirmed(false);
     if (inputData) {
-      dispatch(GetAllAccountsByCnicBBK(inputData));
+      dispatch(GetAllAccountsByCnicBBK(inputData, setCnicFound));
     }
     // dispatch(customerFoundModal(false));
     // dispatch(customerNotFoundModal(false));
     // dispatch(accountNumberFoundModal(false));
     // dispatch(accountNumberNotFoundModal(false));
     setBtnStatus(true);
-    setCnicFound(true);
   };
 
   const mobileSearchHandler = () => {
@@ -785,11 +808,11 @@ const AddEditBBKDispute = () => {
 
       <Modal
         closeModal={handleCancel}
-        modalState={investigationOfficer.CustomerFoundModal}
+        modalState={investigationOfficer.CustomerFoundModal && !skipAccountConfirm}
         width={650}
       >
         {/* this data will be pass to modal when Add Fraud Type btn will be clicked */}
-        {investigationOfficer.CustomerFoundModal && (
+        {investigationOfficer.CustomerFoundModal && !skipAccountConfirm && (
           <>
             <div>
               <div className="NoRecordFound">

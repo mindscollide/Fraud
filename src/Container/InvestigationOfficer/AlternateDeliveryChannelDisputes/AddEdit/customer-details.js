@@ -123,18 +123,14 @@ const CustomerDetailsADCD = () => {
     }
   }, [investigationOfficer.GetTransactionDetailsByCnicDCexsitData]);
 
+  // Resolve the city name whichever arrives last, the city list or the
+  // customer's fK_CTID (the list is usually cached before the record lands)
   useEffect(() => {
-    let valueCity = setupForms.CityData;
-    valueCity.map((data, index) => {
-      if (customer.fK_CTID === data.pK_CTID) {
-        setCityValue(data.name);
-        setCustomer({
-          ...customer,
-          ["fK_CTID"]: parseInt(data.pK_CTID),
-        });
-      }
-    });
-  }, [setupForms.CityData]);
+    const match = (setupForms.CityData || []).find(
+      (data) => Number(data.pK_CTID) === Number(customer.fK_CTID)
+    );
+    setCityValue(match ? match.name : "");
+  }, [setupForms.CityData, customer.fK_CTID]);
 
   //To show notification
   useEffect(() => {

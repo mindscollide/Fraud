@@ -421,21 +421,17 @@ const AddNewCustomerDetailsNONAPI = () => {
         pK_CDID: customerDetail.pK_CDID,
         fK_FTID: customerDetail.fK_FTID,
       });
-      if (
-        customerDetail.fK_FTID !== undefined &&
-        customerDetail.fK_FTID !== null &&
-        customerDetail.fK_FTID !== ""
-      ) {
-        let nameFraud = setupForms.FraudTypeData;
-        if (nameFraud !== undefined && nameFraud !== null && nameFraud !== "") {
-          nameFraud.map((data, index) => {
-            if (customerDetail.fK_FTID === data.pK_FTID) {
-              let value = data.name;
-              setFraudTypeName(value);
-            }
-          });
-        }
-      }
+      // Prefill the fraud type (name and the FK_FTID the save sends) when the
+      // lookup returns one; fK_FTID 0 means none, so clear any earlier choice
+      // and leave "Select Fraud Type" for the officer.
+      const prefillFraud = (setupForms.FraudTypeData || []).find(
+        (data) => Number(data.pK_FTID) === Number(customerDetail.fK_FTID)
+      );
+      setFraudTypeName(prefillFraud ? prefillFraud.name : "");
+      setNPIDisputes((prev) => ({
+        ...prev,
+        FK_FTID: prefillFraud ? parseInt(prefillFraud.pK_FTID) : 0,
+      }));
 
       sefDCusotmerAccount({
         ...fDCusotmerAccount,
