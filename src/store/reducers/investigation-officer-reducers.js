@@ -1241,11 +1241,16 @@ const InvestigationOfficerReducers = (state = initialState, action) => {
       };
 
     case actions.SEARCH_GLOBALDISPUTES_UNIT_FAIL:
+      // isExecuted:false with "No Records Found" lands here; flag it so the
+      // Dispute Cases search pages (IO and IM) show it like other searches.
+      // A non-200 response may carry no responseResult at all.
       return {
         ...state,
         Loading: false,
-        ResponseMessage: action.response.responseMessage,
-        GlobalDisputeData: action.response.disputes,
+        ResponseMessage: action.response?.responseMessage,
+        GlobalDisputeData: action.response?.disputes || [],
+        Message: action.response?.responseMessage || "No Records Found",
+        ShowNotification: true,
       };
 
     case actions.RESET_GLOBALDISPUTE_TABLE:
