@@ -50,6 +50,7 @@ import {
   removeDashesFromDate,
 } from "../../../../Common/Functions/date-formatter";
 import { ConsoleSqlOutlined } from "@ant-design/icons";
+import { isPageReload } from "../../../../Common/Functions/page-reload";
 
 const EditNONAPIDispute = () => {
   var cnic2 = localStorage.getItem("cnic2");
@@ -2564,7 +2565,7 @@ const EditNONAPIDispute = () => {
     var ReferenceNumber = JSON.parse(localStorage.getItem("ReferenceNumber"));
     var CNICNumber = JSON.parse(localStorage.getItem("CNICNumber"));
     let data = { CNICNumber: CNICNumber, ReferenceNumber: ReferenceNumber };
-    if (performance.navigation.type === performance.navigation.TYPE_RELOAD) {
+    if (isPageReload()) {
       dispatch(GetNonApiDisputesForEditByCnicAndReferenceNumber(data));
     }
   }, []);

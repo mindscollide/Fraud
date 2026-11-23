@@ -44,6 +44,7 @@ import {
   TimeDisplayFormat,
   removeDashesFromDate,
 } from "../../../../Common/Functions/date-formatter";
+import { isPageReload } from "../../../../Common/Functions/page-reload";
 
 const AddNewCustomerDetailsBBK = () => {
   var cnic = localStorage.getItem("CNICNumber");
@@ -481,7 +482,7 @@ const AddNewCustomerDetailsBBK = () => {
   useEffect(() => {
     let Data = { CNIC: cnic, AccountNumber: accountNumber };
 
-    if (performance.navigation.type === performance.navigation.TYPE_RELOAD) {
+    if (isPageReload()) {
       if (accountNumber !== null) {
         let UserDetails = JSON.parse(localStorage.getItem("State"));
         let Data1 = {

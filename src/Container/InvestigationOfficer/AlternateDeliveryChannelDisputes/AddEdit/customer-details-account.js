@@ -35,6 +35,7 @@ import {
 import { enableGoBack } from "../../../../store/actions/ui-actions";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { isPageReload } from "../../../../Common/Functions/page-reload";
 
 const CustomerDetailsADCAccount = () => {
   var accountNumber = localStorage.getItem("AccountNumber");
@@ -149,7 +150,7 @@ const CustomerDetailsADCAccount = () => {
   }, [investigationOfficer.Loading]);
 
   useEffect(() => {
-    if (performance.navigation.type === performance.navigation.TYPE_RELOAD) {
+    if (isPageReload()) {
       dispatch(GetTransactionDetailsByAccountNumberADC(accountNumber));
     }
     dispatch(ensureLookup("city"));

@@ -33,6 +33,7 @@ import {
   TimeAndDisplayFormat,
   removeDashesFromDate,
 } from "../../../../Common/Functions/date-formatter";
+import { isPageReload } from "../../../../Common/Functions/page-reload";
 
 const EditNegativeDataBase = () => {
   var cnic = localStorage.getItem("cnic");
@@ -640,7 +641,7 @@ const EditNegativeDataBase = () => {
   };
 
   useEffect(() => {
-    if (performance.navigation.type === performance.navigation.TYPE_RELOAD) {
+    if (isPageReload()) {
       let Data = {
         CNICNumber: cnic,
       };

@@ -36,6 +36,7 @@ import {
   GetCreditCardDisputesByCnic,
 } from "../../../../store/actions/investigation-officer-actions";
 import { useDispatch, useSelector } from "react-redux";
+import { isPageReload } from "../../../../Common/Functions/page-reload";
 
 const ViewCustomerDetails = () => {
   var cnic = localStorage.getItem("cnic");
@@ -111,11 +112,11 @@ const ViewCustomerDetails = () => {
     const ReferenceNumber = JSON.parse(localStorage.getItem("ReferenceNumber"));
     const CNICNumber = localStorage.getItem("CNICNumber");
     let Data = { CNICNumber: CNICNumber, ReferenceNumber: ReferenceNumber };
-    if (performance.navigation.type === performance.navigation.TYPE_RELOAD) {
+    if (isPageReload()) {
       if (TTIDQM === null) {
         if (TTID === "1") {
           dispatch(GetCreditCardDisputesByCnic(Data, TTID));
-          navigate("/Fraud/DisputeCases/ViewCustomerDetails");
+          // stay on this page: the DisputeCases/ViewCustomerDetails* routes exist only for the Investigation Manager, so redirecting there sent other roles to /404
         } else {
           dispatch(GetCreditCardDisputesByCnic(Data));
         }

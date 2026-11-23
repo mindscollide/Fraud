@@ -46,6 +46,7 @@ import {
   TimeDisplayFormat,
   removeDashesFromDate,
 } from "../../../../Common/Functions/date-formatter";
+import { isPageReload } from "../../../../Common/Functions/page-reload";
 
 const EditBBKDispute = () => {
   var cnic = localStorage.getItem("CNICNumber");
@@ -2652,7 +2653,7 @@ const EditBBKDispute = () => {
       CNICNumber: JSON.parse(cnic),
       ReferenceNumber: ReferenceNumber,
     };
-    if (performance.navigation.type === performance.navigation.TYPE_RELOAD) {
+    if (isPageReload()) {
       dispatch(GetBBKDisputesForEditByCnicAndReferenceNumber(data));
     }
   }, []);

@@ -45,6 +45,7 @@ import {
   DateDisplayFormat,
   CommaFormter,
 } from "../../../../../Common/Functions/date-formatter";
+import { isPageReload } from "../../../../../Common/Functions/page-reload";
 
 const PendingDeletionApprovals = () => {
   const navigate = useNavigate();
@@ -322,7 +323,7 @@ const PendingDeletionApprovals = () => {
   }, [setupForms.RejectionReasonsData]);
 
   useEffect(() => {
-    if (performance.navigation.type === performance.navigation.TYPE_RELOAD) {
+    if (isPageReload()) {
       dispatch(GetAllPendingForApprovalByID(userID));
     }
   }, []);

@@ -51,6 +51,7 @@ import {
   TimeDisplayFormat,
   removeDashesFromDate,
 } from "../../../../Common/Functions/date-formatter";
+import { isPageReload } from "../../../../Common/Functions/page-reload";
 
 const EditADCDispute = () => {
   var cnic = localStorage.getItem("CNICNumber");
@@ -516,7 +517,7 @@ const EditADCDispute = () => {
     let data = { CNICNumber: CNICNumber, RefrenceNumber: ReferenceNumber };
     let data2 = { CNICNumber: cnic2, RefrenceNumber: ReferenceNumber };
 
-    if (performance.navigation.type === performance.navigation.TYPE_RELOAD) {
+    if (isPageReload()) {
       dispatch(SearchADCDisputesForEditByCnicAndReferenceNumber(data));
       dispatch(SearchADCDisputesForEditByCnicAndReferenceNumber(data2));
     }

@@ -50,6 +50,7 @@ import {
   removeDashesFromDate,
 } from "../../../../Common/Functions/date-formatter";
 import { Header } from "antd/lib/layout/layout";
+import { isPageReload } from "../../../../Common/Functions/page-reload";
 
 const AddNewCustomerDetailsDC = () => {
   var cnic = localStorage.getItem("CNICNumber");
@@ -494,7 +495,7 @@ const AddNewCustomerDetailsDC = () => {
   useEffect(() => {
     let Data = { CNIC: cnic, AccountNumber: accountNumber };
 
-    if (performance.navigation.type === performance.navigation.TYPE_RELOAD) {
+    if (isPageReload()) {
       if (accountNumber !== null) {
         let UserDetails = JSON.parse(localStorage.getItem("State"));
         let Data1 = {
