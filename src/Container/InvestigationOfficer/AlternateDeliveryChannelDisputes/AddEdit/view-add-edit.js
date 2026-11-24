@@ -411,7 +411,7 @@ const ViewCustomerDetailsADC = () => {
       width: "220px",
     },
     {
-      title: "HBL Account Number",
+      title: "Account Number",
       dataIndex: "hblAccountNumber",
       key: "hblAccountNumber",
       align: "center",
@@ -595,7 +595,7 @@ const ViewCustomerDetailsADC = () => {
       width: "220px",
     },
     {
-      title: "HBL Account Number",
+      title: "Account Number",
       dataIndex: "HBLAccountNumber",
       key: "HBLAccountNumber",
       align: "center",
@@ -1129,6 +1129,17 @@ const ViewCustomerDetailsADC = () => {
       // dispatch(HideNotification());
     }
   }, [investigationManager.SaveRejectionData]);
+  // true when a field actually holds a value (treats "", null, undefined,
+  // empty arrays and the -99999999999999999999 "empty number" sentinel as empty)
+  const hasValue = (v) =>
+    v !== undefined &&
+    v !== null &&
+    v !== "" &&
+    v !== -99999999999999999999 &&
+    !(Array.isArray(v) && v.length === 0);
+
+  // show the label only when the field has a value, otherwise "" (placeholder only)
+  const lbl = (value, text) => (hasValue(value) ? text : "");
 
   return (
     <>
@@ -1147,10 +1158,10 @@ const ViewCustomerDetailsADC = () => {
               <TextField
                 name=""
                 size="small"
-                placeholder="Reference#"
+                placeholder="Reference #"
                 disable
                 value={ADCDisputes.RefrenceNumber}
-                label={"Reference #"}
+                label={lbl(ADCDisputes.RefrenceNumber, "Reference #")}
                 fullWidth
               />
             </Col>
@@ -1158,10 +1169,10 @@ const ViewCustomerDetailsADC = () => {
               <TextField
                 name=""
                 size="small"
-                placeholder="Customer Name"
                 disable
                 value={customerDetails.cnicNumber}
-                label={"CNIC"}
+                label={lbl(customerDetails.cnicNumber, "CNIC")}
+                placeholder={"CNIC"}
                 fullWidth
               />
             </Col>
@@ -1172,7 +1183,7 @@ const ViewCustomerDetailsADC = () => {
                 placeholder="Customer Name"
                 disable
                 value={customerDetails.customerName}
-                label={"Customer Name"}
+                label={lbl(customerDetails.customerName, "Customer Name")}
                 fullWidth
               />
             </Col>
@@ -1182,7 +1193,8 @@ const ViewCustomerDetailsADC = () => {
                 name="fK_CTID"
                 disable={true}
                 value={cityValue}
-                label="City"
+                label={lbl(cityValue, "City")}
+                placeholder="City"
                 fullWidth
               />
             </Col>
@@ -1231,12 +1243,13 @@ const ViewCustomerDetailsADC = () => {
             </h1>
           </Col>
           <Row gutter={8} className="u-margin-top-22px">
-            <Col lg={6} md={6} sm={24}>
+            <Col lg={5} md={5} sm={24}>
               <DatePicker
                 size="large"
                 width="100%"
                 DateRange
                 placeholder={"Case Received Date"}
+                label={lbl(ADCDisputes.CaseReceivedDate, "Case Received Date")}
                 name="CaseReceivedDate"
                 value={
                   ADCDisputes.CaseReceivedDate
@@ -1246,10 +1259,14 @@ const ViewCustomerDetailsADC = () => {
                 disable
               />
             </Col>
-            <Col lg={6} md={6} sm={24}>
+            <Col lg={5} md={5} sm={24}>
               <TextField
                 fullWidth
-                label="Case Received Channel"
+                label={lbl(
+                  ADCDisputes.CaseReceivedChannel,
+                  "Case Received Channel"
+                )}
+                placeholder={"Case Received Channel"}
                 value={ADCDisputes.CaseReceivedChannel}
                 name="CaseReceivedChannel"
                 type="text"
@@ -1258,30 +1275,35 @@ const ViewCustomerDetailsADC = () => {
                 disable
               />
             </Col>
-            <Col lg={6} md={6} sm={24} xs={24} className="u-text-align-center">
-              <label>
-                <b>Case Resolved</b>
-              </label>
-              <br />
-              <Radio.Group
-                name="IsCaseResolved"
-                disable={true}
-                value={ADCDisputes.IsCaseResolved}
-              >
-                <Radio disabled value={true}>
-                  Yes
-                </Radio>
-                <Radio disabled value={false}>
-                  No
-                </Radio>
-              </Radio.Group>
+            <Col lg={3} md={3} sm={24} xs={24} className="u-text-align-center">
+              <div>
+                <label>
+                  <b>Case Resolved</b>
+                </label>
+                <br />
+                <span className="u-margin-left=15px">
+                  <Radio.Group
+                    name="IsCaseResolved"
+                    disable={true}
+                    value={ADCDisputes.IsCaseResolved}
+                  >
+                    <Radio disabled value={true}>
+                      Yes
+                    </Radio>
+                    <Radio disabled value={false}>
+                      No
+                    </Radio>
+                  </Radio.Group>
+                </span>
+              </div>
             </Col>
-            <Col lg={6} md={6} sm={24}>
+            <Col lg={5} md={5} sm={24}>
               <DatePicker
                 size="large"
                 width="100%"
                 DateRange
                 placeholder={"Case Resolved Date"}
+                label={lbl(ADCDisputes.CaseResolvedDate, "Case Resolved Date")}
                 name="CaseResolvedDate"
                 value={
                   ADCDisputes.CaseResolvedDate
@@ -1291,11 +1313,15 @@ const ViewCustomerDetailsADC = () => {
                 disable
               />
             </Col>
-            <Col lg={6} md={6} sm={24}>
+            <Col lg={5} md={5} sm={24}>
               <Paper>
                 <TextField
                   fullWidth
-                  label="Total Dispute Amount"
+                  label={lbl(
+                    ADCDisputes.TotalTransactionAmount,
+                    "Total Dispute Amount"
+                  )}
+                  placeholder="Total Dispute Amount"
                   value={
                     ADCDisputes.TotalTransactionAmount === null ||
                     ADCDisputes.TotalTransactionAmount === -99999999999999999999
@@ -1322,7 +1348,8 @@ const ViewCustomerDetailsADC = () => {
             <Col lg={6} md={6} sm={24} xs={24}>
               <TextField
                 fullWidth
-                label="Case Decision"
+                label={lbl(ADCDisputes.CaseDecision, "Case Decision")}
+                placeholder="Case Decision"
                 size="small"
                 name="CaseDecision"
                 textLength={50}
@@ -1334,7 +1361,8 @@ const ViewCustomerDetailsADC = () => {
             <Col lg={6} md={6} sm={24} xs={24}>
               <TextField
                 fullWidth
-                label="Event ID (SAS REF #)"
+                label={lbl(ADCDisputes.EventIDSAS, "Event ID (SAS REF #)")}
+                placeholder="Event ID (SAS REF #)"
                 size="small"
                 name="EventIDSAS"
                 value={ADCDisputes.EventIDSAS}
@@ -1345,7 +1373,8 @@ const ViewCustomerDetailsADC = () => {
             <Col lg={6} md={6} sm={24} xs={24}>
               <TextField
                 fullWidth
-                label="Remarks"
+                label={lbl(ADCDisputes.Remarks, "Remarks")}
+                placeholder="Remarks"
                 size="small"
                 name="Remarks"
                 value={ADCDisputes.Remarks}
@@ -1355,7 +1384,7 @@ const ViewCustomerDetailsADC = () => {
             </Col>
             <Col lg={6} md={6} sm={24} xs={24}>
               <DatePicker
-                label={"Registration Date"}
+                label={lbl(ADCDisputes.RegistrationDate, "Registration Date")}
                 size="large"
                 width="100%"
                 DateRange
@@ -1375,7 +1404,12 @@ const ViewCustomerDetailsADC = () => {
               <TextField
                 fullWidth
                 size="small"
-                label="Aging"
+                label={
+                  ADCDisputes.Aging === null || ADCDisputes.Aging === -1
+                    ? ""
+                    : "Aging"
+                }
+                placeholder="Aging"
                 name="Aging"
                 value={
                   ADCDisputes.Aging === null || ADCDisputes.Aging === -1
@@ -1389,7 +1423,13 @@ const ViewCustomerDetailsADC = () => {
               <TextField
                 fullWidth
                 size="small"
-                label="Case Closed TAT"
+                label={
+                  ADCDisputes.CaseClosedTAT === null ||
+                  ADCDisputes.CaseClosedTAT === -1
+                    ? ""
+                    : "Case Closed TAT"
+                }
+                placeholder="Case Closed TAT"
                 name="CaseClosedTAT"
                 value={
                   ADCDisputes.CaseClosedTAT === null ||
@@ -1403,7 +1443,8 @@ const ViewCustomerDetailsADC = () => {
             <Col lg={6} md={6} sm={24} xs={24}>
               <FormattedInputs
                 fullWidth
-                Label="Expected Recovery"
+                Label={lbl(ADCDisputes.ExpectedRecovery, "Expected Recovery")}
+                placeholder="Expected Recovery"
                 size="small"
                 name="ExpectedRecovery"
                 value={
@@ -1460,7 +1501,8 @@ const ViewCustomerDetailsADC = () => {
             <Col lg={6} md={6} sm={24} xs={24}>
               <TextField
                 fullWidth
-                label="P-II information"
+                label={lbl(ADCDisputes.PII, "P-II information")}
+                placeholder="P-II information"
                 size="small"
                 name="PII"
                 value={ADCDisputes.PII}
@@ -1472,7 +1514,11 @@ const ViewCustomerDetailsADC = () => {
             <Col lg={6} md={6} sm={24} xs={24}>
               <TextField
                 fullWidth
-                label="Customer Clamied Information"
+                label={lbl(
+                  ADCDisputes.CustomerClamiedInformation,
+                  "Customer Clamied Information"
+                )}
+                placeholder="Customer Clamied Information"
                 size="small"
                 name="CustomerClamiedInformation"
                 value={ADCDisputes.CustomerClamiedInformation}
@@ -1483,7 +1529,11 @@ const ViewCustomerDetailsADC = () => {
             <Col lg={6} md={6} sm={24} xs={24}>
               <FormattedInputs
                 fullWidth
-                Label="Expected Recovery From HBL"
+                Label={lbl(
+                  ADCDisputes.ExpectedRecoveryFromHBLBeneficiary,
+                  "Expected Recovery From Bank"
+                )}
+                placeholder="Expected Recovery From Bank"
                 size="small"
                 name="ExpectedRecoveryFromHBLBeneficiary"
                 value={
@@ -1504,7 +1554,11 @@ const ViewCustomerDetailsADC = () => {
             <Col lg={6} md={6} sm={24} xs={24}>
               <FormattedInputs
                 fullWidth
-                Label="Expected Recovery From Member Bank"
+                Label={lbl(
+                  ADCDisputes.ExpectedRecoveryFromMemberBankBeneficiary,
+                  "Expected Recovery From Member Bank"
+                )}
+                placeholder="Expected Recovery From Member Bank"
                 size="small"
                 name="ExpectedRecoveryFromMemberBankBeneficiary"
                 value={
@@ -1541,7 +1595,8 @@ const ViewCustomerDetailsADC = () => {
             <Col lg={6} md={6} sm={24} xs={24}>
               <TextField
                 fullWidth
-                label="Fund Layered A/c #"
+                label={lbl(ADCDisputes.FundLayeredAC, "Fund Layered A/c #")}
+                placeholder="Fund Layered A/c #"
                 size="small"
                 name="FundLayeredAC"
                 value={ADCDisputes.FundLayeredAC}
@@ -1576,7 +1631,11 @@ const ViewCustomerDetailsADC = () => {
             <Col lg={6} md={6} sm={24} xs={24}>
               <SelectBox
                 option={sourceOfIB}
-                label="Select Source of IB Channel Creation"
+                label={lbl(
+                  sourceOfIBName,
+                  "Select Source of IB Channel Creation"
+                )}
+                placeholder="Select Source of IB Channel Creation"
                 name="FK_SIBCCID"
                 value={sourceOfIBName}
                 disable

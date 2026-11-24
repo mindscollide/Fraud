@@ -36,7 +36,6 @@ import {
   GetCreditCardDisputesByCnic,
 } from "../../../../store/actions/investigation-officer-actions";
 import { useDispatch, useSelector } from "react-redux";
-import { isPageReload } from "../../../../Common/Functions/page-reload";
 
 const ViewCustomerDetails = () => {
   var cnic = localStorage.getItem("cnic");
@@ -108,26 +107,47 @@ const ViewCustomerDetails = () => {
 
   useEffect(() => {}, [disputeDetails]);
 
+  // useEffect(() => {
+  //   const ReferenceNumber = JSON.parse(localStorage.getItem("ReferenceNumber"));
+  //   const CNICNumber = localStorage.getItem("CNICNumber");
+  //   let Data = { CNICNumber: CNICNumber, ReferenceNumber: ReferenceNumber };
+  //   if (performance.navigation.type === performance.navigation.TYPE_RELOAD) {
+  //     if (TTIDQM === null) {
+  //       if (TTID === "1") {
+  //         dispatch(GetCreditCardDisputesByCnic(Data, TTID));
+  //         navigate("/Fraud/DisputeCases/ViewCustomerDetails");
+  //       } else {
+  //         dispatch(GetCreditCardDisputesByCnic(Data));
+  //       }
+  //     } else {
+  //       let TTIDvalue = true;
+  //       dispatch(enableGoBack());
+  //       dispatch(GetCreditCardDisputesByCnic(Data, TTIDvalue));
+  //     }
+  //   }
+  // }, []);
+
   useEffect(() => {
+    const hasData =
+      investigationOfficer.GetCreditCardDisputesData?.disputeDetails;
+    if (hasData) return; // came from the table click, data already loaded
+
     const ReferenceNumber = JSON.parse(localStorage.getItem("ReferenceNumber"));
     const CNICNumber = localStorage.getItem("CNICNumber");
-    let Data = { CNICNumber: CNICNumber, ReferenceNumber: ReferenceNumber };
-    if (isPageReload()) {
-      if (TTIDQM === null) {
-        if (TTID === "1") {
-          dispatch(GetCreditCardDisputesByCnic(Data, TTID));
-          // stay on this page: the DisputeCases/ViewCustomerDetails* routes exist only for the Investigation Manager, so redirecting there sent other roles to /404
-        } else {
-          dispatch(GetCreditCardDisputesByCnic(Data));
-        }
+    const Data = { CNICNumber, ReferenceNumber };
+
+    if (TTIDQM === null) {
+      if (TTID === "1") {
+        dispatch(GetCreditCardDisputesByCnic(Data, TTID));
+        // stay on this page: the DisputeCases/ViewCustomerDetails* routes exist only for the Investigation Manager, so redirecting there sent other roles to /404
       } else {
-        let TTIDvalue = true;
-        dispatch(enableGoBack());
-        dispatch(GetCreditCardDisputesByCnic(Data, TTIDvalue));
+        dispatch(GetCreditCardDisputesByCnic(Data));
       }
+    } else {
+      dispatch(enableGoBack());
+      dispatch(GetCreditCardDisputesByCnic(Data, true));
     }
   }, []);
-
   useEffect(() => {
     setFDCustomer({
       ...FDCustomer,
@@ -835,7 +855,7 @@ const ViewCustomerDetails = () => {
             </h1>
           </Col>
           <Row gutter={8}>
-            <Col lg={6} md={6} sm={24} className="u-margin-top-22px">
+            <Col lg={5} md={5} sm={24} className="u-margin-top-22px">
               <DatePicker
                 label={lbl(
                   disputeDetails.caseRecievedDate,
@@ -854,7 +874,7 @@ const ViewCustomerDetails = () => {
                 disable={true}
               />
             </Col>
-            <Col lg={6} md={6} sm={24} className="u-margin-top-22px">
+            <Col lg={5} md={5} sm={24} className="u-margin-top-22px">
               <TextField
                 fullWidth
                 label={lbl(
@@ -870,30 +890,35 @@ const ViewCustomerDetails = () => {
               />
             </Col>
             <Col
-              lg={6}
-              md={6}
+              lg={4}
+              md={4}
               sm={24}
               xs={24}
               className="u-text-align-center u-margin-top-15px"
             >
-              <label>
-                <b>Case Resolved</b>
-              </label>
-              <br />
-              <Radio.Group
-                name="IsCaseResolved"
-                value={disputeDetails.isCaseResolved}
-                disable={true}
-              >
-                <Radio disabled value={true}>
-                  Yes
-                </Radio>
-                <Radio disabled value={false}>
-                  No
-                </Radio>
-              </Radio.Group>
+              <div>
+                <label>
+                  <b>Case Resolved</b>
+                </label>
+                <br />
+
+                <span className="u-margin-left-15px">
+                  <Radio.Group
+                    name="IsCaseResolved"
+                    value={disputeDetails.isCaseResolved}
+                    disable={true}
+                  >
+                    <Radio disabled value={true}>
+                      Yes
+                    </Radio>
+                    <Radio disabled value={false}>
+                      No
+                    </Radio>
+                  </Radio.Group>
+                </span>
+              </div>
             </Col>
-            <Col lg={6} md={6} sm={24}>
+            <Col lg={5} md={5} sm={24}>
               <DatePicker
                 label={lbl(
                   disputeDetails.caseResolvedDate,
@@ -912,7 +937,7 @@ const ViewCustomerDetails = () => {
                 disable={true}
               />
             </Col>
-            <Col lg={6} md={6} sm={24}>
+            <Col lg={5} md={5} sm={24}>
               <Paper>
                 <FormattedInputs
                   name="TotalTransactionAmount"
@@ -946,28 +971,32 @@ const ViewCustomerDetails = () => {
           </Col>
           <Row gutter={8}>
             <Col
-              lg={6}
-              md={6}
+              lg={3}
+              md={3}
               sm={24}
               xs={24}
               className="u-text-align-center u-margin-top-10px"
             >
-              <label>
-                <b>TC 40 Reporting</b>
-              </label>
-              <br />
-              <Radio.Group
-                name="IsTC40Reporting"
-                value={disputeDetails.isTC40Reporting}
-                disable
-              >
-                <Radio disabled value={true}>
-                  Yes
-                </Radio>
-                <Radio disabled value={false}>
-                  No
-                </Radio>
-              </Radio.Group>
+              <div>
+                <label>
+                  <b>TC 40 Reporting</b>
+                </label>
+                <br />
+                <span className="u-margin-left-15px">
+                  <Radio.Group
+                    name="IsTC40Reporting"
+                    value={disputeDetails.isTC40Reporting}
+                    disable
+                  >
+                    <Radio disabled value={true}>
+                      Yes
+                    </Radio>
+                    <Radio disabled value={false}>
+                      No
+                    </Radio>
+                  </Radio.Group>
+                </span>
+              </div>
             </Col>
             <Col lg={6} md={6} sm={24}>
               <DatePicker
@@ -989,28 +1018,32 @@ const ViewCustomerDetails = () => {
               />
             </Col>
             <Col
-              lg={6}
-              md={6}
+              lg={3}
+              md={3}
               sm={24}
               xs={24}
               className="u-text-align-center u-margin-top-10px"
             >
-              <label>
-                <b>Safe Reporting</b>
-              </label>
-              <br />
-              <Radio.Group
-                name="isSafeReporting"
-                value={disputeDetails.isSafeReporting}
-                disable={true}
-              >
-                <Radio disabled value={true}>
-                  Yes
-                </Radio>
-                <Radio disabled value={false}>
-                  No
-                </Radio>
-              </Radio.Group>
+              <div>
+                <label>
+                  <b>Safe Reporting</b>
+                </label>
+                <br />
+                <span className="u-margin-left-15px">
+                  <Radio.Group
+                    name="isSafeReporting"
+                    value={disputeDetails.isSafeReporting}
+                    disable={true}
+                  >
+                    <Radio disabled value={true}>
+                      Yes
+                    </Radio>
+                    <Radio disabled value={false}>
+                      No
+                    </Radio>
+                  </Radio.Group>
+                </span>
+              </div>
             </Col>
             <Col lg={6} md={6} sm={24}>
               <DatePicker
@@ -1053,22 +1086,26 @@ const ViewCustomerDetails = () => {
               />
             </Col>
             <Col lg={6} md={6} sm={24} xs={24} className="u-text-align-center">
-              <label>
-                <b>Point Of Compromise Identified</b>
-              </label>
-              <br />
-              <Radio.Group
-                name="IsPOC"
-                value={disputeDetails.isPOC}
-                disable={true}
-              >
-                <Radio disabled value={true}>
-                  Yes
-                </Radio>
-                <Radio disabled value={false}>
-                  No
-                </Radio>
-              </Radio.Group>
+              <div>
+                <label>
+                  <b>Point Of Compromise Identified</b>
+                </label>
+                <br />
+                <span className="u-margin-left-15px">
+                  <Radio.Group
+                    name="IsPOC"
+                    value={disputeDetails.isPOC}
+                    disable={true}
+                  >
+                    <Radio disabled value={true}>
+                      Yes
+                    </Radio>
+                    <Radio disabled value={false}>
+                      No
+                    </Radio>
+                  </Radio.Group>
+                </span>
+              </div>
             </Col>
             <Col lg={6} md={6} sm={24} xs={24}>
               <TextField

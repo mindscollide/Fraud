@@ -19,7 +19,6 @@ import {
   Loader,
   Modal,
   SelectBox,
-  GroupedButtons,
 } from "../../../../Components/Elements";
 import {
   enableGoBack,
@@ -593,7 +592,11 @@ const SearchNegativeDatabase = () => {
         {/* this data will be pass to modal when View Approval Icon will be clicked */}
         {actions.viewApprovalHistory && (
           <>
-            <Table rows={row} columns={viewApprovalColumn} />
+            <Table
+              rows={row}
+              columns={viewApprovalColumn}
+              scroll={{ x: "max-content", y: 350 }}
+            />
             {/* <GroupedButtons data={okayButtonProp} /> */}
             <div className="u-display-flex u-justify-content-center">
               {/* <GroupedButtons data={okayButtonProp} /> */}

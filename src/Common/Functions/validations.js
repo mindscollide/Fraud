@@ -9,7 +9,7 @@ export const validEmailAddress = (data) => {
   return dataToStr.match(pattern) ? true : false;
 };
 // Card number as typed into the "9999 XXXX XXXX 9999" mask, or as prefilled
-// from IRIS ("1234XXXXXXX2134", no spaces): first and last 4 digits, masked
+// from Bank Database ("1234XXXXXXX2134", no spaces): first and last 4 digits, masked
 // or digit middle. An unfinished mask still holds "_" and fails.
 export const validCardNumber = (data) => {
   const card = String(data ?? "").replace(/\s/g, "");

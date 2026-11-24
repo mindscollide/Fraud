@@ -816,7 +816,8 @@ const UpdateCreditCardDisputeDetails = (object) => {
     CustomerName: "",
     TransactionId: "",
     TotalTransactionAmount: -100000000000000000000,
-    fk_csid: 1,
+    fk_csid: -1,
+    FK_CTID: 0,
   };
   let DataForGlobalDate = {
     from: "",
@@ -844,6 +845,7 @@ const UpdateCreditCardDisputeDetails = (object) => {
             dispatch(
               UpdateCreditCardDisputeSuccess(response.data.responseResult)
             );
+
             if (flagForGlobalDispute === "true") {
               await localStorage.setItem("CaseStatus", Data.fk_csid);
               await localStorage.setItem("parent", "sub1");
@@ -851,6 +853,7 @@ const UpdateCreditCardDisputeDetails = (object) => {
               await dispatch(
                 ShowNotification(response.data.responseResult.responseMessage)
               );
+
               await dispatch(
                 SearchGlobalDisputes(DataForGlobal, DataForGlobalDate)
               );
@@ -1993,17 +1996,17 @@ const SearchDebitCardDisputesByCnicAndReferenceNumber = (object, TTID) => {
             await dispatch(
               GetDebitCardDisputesByCnicSuccess(response.data.responseResult)
             );
+            localStorage.setItem("CNICNumber", object.CNICNumber);
+            if (!TTID) {
+              localStorage.removeItem("FK_TTID");
+              navigate("/Fraud/DebitCardDisputes/ViewCustomerDetails");
+            }
             await dispatch(ensureLookup("fraudType"));
             await dispatch(ensureLookup("source"));
             await dispatch(ensureLookup("caseDecision"));
             await dispatch(ensureLookup("city"));
             await dispatch(ensureLookup("approvalReasons"));
             await dispatch(ensureLookup("rejectionReasons"));
-            localStorage.setItem("CNICNumber", object.CNICNumber);
-            if (!TTID) {
-              localStorage.removeItem("FK_TTID");
-              navigate("/Fraud/DebitCardDisputes/ViewCustomerDetails");
-            }
           } else {
             dispatch(
               GetDebitCardDisputesByCnicFail(
@@ -2144,7 +2147,7 @@ const SearchTransactionDetailsByAccountNumberInIRIS = (object) => {
 };
 
 // Debit card account-number search: look up the CNIC for the account first,
-// then run the IRIS search (which needs the CNIC to find the customer)
+// then run the Bank Database search (which needs the CNIC to find the customer)
 const SearchTransactionDetailsByAccountNumberWithCnicLookup = (object) => {
   let token = JSON.parse(localStorage.getItem("token"));
   return (dispatch) => {
@@ -2192,7 +2195,7 @@ const SearchTransactionDetailsByAccountNumberWithCnicLookup = (object) => {
 };
 
 // Account-number search (Debit Card / ADC / Non-API): fetch every CNIC linked to the account
-// (joint holders) so the user can pick one before the IRIS search.
+// (joint holders) so the user can pick one before the Bank Database search.
 // Resolves to the CNIC list; [] when none (the not-found modal is opened).
 const GetAllCnicByAccountNumber = (
   accountNumber,
@@ -4728,10 +4731,12 @@ const GetTransactionDetailsByMobileNumberBBK = (object) => {
       },
     })
       .then(async (response) => {
+        console.log(response, "responseresponse");
         if (response.data.responseCode === 417) {
           await dispatch(refreshToken());
           dispatch(GetTransactionDetailsByMobileNumberBBK(object));
         } else if (response.data.responseCode === 200) {
+          await dispatch(RESETALLSTATE());
           if (response.data.responseResult.isExecuted === true) {
             if (
               response.data.responseResult.responseMessage === "Record Found"
@@ -4746,11 +4751,19 @@ const GetTransactionDetailsByMobileNumberBBK = (object) => {
             }
           } else {
             dispatch(mobileNumberFoundModal(true));
-            dispatch(GetTransactionDetailsByMobileNumberBBKFail(response.data));
+            dispatch(
+              GetTransactionDetailsByMobileNumberBBKFail(
+                response.data.responseResult.responseMessage
+              )
+            );
           }
         } else {
           // dispatch(RESETALLSTATE());
-          dispatch(GetTransactionDetailsByMobileNumberBBKFail(response.data));
+          dispatch(
+            GetTransactionDetailsByMobileNumberBBKFail(
+              response.data.responseResult.responseMessage
+            )
+          );
         }
       })
       .catch((response) => {
@@ -6231,6 +6244,10 @@ const EditDisputeNegativeDB = (
           );
         } else if (response.data.responseCode === 200) {
           if (response.data.responseResult.isExecuted === true) {
+            console.log(
+              flagForGlobalDispute,
+              "flagForGlobalDisputeflagForGlobalDisputeflagForGlobalDispute"
+            );
             if (flagForGlobalDispute === "true") {
               await localStorage.setItem("CaseStatus", DataForGlobal.fk_csid);
               await localStorage.setItem("parent", "sub1");
@@ -6247,6 +6264,10 @@ const EditDisputeNegativeDB = (
               await localStorage.setItem("CaseStatus", searchData.fk_csid);
               await localStorage.setItem("parent", "sub2");
               await localStorage.setItem("child", "13");
+              console.log(
+                response.data.responseResult.responseMessage,
+                "ResponseMessageResponseMessage"
+              );
               await dispatch(
                 ShowNotification(response.data.responseResult.responseMessage)
               );

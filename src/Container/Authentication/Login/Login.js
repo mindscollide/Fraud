@@ -7,11 +7,7 @@ import {
   EyeOutlined,
   EyeInvisibleOutlined,
 } from "@ant-design/icons";
-import {
-  Loader,
-  Notification,
-  AuthLayout,
-} from "../../../Components/Elements";
+import { Loader, Notification, AuthLayout } from "../../../Components/Elements";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -20,6 +16,7 @@ import {
 } from "../../../store/actions/auth-actions";
 import Helper from "../../../Common/Functions/history_logout";
 import { clearestateBackbutton } from "./../../../store/actions/auth-actions";
+import ErrorBar from "../SignUp/ErrorBar/error-bar";
 const Login = () => {
   const state = useSelector((state) => state);
   const UserIDInput = useRef(null);
@@ -37,35 +34,72 @@ const Login = () => {
     message: "",
   });
   const [showPassword, setShowPassword] = useState(false);
+  const [errors, setErrors] = useState({ UserName: "", Password: "" });
+
   const setCredentialHandler = (e) => {
-    if (e.target.name === "Password") {
-      let numChars = e.target.value;
+    const { name, value } = e.target;
+
+    // clear the error for the field being edited
+    // setErrors((prev) => ({ ...prev, [name]: "" }));
+
+    if (name === "Password") {
       let showText = "";
-      for (let i = 0; i < numChars.length; i++) {
+      for (let i = 0; i < value.length; i++) {
         showText += "•";
       }
       setCredentials({
         ...credentials,
-        [e.target.name]: e.target.value,
-        ["fakePassword"]: showText,
+        [name]: value,
+        fakePassword: showText,
       });
     } else {
-      setCredentials({ ...credentials, [e.target.name]: e.target.value });
+      setCredentials({ ...credentials, [name]: value });
     }
   };
 
   const validateHandler = (e) => {
     e.preventDefault();
-    if (credentials.UserName === "" || credentials.Password === "") {
-      setOpen({
-        ...open,
-        open: true,
-        message: "Please fill all fields",
-      });
-    } else {
-      dispatch(signIn(credentials));
-    }
+
+    const newErrors = {
+      UserName:
+        credentials.UserName.trim() === "" ? "Please enter LDAP ID" : "",
+      Password: credentials.Password === "" ? "Password must not be empty" : "",
+    };
+    setErrors(newErrors);
+
+    if (newErrors.UserName || newErrors.Password) return;
+
+    dispatch(signIn(credentials));
   };
+  // const setCredentialHandler = (e) => {
+  //   if (e.target.name === "Password") {
+  //     let numChars = e.target.value;
+  //     let showText = "";
+  //     for (let i = 0; i < numChars.length; i++) {
+  //       showText += "•";
+  //     }
+  //     setCredentials({
+  //       ...credentials,
+  //       [e.target.name]: e.target.value,
+  //       ["fakePassword"]: showText,
+  //     });
+  //   } else {
+  //     setCredentials({ ...credentials, [e.target.name]: e.target.value });
+  //   }
+  // };
+
+  // const validateHandler = (e) => {
+  //   e.preventDefault();
+  //   if (credentials.UserName === "" || credentials.Password === "") {
+  //     setOpen({
+  //       ...open,
+  //       open: true,
+  //       message: "Please fill all fields",
+  //     });
+  //   } else {
+  //     dispatch(signIn(credentials));
+  //   }
+  // };
 
   useEffect(() => {
     Helper.navigate = navigate;
@@ -138,9 +172,11 @@ const Login = () => {
     <>
       <AuthLayout mode="login">
         <form onSubmit={(e) => validateHandler(e)} className={styles.form}>
+          <h1 className={styles.formTitle}>Fraud Digitization Portal</h1>
           <h1 className={styles.formTitle}>Sign in to the Portal</h1>
-          <p className={styles.formSubtitle}>Use your LDAP User ID and password</p>
-
+          <p className={styles.formSubtitle}>
+            Use your LDAP User ID and password
+          </p>
 
           <Input
             name="UserName"
@@ -152,8 +188,10 @@ const Login = () => {
             ref={UserIDInput}
             autoComplete="off"
             className={styles.field}
+            status={errors.UserName ? "error" : ""}
           />
           <Input
+            status={errors.Password ? "error" : ""}
             name="Password"
             size="large"
             placeholder="Password"
@@ -169,10 +207,15 @@ const Login = () => {
             }
             onChange={setCredentialHandler}
             autoComplete="off"
-            className={`${styles.field} ${showPassword ? "" : styles.passwordInputField}`}
+            className={`${styles.field} ${
+              showPassword ? "" : styles.passwordInputField
+            }`}
             type="text"
           />
-
+          {errors.UserName && <ErrorBar errorText={errors.UserName} />}
+          {errors.Password && !errors.UserName && (
+            <ErrorBar errorText={errors.Password} />
+          )}
           {!auth.isLoggedIn && auth.ResponseMessage !== "" ? (
             <div className={styles.error + " " + styles.fade}>
               {auth.ResponseMessage}
@@ -182,7 +225,6 @@ const Login = () => {
           <button type="submit" className={styles.primaryButton}>
             SIGN IN
           </button>
-
         </form>
       </AuthLayout>
       <Notification setOpen={setOpen} open={open.open} message={open.message} />

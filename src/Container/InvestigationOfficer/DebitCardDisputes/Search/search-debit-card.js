@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { Typography, Space, Checkbox, Tooltip, Row, Col } from "antd";
+import { Typography, Tooltip, Row, Col } from "antd";
 import { SearchOutlined as Search } from "@ant-design/icons";
 import {
-  CardNumberFormatter,
   DateDisplayFormat,
   DateSendingFormat,
   TimeAndDisplayFormat,
-  NumberFormater,
   CommaFormter,
 } from "../../../../Common/Functions/date-formatter";
 import {
@@ -14,13 +12,11 @@ import {
   SelectBox,
   Button,
   Table,
-  GroupedButtons,
   Modal,
   StartToEndDate,
   TextField,
   Loader,
   Notification,
-  DatePicker,
 } from "../../../../Components/Elements";
 import {
   HideNotification,
@@ -40,8 +36,6 @@ import { useNavigate } from "react-router-dom";
 
 const SearchDebitCardDispute = () => {
   var cnic = localStorage.getItem("cnic");
-
-  const navigate = useNavigate();
 
   const { Title, Text } = Typography;
 
@@ -924,7 +918,11 @@ const SearchDebitCardDispute = () => {
         {/* this data will be pass to modal when View Approval Icon will be clicked */}
         {actions.viewApprovalHistory && (
           <>
-            <Table rows={row} columns={viewApprovalColumn} />
+            <Table
+              rows={row}
+              columns={viewApprovalColumn}
+              scroll={{ x: "max-content", y: 350 }}
+            />
             <div className="u-display-flex u-justify-content-center">
               {/* <GroupedButtons data={okayButtonProp} /> */}
               <Button

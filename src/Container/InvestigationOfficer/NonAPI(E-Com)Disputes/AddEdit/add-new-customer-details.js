@@ -536,7 +536,7 @@ const AddNewCustomerDetailsNONAPI = () => {
       width: "220px",
     },
     {
-      title: "HBL Account Number",
+      title: "Account Number",
       dataIndex: "HBLAccountNumber",
       key: "HBLAccountNumber",
       align: "center",
@@ -798,7 +798,7 @@ const AddNewCustomerDetailsNONAPI = () => {
       width: "220px",
     },
     {
-      title: "HBL Account Number",
+      title: "Account Number",
       dataIndex: "hblAccountNumber",
       key: "hblAccountNumber",
       align: "center",
@@ -1374,6 +1374,21 @@ const AddNewCustomerDetailsNONAPI = () => {
   const TransactionDeatilHandlerChange = (e) => {
     let name = e.target.name;
     let value = e.target.value;
+    const NO_DASH_FIELDS = [
+      "ApprovalCode",
+      "POSMode",
+      "CategoryCodeMCC",
+      "AcquirerID",
+      "ARN",
+      "MerchantNumber",
+    ];
+    if (NO_DASH_FIELDS.includes(name)) {
+      setTrsDetails((prev) => ({
+        ...prev,
+        [name]: value.replace(/-/g, "").trimStart(),
+      }));
+      return;
+    }
     if (
       name !== "TransactionDate" &&
       name !== "OtherBankAccountNumber" &&
@@ -1385,10 +1400,7 @@ const AddNewCustomerDetailsNONAPI = () => {
       name !== "MerchantName" &&
       name !== "MerchantID" &&
       name !== "MerchantCity" &&
-      // name !== "CategoryCodeMCC" &&
-      // name !== "AcquirerID" &&
       name !== "AcquirerTerminalID" &&
-      name !== "POSMode" &&
       name !== "ON_OFF_US" &&
       (value !== "" || value === false)
     ) {
@@ -1413,32 +1425,6 @@ const AddNewCustomerDetailsNONAPI = () => {
           [name]: valueCheck.trimStart(),
         });
       }
-    } else if (name === "ApprovalCode" && value !== "") {
-      var valueCheck = value.replace(/[^\d-]/g, "");
-      if (valueCheck != "") {
-        setTrsDetails({
-          ...trsDetails,
-          [name]: valueCheck,
-        });
-      }
-    } else if (name === "ApprovalCode" && value === "") {
-      setTrsDetails({
-        ...trsDetails,
-        [name]: "",
-      });
-    } else if (name === "POSMode" && value !== "") {
-      var valueCheck = value.replace(/[^\d-]/g, "");
-      if (valueCheck != "") {
-        setTrsDetails({
-          ...trsDetails,
-          [name]: valueCheck,
-        });
-      }
-    } else if (name === "POSMode" && value === "") {
-      setTrsDetails({
-        ...trsDetails,
-        [name]: "",
-      });
     } else if (name === "OtherBankAccountNumber" && value !== "") {
       var valueCheck = value.replace(/[^\d-]/g, "");
       if (valueCheck != "") {
@@ -1491,36 +1477,7 @@ const AddNewCustomerDetailsNONAPI = () => {
         ...trsDetails,
         [name]: "",
       });
-    }
-    // else if (name === "CategoryCodeMCC" && value !== "") {
-    //   var valueCheck = value.replace(/[^\d-]/g, "");
-    //   if (valueCheck != "") {
-    //     setTrsDetails({
-    //       ...trsDetails,
-    //       [name]: valueCheck,
-    //     });
-    //   }
-    // } else if (name === "CategoryCodeMCC" && value === "") {
-    //   setTrsDetails({
-    //     ...trsDetails,
-    //     [name]: "",
-    //   });
-    // }
-    // else if (name === "AcquirerID" && value !== "") {
-    //   var valueCheck = value.replace(/[^\d-]/g, "");
-    //   if (valueCheck != "") {
-    //     setTrsDetails({
-    //       ...trsDetails,
-    //       [name]: valueCheck,
-    //     });
-    //   }
-    // } else if (name === "AcquirerID" && value === "") {
-    //   setTrsDetails({
-    //     ...trsDetails,
-    //     [name]: "",
-    //   });
-    // }
-    else if (name === "AcquirerTerminalID" && value !== "") {
+    } else if (name === "AcquirerTerminalID" && value !== "") {
       var valueCheck = value.replace(/[^\d-]/g, "");
       if (valueCheck != "") {
         setTrsDetails({
@@ -3215,9 +3172,12 @@ const AddNewCustomerDetailsNONAPI = () => {
               /> */}
             </Col>
             <Col lg={6} md={6} sm={24} xs={24}>
-              <p className="PlaceholderCard">
-                Card Number<span className="important">*</span>
-              </p>
+              {lbl(
+                CardDetails.CardNumber,
+                <p className="PlaceholderCard">
+                  Card Number<span className="important"> *</span>
+                </p>
+              )}
               <InputMask
                 type="text"
                 className="CreditCardInputField"
@@ -3232,8 +3192,6 @@ const AddNewCustomerDetailsNONAPI = () => {
                 required
               />
             </Col>
-          </Row>
-          <Row gutter={16} className="u-margin-bottom-22px">
             <Col lg={6} md={6} sm={24} xs={24}>
               <SelectBox
                 label={lbl(fraudTypeName, "Select Fraud Type")}
@@ -3246,6 +3204,9 @@ const AddNewCustomerDetailsNONAPI = () => {
               />
             </Col>
           </Row>
+          {/* <Row gutter={16} className="u-margin-bottom-22px">
+          
+          </Row> */}
           <Row>
             <Col lg={24} md={24} sm={24} className="u-margin-top-2pct">
               <div className="TransactionHeading">
@@ -3277,7 +3238,6 @@ const AddNewCustomerDetailsNONAPI = () => {
             <Col lg={6} md={6} sm={24} xs={24}>
               <InputWithBtn
                 onchange={TransactionIDchangehandler}
-                isUpperCase={true}
                 label={lbl(trsDetails.TransactionID, "Transaction ID *")}
                 placeholder={"Transaction ID *"}
                 fullWidth
@@ -3300,8 +3260,8 @@ const AddNewCustomerDetailsNONAPI = () => {
                 name="HBLAccountNumber"
                 size="small"
                 autoComplete="off"
-                label={lbl(trsDetails.HBLAccountNumber, "HBL Account Number *")}
-                placeholder={"HBL Account Number *"}
+                label={lbl(trsDetails.HBLAccountNumber, "Account Number *")}
+                placeholder={"Account Number *"}
                 value={trsDetails.HBLAccountNumber}
                 change={TransactionDeatilHandlerChange}
                 fullWidth
@@ -3568,18 +3528,22 @@ const AddNewCustomerDetailsNONAPI = () => {
               />
             </Col>
             <Col lg={6} md={6} sm={24} xs={24} className="u-text-align-center">
-              <label>
-                <b>On Us / Off Us</b>
-              </label>
-              <br />
-              <Radio.Group
-                name="ON_OFF_US"
-                value={trsDetails.ON_OFF_US}
-                onChange={TransactionDeatilHandlerChange}
-              >
-                <Radio value={true}>Yes</Radio>
-                <Radio value={false}>No</Radio>
-              </Radio.Group>
+              <div>
+                <label>
+                  <b>On Us / Off Us</b>
+                </label>
+                <br />
+                <span className="u-margin-left-15px">
+                  <Radio.Group
+                    name="ON_OFF_US"
+                    value={trsDetails.ON_OFF_US}
+                    onChange={TransactionDeatilHandlerChange}
+                  >
+                    <Radio value={true}>Yes</Radio>
+                    <Radio value={false}>No</Radio>
+                  </Radio.Group>
+                </span>
+              </div>
             </Col>
             <Col lg={6} md={6} sm={24} xs={24}>
               <TextField

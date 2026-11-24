@@ -1,8 +1,6 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 
-import { PlusOutlined as AddIcon } from "@ant-design/icons";
-
-import { Typography, Radio, Space, Empty, Tooltip, Row, Col } from "antd";
+import { Typography, Radio, Tooltip, Row, Col } from "antd";
 
 import {
   Paper,
@@ -10,31 +8,17 @@ import {
   SelectBox,
   DatePicker,
   Button,
-  Notification,
   Table,
-  Message,
   Loader,
-  FormattedInputs,
   // Upload,
-  uploadButton,
   Modal,
   GroupedButtons,
 } from "../../../../Components/Elements";
 
-import Helper from "../../../../Common/Functions/history_logout";
-
-import moment from "moment";
-
-import {
-  setStateOfUploadDocumentCreditCard,
-  DownloadUploadFile,
-} from "../../../../store/actions/reports_actions";
+import { DownloadUploadFile } from "../../../../store/actions/reports_actions";
 
 import {
   DateDisplayFormat,
-  DateSendingFormat,
-  RemoveTimeDashes,
-  NumberFormater,
   CommaFormter,
   TimeDisplayFormat,
 } from "../../../../Common/Functions/date-formatter";
@@ -48,7 +32,6 @@ import { SearchNonApiDisputesByCnicAndReferenceNumber } from "../../../../store/
 import { enableGoBack } from "../../../../store/actions/ui-actions";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { isPageReload } from "../../../../Common/Functions/page-reload";
 
 const ViewCustomerDetailsNONAPI = () => {
   var cnic = localStorage.getItem("CNICNumber");
@@ -59,8 +42,6 @@ const ViewCustomerDetailsNONAPI = () => {
   const state = useSelector((state) => state);
 
   const dispatch = useDispatch();
-
-  const [fraudType, setFraudType] = useState([]);
 
   const {
     setupForms,
@@ -81,8 +62,6 @@ const ViewCustomerDetailsNONAPI = () => {
     CustomerName: "",
     fK_CTID: 0,
   });
-
-  const [cityValue, setCityValue] = useState("");
 
   const [CardDetails, setCardDetails] = useState({
     CardNumber: "",
@@ -126,23 +105,6 @@ const ViewCustomerDetailsNONAPI = () => {
     setListOfTransactionDetailsAlreadyExsist,
   ] = useState([]);
 
-  //For Fraud ID to Name
-  useEffect(() => {
-    let customerDetails = investigationOfficer.GetNonApiDisputesData.npiDispute;
-    let nameFraud = setupForms.FraudTypeData;
-    if (customerDetails !== undefined && customerDetails !== null) {
-      nameFraud.map((data, index) => {
-        if (customerDetails.fK_FTID === data.pK_FTID) {
-          setFraudType(data.name);
-          setNPIDispute({
-            ...NPIDispute,
-            ["fK_FTID"]: parseInt(data.pK_FTID),
-          });
-        }
-      });
-    }
-  }, [setupForms.FraudTypeData]);
-
   // manual transection list table column
   const colu = [
     {
@@ -153,7 +115,7 @@ const ViewCustomerDetailsNONAPI = () => {
       width: "220px",
     },
     {
-      title: "HBL Account Number",
+      title: "Account Number",
       dataIndex: "hblAccountNumber",
       key: "hblAccountNumber",
       align: "center",
@@ -362,7 +324,7 @@ const ViewCustomerDetailsNONAPI = () => {
       width: "220px",
     },
     {
-      title: "HBL Account Number",
+      title: "Account Number",
       dataIndex: "hblAccountNumber",
       key: "hblAccountNumber",
       align: "center",
@@ -598,22 +560,23 @@ const ViewCustomerDetailsNONAPI = () => {
   localStorage.setItem("FK_TTID", TTID);
 
   useEffect(() => {
+    const hasData = investigationOfficer.GetNonApiDisputesData?.npiDispute;
+    if (hasData) return; // came from the table click, data already loaded
+
     const ReferenceNumber = JSON.parse(localStorage.getItem("ReferenceNumber"));
     const CNICNumber = localStorage.getItem("CNICNumber");
     let Data = { CNICNumber: CNICNumber, ReferenceNumber: ReferenceNumber };
 
-    if (isPageReload()) {
-      if (TTIDQM === null) {
-        if (TTID === "4") {
-          dispatch(SearchNonApiDisputesByCnicAndReferenceNumber(Data, TTID));
-          // stay on this page: the DisputeCases/ViewCustomerDetails* routes exist only for the Investigation Manager, so redirecting there sent other roles to /404
-        } else {
-          dispatch(SearchNonApiDisputesByCnicAndReferenceNumber(Data));
-        }
+    if (TTIDQM === null) {
+      if (TTID === "4") {
+        dispatch(SearchNonApiDisputesByCnicAndReferenceNumber(Data, TTID));
+        // stay on this page: the DisputeCases/ViewCustomerDetails* routes exist only for the Investigation Manager, so redirecting there sent other roles to /404
       } else {
-        let TTIDvalue = true;
-        dispatch(SearchNonApiDisputesByCnicAndReferenceNumber(Data, TTIDvalue));
+        dispatch(SearchNonApiDisputesByCnicAndReferenceNumber(Data));
       }
+    } else {
+      let TTIDvalue = true;
+      dispatch(SearchNonApiDisputesByCnicAndReferenceNumber(Data, TTIDvalue));
       dispatch(enableGoBack());
     }
   }, []);
@@ -666,12 +629,6 @@ const ViewCustomerDetailsNONAPI = () => {
         CustomerName: newDataFDCustomer.customerName,
         fK_CTID: newDataFDCustomer.fK_CTID,
       });
-      let cityValue = setupForms.CityData;
-      cityValue.map((data, index) => {
-        if (newDataFDCustomer.fK_CTID === data.pK_CTID) {
-          setCityValue(data.name);
-        }
-      });
     }
     let newDataCardDetail =
       investigationOfficer.GetNonApiDisputesData.cardDetails;
@@ -715,17 +672,21 @@ const ViewCustomerDetailsNONAPI = () => {
     }
   }, [investigationOfficer.GetNonApiDisputesData]);
 
-  useEffect(() => {
-    let valueCity = setupForms.CityData;
-    valueCity.map((data, index) => {
-      if (fDCusotmerAccount.fK_CTID === data.pK_CTID) {
-        setCityValue(data.name);
-      }
-    });
-  }, [setupForms.CityData]);
+  const cityValue = useMemo(() => {
+    const list = setupForms.CityData || [];
+    const match = list.find(
+      (c) => Number(c.pK_CTID) === Number(fDCusotmerAccount.fK_CTID)
+    );
+    return match ? match.name : "";
+  }, [setupForms.CityData, fDCusotmerAccount.fK_CTID]);
 
-  useEffect(() => {}, [cityValue]);
-
+  const fraudType = useMemo(() => {
+    const list = setupForms.FraudTypeData || [];
+    const match = list.find(
+      (f) => Number(f.pK_FTID) === Number(NPIDispute.FK_FTID)
+    );
+    return match ? match.name : "";
+  }, [setupForms.FraudTypeData, NPIDispute.FK_FTID]);
   //Transaction Details Mapping
   useEffect(() => {
     let data = investigationOfficer.GetNonApiDisputesData.transactionDetails;
@@ -1014,6 +975,18 @@ const ViewCustomerDetailsNONAPI = () => {
     }
   }, [investigationManager.SaveRejectionData]);
 
+  // true when a field actually holds a value (treats "", null, undefined,
+  // empty arrays and the -99999999999999999999 "empty number" sentinel as empty)
+  const hasValue = (v) =>
+    v !== undefined &&
+    v !== null &&
+    v !== "" &&
+    v !== -99999999999999999999 &&
+    !(Array.isArray(v) && v.length === 0);
+
+  // show the label only when the field has a value, otherwise "" (placeholder only)
+  const lbl = (value, text) => (hasValue(value) ? text : "");
+
   return (
     <>
       <Title level={3}>View Non API (E-Com) Disputes</Title>
@@ -1032,7 +1005,8 @@ const ViewCustomerDetailsNONAPI = () => {
               size="small"
               disable
               value={NPIDispute.ReferenceNumber}
-              label={"Reference #"}
+              label={lbl(NPIDispute.ReferenceNumber, "Reference #")}
+              placeholder={"Reference #"}
               fullWidth
             />
           </Col>
@@ -1042,7 +1016,8 @@ const ViewCustomerDetailsNONAPI = () => {
               size="small"
               disable
               value={cnic}
-              label={"CNIC"}
+              label={lbl(cnic, "CNIC")}
+              placeholder={"CNIC"}
               fullWidth
             />
           </Col>
@@ -1052,17 +1027,21 @@ const ViewCustomerDetailsNONAPI = () => {
               size="small"
               disable
               value={fDCusotmerAccount.CustomerName}
-              label={"Customer Name"}
+              label={lbl(fDCusotmerAccount.CustomerName, "Customer Name")}
+              placeholder={"Customer Name"}
               fullWidth
             />
           </Col>
 
           <Col lg={6} md={6} sm={24} xs={24}>
-            <SelectBox
-              label="City"
-              value={cityValue}
+            <TextField
+              size="small"
               name="fK_CTID"
               disable={true}
+              value={cityValue}
+              label={lbl(cityValue, "City")}
+              placeholder={"City"}
+              fullWidth
             />
           </Col>
           <Col lg={6} md={6} sm={24} xs={24}>
@@ -1071,16 +1050,20 @@ const ViewCustomerDetailsNONAPI = () => {
               size="small"
               disable
               value={CardDetails.CardNumber}
-              label={"Card Number"}
+              label={lbl(CardDetails.CardNumber, "Card Number")}
+              placeholder={"Card Number"}
               fullWidth
             />
           </Col>
           <Col lg={6} md={6} sm={24} xs={24}>
-            <SelectBox
-              name="Fraud Type"
+            <TextField
+              name="FraudType"
+              size="small"
               disable
               value={fraudType}
-              label="Select Fraud Type"
+              label={lbl(fraudType, "Fraud Type")}
+              placeholder="Fraud Type"
+              fullWidth
             />
           </Col>
           <Col lg={24} md={24} sm={24} className="u-margin-top-2pct">
@@ -1142,7 +1125,11 @@ const ViewCustomerDetailsNONAPI = () => {
           <Col lg={6} md={6} sm={24} className="u-margin-top-22px">
             <TextField
               fullWidth
-              label="Case Received Channel"
+              label={lbl(
+                NPIDispute.CaseReceivedChannel,
+                "Case Received Channel"
+              )}
+              placeholder="Case Received Channel"
               size="small"
               textLength={30}
               name="CaseReceivedChannel"
@@ -1192,7 +1179,11 @@ const ViewCustomerDetailsNONAPI = () => {
             <Paper>
               <TextField
                 fullWidth
-                label="Total Dispute Amount"
+                label={lbl(
+                  NPIDispute.TotalTransactionAmount,
+                  "Total Dispute Amount"
+                )}
+                placeholder="Total Dispute Amount"
                 value={
                   NPIDispute.TotalTransactionAmount === null ||
                   NPIDispute.TotalTransactionAmount === -99999999999999999999
@@ -1279,7 +1270,11 @@ const ViewCustomerDetailsNONAPI = () => {
           <Col lg={6} md={6} sm={24} xs={24} className="u-margin-top-22px">
             <TextField
               fullWidth
-              label="Point Of Compromise Identified"
+              label={lbl(
+                NPIDispute.POCIdentified,
+                "Point Of Compromise Identified"
+              )}
+              placeholder="Point Of Compromise Identified"
               value={NPIDispute.POCIdentified}
               size="small"
               name="POCIdentified"
@@ -1289,7 +1284,8 @@ const ViewCustomerDetailsNONAPI = () => {
           <Col lg={6} md={6} sm={24} xs={24} className="u-margin-top-22px">
             <TextField
               fullWidth
-              label="Remarks"
+              label={lbl(NPIDispute.Remarks, "Remarks")}
+              placeholder="Remarks"
               size="small"
               name="Remarks"
               value={NPIDispute.Remarks}
@@ -1299,7 +1295,8 @@ const ViewCustomerDetailsNONAPI = () => {
           <Col lg={6} md={6} sm={24} xs={24} className="u-margin-top-22px">
             <TextField
               fullWidth
-              label="Event ID (SAS REF #)"
+              label={lbl(NPIDispute.EventIDSAS, "Event ID (SAS REF #)")}
+              placeholder="Event ID (SAS REF #)"
               size="small"
               name="EventIDSAS"
               value={NPIDispute.EventIDSAS}
@@ -1310,7 +1307,8 @@ const ViewCustomerDetailsNONAPI = () => {
             <TextField
               fullWidth
               size="small"
-              label="Aging"
+              label={lbl(NPIDispute.Aging, "Aging")}
+              placeholder="Aging"
               name="Aging"
               value={
                 NPIDispute.Aging === null || NPIDispute.Aging === -1
@@ -1324,7 +1322,13 @@ const ViewCustomerDetailsNONAPI = () => {
             <TextField
               fullWidth
               size="small"
-              label="Case Closed TAT"
+              label={
+                NPIDispute.CaseClosedTAT === null ||
+                NPIDispute.CaseClosedTAT === -1
+                  ? ""
+                  : "Case Closed TAT"
+              }
+              placeholder="Case Closed TAT"
               name="CaseClosedTAT"
               value={
                 NPIDispute.CaseClosedTAT === null ||
@@ -1419,7 +1423,8 @@ const ViewCustomerDetailsNONAPI = () => {
                   multiline
                   rows={6}
                   autoComplete="off"
-                  label="Description"
+                  label={lbl(approveDispute.Comments, "Description")}
+                  placeholder="Description"
                   change={handleChangeApprove}
                   value={approveDispute.Comments}
                   fullWidth
@@ -1451,7 +1456,8 @@ const ViewCustomerDetailsNONAPI = () => {
                 <TextField
                   multiline
                   rows={6}
-                  label="Description"
+                  label={lbl(rejectDispute.Comments, "Description")}
+                  placeholder="Description *"
                   autoComplete="off"
                   change={handleChangeReject}
                   value={rejectDispute.Comments}

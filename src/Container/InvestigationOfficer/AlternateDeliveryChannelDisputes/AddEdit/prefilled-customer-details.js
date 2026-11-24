@@ -183,7 +183,7 @@ const PreFilledCustomerDetails = () => {
       width: "2%",
     },
     {
-      title: "HBL Account Number",
+      title: "Account Number",
       dataIndex: "name",
       key: "name",
       align: "center",
@@ -281,9 +281,7 @@ const PreFilledCustomerDetails = () => {
         <Paper padding="1">
           <Row gutter={16}>
             <Col lg={18} md={18} sm={18} xs={24}>
-              <h1
-                className="u-font-size-18px u-margin-top-15px u-margin-left-20px u-color-ec8d57"
-              >
+              <h1 className="u-font-size-18px u-margin-top-15px u-margin-left-20px u-color-ec8d57">
                 Customer Details
               </h1>
             </Col>
@@ -291,9 +289,7 @@ const PreFilledCustomerDetails = () => {
               <div className="Level-Section">
                 <div>
                   <i className="icon-card icon-size-one"></i>
-                  <div
-                    className="u-position-absolute u-right-105px u-top-51px"
-                  >
+                  <div className="u-position-absolute u-right-105px u-top-51px">
                     <span className="LevelHeading">CNIC Number</span>
                     <br />
                     <span className="SubHeading">1111111111111</span>
@@ -375,9 +371,7 @@ const PreFilledCustomerDetails = () => {
         <div className="u-margin-top-20px" />
         <Paper padding="1">
           <Col lg={18} md={18} sm={18} xs={24}>
-            <h1
-              className="u-font-size-18px u-margin-top-15px u-margin-left-20px u-color-ec8d57"
-            >
+            <h1 className="u-font-size-18px u-margin-top-15px u-margin-left-20px u-color-ec8d57">
               Date
             </h1>
           </Col>
@@ -449,9 +443,7 @@ const PreFilledCustomerDetails = () => {
         <div className="u-margin-top-20px" />
         <Paper padding="1">
           <Col lg={18} md={18} sm={18} xs={24} className="u-margin-bottom-20px">
-            <h1
-              className="u-font-size-18px u-margin-top-15px u-margin-left-20px u-color-ec8d57"
-            >
+            <h1 className="u-font-size-18px u-margin-top-15px u-margin-left-20px u-color-ec8d57">
               Closure Details
             </h1>
           </Col>
@@ -476,7 +468,13 @@ const PreFilledCustomerDetails = () => {
                 disable
               />
             </Col>
-            <Col lg={12} md={12} sm={24} xs={24} className="u-margin-bottom-20px">
+            <Col
+              lg={12}
+              md={12}
+              sm={24}
+              xs={24}
+              className="u-margin-bottom-20px"
+            >
               <TextField
                 fullWidth
                 label="Remarks"
@@ -515,7 +513,13 @@ const PreFilledCustomerDetails = () => {
                 disable
               />
             </Col>
-            <Col lg={6} md={6} sm={24} xs={24} className="u-margin-bottom-20px u-text-align-center">
+            <Col
+              lg={6}
+              md={6}
+              sm={24}
+              xs={24}
+              className="u-margin-bottom-20px u-text-align-center"
+            >
               <label>
                 <b>Demographic Change</b>
               </label>
@@ -561,7 +565,7 @@ const PreFilledCustomerDetails = () => {
             <Col lg={6} md={6} sm={24} xs={24}>
               <TextField
                 fullWidth
-                label="Expected Recovery from HBL Beneficiary"
+                label="Expected Recovery from Beneficiary"
                 size="small"
                 name=""
                 value={"500,000"}
@@ -623,9 +627,7 @@ const PreFilledCustomerDetails = () => {
         <div className="u-margin-top-20px" />
         <Paper padding="1">
           <Col lg={18} md={18} sm={18} xs={24}>
-            <h1
-              className="u-font-size-18px u-margin-top-15px u-margin-left-20px u-color-ec8d57"
-            >
+            <h1 className="u-font-size-18px u-margin-top-15px u-margin-left-20px u-color-ec8d57">
               File Upload
             </h1>
           </Col>

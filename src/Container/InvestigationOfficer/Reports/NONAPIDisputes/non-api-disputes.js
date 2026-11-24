@@ -207,8 +207,8 @@ const IONONAPIDisputes = () => {
         <Col lg={8} md={8} sm={24}>
           <TextField
             fullWidth
-            label={search?.HBLAccountNumber !== "" && "HBL Account Number"}
-            placeholder={"HBL Account Number"}
+            label={search?.HBLAccountNumber !== "" && "Account Number"}
+            placeholder={"Account Number"}
             size="small"
             autoComplete="off"
             name="HBLAccountNumber"
