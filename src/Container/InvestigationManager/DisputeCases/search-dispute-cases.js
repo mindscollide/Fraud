@@ -436,6 +436,21 @@ const SearchDisputeIM = () => {
     },
 
     {
+      title: "TAT",
+      dataIndex: "tat",
+      key: "tat",
+      align: "center",
+      width: "180px",
+      render: (text) => {
+        if (String(text) !== "" && text !== -99999999999999999999) {
+          return CommaFormter(text);
+        } else {
+          return "";
+        }
+      },
+    },
+
+    {
       title: "View Status History",
       dataIndex: "key",
       key: "key",
@@ -704,7 +719,11 @@ const SearchDisputeIM = () => {
         {/* this data will be pass to modal when View Approval Icon will be clicked */}
         {actions.viewApprovalHistory && (
           <>
-            <Table rows={row} columns={viewApprovalColumn} />
+            <Table
+              rows={row}
+              columns={viewApprovalColumn}
+              scroll={{ x: "max-content", y: 350 }}
+            />
             <GroupedButtons data={okayButtonProp} />
           </>
         )}

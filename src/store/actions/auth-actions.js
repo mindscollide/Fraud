@@ -93,7 +93,12 @@ const validateEmailAndPasswordSuccess = (response, message) => {
 const validateEmailAndPasswordFail = (response, message) => {
   return {
     type: actions.VALIDATE_EMAIL_AND_PASSWORD_FAIL,
-    message: response,
+    // message: response,
+
+    message:
+      response === "User / Password must not be empty"
+        ? "Password must not be empty"
+        : response,
   };
 };
 

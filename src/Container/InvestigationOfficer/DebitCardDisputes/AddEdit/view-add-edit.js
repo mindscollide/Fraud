@@ -155,7 +155,7 @@ const ViewCustomerDetailsDC = () => {
       width: "220px",
     },
     {
-      title: "HBL Account Number",
+      title: "Account Number",
       dataIndex: "hblAccountNumber",
       key: "hblAccountNumber",
       align: "center",
@@ -378,7 +378,7 @@ const ViewCustomerDetailsDC = () => {
       width: "220px",
     },
     {
-      title: "HBL Account Number",
+      title: "Account Number",
       dataIndex: "hblAccountNumber",
       key: "hblAccountNumber",
       align: "center",
@@ -1237,7 +1237,7 @@ const ViewCustomerDetailsDC = () => {
           </h1>
         </Col>
         <Row gutter={8}>
-          <Col lg={6} md={6} sm={24} className="u-margin-bottom-20px">
+          <Col lg={5} md={5} sm={24} className="u-margin-bottom-20px">
             <DatePicker
               label={lbl(DCDispute.CaseReceivedDate, "Case Received Date")}
               placeholder={"Case Received Date"}
@@ -1253,7 +1253,7 @@ const ViewCustomerDetailsDC = () => {
               disable
             />
           </Col>
-          <Col lg={6} md={6} sm={24}>
+          <Col lg={5} md={5} sm={24}>
             <TextField
               fullWidth
               label={lbl(
@@ -1268,25 +1268,29 @@ const ViewCustomerDetailsDC = () => {
               disable
             />
           </Col>
-          <Col lg={6} md={6} sm={24} xs={24} className="u-text-align-center">
-            <label>
-              <b>Case Resolved</b>
-            </label>
-            <br />
-            <Radio.Group
-              name="IsCaseResolved"
-              disable={true}
-              value={DCDispute.IsCaseResolved}
-            >
-              <Radio disabled value={true}>
-                Yes
-              </Radio>
-              <Radio disabled value={false}>
-                No
-              </Radio>
-            </Radio.Group>
+          <Col lg={4} md={4} sm={24} xs={24} className="u-text-align-center">
+            <div>
+              <label>
+                <b>Case Resolved</b>
+              </label>
+              <br />
+              <span className="u-margin-left-15px">
+                <Radio.Group
+                  name="IsCaseResolved"
+                  disable={true}
+                  value={DCDispute.IsCaseResolved}
+                >
+                  <Radio disabled value={true}>
+                    Yes
+                  </Radio>
+                  <Radio disabled value={false}>
+                    No
+                  </Radio>
+                </Radio.Group>
+              </span>
+            </div>
           </Col>
-          <Col lg={6} md={6} sm={24} className="u-margin-bottom-20px">
+          <Col lg={5} md={5} sm={24} className="u-margin-bottom-20px">
             <DatePicker
               label={lbl(DCDispute.CaseResolvedDate, "Case Resolved Date")}
               placeholder={"Case Resolved Date"}
@@ -1302,7 +1306,7 @@ const ViewCustomerDetailsDC = () => {
               disable
             />
           </Col>
-          <Col lg={6} md={6} sm={24} className="u-margin-bottom-20px">
+          <Col lg={5} md={5} sm={24} className="u-margin-bottom-20px">
             <Paper>
               <TextField
                 fullWidth
@@ -1334,25 +1338,29 @@ const ViewCustomerDetailsDC = () => {
           </h1>
         </Col>
         <Row gutter={8}>
-          <Col lg={6} md={6} sm={24} xs={24}>
-            <label>
-              <b>TC 40 Reporting</b>
-            </label>
-            <br />
-            <Radio.Group
-              name="IsTC40Reporting"
-              disable
-              value={DCDispute.IsTC40Reporting}
-            >
-              <Radio disabled value={true}>
-                Yes
-              </Radio>
-              <Radio disabled value={false}>
-                No
-              </Radio>
-            </Radio.Group>
+          <Col lg={4} md={4} sm={24} xs={24} className="u-text-align-center">
+            <div>
+              <label>
+                <b>TC 40 Reporting</b>
+              </label>
+              <br />
+              <span className="u-margin-left-15px">
+                <Radio.Group
+                  name="IsTC40Reporting"
+                  disable
+                  value={DCDispute.IsTC40Reporting}
+                >
+                  <Radio disabled value={true}>
+                    Yes
+                  </Radio>
+                  <Radio disabled value={false}>
+                    No
+                  </Radio>
+                </Radio.Group>
+              </span>
+            </div>
           </Col>
-          <Col lg={6} md={6} sm={24}>
+          <Col lg={5} md={5} sm={24}>
             <DatePicker
               size="large"
               width="100%"
@@ -1371,25 +1379,29 @@ const ViewCustomerDetailsDC = () => {
               disable
             />
           </Col>
-          <Col lg={6} md={6} sm={24} xs={24}>
-            <label>
-              <b>Safe Reporting</b>
-            </label>
-            <br />
-            <Radio.Group
-              name="IsSafeReportingDate"
-              disable
-              value={DCDispute.IsSafeReportingDate}
-            >
-              <Radio disabled value={true}>
-                Yes
-              </Radio>
-              <Radio disabled value={false}>
-                No
-              </Radio>
-            </Radio.Group>
+          <Col lg={4} md={4} sm={24} xs={24} className="u-text-align-center">
+            <div>
+              <label>
+                <b>Safe Reporting</b>
+              </label>
+              <br />
+              <span className="u-margin-left-15px">
+                <Radio.Group
+                  name="IsSafeReportingDate"
+                  disable
+                  value={DCDispute.IsSafeReportingDate}
+                >
+                  <Radio disabled value={true}>
+                    Yes
+                  </Radio>
+                  <Radio disabled value={false}>
+                    No
+                  </Radio>
+                </Radio.Group>
+              </span>
+            </div>
           </Col>
-          <Col lg={6} md={6} sm={24}>
+          <Col lg={5} md={5} sm={24}>
             <DatePicker
               size="large"
               width="100%"
@@ -1417,20 +1429,24 @@ const ViewCustomerDetailsDC = () => {
             Closure Details
           </h1>
         </Col>
-        <Row gutter={8}>
-          <Col lg={6} md={6} sm={24} xs={24} className="u-margin-bottom-20px">
-            <label>
-              <b>Point Of Compromise Identified</b>
-            </label>
-            <br />
-            <Radio.Group name="IsPOC" disable value={DCDispute.IsPOC}>
-              <Radio disabled value={true}>
-                Yes
-              </Radio>
-              <Radio disabled value={false}>
-                No
-              </Radio>
-            </Radio.Group>
+        <Row gutter={8} className="u-margin-bottom-20px">
+          <Col lg={6} md={6} sm={24} xs={24} className="u-text-align-center">
+            <div>
+              <label>
+                <b>Point Of Compromise Identified</b>
+              </label>
+              <br />
+              <span className="u-margin-left-15px">
+                <Radio.Group name="IsPOC" disable value={DCDispute.IsPOC}>
+                  <Radio disabled value={true}>
+                    Yes
+                  </Radio>
+                  <Radio disabled value={false}>
+                    No
+                  </Radio>
+                </Radio.Group>
+              </span>
+            </div>
           </Col>
           <Col lg={6} md={6} sm={24} xs={24}>
             <TextField

@@ -443,7 +443,7 @@ const SearchCreditCardDispute = () => {
 
   const columns = [
     {
-      title: "Reference Number",
+      title: "Reference Number #",
       dataIndex: "refrenceNumber",
       key: "refrenceNumber",
       align: "center",
@@ -659,33 +659,6 @@ const SearchCreditCardDispute = () => {
       align: "center",
     },
   ];
-
-  // const okayButtonProp = {
-  //   primaryButton: {
-  //     text: "Ok",
-  //     class: "btnBorderStyledBeach",
-  //     click: () => handleCancel(),
-  //   },
-  //   secondaryButton: {
-  //     text: "",
-  //   },
-  // };
-
-  const addButtonProps = {
-    primaryButton: {
-      text: "Proceed",
-      icon: null,
-      endIcon: <i className="icon-proceed icon-size-one"></i>,
-      class: "btnBorderStyledBeach",
-    },
-    secondaryButton: {
-      text: "Discard",
-      icon: <i className="icon-close icon-size-one"></i>,
-      endIcon: "",
-      class: "btnBorderStyledRed",
-      click: () => handleCancel(),
-    },
-  };
 
   // Selected Dropdown value
   const caseStatusHandler = (e, value) => {
@@ -947,7 +920,11 @@ const SearchCreditCardDispute = () => {
         {/* this data will be pass to modal when View Approval Icon will be clicked */}
         {actions.viewApprovalHistory && (
           <>
-            <Table rows={row} columns={viewApprovalColumn} />
+            <Table
+              rows={row}
+              columns={viewApprovalColumn}
+              scroll={{ x: "max-content", y: 350 }}
+            />
             {/* <GroupedButtons data={okayButtonProp} /> */}
 
             <div className="u-display-flex u-justify-content-center">
@@ -958,7 +935,6 @@ const SearchCreditCardDispute = () => {
                 size="large"
                 applyClass="btnBorderStyledBeach"
                 click={handleCancel}
-                // click= () => handleCancel(),
               />
             </div>
           </>

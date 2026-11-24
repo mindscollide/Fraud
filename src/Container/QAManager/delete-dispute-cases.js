@@ -652,16 +652,16 @@ const DeleteDisputeCases = () => {
     },
   };
 
-  const okayButtonProp = {
-    primaryButton: {
-      text: "Close",
-      class: "btnBorderStyledBeach",
-      click: () => handleCancel(),
-    },
-    secondaryButton: {
-      text: "",
-    },
-  };
+  // const okayButtonProp = {
+  //   primaryButton: {
+  //     text: "Close",
+  //     class: "btnBorderStyledBeach",
+  //     click: () => handleCancel(),
+  //   },
+  //   secondaryButton: {
+  //     text: "",
+  //   },
+  // };
 
   const viewApprovalColumn = [
     {
@@ -669,6 +669,7 @@ const DeleteDisputeCases = () => {
       dataIndex: "creationDate",
       key: "creationDate",
       align: "center",
+      width: 100,
       render: (text) => DateDisplayFormat(text),
     },
     {
@@ -676,6 +677,8 @@ const DeleteDisputeCases = () => {
       dataIndex: "creationDate",
       key: "creationDate",
       align: "center",
+      width: 80,
+
       render: (text) => TimeAndDisplayFormat(text),
     },
     {
@@ -683,24 +686,28 @@ const DeleteDisputeCases = () => {
       dataIndex: "statusDescription",
       key: "statusDescription",
       align: "center",
+      width: 80,
     },
     {
       title: "Reason",
       dataIndex: "reason",
       key: "reason",
       align: "center",
+      width: 200,
     },
     {
       title: "Description",
       dataIndex: "comments",
       key: "comments",
       align: "center",
+      width: 200,
     },
     {
       title: "Action By",
       dataIndex: "userName",
       key: "userName",
       align: "center",
+      width: 150,
     },
   ];
 
@@ -969,7 +976,7 @@ const DeleteDisputeCases = () => {
                 Are you sure you want to delete this?
               </Title>
             </div>
-            <div className="u-padding-20px u-display-flex u-justify-content-center">
+            {/* <div className="u-padding-20px u-display-flex u-justify-content-center">
               <p className="m-0 u-color-b27706">
                 Type your Comments<span className="u-color-ce0000">*</span>
               </p>
@@ -984,22 +991,61 @@ const DeleteDisputeCases = () => {
                 name="Comments"
                 textLength={500}
               />
-            </div>
-            <GroupedButtons data={buttonProps} />
+            </div> */}
+
+            <Row gutter={8}>
+              <Col lg={6} md={6} sm={4} xs={4}>
+                <p className="m-0 u-color-b27706">
+                  Type your Reasons <span className="u-color-ce0000">*</span>
+                </p>
+              </Col>
+              <Col lg={18} md={18} sm={20} xs={20}>
+                <TextField
+                  multiline
+                  rows={4}
+                  change={Comments}
+                  value={rejectionComment}
+                  fullWidth
+                  name="Comments"
+                  autoComplete="off"
+                  required={true}
+                />
+              </Col>
+            </Row>
+            <Row
+              gutter={8}
+              className="u-margin-top-10px u-justify-content-center"
+            >
+              <GroupedButtons data={buttonProps} />
+            </Row>
           </>
         )}
       </Modal>
       <Modal
         closeModal={handleCancel}
         modalState={isModalVisible2}
-        width={700}
+        width={1000}
+        // height={500}
         modalTitle={<Title level={3}>View Status History</Title>}
       >
         {/* this data will be pass to modal when View Approval Icon will be clicked */}
         {actions.viewApprovalHistory && (
           <>
-            <Table rows={row} columns={viewApprovalColumn} />
-            <GroupedButtons data={okayButtonProp} />
+            <Table
+              rows={row}
+              columns={viewApprovalColumn}
+              scroll={{ x: "max-content", y: 350 }}
+            />
+            {/* <GroupedButtons data={okayButtonProp} /> */}
+            <div className="u-display-flex u-justify-content-center">
+              <Button
+                text="Close"
+                type={"primary"}
+                size="large"
+                applyClass="btnBorderStyledBeach"
+                click={handleCancel}
+              />
+            </div>
           </>
         )}
       </Modal>

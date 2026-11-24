@@ -98,7 +98,7 @@ const InvestigationOfficerReducers = (state = initialState, action) => {
             ? action.response.responseMessage
             : action.response.responseResult.responseMessage,
       };
-    // FOR IRIS FAIL MODAL HANDLER
+    // FOR Bank Database FAIL MODAL HANDLER
     case actions.GET_LOADER_FALSE:
       return { ...state, Loading: false };
 
@@ -187,7 +187,10 @@ const InvestigationOfficerReducers = (state = initialState, action) => {
       return {
         ...state,
         Loading: false,
-        ResponseMessage: action.response.responseMessage,
+        ResponseMessage:
+          action.response.responseMessage === "Record Found"
+            ? ""
+            : action.response.responseMessage,
         SearchCreditCardDisputeData: SearchCreditCardDisputeArray,
       };
 
@@ -484,7 +487,10 @@ const InvestigationOfficerReducers = (state = initialState, action) => {
       return {
         ...state,
         Loading: false,
-        ResponseMessage: action.response.responseMessage,
+        ResponseMessage:
+          action.response.responseMessage === "Record Found"
+            ? ""
+            : action.response.responseMessage,
         SearchDebitCardDisputesData: SearchDebitCardDisputeArray,
       };
 
@@ -854,7 +860,10 @@ const InvestigationOfficerReducers = (state = initialState, action) => {
       return {
         ...state,
         Loading: false,
-        ResponseMessage: action.response.responseMessage,
+        ResponseMessage:
+          action.response.responseMessage === "Record Found"
+            ? ""
+            : action.response.responseMessage,
         SearchADCDisputesData: SearchADCDisputesArray,
         GetADCDisputesForEditData: [],
         GetADCDisputesForViewData: [],
@@ -1236,7 +1245,10 @@ const InvestigationOfficerReducers = (state = initialState, action) => {
       return {
         ...state,
         Loading: false,
-        ResponseMessage: action.response.responseMessage,
+        ResponseMessage:
+          action.response.responseMessage === "Record Found"
+            ? ""
+            : action.response.responseMessage,
         GlobalDisputeData: GlobalDisputeArray,
       };
 
@@ -1524,7 +1536,10 @@ const InvestigationOfficerReducers = (state = initialState, action) => {
       return {
         ...state,
         SearchNDDisputeData: SearchNDBDisputeArray,
-        ResponseMessage: action.response.responseMessage,
+        ResponseMessage:
+          action.response.responseMessage === "Record Found"
+            ? ""
+            : action.response.responseMessage,
         Loading: false,
         ShowNotifiation: true,
       };

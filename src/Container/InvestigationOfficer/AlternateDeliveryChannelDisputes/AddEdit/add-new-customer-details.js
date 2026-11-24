@@ -1,6 +1,6 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState } from "react";
 import { PlusOutlined as AddIcon } from "@ant-design/icons";
-import { Typography, Radio, Space, Empty, Tooltip, Row, Col } from "antd";
+import { Typography, Radio, Row, Col } from "antd";
 import InputMask from "react-input-mask";
 import CustomUpload from "../../../../Components/Elements/Upload/Upload";
 
@@ -611,7 +611,7 @@ const AddNewCustomerDetailsADC = () => {
       width: "220px",
     },
     {
-      title: "HBL Account Number",
+      title: "Account Number",
       dataIndex: "hblAccountNumber",
       key: "hblAccountNumber",
       align: "center",
@@ -854,7 +854,7 @@ const AddNewCustomerDetailsADC = () => {
       width: "220px",
     },
     {
-      title: "HBL Account Number",
+      title: "Account Number",
       dataIndex: "HBLAccountNumber",
       key: "HBLAccountNumber",
       align: "center",
@@ -1459,6 +1459,20 @@ const AddNewCustomerDetailsADC = () => {
     let name = e.target.name;
     let value = e.target.value;
 
+    const NO_DASH_FIELDS = [
+      "ApprovalCode",
+      "POSMode",
+      "MerchantCategoryCodeMCC",
+    ];
+
+    if (NO_DASH_FIELDS.includes(name)) {
+      setTrsDetails((prev) => ({
+        ...prev,
+        [name]: value.replace(/-/g, "").trimStart(),
+      }));
+      return;
+    }
+
     if (
       // name !=="HBLAccountNumber" &&
       name !== "TransactionDate" &&
@@ -1468,7 +1482,6 @@ const AddNewCustomerDetailsADC = () => {
       name !== "DisputeAmount" &&
       name !== "TransactionAmount" &&
       // name !== "MerchantCity" &&
-      // name !=="ApprovalCode" &&
       // name !== "MerchantID" &&
       // name !== "MerchantCategoryCodeMCC" &&
       name !== "MobileNumber" &&
@@ -1533,36 +1546,7 @@ const AddNewCustomerDetailsADC = () => {
         ...trsDetails,
         [name]: "",
       });
-    }
-    // else if (name === "MerchantID" && value !== "") {
-    //   var valueCheck = value.replace(/[^\d-]/g, "");
-    //   if (valueCheck != "") {
-    //     setTrsDetails({
-    //       ...trsDetails,
-    //       [name]: valueCheck,
-    //     });
-    //   }
-    // } else if (name === "MerchantID" && value === "") {
-    //   setTrsDetails({
-    //     ...trsDetails,
-    //     [name]: "",
-    //   });
-    // }
-    // else if (name === "MerchantCategoryCodeMCC" && value !== "") {
-    //   var valueCheck = value.replace(/[^\d-]/g, "");
-    //   if (valueCheck != "") {
-    //     setTrsDetails({
-    //       ...trsDetails,
-    //       [name]: valueCheck,
-    //     });
-    //   }
-    // } else if (name === "MerchantCategoryCodeMCC" && value === "") {
-    //   setTrsDetails({
-    //     ...trsDetails,
-    //     [name]: "",
-    //   });
-    // }
-    else if (name === "MobileNumber" && value !== "") {
+    } else if (name === "MobileNumber" && value !== "") {
       var valueCheck = value.replace(/[^\d]/g, "");
       if (valueCheck != "") {
         setTrsDetails({
@@ -1575,22 +1559,7 @@ const AddNewCustomerDetailsADC = () => {
         ...trsDetails,
         [name]: "",
       });
-    }
-    // else if (name === "IMEINumber" && value !== "") {
-    //   var valueCheck = value.replace(/[^\d-]/g, "");
-    //   if (valueCheck != "") {
-    //     setTrsDetails({
-    //       ...trsDetails,
-    //       [name]: valueCheck,
-    //     });
-    //   }
-    // } else if (name === "IMEINumber" && value === "") {
-    //   setTrsDetails({
-    //     ...trsDetails,
-    //     [name]: "",
-    //   });
-    // }
-    else if (
+    } else if (
       (name === "TransactionAmount" || name === "DisputeAmount") &&
       value !== "" &&
       value !== -99999999999999999999
@@ -3174,7 +3143,6 @@ const AddNewCustomerDetailsADC = () => {
             <Col lg={6} md={6} sm={24} xs={24}>
               <InputWithBtn
                 onchange={TransactionIDchangehandler}
-                isUpperCase={true}
                 label={lbl(trsDetails.TransactionID, "Transaction ID *")}
                 placeholder={"Transaction ID *"}
                 fullWidth
@@ -3197,8 +3165,8 @@ const AddNewCustomerDetailsADC = () => {
                 name="HBLAccountNumber"
                 size="small"
                 autoComplete="off"
-                label={lbl(trsDetails.HBLAccountNumber, "HBL Account Number *")}
-                placeholder={"HBL Account Number *"}
+                label={lbl(trsDetails.HBLAccountNumber, "Account Number *")}
+                placeholder={"Account Number *"}
                 value={trsDetails.HBLAccountNumber}
                 change={TransactionDeatilHandlerChange}
                 fullWidth
@@ -3390,18 +3358,22 @@ const AddNewCustomerDetailsADC = () => {
               />
             </Col>
             <Col lg={6} md={6} sm={24} xs={24} className="u-text-align-center">
-              <label>
-                <b>On Us / Off Us *</b>
-              </label>
-              <br />
-              <Radio.Group
-                name="ON_OFF_US"
-                value={trsDetails.ON_OFF_US}
-                onChange={TransactionDeatilHandlerChange}
-              >
-                <Radio value={true}>Yes</Radio>
-                <Radio value={false}>No</Radio>
-              </Radio.Group>
+              <div>
+                <label>
+                  <b>On Us / Off Us *</b>
+                </label>
+                <br />
+                <span className="u-margin-left-15px">
+                  <Radio.Group
+                    name="ON_OFF_US"
+                    value={trsDetails.ON_OFF_US}
+                    onChange={TransactionDeatilHandlerChange}
+                  >
+                    <Radio value={true}>Yes</Radio>
+                    <Radio value={false}>No</Radio>
+                  </Radio.Group>
+                </span>
+              </div>
             </Col>
             <Col lg={6} md={6} sm={24} xs={24}>
               <TextField
@@ -3477,9 +3449,7 @@ const AddNewCustomerDetailsADC = () => {
             <Col lg={6} md={6} sm={24} xs={24}>
               {lbl(
                 trsDetails.IPAddress,
-                <p className="PlaceholderCard">
-                  IP Address<span className="important"> *</span>
-                </p>
+                <p className="PlaceholderCard">IP Address *</p>
               )}
 
               <InputMask
@@ -3847,9 +3817,9 @@ const AddNewCustomerDetailsADC = () => {
                 fullWidth
                 Label={lbl(
                   ADCDisputes.ExpectedRecoveryFromHBLBeneficiary,
-                  "Expected Recovery From HBL"
+                  "Expected Recovery From Bank"
                 )}
-                placeholder={"Expected Recovery From HBL *"}
+                placeholder={"Expected Recovery From Bank *"}
                 size="small"
                 autoComplete="off"
                 name="ExpectedRecoveryFromHBLBeneficiary"

@@ -178,8 +178,8 @@ const AddEditADCDispute = () => {
     // setCnicFound(true);
   };
 
-  // Proceed: not in Fraud DB — fetch the CNICs linked to this account so
-  // the user can pick one before searching IRIS
+  // Proceed: not in System Database — fetch the CNICs linked to this account so
+  // the user can pick one before searching Bank Database
   const newDataHAndlerForAccount = async () => {
     dispatch(accountNumberFoundModal(false));
     const cnics = await dispatch(
@@ -191,7 +191,7 @@ const AddEditADCDispute = () => {
     }
   };
 
-  // Search IRIS with the account + the CNIC picked from the dropdown
+  // Search IRIBank DatabaseS with the account + the CNIC picked from the dropdown
   const searchHandlerForAccountCnic = () => {
     if (!selectedCnic) return;
     localStorage.setItem("State", JSON.stringify(State));
@@ -618,7 +618,7 @@ const AddEditADCDispute = () => {
           <>
             <div>
               <div className="NoRecordFound">
-                <p>No records available for CNIC Number in Fraud DB</p>
+                <p>No records available for CNIC Number in System Database</p>
                 <span>{inputData}</span>
               </div>
             </div>
@@ -643,7 +643,7 @@ const AddEditADCDispute = () => {
           <>
             <div>
               <div className="NoRecordFound">
-                <p>No records available for CNIC Number in IRIS.</p>
+                <p>No records available for CNIC Number in Bank Database.</p>
                 <span>{inputData}</span>
               </div>
             </div>
@@ -677,7 +677,9 @@ const AddEditADCDispute = () => {
           <>
             <div>
               <div className="NoRecordFound">
-                <p>No records available for Account Number in Fraud DB</p>
+                <p>
+                  No records available for Account Number in System Database
+                </p>
                 <span>{inputDataACModal}</span>
               </div>
             </div>
@@ -702,7 +704,7 @@ const AddEditADCDispute = () => {
           <>
             <div>
               <div className="NoRecordFound">
-                {/* <p>No records available for Account Number in IRIS.</p>
+                {/* <p>No records available for Account Number in Bank Database.</p>
                 <span>{inputDataACModal}</span> */}
                 <p>{investigationOfficer.ResponseMessage}</p>
               </div>
@@ -713,14 +715,12 @@ const AddEditADCDispute = () => {
               </Title>
             </div>
             <div className="u-display-flex u-justify-content-center">
-              {/* <GroupedButtons data={okayButtonProp} /> */}
               <Button
                 text="Ok"
                 type={"primary"}
                 size="large"
                 applyClass="btnBorderStyledBeach"
                 click={handleCancel}
-                // click= () => handleCancel(),
               />
             </div>
           </>

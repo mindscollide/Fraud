@@ -2,11 +2,9 @@ import React, { useState, useEffect } from "react";
 import { Typography, Space, Checkbox, Tooltip, Row, Col } from "antd";
 import { SearchOutlined as Search } from "@ant-design/icons";
 import {
-  CardNumberFormatter,
   DateDisplayFormat,
   DateSendingFormat,
   TimeAndDisplayFormat,
-  NumberFormater,
   CommaFormter,
 } from "../../../../Common/Functions/date-formatter";
 import {
@@ -14,13 +12,11 @@ import {
   SelectBox,
   Button,
   Table,
-  GroupedButtons,
   Modal,
   StartToEndDate,
   TextField,
   Loader,
   Notification,
-  DatePicker,
 } from "../../../../Components/Elements";
 import {
   HideNotification,
@@ -182,8 +178,16 @@ const SearchNONAPIDispute = () => {
   const handleSearch = (e) => {
     let name = e.target.name;
     let value = e.target.value;
+    const NO_DASH_FIELDS = ["ApprovalCode"];
+    if (NO_DASH_FIELDS.includes(name)) {
+      setSearchData((prev) => ({
+        ...prev,
+        [name]: value.replace(/-/g, "").trimStart(),
+      }));
+      return;
+    }
     if (
-      name !== "ApprovalCode" &&
+      // name !== "ApprovalCode" &&
       name !== "TransactionId" &&
       name !== "TransactionAmount" &&
       name !== "CNIC" &&
@@ -195,7 +199,7 @@ const SearchNONAPIDispute = () => {
         [name]: value.trimStart(),
       });
     } else if (
-      name !== "ApprovalCode" &&
+      // name !== "ApprovalCode" &&
       name !== "TransactionId" &&
       name === "TransactionAmount" &&
       value !== -99999999999999999999 &&
@@ -281,20 +285,22 @@ const SearchNONAPIDispute = () => {
         ...searchData,
         [name]: "",
       });
-    } else if (name === "ApprovalCode" && value !== "") {
-      var valueCheck = value.replace(/[^\d-]/g, "");
-      if (valueCheck != "") {
-        setSearchData({
-          ...searchData,
-          [name]: valueCheck,
-        });
-      }
-    } else if (name === "ApprovalCode" && value === "") {
-      setSearchData({
-        ...searchData,
-        [name]: "",
-      });
-    } else if (name === "CNIC" && value !== "") {
+    }
+    // else if (name === "ApprovalCode" && value !== "") {
+    //   var valueCheck = value.replace(/[^\d-]/g, "");
+    //   if (valueCheck != "") {
+    //     setSearchData({
+    //       ...searchData,
+    //       [name]: valueCheck,
+    //     });
+    //   }
+    // } else if (name === "ApprovalCode" && value === "") {
+    //   setSearchData({
+    //     ...searchData,
+    //     [name]: "",
+    //   });
+    // }
+    else if (name === "CNIC" && value !== "") {
       var valueCheck = value.replace(/[^\d-]/g, "");
       if (valueCheck != "") {
         setSearchData({
@@ -620,17 +626,6 @@ const SearchNONAPIDispute = () => {
     },
   ];
 
-  const okayButtonProp = {
-    primaryButton: {
-      text: "Close",
-      class: "btnBorderStyledBeach",
-      click: () => handleCancel(),
-    },
-    secondaryButton: {
-      text: "",
-    },
-  };
-
   useEffect(() => {
     dispatch(disableGoBack());
     window.scrollTo(0, 0);
@@ -811,8 +806,7 @@ const SearchNONAPIDispute = () => {
             autoComplete="off"
             value={searchData.ApprovalCode}
             change={(e) => handleSearch(e)}
-            textLength={6}
-            minLength={6}
+            textLength={7}
           />
         </Col>
 
@@ -903,8 +897,23 @@ const SearchNONAPIDispute = () => {
         {/* this data will be pass to modal when View Approval Icon will be clicked */}
         {actions.viewApprovalHistory && (
           <>
-            <Table rows={row} columns={viewApprovalColumn} />
-            <GroupedButtons data={okayButtonProp} />
+            <Table
+              rows={row}
+              columns={viewApprovalColumn}
+              scroll={{ x: "max-content", y: 350 }}
+            />
+            {/* <GroupedButtons data={okayButtonProp} /> */}
+            <div className="u-display-flex u-justify-content-center">
+              {/* <GroupedButtons data={okayButtonProp} /> */}
+              <Button
+                text="Close"
+                type={"primary"}
+                size="large"
+                applyClass="btnBorderStyledBeach"
+                click={handleCancel}
+                // click= () => handleCancel(),
+              />
+            </div>
           </>
         )}
       </Modal>

@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { Typography, Row, Col } from "antd";
+import { Row, Col } from "antd";
 import moment from "moment";
 import {
   SaveDisputeNegativeDB,
@@ -8,12 +8,8 @@ import {
 } from "../../../../store/actions/investigation-officer-actions";
 import {
   Paper,
-  InputWithBtn,
   TextField,
   SelectBox,
-  GroupedButtons,
-  Modal,
-  Button,
   Notification,
   Loader,
 } from "../../../../Components/Elements";
@@ -22,7 +18,6 @@ import { useNavigate } from "react-router-dom";
 import { ensureLookup } from "../../../../store/actions/lookup-actions";
 import {
   DateDisplayFormat,
-  TimeDisplayFormat,
   TimeAndDisplayFormat,
   removeDashesFromDate,
 } from "../../../../Common/Functions/date-formatter";
@@ -35,7 +30,6 @@ const ViewNDB = () => {
 
   const { setupForms, investigationOfficer } = state;
 
-  const { Title } = Typography;
   const dispatch = useDispatch();
   const [channelType, setChannelType] = useState([]);
   const [channelTypeName, setChannelTypeName] = useState([]);
@@ -1033,8 +1027,8 @@ const ViewNDB = () => {
                 value={neg.HBLReferenceNumber}
                 change={negHandler}
                 size="small"
-                placeholder="HBL Reference Number"
-                label={"HBL Reference Number"}
+                placeholder="Bank Reference Number"
+                label={"Bank Reference Number"}
                 fullWidth
                 disable
               />

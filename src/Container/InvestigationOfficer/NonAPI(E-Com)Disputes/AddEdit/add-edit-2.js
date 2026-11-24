@@ -435,8 +435,10 @@ const AddEditBBKDispute2 = () => {
                         }
                         name="AccountNumber"
                         applyClass="account-number"
-                        label={accountNumber !== "" && "Select Account Number"}
-                        placeholder={"Select Account Number"}
+                        label={
+                          accountNumber.length !== 0 && "Select Account Number"
+                        }
+                        placeholder={"Select Account Number *"}
                         textFieldSize="small"
                         fullWidth
                         autoComplete="off"
@@ -536,7 +538,7 @@ const AddEditBBKDispute2 = () => {
           <>
             <div>
               <div className="NoRecordFound">
-                <p>No records available for CNIC Number in Fraud DB</p>
+                <p>No records available for CNIC Number in System Database</p>
                 <span>{inputData}</span>
               </div>
             </div>
@@ -561,7 +563,7 @@ const AddEditBBKDispute2 = () => {
           <>
             <div>
               <div className="NoRecordFound">
-                <p>No records available for CNIC Number in IRIS.</p>
+                <p>No records available for CNIC Number in Bank Database.</p>
                 <span>{inputData}</span>
               </div>
             </div>
@@ -595,7 +597,9 @@ const AddEditBBKDispute2 = () => {
           <>
             <div>
               <div className="NoRecordFound">
-                <p>No records available for Account Number in Fraud DB</p>
+                <p>
+                  No records available for Account Number in System Database
+                </p>
                 <span>{accountNumber}</span>
               </div>
             </div>
@@ -620,7 +624,7 @@ const AddEditBBKDispute2 = () => {
           <>
             <div>
               <div className="NoRecordFound">
-                <p>No records available for Account Number in IRIS.</p>
+                <p>No records available for Account Number in Bank Database.</p>
                 <span>{accountNumber}</span>
               </div>
             </div>
