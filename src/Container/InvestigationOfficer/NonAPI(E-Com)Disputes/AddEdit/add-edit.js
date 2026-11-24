@@ -400,6 +400,7 @@ const AddEditNONAPIDispute = () => {
     await dispatch(customerNotFoundModal(false));
     await dispatch(accountNumberFoundModal(false));
     await dispatch(accountNumberNotFoundModal(false));
+    setInputDataACModal(accountNumber);
     dispatch(SearchTransactionDetailsByAccountNumberInIRISNONAPI(Data));
   };
 
@@ -693,7 +694,8 @@ const AddEditNONAPIDispute = () => {
           <>
             <div>
               <div className="NoRecordFound">
-                <p>{investigationOfficer.ResponseMessage}</p>
+                <p>No records available for Account Number in Bank Database.</p>
+                <span>{inputDataACModal}</span>
               </div>
             </div>
             <div className="u-padding-40px u-display-flex u-justify-content-center">

@@ -50,6 +50,8 @@ const AddEditBBKDispute2 = () => {
   const [cnicFound, setCnicFound] = useState(false);
   const [account, setAccount] = useState([]);
   const [accountNumber, setAccountNumber] = useState([]);
+  // account number actually searched, shown in the "not found" dialog
+  const [searchedAccount, setSearchedAccount] = useState("");
   const state = useSelector((state) => state);
   const { investigationOfficer } = state;
   const dispatch = useDispatch();
@@ -300,6 +302,7 @@ const AddEditBBKDispute2 = () => {
       From: State.FromDate,
       To: State.ToDate,
     };
+    setSearchedAccount(Data.AccountNumber);
     dispatch(accountNumberFoundModal(false));
     dispatch(SearchTransactionDetailsByAccountNumberInIRISNONAPI(Data));
   };
@@ -320,6 +323,7 @@ const AddEditBBKDispute2 = () => {
     await dispatch(accountNumberFoundModal(false));
     await dispatch(accountNumberNotFoundModal(false));
 
+    setSearchedAccount(Data.AccountNumber);
     dispatch(SearchTransactionDetailsByAccountNumberInIRISNONAPI(Data));
   };
 
@@ -625,7 +629,7 @@ const AddEditBBKDispute2 = () => {
             <div>
               <div className="NoRecordFound">
                 <p>No records available for Account Number in Bank Database.</p>
-                <span>{accountNumber}</span>
+                <span>{searchedAccount}</span>
               </div>
             </div>
             <div className="u-padding-40px u-display-flex u-justify-content-center">
