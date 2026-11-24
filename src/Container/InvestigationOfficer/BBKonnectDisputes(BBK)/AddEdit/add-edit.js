@@ -43,7 +43,6 @@ const AddEditBBKDispute = () => {
   const [inputDataAC, setInputDataAC] = useState("");
   const [inputDataMobile, setInputDataMobile] = useState("");
   const [inputDataACModal, setInputDataACModal] = useState("");
-  const [inputDataMobileModal, setInputDataMobileModal] = useState("");
   const [btnClassCNIC, setBtnClassCNIC] = useState("toggleSelected");
   const [btnClassAccount, setBtnClassAccount] = useState("toggleUnselected");
   const [btnClassMobile, setBtnClassMobile] = useState("toggleUnselected");
@@ -445,7 +444,8 @@ const AddEditBBKDispute = () => {
       From: State.FromDate,
       To: State.ToDate,
     };
-    setInputDataMobileModal(accountNumber);
+    // an account not found here opens the Account Number dialog
+    setInputDataACModal(accountNumber);
     dispatch(mobileNumberFoundModal(false));
     dispatch(SearchTransactionDetailsByAccountNumberInIRISBBK(Data));
   };
@@ -961,8 +961,8 @@ const AddEditBBKDispute = () => {
           <>
             <div>
               <div className="NoRecordFound">
-                <p>No records available for Mobile Number in Source System.</p>
-                <span>{inputDataMobileModal}</span>
+                <p>No records available for Mobile Number in Bank Database.</p>
+                <span>{inputDataMobile}</span>
               </div>
             </div>
             <div className="u-padding-40px u-display-flex u-justify-content-center">

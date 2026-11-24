@@ -679,7 +679,8 @@ const AddEditDebitCardDispute = () => {
           <>
             <div>
               <div className="NoRecordFound">
-                <p>{investigationOfficer.ResponseMessage}</p>
+                <p>No records available for Account Number in Bank Database.</p>
+                <span>{inputDataACModal}</span>
               </div>
             </div>
             <div className="u-padding-40px u-display-flex u-justify-content-center">
