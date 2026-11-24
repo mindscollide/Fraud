@@ -48,6 +48,7 @@ import {
   newRequestList,
   newRequestListCount,
 } from "../../../../../store/actions/request-actions";
+import { isPageReload } from "../../../../../Common/Functions/page-reload";
 
 const PendingDeletionApprovals = () => {
   const navigate = useNavigate();
@@ -170,7 +171,7 @@ const PendingDeletionApprovals = () => {
     dispatch(ensureLookup("approvalReasons"));
     dispatch(ensureLookup("rejectionReasons"));
     dispatch(GetAllPendingForDeletionSystemAdmin(userid));
-    if (performance.navigation.type === performance.navigation.TYPE_RELOAD) {
+    if (isPageReload()) {
       dispatch(GetAllPendingForDeletionSystemAdmin(userid));
     }
   }, []);

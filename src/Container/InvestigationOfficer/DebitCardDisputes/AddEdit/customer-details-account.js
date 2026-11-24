@@ -35,6 +35,7 @@ import {
 } from "../../../../Common/Functions/date-formatter";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { isPageReload } from "../../../../Common/Functions/page-reload";
 
 const CustomerDetailsDebitCardDisputeAccount = () => {
   var accountNumber = localStorage.getItem("AccountNumber");
@@ -139,7 +140,7 @@ const CustomerDetailsDebitCardDisputeAccount = () => {
   }, [investigationOfficer.ShowNotification]);
 
   useEffect(() => {
-    if (performance.navigation.type === performance.navigation.TYPE_RELOAD) {
+    if (isPageReload()) {
       dispatch(GetTransactionDetailsByAccountNumber(accountNumber));
     }
     dispatch(ensureLookup("city"));

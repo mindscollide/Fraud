@@ -26,6 +26,7 @@ import {
   TimeAndDisplayFormat,
   removeDashesFromDate,
 } from "../../../../Common/Functions/date-formatter";
+import { isPageReload } from "../../../../Common/Functions/page-reload";
 
 const ViewNDB = () => {
   var cnic = localStorage.getItem("cnic");
@@ -353,7 +354,7 @@ const ViewNDB = () => {
   };
 
   useEffect(() => {
-    if (performance.navigation.type === performance.navigation.TYPE_RELOAD) {
+    if (isPageReload()) {
       let Data = {
         CNICNumber: cnic,
       };

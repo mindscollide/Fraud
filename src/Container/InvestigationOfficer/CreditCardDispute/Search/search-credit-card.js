@@ -34,6 +34,7 @@ import {
   disableGoBack,
 } from "../../../../store/actions/ui-actions";
 import { useDispatch, useSelector } from "react-redux";
+import { isPageReload } from "../../../../Common/Functions/page-reload";
 
 const SearchCreditCardDispute = () => {
   const { Title } = Typography;
@@ -96,7 +97,7 @@ const SearchCreditCardDispute = () => {
       await dispatch(ensureLookup("status", data));
       await dispatch(ensureLookup("city"));
       await dispatch(ensureLookup("fraudType"));
-      if (performance.navigation.type === performance.navigation.TYPE_RELOAD) {
+      if (isPageReload()) {
         await dispatch(ensureLookup("status", data));
         await dispatch(ensureLookup("city"));
         await dispatch(ensureLookup("fraudType"));

@@ -49,6 +49,7 @@ import {
 import { enableGoBack } from "../../../../store/actions/ui-actions";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { isPageReload } from "../../../../Common/Functions/page-reload";
 
 const ViewCustomerDetailsBBK = () => {
   var cnic = localStorage.getItem("CNICNumber");
@@ -475,13 +476,13 @@ const ViewCustomerDetailsBBK = () => {
     const CNICNumber = localStorage.getItem("CNICNumber");
     let Data = { CNICNumber: CNICNumber, ReferenceNumber: ReferenceNumber };
 
-    if (performance.navigation.type === performance.navigation.TYPE_RELOAD) {
+    if (isPageReload()) {
       if (TTIDQM === null) {
         if (TTID === "5") {
           dispatch(SearchBBKDisputesByCnicAndReferenceNumber(Data, TTID));
           dispatch(enableGoBack());
 
-          navigate("/Fraud/DisputeCases/ViewCustomerDetailsBBK");
+          // stay on this page: the DisputeCases/ViewCustomerDetails* routes exist only for the Investigation Manager, so redirecting there sent other roles to /404
         } else {
           dispatch(SearchBBKDisputesByCnicAndReferenceNumber(Data));
           dispatch(enableGoBack());

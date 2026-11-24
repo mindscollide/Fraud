@@ -49,6 +49,7 @@ import {
   TimeDisplayFormat,
   removeDashesFromDate,
 } from "../../../../Common/Functions/date-formatter";
+import { isPageReload } from "../../../../Common/Functions/page-reload";
 
 const EditDebitCardDispute = () => {
   var cnic = localStorage.getItem("CNICNumber");
@@ -2718,7 +2719,7 @@ const EditDebitCardDispute = () => {
         CNICNumber: cnic2,
         ReferenceNumber: ReferenceNumber,
       };
-      if (performance.navigation.type === performance.navigation.TYPE_RELOAD) {
+      if (isPageReload()) {
         dispatch(GetDebitCardDisputesForEditByCnicAndRefrenceNumber(data2));
         await dispatch(ensureLookup("fraudType"));
       }

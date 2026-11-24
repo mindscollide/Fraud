@@ -34,6 +34,7 @@ import {
 } from "../../../../Common/Functions/date-formatter";
 
 import { useNavigate } from "react-router-dom";
+import { isPageReload } from "../../../../Common/Functions/page-reload";
 
 const ViewCustomerDetailsADC = () => {
   const navigate = useNavigate();
@@ -197,14 +198,14 @@ const ViewCustomerDetailsADC = () => {
     const ReferenceNumber = JSON.parse(localStorage.getItem("ReferenceNumber"));
     const CNICNumber = localStorage.getItem("CNICNumber");
     let Data = { CNICNumber: CNICNumber, RefrenceNumber: ReferenceNumber };
-    if (performance.navigation.type === performance.navigation.TYPE_RELOAD) {
+    if (isPageReload()) {
       if (TTIDQM === null) {
         if (TTID === "3") {
           dispatch(
             SearchTransactionDetailsADCByCNICAndReferenceNumber(Data, TTID)
           );
           dispatch(enableGoBack());
-          navigate("/Fraud/DisputeCases/ViewCustomerDetailsADC");
+          // stay on this page: the DisputeCases/ViewCustomerDetails* routes exist only for the Investigation Manager, so redirecting there sent other roles to /404
         } else {
           dispatch(SearchTransactionDetailsADCByCNICAndReferenceNumber(Data));
           dispatch(enableGoBack());

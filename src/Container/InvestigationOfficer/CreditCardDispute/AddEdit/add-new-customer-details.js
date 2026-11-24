@@ -48,6 +48,7 @@ import {
 } from "../../../../store/actions/reports_actions";
 import { useDispatch, useSelector } from "react-redux";
 import CustomUpload from "../../../../Components/Elements/Upload/Upload";
+import { isPageReload } from "../../../../Common/Functions/page-reload";
 
 // true when a field actually holds a value (treats "", null, undefined,
 // empty arrays and the -99999999999999999999 "empty number" sentinel as empty)
@@ -1471,7 +1472,7 @@ const AddNewCustomerDetails = () => {
   useEffect(() => {
     let Data = { CNIC: cnic };
 
-    if (performance.navigation.type === performance.navigation.TYPE_RELOAD) {
+    if (isPageReload()) {
       if (cnic !== null) {
         let Data1 = {
           CNICNumber: cnic,

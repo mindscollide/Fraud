@@ -34,6 +34,7 @@ import {
 } from "../../../../Common/Functions/date-formatter";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { isPageReload } from "../../../../Common/Functions/page-reload";
 
 const CustomerDetailsDebitCardDispute = () => {
   var cnic = localStorage.getItem("CNICNumber");
@@ -156,7 +157,7 @@ const CustomerDetailsDebitCardDispute = () => {
 
   //To call same API GetTransactionDetailsByCnicDC On Refresh
   useEffect(() => {
-    if (performance.navigation.type === performance.navigation.TYPE_RELOAD) {
+    if (isPageReload()) {
       dispatch(GetTransactionDetailsByCnicDC(cnic));
     }
     dispatch(ensureLookup("city"));

@@ -48,6 +48,7 @@ import { SearchNonApiDisputesByCnicAndReferenceNumber } from "../../../../store/
 import { enableGoBack } from "../../../../store/actions/ui-actions";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { isPageReload } from "../../../../Common/Functions/page-reload";
 
 const ViewCustomerDetailsNONAPI = () => {
   var cnic = localStorage.getItem("CNICNumber");
@@ -601,11 +602,11 @@ const ViewCustomerDetailsNONAPI = () => {
     const CNICNumber = localStorage.getItem("CNICNumber");
     let Data = { CNICNumber: CNICNumber, ReferenceNumber: ReferenceNumber };
 
-    if (performance.navigation.type === performance.navigation.TYPE_RELOAD) {
+    if (isPageReload()) {
       if (TTIDQM === null) {
         if (TTID === "4") {
           dispatch(SearchNonApiDisputesByCnicAndReferenceNumber(Data, TTID));
-          navigate("/Fraud/DisputeCases/ViewCustomerDetailsNonApi");
+          // stay on this page: the DisputeCases/ViewCustomerDetails* routes exist only for the Investigation Manager, so redirecting there sent other roles to /404
         } else {
           dispatch(SearchNonApiDisputesByCnicAndReferenceNumber(Data));
         }

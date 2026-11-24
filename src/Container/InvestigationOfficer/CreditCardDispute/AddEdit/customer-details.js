@@ -32,6 +32,7 @@ import {
 } from "../../../../Common/Functions/date-formatter";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { isPageReload } from "../../../../Common/Functions/page-reload";
 
 const CustomerDetailsCreditCardDispute = () => {
   var cnic = localStorage.getItem("cnic");
@@ -199,7 +200,7 @@ const CustomerDetailsCreditCardDispute = () => {
 
   //Set Values for Input ResponseData
   useEffect(() => {
-    if (performance.navigation.type === performance.navigation.TYPE_RELOAD) {
+    if (isPageReload()) {
       dispatch(GetTransactionDetailsByCnic(cnic));
       dispatch(ensureLookup("city"));
     }
