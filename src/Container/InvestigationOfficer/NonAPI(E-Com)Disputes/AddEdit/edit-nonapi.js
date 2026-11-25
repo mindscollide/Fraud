@@ -4019,7 +4019,7 @@ const EditNONAPIDispute = () => {
             </h1>
           </Col>
           <Row gutter={8}>
-            <Col lg={6} md={6} sm={24} className="u-margin-top-22px">
+            <Col lg={5} md={5} sm={24} className="u-margin-top-22px">
               <DatePicker
                 placeholder={"Case Received Date"}
                 label={lbl(NPIDisputes.CaseReceivedDate, "Case Received Date")}
@@ -4036,7 +4036,7 @@ const EditNONAPIDispute = () => {
                 change={DateHandler}
               />
             </Col>
-            <Col lg={6} md={6} sm={24} className="u-margin-top-22px">
+            <Col lg={5} md={5} sm={24} className="u-margin-top-22px">
               <TextField
                 fullWidth
                 placeholder="Case Received Channel"
@@ -4054,8 +4054,8 @@ const EditNONAPIDispute = () => {
               />
             </Col>
             <Col
-              lg={6}
-              md={6}
+              lg={4}
+              md={4}
               sm={24}
               xs={24}
               className="u-text-align-center u-margin-top-15px"
@@ -4078,7 +4078,7 @@ const EditNONAPIDispute = () => {
                 </Radio>
               </Radio.Group>
             </Col>
-            <Col lg={6} md={6} sm={24} className="u-margin-top-22px">
+            <Col lg={5} md={5} sm={24} className="u-margin-top-22px">
               <DatePicker
                 size="large"
                 width="100%"
@@ -4095,7 +4095,7 @@ const EditNONAPIDispute = () => {
                 disable
               />
             </Col>
-            <Col lg={6} md={6} sm={24} className="u-margin-top-22px">
+            <Col lg={5} md={5} sm={24} className="u-margin-top-22px">
               <Paper>
                 <TextField
                   fullWidth

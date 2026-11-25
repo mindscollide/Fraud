@@ -1292,6 +1292,8 @@ const EditADCDispute = () => {
       "ApprovalCode",
       "POSMode",
       "MerchantCategoryCodeMCC",
+      "MerchantID",
+      "IMEINumber",
     ];
 
     if (NO_DASH_FIELDS.includes(name)) {
@@ -3749,7 +3751,7 @@ const EditADCDispute = () => {
             <Col lg={6} md={6} sm={24} xs={24} className="u-text-align-center">
               <div>
                 <label>
-                  <b>On Us / Off Us</b>
+                  <b>On Us / Off Us *</b>
                 </label>
                 <br />
                 <span className="u-margin-left-15px">
@@ -3930,7 +3932,7 @@ const EditADCDispute = () => {
             </h1>
           </Col>
           <Row gutter={16} className="u-margin-top-22px">
-            <Col lg={6} md={6} sm={24}>
+            <Col lg={5} md={5} sm={24}>
               <DatePicker
                 label={lbl(ADCDisputes.CaseReceivedDate, "Case Received Date")}
                 placeholder={"Case Received Date"}
@@ -3947,7 +3949,7 @@ const EditADCDispute = () => {
                 disable={true}
               />
             </Col>
-            <Col lg={6} md={6} sm={24}>
+            <Col lg={5} md={5} sm={24}>
               <TextField
                 fullWidth
                 label={lbl(
@@ -3964,26 +3966,30 @@ const EditADCDispute = () => {
                 textLength={20}
               />
             </Col>
-            <Col lg={6} md={6} sm={24} xs={24} className="u-text-align-center">
-              <label>
-                <b>Case Resolved</b>
-              </label>
-              <br />
-              <Radio.Group
-                name="IsCaseResolved"
-                value={ADCDisputes.IsCaseResolved}
-                onChange={ADCDisputeHandler}
-                disable={true}
-              >
-                <Radio disabled value={true}>
-                  Yes
-                </Radio>
-                <Radio disabled value={false}>
-                  No
-                </Radio>
-              </Radio.Group>
+            <Col lg={4} md={4} sm={24} xs={24} className="u-text-align-center">
+              <div>
+                <label>
+                  <b>Case Resolved</b>
+                </label>
+                <br />
+                <span className="u-margin-left-15px">
+                  <Radio.Group
+                    name="IsCaseResolved"
+                    value={ADCDisputes.IsCaseResolved}
+                    onChange={ADCDisputeHandler}
+                    disable={true}
+                  >
+                    <Radio disabled value={true}>
+                      Yes
+                    </Radio>
+                    <Radio disabled value={false}>
+                      No
+                    </Radio>
+                  </Radio.Group>
+                </span>
+              </div>
             </Col>
-            <Col lg={6} md={6} sm={24}>
+            <Col lg={5} md={5} sm={24}>
               <DatePicker
                 size="large"
                 width="100%"
@@ -4000,7 +4006,7 @@ const EditADCDispute = () => {
                 disable
               />
             </Col>
-            <Col lg={6} md={6} sm={24}>
+            <Col lg={5} md={5} sm={24}>
               <TextField
                 fullWidth
                 label={lbl(
@@ -4140,35 +4146,43 @@ const EditADCDispute = () => {
             </Col>
 
             <Col lg={6} md={6} sm={24} xs={24} className="u-text-align-center">
-              <label>
-                <b>Demographic Change</b>
-              </label>
-              <br />
-              <Radio.Group
-                name="IsDemographicChange"
-                value={ADCDisputes.IsDemographicChange}
-                onChange={ADCDisputeHandler}
-              >
-                <Radio value={true}>Yes</Radio>
-                <Radio value={false}>No</Radio>
-              </Radio.Group>
+              <div>
+                <label>
+                  <b>Demographic Change</b>
+                </label>
+                <br />
+                <span className="u-margin-left-15px">
+                  <Radio.Group
+                    name="IsDemographicChange"
+                    value={ADCDisputes.IsDemographicChange}
+                    onChange={ADCDisputeHandler}
+                  >
+                    <Radio value={true}>Yes</Radio>
+                    <Radio value={false}>No</Radio>
+                  </Radio.Group>
+                </span>
+              </div>
             </Col>
           </Row>
 
           <Row gutter={16} className="u-margin-top-22px">
             <Col lg={6} md={6} sm={24} xs={24} className="u-text-align-center">
-              <label>
-                <b>Flexi Loan</b>
-              </label>
-              <br />
-              <Radio.Group
-                name="IsFlexiLoan"
-                value={ADCDisputes.IsFlexiLoan}
-                onChange={ADCDisputeHandler}
-              >
-                <Radio value={true}>Yes</Radio>
-                <Radio value={false}>No</Radio>
-              </Radio.Group>
+              <div>
+                <label>
+                  <b>Flexi Loan</b>
+                </label>
+                <br />
+                <span className="u-margin-left-15px">
+                  <Radio.Group
+                    name="IsFlexiLoan"
+                    value={ADCDisputes.IsFlexiLoan}
+                    onChange={ADCDisputeHandler}
+                  >
+                    <Radio value={true}>Yes</Radio>
+                    <Radio value={false}>No</Radio>
+                  </Radio.Group>
+                </span>
+              </div>
             </Col>
             <Col lg={6} md={6} sm={24} xs={24}>
               <TextField
@@ -4247,18 +4261,22 @@ const EditADCDispute = () => {
               />
             </Col>
             <Col lg={6} md={6} sm={24} xs={24} className="u-text-align-center">
-              <label>
-                <b>Customer / Beneficiary SIM Blocked</b>
-              </label>
-              <br />
-              <Radio.Group
-                name="CustomerSimBlocked"
-                value={ADCDisputes.CustomerSimBlocked}
-                onChange={ADCDisputeHandler}
-              >
-                <Radio value={true}>Yes</Radio>
-                <Radio value={false}>No</Radio>
-              </Radio.Group>
+              <div>
+                <label>
+                  <b>Customer / Beneficiary SIM Blocked</b>
+                </label>
+                <br />
+                <span className="u-margin-left-15px">
+                  <Radio.Group
+                    name="CustomerSimBlocked"
+                    value={ADCDisputes.CustomerSimBlocked}
+                    onChange={ADCDisputeHandler}
+                  >
+                    <Radio value={true}>Yes</Radio>
+                    <Radio value={false}>No</Radio>
+                  </Radio.Group>
+                </span>
+              </div>
             </Col>
             <Col lg={6} md={6} sm={24} xs={24}>
               <TextField
@@ -4274,19 +4292,23 @@ const EditADCDispute = () => {
               />
             </Col>
             <Col lg={6} md={6} sm={24} xs={24} className="u-text-align-center">
-              <label>
-                <b>iOS / Android</b>
-              </label>
-              <br />
-              <Radio.Group
-                name="Android_ISO"
-                value={ADCDisputes.Android_ISO}
-                onChange={ADCDisputeHandler}
-              >
-                <Radio value={1}>Android</Radio>
-                <Radio value={2}>iOS</Radio>
-                <Radio value={3}>Web</Radio>
-              </Radio.Group>
+              <div>
+                <label>
+                  <b>iOS / Android</b>
+                </label>
+                <br />
+                <span className="u-margin-left-15px">
+                  <Radio.Group
+                    name="Android_ISO"
+                    value={ADCDisputes.Android_ISO}
+                    onChange={ADCDisputeHandler}
+                  >
+                    <Radio value={1}>Android</Radio>
+                    <Radio value={2}>iOS</Radio>
+                    <Radio value={3}>Web</Radio>
+                  </Radio.Group>
+                </span>
+              </div>
             </Col>
           </Row>
 

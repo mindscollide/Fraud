@@ -1459,44 +1459,52 @@ const ViewCustomerDetailsADC = () => {
               />
             </Col>
 
-            <Col lg={6} md={6} sm={24} xs={24}>
-              <label>
-                <b>Demographic Change</b>
-              </label>
-              <br />
-              <Radio.Group
-                name="IsDemographicChange"
-                disable={true}
-                value={ADCDisputes.IsDemographicChange}
-              >
-                <Radio disabled value={true}>
-                  Yes
-                </Radio>
-                <Radio disabled value={false}>
-                  No
-                </Radio>
-              </Radio.Group>
+            <Col lg={6} md={6} sm={24} xs={24} className="u-text-align-center">
+              <div>
+                <label>
+                  <b>Demographic Change</b>
+                </label>
+                <br />
+                <span className="u-margin-left-15px">
+                  <Radio.Group
+                    name="IsDemographicChange"
+                    disable={true}
+                    value={ADCDisputes.IsDemographicChange}
+                  >
+                    <Radio disabled value={true}>
+                      Yes
+                    </Radio>
+                    <Radio disabled value={false}>
+                      No
+                    </Radio>
+                  </Radio.Group>
+                </span>
+              </div>
             </Col>
           </Row>
 
           <Row gutter={8} className="u-margin-top-22px">
-            <Col lg={6} md={6} sm={24} xs={24}>
-              <label>
-                <b>Flexi Loan</b>
-              </label>
-              <br />
-              <Radio.Group
-                name="IsFlexiLoan"
-                disable={true}
-                value={ADCDisputes.IsFlexiLoan}
-              >
-                <Radio disabled value={true}>
-                  Yes
-                </Radio>
-                <Radio disabled value={false}>
-                  No
-                </Radio>
-              </Radio.Group>
+            <Col lg={6} md={6} sm={24} xs={24} className="u-text-align-center">
+              <div>
+                <label>
+                  <b>Flexi Loan</b>
+                </label>
+                <br />
+                <span className="u-margin-left-15px">
+                  <Radio.Group
+                    name="IsFlexiLoan"
+                    disable={true}
+                    value={ADCDisputes.IsFlexiLoan}
+                  >
+                    <Radio disabled value={true}>
+                      Yes
+                    </Radio>
+                    <Radio disabled value={false}>
+                      No
+                    </Radio>
+                  </Radio.Group>
+                </span>
+              </div>
             </Col>
             <Col lg={6} md={6} sm={24} xs={24}>
               <TextField
@@ -1574,23 +1582,28 @@ const ViewCustomerDetailsADC = () => {
                 disable
               />
             </Col>
-            <Col lg={6} md={6} sm={24} xs={24}>
-              <label>
-                <b>Customer / Beneficiary SIM Blocked</b>
-              </label>
-              <br />
-              <Radio.Group
-                name="CustomerSimBlocked"
-                disable={true}
-                value={ADCDisputes.CustomerSimBlocked}
-              >
-                <Radio disabled value={true}>
-                  Yes
-                </Radio>
-                <Radio disabled value={false}>
-                  No
-                </Radio>
-              </Radio.Group>
+            <Col lg={6} md={6} sm={24} xs={24} className="u-text-align-center">
+              <div>
+                <label>
+                  <b>Customer / Beneficiary SIM Blocked</b>
+                </label>
+                <br />
+
+                <span className="u-margin-left-15px">
+                  <Radio.Group
+                    name="CustomerSimBlocked"
+                    disable={true}
+                    value={ADCDisputes.CustomerSimBlocked}
+                  >
+                    <Radio disabled value={true}>
+                      Yes
+                    </Radio>
+                    <Radio disabled value={false}>
+                      No
+                    </Radio>
+                  </Radio.Group>
+                </span>
+              </div>
             </Col>
             <Col lg={6} md={6} sm={24} xs={24}>
               <TextField
@@ -1604,26 +1617,30 @@ const ViewCustomerDetailsADC = () => {
                 disable
               />
             </Col>
-            <Col lg={6} md={6} sm={24} xs={24}>
-              <label>
-                <b>iOS / Android</b>
-              </label>
-              <br />
-              <Radio.Group
-                name="Android_ISO"
-                disable={true}
-                value={ADCDisputes.Android_ISO}
-              >
-                <Radio disabled value={1}>
-                  Android
-                </Radio>
-                <Radio disabled value={2}>
-                  iOS
-                </Radio>
-                <Radio disabled value={3}>
-                  Web
-                </Radio>
-              </Radio.Group>
+            <Col lg={6} md={6} sm={24} xs={24} className="u-text-align-center">
+              <div>
+                <label>
+                  <b>iOS / Android</b>
+                </label>
+                <br />
+                <span className="u-margin-left-15px">
+                  <Radio.Group
+                    name="Android_ISO"
+                    disable={true}
+                    value={ADCDisputes.Android_ISO}
+                  >
+                    <Radio disabled value={1}>
+                      Android
+                    </Radio>
+                    <Radio disabled value={2}>
+                      iOS
+                    </Radio>
+                    <Radio disabled value={3}>
+                      Web
+                    </Radio>
+                  </Radio.Group>
+                </span>
+              </div>
             </Col>
           </Row>
 

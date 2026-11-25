@@ -1581,12 +1581,9 @@ const EditDebitCardDispute = () => {
       name !== "DisputeAmount" &&
       name !== "TransactionCurrencyCode" &&
       name !== "MerchantName" &&
-      // name !== "MerchantID" &&
       name !== "MerchantCity" &&
-      // name !== "CategoryCodeMCC" &&
       name !== "AcquirerID" &&
       name !== "AcquirerTerminalID" &&
-      // name !== "POSMode" &&qe
       name !== "ON_OFF_US" &&
       (value !== "" || value === false)
     ) {
@@ -1658,61 +1655,6 @@ const EditDebitCardDispute = () => {
         });
       }
     } else if (name === "TransactionCurrencyCode" && value === "") {
-      setTrsDetails({
-        ...trsDetails,
-        [name]: "",
-      });
-    }
-    // else if (name === "MerchantID" && value !== "") {
-    //   var valueCheck = value.replace(/[^\d-]/g, "");
-    //   if (valueCheck != "") {
-    //     setTrsDetails({
-    //       ...trsDetails,
-    //       [name]: valueCheck,
-    //     });
-    //   }
-    // } else if (name === "MerchantID" && value === "") {
-    //   setTrsDetails({
-    //     ...trsDetails,
-    //     [name]: "",
-    //   });
-    // }
-    // else if (name === "CategoryCodeMCC" && value !== "") {
-    //   var valueCheck = value.replace(/[^\d]/g, "");
-    //   if (valueCheck != "") {
-    //     setTrsDetails({
-    //       ...trsDetails,
-    //       [name]: valueCheck,
-    //     });
-    //   }
-    // } else if (name === "CategoryCodeMCC" && value === "") {
-    //   setTrsDetails({
-    //     ...trsDetails,
-    //     [name]: "",
-    //   });
-    // }
-    else if (name === "AcquirerID" && value !== "") {
-      var valueCheck = value.replace(/[^\/-d]/g, "");
-      if (valueCheck != "") {
-        setTrsDetails({
-          ...trsDetails,
-          [name]: valueCheck,
-        });
-      }
-    } else if (name === "AcquirerID" && value === "") {
-      setTrsDetails({
-        ...trsDetails,
-        [name]: "",
-      });
-    } else if (name === "AcquirerTerminalID" && value !== "") {
-      var valueCheck = value.replace(/[^\d-]/g, "");
-      if (valueCheck != "") {
-        setTrsDetails({
-          ...trsDetails,
-          [name]: valueCheck,
-        });
-      }
-    } else if (name === "AcquirerTerminalID" && value === "") {
       setTrsDetails({
         ...trsDetails,
         [name]: "",

@@ -1,21 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { PlusOutlined as AddIcon } from "@ant-design/icons";
-import { Tooltip, Typography, Radio, Col, Row } from "antd";
-import { EditOutlined as Edit } from "@ant-design/icons";
+import { Tooltip, Col, Row } from "antd";
 import {
   Paper,
-  InputWithBtn,
   TextField,
   Table,
   SelectBox,
-  DatePicker,
   Button,
-  FancyBox,
-  ConsolidateBox,
   Notification,
-  Message,
   Loader,
-  FormattedInputs,
 } from "../../../../Components/Elements";
 import {
   HideNotification,
@@ -27,9 +20,6 @@ import { ensureLookup } from "../../../../store/actions/lookup-actions";
 import { enableGoBack } from "../../../../store/actions/ui-actions";
 import {
   DateDisplayFormat,
-  DateSendingFormat,
-  currentToOneYearBackDate,
-  NumberFormater,
   CommaFormter,
 } from "../../../../Common/Functions/date-formatter";
 import { useDispatch, useSelector } from "react-redux";
@@ -39,8 +29,6 @@ import { isPageReload } from "../../../../Common/Functions/page-reload";
 const CustomerDetailsDebitCardDispute = () => {
   var cnic = localStorage.getItem("CNICNumber");
 
-  const { Title } = Typography;
-
   const [btnStatus, setBtnStatus] = useState(true);
 
   const dispatch = useDispatch();
@@ -48,10 +36,6 @@ const CustomerDetailsDebitCardDispute = () => {
   const state = useSelector((state) => state);
 
   const navigate = useNavigate();
-
-  const [CNIC, setCNIC] = useState({
-    CNIC: "",
-  });
 
   const [customer, setCustomer] = useState({
     custName: "",

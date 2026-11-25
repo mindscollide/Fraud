@@ -1137,29 +1137,27 @@ const ViewCustomerDetailsNONAPI = () => {
               disable
             />
           </Col>
-          <Col
-            lg={6}
-            md={6}
-            sm={24}
-            xs={24}
-            className="u-text-align-center u-margin-top-15px"
-          >
-            <label>
-              <b>Case Resolved</b>
-            </label>
-            <br />
-            <Radio.Group
-              name="IsCaseResolved"
-              disable={true}
-              value={NPIDispute.IsCaseResolved}
-            >
-              <Radio disabled value={true}>
-                Yes
-              </Radio>
-              <Radio disabled value={false}>
-                No
-              </Radio>
-            </Radio.Group>
+          <Col lg={6} md={6} sm={24} xs={24} className="u-text-align-center">
+            <div>
+              <label>
+                <b>Case Resolved</b>
+              </label>
+              <br />
+              <span className="u-margin-left-15px">
+                <Radio.Group
+                  name="IsCaseResolved"
+                  disable={true}
+                  value={NPIDispute.IsCaseResolved}
+                >
+                  <Radio disabled value={true}>
+                    Yes
+                  </Radio>
+                  <Radio disabled value={false}>
+                    No
+                  </Radio>
+                </Radio.Group>
+              </span>
+            </div>
           </Col>
           <Col lg={6} md={6} sm={24} className="u-margin-top-22px">
             <DatePicker
@@ -1207,29 +1205,27 @@ const ViewCustomerDetailsNONAPI = () => {
           </h1>
         </Col>
         <Row gutter={8}>
-          <Col
-            lg={6}
-            md={6}
-            sm={24}
-            xs={24}
-            className="u-text-align-center u-margin-top-15px"
-          >
-            <label>
-              <b>TC 40 Reporting</b>
-            </label>
-            <br />
-            <Radio.Group
-              name="IsTC40Reporting"
-              disable
-              value={NPIDispute.IsTC40Reporting}
-            >
-              <Radio disabled value={true}>
-                Yes
-              </Radio>
-              <Radio disabled value={false}>
-                No
-              </Radio>
-            </Radio.Group>
+          <Col lg={6} md={6} sm={24} xs={24} className="u-text-align-center">
+            <div>
+              <label>
+                <b>TC 40 Reporting</b>
+              </label>
+              <br />
+              <span className="u-margin-left-15px">
+                <Radio.Group
+                  name="IsTC40Reporting"
+                  disable
+                  value={NPIDispute.IsTC40Reporting}
+                >
+                  <Radio disabled value={true}>
+                    Yes
+                  </Radio>
+                  <Radio disabled value={false}>
+                    No
+                  </Radio>
+                </Radio.Group>
+              </span>
+            </div>
           </Col>
           <Col lg={6} md={6} sm={24}>
             <DatePicker
@@ -1247,25 +1243,23 @@ const ViewCustomerDetailsNONAPI = () => {
               disable
             />
           </Col>
-          <Col
-            lg={6}
-            md={6}
-            sm={24}
-            xs={24}
-            className="u-text-align-center u-margin-top-15px"
-          >
-            <label>
-              <b>Point Of Compromise Identified</b>
-            </label>
-            <br />
-            <Radio.Group name="IsPOC" disable value={NPIDispute.IsPOC}>
-              <Radio disabled value={true}>
-                Yes
-              </Radio>
-              <Radio disabled value={false}>
-                No
-              </Radio>
-            </Radio.Group>
+          <Col lg={6} md={6} sm={24} xs={24} className="u-text-align-center">
+            <div>
+              <label>
+                <b>Point Of Compromise Identified</b>
+              </label>
+              <br />
+              <span className="u-margin-left-15px">
+                <Radio.Group name="IsPOC" disable value={NPIDispute.IsPOC}>
+                  <Radio disabled value={true}>
+                    Yes
+                  </Radio>
+                  <Radio disabled value={false}>
+                    No
+                  </Radio>
+                </Radio.Group>
+              </span>
+            </div>
           </Col>
           <Col lg={6} md={6} sm={24} xs={24} className="u-margin-top-22px">
             <TextField

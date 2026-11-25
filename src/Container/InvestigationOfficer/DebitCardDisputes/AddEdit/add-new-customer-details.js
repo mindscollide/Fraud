@@ -1489,11 +1489,7 @@ const AddNewCustomerDetailsDC = () => {
       name !== "TransactionAmountOtherCurrency" &&
       name !== "DisputeAmount" &&
       name !== "MerchantName" &&
-      // name !== "MerchantID" &&
       name !== "MerchantCity" &&
-      // name !== "CategoryCodeMCC" &&
-      name !== "AcquirerID" &&
-      name !== "AcquirerTerminalID" &&
       name !== "ON_OFF_US" &&
       (value !== "" || value === false)
     ) {
@@ -1540,61 +1536,6 @@ const AddNewCustomerDetailsDC = () => {
         });
       }
     } else if (name === "OtherBankBranchCode" && value === "") {
-      setTrsDetails({
-        ...trsDetails,
-        [name]: "",
-      });
-    }
-    // else if (name === "MerchantID" && value !== "") {
-    //   var valueCheck = value.replace(/[^\d-]/g, "");
-    //   if (valueCheck != "") {
-    //     setTrsDetails({
-    //       ...trsDetails,
-    //       [name]: valueCheck,
-    //     });
-    //   }
-    // } else if (name === "MerchantID" && value === "") {
-    //   setTrsDetails({
-    //     ...trsDetails,
-    //     [name]: "",
-    //   });
-    // }
-    // else if (name === "CategoryCodeMCC" && value !== "") {
-    //   var valueCheck = value.replace(/[^\d-]/g, "");
-    //   if (valueCheck != "") {
-    //     setTrsDetails({
-    //       ...trsDetails,
-    //       [name]: valueCheck,
-    //     });
-    //   }
-    // } else if (name === "CategoryCodeMCC" && value === "") {
-    //   setTrsDetails({
-    //     ...trsDetails,
-    //     [name]: "",
-    //   });
-    // }
-    else if (name === "AcquirerID" && value !== "") {
-      var valueCheck = value.replace(/[^\d-]/g, "");
-      if (valueCheck != "") {
-        setTrsDetails({
-          ...trsDetails,
-          [name]: valueCheck,
-        });
-      }
-    } else if (name === "AcquirerID" && value === "") {
-      setTrsDetails({
-        ...trsDetails,
-        [name]: "",
-      });
-    } else if (name === "AcquirerTerminalID" && value !== "") {
-      var valueCheck = value.replace(/[^\d-]/g, "");
-      if (valueCheck != "") {
-        setTrsDetails({
-          ...trsDetails,
-          [name]: valueCheck,
-        });
-      }
-    } else if (name === "AcquirerTerminalID" && value === "") {
       setTrsDetails({
         ...trsDetails,
         [name]: "",
@@ -3766,7 +3707,7 @@ const AddNewCustomerDetailsDC = () => {
                 value={trsDetails.MerchantID}
                 change={TransactionDeatilHandlerChange}
                 fullWidth
-                textLength={20}
+                textLength={6}
               />
             </Col>
             <Col lg={6} md={6} sm={24} xs={24}>

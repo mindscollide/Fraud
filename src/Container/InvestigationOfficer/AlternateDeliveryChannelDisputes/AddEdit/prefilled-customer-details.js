@@ -1,46 +1,20 @@
-import React, { useEffect, useState, useRef } from "react";
-import { PlusOutlined as AddIcon } from "@ant-design/icons";
-import { Typography, Radio, Space, Empty, Row, Col } from "antd";
-import moment from "moment";
+import React, { useEffect, useState } from "react";
+
+import { Radio, Row, Col } from "antd";
+
 import {
   Paper,
-  InputWithBtn,
   TextField,
-  SelectBox,
   DatePicker,
-  TimePicker,
   Button,
-  FancyBox,
-  ConsolidateBox,
   Notification,
   Table,
   Message,
-  Loader,
-  FormattedInputs,
-  uploadButton,
 } from "../../../../Components/Elements";
-import { useSelector, useDispatch } from "react-redux";
-import {
-  GetBorrowerType,
-  GetAdvanceClassification,
-  GetManagementUnit,
-  GetNatureofCharge,
-  GetNatureOfSecurity,
-  GetWOFReason,
-} from "../../../../store/actions/setup-forms-actions";
-import {
-  DateDisplayFormat,
-  DateSendingFormat,
-  NumberFormater,
-  CommaFormter,
-} from "../../../../Common/Functions/date-formatter";
+import { useSelector } from "react-redux";
+
 import Uploads from "../../../../Components/Elements/Upload/Uploads";
 const PreFilledCustomerDetails = () => {
-  const { Title } = Typography;
-  const dispatch = useDispatch();
-  const [misysError, setMisysError] = useState(false);
-  const [misysErrMsg, setMisysErrMsg] = useState("");
-  const [enableRadio, setEnableRadio] = useState(true);
   const [openApproval, setOpenApproval] = useState(false);
   const [openWriteoff, setOpenWriteoff] = useState(false);
   const [open, setOpen] = useState({
@@ -48,88 +22,12 @@ const PreFilledCustomerDetails = () => {
     message: "",
   });
   const state = useSelector((state) => state);
-  const {
-    findCustomerFromMisys,
-    findCustomerAccountDetailsFromMisys,
-    setupForms,
-  } = state;
-  const [wofcode, setwofcode] = useState("");
-  const [accountNumbersFromStore, setAccountNumbersFromStore] = useState(null);
+  const { setupForms } = state;
+
   const [goToSave, setGoToSave] = useState(false);
-  const [ButtonText, setButtonText] = useState("Add Record");
-  const [consolidateCalculatorBox, setConsolidateCalculatorBox] = useState({
-    ABNSOutstandingPrincipal: 0,
-    ABNSOutstandingNominal: 0,
-    ABNSOutstandingNonAccural: 0,
-    ABNSOtherCharges: 0,
-    ABNSPenalInterest: 0,
-    ABNSTotal: 0,
-    APBSOutstandingPrincipal: 0,
-    APBSOutstandingNominal: 0,
-    APBSOutstandingNonAccural: 0,
-    APBSOtherCharges: 0,
-    APBSPenalInterest: 0,
-    APBSTotal: 0,
-    FRAPrincipal: 0,
-    FRANominated: 0,
-    FRANonAccural: 0,
-    FRAOtherCharges: 0,
-    FRAPenalInterest: 0,
-    FRATotal: 0,
-  });
+
   const [dataUpload, setDataUpload] = useState([]);
-  const [misysSection, setMisysSection] = useState({
-    MisysCode: null,
-    NPLCode: null,
-    BorrowerName: null,
-    AddressOfBorrower: null,
-    NTNNumber: null,
-    ManagementUnitID: null,
-    SCode: null,
-    SDescription: null,
-    BorrowerTypeID: null,
-    iParty: null,
-  });
-  const [sponsorOwnerDetail, setSponsorOwnerDetail] = useState([
-    {
-      DirectorTypeID: null,
-      DirectorName: null,
-      CNIC: null,
-      FatherHusband: null,
-      Address: null,
-    },
-  ]);
-  const [AccountNumber, setAccountNumber] = useState("Select...");
-  const [AccountSection, setAccountSection] = useState([]);
-  const [allinput, setallinput] = useState(false);
-  const [AccountDetails, setAccountDetails] = useState({
-    FacCode: null,
-    FacName: null,
-    LRAmount: null,
-    LRDate: "",
-    BranchCode: "",
-    BranchName: "",
-    RegionCode: "",
-    RegionName: "",
-    ABNSOutstandingPrincipal: 0,
-    ABNSOutstandingNominal: 0,
-    ABNSOutstandingNonAccural: 0,
-    ABNSOtherCharges: 0,
-    ABNSPenalInterest: 0,
-    ABNSTotal: 0,
-    APBSOutstandingPrincipal: 0,
-    APBSOutstandingNominal: 0,
-    APBSOutstandingNonAccural: 0,
-    APBSOtherCharges: 0,
-    APBSPenalInterest: 0,
-    APBSTotal: 0,
-    FRAPrincipal: 0,
-    FRANominated: 0,
-    FRANonAccural: 0,
-    FRAOtherCharges: 0,
-    FRAPenalInterest: 0,
-    FRATotal: 0,
-  });
+
   const [additionalDetailsSection, setAdditionalDetailsSection] = useState({
     AdvanceClassificationID: "Loss",
     ChargeOfType: 1,
@@ -155,16 +53,6 @@ const PreFilledCustomerDetails = () => {
     RightOfRecovery: 3,
   });
 
-  const [recoveryWriteOffSection, setRecoveryWriteOffSection] = useState({
-    DateOfRecovery: null,
-    Principal: 0,
-    Nominated: 0,
-    Nonaccural: 0,
-    OtherCharges: 0,
-    PenalInterest: 0,
-    Total: 0,
-  });
-  const [FinalDetails, setFinalDetails] = useState({});
   const goToSaveHandler = () => {};
 
   const columns = [

@@ -1,35 +1,24 @@
 import React, { useEffect, useState } from "react";
 import { PlusOutlined as AddIcon } from "@ant-design/icons";
-import { Tooltip, Typography, Radio, Col, Row } from "antd";
-import { EditOutlined as Edit } from "@ant-design/icons";
+import { Tooltip, Col, Row } from "antd";
 import {
   Paper,
-  InputWithBtn,
   TextField,
   Table,
   SelectBox,
-  DatePicker,
   Button,
-  FancyBox,
-  ConsolidateBox,
   Notification,
-  Message,
   Loader,
-  FormattedInputs,
 } from "../../../../Components/Elements";
 import {
   HideNotification,
   SearchTransactionDetailsADCByCNICAndReferenceNumber,
   SearchADCDisputesForEditByCnicAndReferenceNumber,
-  GetTransactionDetailsByCnicADC,
 } from "../../../../store/actions/investigation-officer-actions";
 import { ensureLookup } from "../../../../store/actions/lookup-actions";
 import { enableGoBack } from "../../../../store/actions/ui-actions";
 import {
   DateDisplayFormat,
-  DateSendingFormat,
-  currentToOneYearBackDate,
-  NumberFormater,
   CommaFormter,
 } from "../../../../Common/Functions/date-formatter";
 import { useDispatch, useSelector } from "react-redux";
@@ -38,8 +27,6 @@ import { useNavigate } from "react-router-dom";
 const CustomerDetailsADCD = () => {
   var cnic = localStorage.getItem("CNICNumber");
 
-  const { Title } = Typography;
-
   const [btnStatus, setBtnStatus] = useState(true);
 
   const dispatch = useDispatch();
@@ -47,10 +34,6 @@ const CustomerDetailsADCD = () => {
   const state = useSelector((state) => state);
 
   const navigate = useNavigate();
-
-  const [CNIC, setCNIC] = useState({
-    CNIC: "",
-  });
 
   const [cityValue, setCityValue] = useState("");
 
@@ -71,6 +54,7 @@ const CustomerDetailsADCD = () => {
     useState([]);
 
   const [transactionDetails, setTransactionDetailsNIC] = useState([]);
+  const city = (setupForms.CityData || []).map((data) => data.name);
 
   const View = (e, value) => {
     localStorage.setItem(
@@ -109,12 +93,6 @@ const CustomerDetailsADCD = () => {
         setCustomer({
           custName: newData.customerName,
           fK_CTID: newData.fK_CTID,
-        });
-        let valueCity = setupForms.CityData;
-        valueCity.map((data, index) => {
-          if (newData.fK_CTID === data.pK_CTID) {
-            setCityValue(data.name);
-          }
         });
       }
       setAllTransactionDetailsByCNIC(
@@ -362,7 +340,8 @@ const CustomerDetailsADCD = () => {
             <Col lg={6} md={6} sm={24} xs={24}>
               <SelectBox
                 label={lbl(cityValue, "City")}
-                placeholder={"City"}
+                placeholder="City"
+                option={city}
                 value={cityValue}
                 name="fK_CTID"
                 disable={true}

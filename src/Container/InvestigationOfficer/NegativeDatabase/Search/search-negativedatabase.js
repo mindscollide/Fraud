@@ -594,7 +594,6 @@ const SearchNegativeDatabase = () => {
             />
             {/* <GroupedButtons data={okayButtonProp} /> */}
             <div className="u-display-flex u-justify-content-center">
-              {/* <GroupedButtons data={okayButtonProp} /> */}
               <Button
                 text="Close"
                 type={"primary"}

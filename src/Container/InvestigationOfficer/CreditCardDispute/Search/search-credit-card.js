@@ -920,7 +920,7 @@ const SearchCreditCardDispute = () => {
       <Modal
         closeModal={handleCancel}
         modalState={isModalVisible}
-        width={100}
+        width={1000}
         modalTitle={<Title level={3}>View Status History</Title>}
       >
         {/* this data will be pass to modal when View Approval Icon will be clicked */}
@@ -931,10 +931,8 @@ const SearchCreditCardDispute = () => {
               columns={viewApprovalColumn}
               scroll={{ x: "max-content", y: 350 }}
             />
-            {/* <GroupedButtons data={okayButtonProp} /> */}
 
             <div className="u-display-flex u-justify-content-center">
-              {/* <GroupedButtons data={okayButtonProp} /> */}
               <Button
                 text="Close"
                 type={"primary"}

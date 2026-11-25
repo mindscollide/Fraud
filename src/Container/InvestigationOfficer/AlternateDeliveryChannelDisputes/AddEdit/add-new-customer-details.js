@@ -1463,6 +1463,8 @@ const AddNewCustomerDetailsADC = () => {
       "ApprovalCode",
       "POSMode",
       "MerchantCategoryCodeMCC",
+      "MerchantID",
+      "IMEINumber",
     ];
 
     if (NO_DASH_FIELDS.includes(name)) {
@@ -1474,18 +1476,13 @@ const AddNewCustomerDetailsADC = () => {
     }
 
     if (
-      // name !=="HBLAccountNumber" &&
       name !== "TransactionDate" &&
       name !== "BeneficiaryAccountNumber" &&
       name !== "BeneficiaryBankName" &&
       name !== "BranchCode" &&
       name !== "DisputeAmount" &&
       name !== "TransactionAmount" &&
-      // name !== "MerchantCity" &&
-      // name !== "MerchantID" &&
-      // name !== "MerchantCategoryCodeMCC" &&
       name !== "MobileNumber" &&
-      // name !== "IMEINumber" &&
       name !== "ON_OFF_US" &&
       name !== "IPAddress" &&
       (value !== "" || value === false)
@@ -3535,7 +3532,7 @@ const AddNewCustomerDetailsADC = () => {
             </h1>
           </Col>
           <Row gutter={8} className="u-margin-top-22px">
-            <Col lg={6} md={6} sm={24}>
+            <Col lg={5} md={5} sm={24}>
               <DatePicker
                 label={lbl(ADCDisputes.CaseReceivedDate, "Case Received Date")}
                 placeholder={"Case Received Date"}
@@ -3553,7 +3550,7 @@ const AddNewCustomerDetailsADC = () => {
                 // defaultValue="{moment()}"
               />
             </Col>
-            <Col lg={6} md={6} sm={24}>
+            <Col lg={5} md={5} sm={24}>
               <TextField
                 fullWidth
                 autoComplete="off"
@@ -3570,26 +3567,30 @@ const AddNewCustomerDetailsADC = () => {
                 textLength={20}
               />
             </Col>
-            <Col lg={6} md={6} sm={24} xs={24} className="u-text-align-center">
-              <label>
-                <b>Case Resolved</b>
-              </label>
-              <br />
-              <Radio.Group
-                name="IsCaseResolved"
-                value={ADCDisputes.IsCaseResolved}
-                onChange={ADCDisputeHandler}
-                disable={true}
-              >
-                <Radio disabled value={true}>
-                  Yes
-                </Radio>
-                <Radio disabled value={false}>
-                  No
-                </Radio>
-              </Radio.Group>
+            <Col lg={4} md={4} sm={24} xs={24} className="u-text-align-center">
+              <div>
+                <label>
+                  <b>Case Resolved</b>
+                </label>
+                <br />
+                <span className="u-margin-left-15px">
+                  <Radio.Group
+                    name="IsCaseResolved"
+                    value={ADCDisputes.IsCaseResolved}
+                    onChange={ADCDisputeHandler}
+                    disable={true}
+                  >
+                    <Radio disabled value={true}>
+                      Yes
+                    </Radio>
+                    <Radio disabled value={false}>
+                      No
+                    </Radio>
+                  </Radio.Group>
+                </span>
+              </div>
             </Col>
-            <Col lg={6} md={6} sm={24}>
+            <Col lg={5} md={5} sm={24}>
               <DatePicker
                 size="large"
                 width="100%"
@@ -3606,27 +3607,27 @@ const AddNewCustomerDetailsADC = () => {
                 disable
               />
             </Col>
-            <Col lg={6} md={6} sm={24}>
-              <Paper>
-                <TextField
-                  fullWidth
-                  label={lbl(
-                    ADCDisputes.TotalTransactionAmount,
-                    "Total Dispute Amount"
-                  )}
-                  placeholder={"Total Dispute Amount"}
-                  value={
-                    ADCDisputes.TotalTransactionAmount === null ||
-                    ADCDisputes.TotalTransactionAmount === -99999999999999999999
-                      ? null
-                      : CommaFormter(ADCDisputes.TotalTransactionAmount)
-                  }
-                  size="small"
-                  textLength={30}
-                  name="TotalTransactionAmount"
-                  disable={true}
-                />
-              </Paper>
+            <Col lg={5} md={5} sm={24}>
+              {/* <Paper> */}
+              <TextField
+                fullWidth
+                label={lbl(
+                  ADCDisputes.TotalTransactionAmount,
+                  "Total Dispute Amount"
+                )}
+                placeholder={"Total Dispute Amount"}
+                value={
+                  ADCDisputes.TotalTransactionAmount === null ||
+                  ADCDisputes.TotalTransactionAmount === -99999999999999999999
+                    ? null
+                    : CommaFormter(ADCDisputes.TotalTransactionAmount)
+                }
+                size="small"
+                textLength={30}
+                name="TotalTransactionAmount"
+                disable={true}
+              />
+              {/* </Paper> */}
             </Col>
           </Row>
 
@@ -3753,34 +3754,42 @@ const AddNewCustomerDetailsADC = () => {
             </Col>
 
             <Col lg={6} md={6} sm={24} xs={24} className="u-text-align-center">
-              <label>
-                <b>Demographic Change</b>
-              </label>
-              <br />
-              <Radio.Group
-                name="IsDemographicChange"
-                value={ADCDisputes.IsDemographicChange}
-                onChange={ADCDisputeHandler}
-              >
-                <Radio value={true}>Yes</Radio>
-                <Radio value={false}>No</Radio>
-              </Radio.Group>
+              <div>
+                <label>
+                  <b>Demographic Change</b>
+                </label>
+                <br />
+                <span className="u-margin-left-15px">
+                  <Radio.Group
+                    name="IsDemographicChange"
+                    value={ADCDisputes.IsDemographicChange}
+                    onChange={ADCDisputeHandler}
+                  >
+                    <Radio value={true}>Yes</Radio>
+                    <Radio value={false}>No</Radio>
+                  </Radio.Group>
+                </span>
+              </div>
             </Col>
           </Row>
-          <Row gutter={8} className="u-margin-top-22px u-text-align-center">
-            <Col lg={6} md={6} sm={24} xs={24}>
-              <label>
-                <b>Flexi Loan</b>
-              </label>
-              <br />
-              <Radio.Group
-                name="IsFlexiLoan"
-                value={ADCDisputes.IsFlexiLoan}
-                onChange={ADCDisputeHandler}
-              >
-                <Radio value={true}>Yes</Radio>
-                <Radio value={false}>No</Radio>
-              </Radio.Group>
+          <Row gutter={8} className="u-margin-top-22px ">
+            <Col lg={6} md={6} sm={24} xs={24} className="u-text-align-center">
+              <div>
+                <label>
+                  <b>Flexi Loan</b>
+                </label>
+                <br />
+                <span className="u-margin-left-15px">
+                  <Radio.Group
+                    name="IsFlexiLoan"
+                    value={ADCDisputes.IsFlexiLoan}
+                    onChange={ADCDisputeHandler}
+                  >
+                    <Radio value={true}>Yes</Radio>
+                    <Radio value={false}>No</Radio>
+                  </Radio.Group>
+                </span>
+              </div>
             </Col>
             <Col lg={6} md={6} sm={24} xs={24}>
               <TextField
@@ -3864,18 +3873,22 @@ const AddNewCustomerDetailsADC = () => {
               />
             </Col>
             <Col lg={6} md={6} sm={24} xs={24} className="u-text-align-center">
-              <label>
-                <b>Customer / Beneficiary SIM Blocked</b>
-              </label>
-              <br />
-              <Radio.Group
-                name="CustomerSimBlocked"
-                value={ADCDisputes.CustomerSimBlocked}
-                onChange={ADCDisputeHandler}
-              >
-                <Radio value={true}>Yes</Radio>
-                <Radio value={false}>No</Radio>
-              </Radio.Group>
+              <div>
+                <label>
+                  <b>Customer / Beneficiary SIM Blocked</b>
+                </label>
+                <br />
+                <span className="u-margin-left-15px">
+                  <Radio.Group
+                    name="CustomerSimBlocked"
+                    value={ADCDisputes.CustomerSimBlocked}
+                    onChange={ADCDisputeHandler}
+                  >
+                    <Radio value={true}>Yes</Radio>
+                    <Radio value={false}>No</Radio>
+                  </Radio.Group>
+                </span>
+              </div>
             </Col>
             <Col lg={6} md={6} sm={24} xs={24}>
               <TextField
@@ -3891,19 +3904,21 @@ const AddNewCustomerDetailsADC = () => {
               />
             </Col>
             <Col lg={6} md={6} sm={24} xs={24} className="u-text-align-center">
-              <label>
-                <b>iOS / Android</b>
-              </label>
-              <br />
-              <Radio.Group
-                name="Android_ISO"
-                value={ADCDisputes.Android_ISO}
-                onChange={ADCDisputeHandler}
-              >
-                <Radio value={1}>Android</Radio>
-                <Radio value={2}>iOS</Radio>
-                <Radio value={3}>Web</Radio>
-              </Radio.Group>
+              <div>
+                <label>
+                  <b>iOS / Android</b>
+                </label>
+                <br />
+                <Radio.Group
+                  name="Android_ISO"
+                  value={ADCDisputes.Android_ISO}
+                  onChange={ADCDisputeHandler}
+                >
+                  <Radio value={1}>Android</Radio>
+                  <Radio value={2}>iOS</Radio>
+                  <Radio value={3}>Web</Radio>
+                </Radio.Group>
+              </div>
             </Col>
           </Row>
 

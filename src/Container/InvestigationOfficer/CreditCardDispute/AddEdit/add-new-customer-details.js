@@ -2392,7 +2392,7 @@ const AddNewCustomerDetails = () => {
             </Col>
           </Row>
           <Row gutter={8} className="u-margin-top-10px">
-            <Col lg={3} md={3} sm={24} xs={24} className="u-text-align-center">
+            <Col lg={4} md={4} sm={24} xs={24} className="u-text-align-center">
               <div>
                 <label>
                   <b>TC 40 Reporting</b>
@@ -2431,7 +2431,7 @@ const AddNewCustomerDetails = () => {
                 change={DateHandler}
               />
             </Col>
-            <Col lg={3} md={3} sm={24} xs={24} className="u-text-align-center">
+            <Col lg={4} md={4} sm={24} xs={24} className="u-text-align-center">
               <div>
                 <label>
                   <b>Safe Reporting</b>
