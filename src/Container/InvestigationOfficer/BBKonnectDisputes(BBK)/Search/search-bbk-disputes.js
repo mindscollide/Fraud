@@ -590,6 +590,7 @@ const SearchBBKDispute = () => {
       dataIndex: "creationDate",
       key: "creationDate",
       align: "center",
+      width: 20,
       render: (text) => DateDisplayFormat(text),
       // width: "3%",
     },
@@ -598,6 +599,8 @@ const SearchBBKDispute = () => {
       dataIndex: "creationDate",
       key: "creationDate",
       align: "center",
+      width: 20,
+
       render: (text) => TimeAndDisplayFormat(text),
       // width: "3%",
     },
@@ -606,24 +609,28 @@ const SearchBBKDispute = () => {
       dataIndex: "statusDescription",
       key: "statusDescription",
       align: "center",
+      width: 10,
     },
     {
       title: "Reason",
       dataIndex: "reason",
       key: "reason",
       align: "center",
+      width: 20,
     },
     {
       title: "Description",
       dataIndex: "comments",
       key: "comments",
       align: "center",
+      width: 20,
     },
     {
       title: "Action By",
       dataIndex: "userName",
       key: "userName",
       align: "center",
+      width: 20,
     },
   ];
 
@@ -918,7 +925,7 @@ const SearchBBKDispute = () => {
             <Table
               rows={row}
               columns={viewApprovalColumn}
-              scroll={{ x: "max-content", y: 350 }}
+              scroll={{ x: "max-content", y: 450 }}
             />
             {/* <GroupedButtons data={okayButtonProp} /> */}
 
