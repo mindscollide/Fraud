@@ -590,6 +590,8 @@ const SearchNONAPIDispute = () => {
       title: "Date",
       dataIndex: "creationDate",
       key: "creationDate",
+      width: 100,
+
       align: "center",
       render: (text) => DateDisplayFormat(text),
     },
@@ -597,6 +599,7 @@ const SearchNONAPIDispute = () => {
       title: "Time",
       dataIndex: "creationDate",
       key: "creationDate",
+      width: 80,
       align: "center",
       render: (text) => TimeAndDisplayFormat(text),
     },
@@ -605,24 +608,28 @@ const SearchNONAPIDispute = () => {
       dataIndex: "statusDescription",
       key: "statusDescription",
       align: "center",
+      width: 80,
     },
     {
       title: "Reason",
       dataIndex: "reason",
       key: "reason",
       align: "center",
+      width: 200,
     },
     {
       title: "Description",
       dataIndex: "comments",
       key: "comments",
       align: "center",
+      width: 200,
     },
     {
       title: "Action By",
       dataIndex: "userName",
       key: "userName",
       align: "center",
+      width: 150,
     },
   ];
 
@@ -850,7 +857,7 @@ const SearchNONAPIDispute = () => {
       </Row>
 
       <Row gutter={8} className="u-margin-top-10px u-justify-content-center">
-        <Col lg={3} md={3} sm={24}>
+        <Col lg={4} md={4} sm={24}>
           <Button
             text="Search"
             icon={
@@ -863,7 +870,7 @@ const SearchNONAPIDispute = () => {
             click={handleSearchData}
           />
         </Col>
-        <Col lg={3} md={3} sm={24}>
+        <Col lg={4} md={4} sm={24}>
           <Button
             text="Reset"
             icon={<i className="icon-reset icon-size-zero"></i>}
@@ -891,7 +898,7 @@ const SearchNONAPIDispute = () => {
       <Modal
         closeModal={handleCancel}
         modalState={isModalVisible}
-        width={700}
+        width={1000}
         modalTitle={<Title level={3}>View Status History</Title>}
       >
         {/* this data will be pass to modal when View Approval Icon will be clicked */}

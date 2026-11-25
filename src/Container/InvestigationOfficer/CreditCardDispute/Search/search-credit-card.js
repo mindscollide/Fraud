@@ -624,6 +624,7 @@ const SearchCreditCardDispute = () => {
       title: "Date",
       dataIndex: "creationDate",
       key: "creationDate",
+      width: 100,
       align: "center",
       render: (text) => DateDisplayFormat(text),
     },
@@ -632,18 +633,21 @@ const SearchCreditCardDispute = () => {
       dataIndex: "creationDate",
       key: "creationDate",
       align: "center",
+      width: 80,
       render: (text) => TimeAndDisplayFormat(text),
     },
     {
       title: "Status",
       dataIndex: "statusDescription",
       key: "statusDescription",
+      width: 80,
       align: "center",
     },
     {
       title: "Reason",
       dataIndex: "reason",
       key: "reason",
+      width: 200,
       align: "center",
     },
     {
@@ -651,12 +655,14 @@ const SearchCreditCardDispute = () => {
       dataIndex: "comments",
       key: "comments",
       align: "center",
+      width: 200,
     },
     {
       title: "Action By",
       dataIndex: "userName",
       key: "userName",
       align: "center",
+      width: 150,
     },
   ];
 
@@ -914,7 +920,7 @@ const SearchCreditCardDispute = () => {
       <Modal
         closeModal={handleCancel}
         modalState={isModalVisible}
-        width={700}
+        width={100}
         modalTitle={<Title level={3}>View Status History</Title>}
       >
         {/* this data will be pass to modal when View Approval Icon will be clicked */}

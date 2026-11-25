@@ -665,6 +665,7 @@ const SearchDisputeIO = () => {
       dataIndex: "creationDate",
       key: "creationDate",
       align: "center",
+      width: 100,
       render: (text) => DateDisplayFormat(text),
     },
     {
@@ -672,30 +673,35 @@ const SearchDisputeIO = () => {
       dataIndex: "creationDate",
       key: "creationDate",
       align: "center",
+      width: 80,
       render: (text) => TimeAndDisplayFormat(text),
     },
     {
       title: "Status",
       dataIndex: "statusDescription",
       key: "statusDescription",
+      width: 80,
       align: "center",
     },
     {
       title: "Reason",
       dataIndex: "reason",
       key: "reason",
+      width: 200,
       align: "center",
     },
     {
       title: "Description",
       dataIndex: "comments",
       key: "comments",
+      width: 200,
       align: "center",
     },
     {
       title: "Action By",
       dataIndex: "userName",
       key: "userName",
+      width: 150,
       align: "center",
     },
   ];
@@ -1088,7 +1094,7 @@ const SearchDisputeIO = () => {
       <Modal
         closeModal={handleCancel}
         modalState={isModalVisible2}
-        width={700}
+        width={1000}
         modalTitle={<Title level={3}>View Status History</Title>}
       >
         {/* this data will be pass to modal when View Approval Icon will be clicked */}

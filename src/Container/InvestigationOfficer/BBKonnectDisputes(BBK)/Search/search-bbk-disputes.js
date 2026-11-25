@@ -590,7 +590,7 @@ const SearchBBKDispute = () => {
       dataIndex: "creationDate",
       key: "creationDate",
       align: "center",
-      width: 20,
+      width: 100,
       render: (text) => DateDisplayFormat(text),
       // width: "3%",
     },
@@ -599,7 +599,7 @@ const SearchBBKDispute = () => {
       dataIndex: "creationDate",
       key: "creationDate",
       align: "center",
-      width: 20,
+      width: 80,
 
       render: (text) => TimeAndDisplayFormat(text),
       // width: "3%",
@@ -609,28 +609,28 @@ const SearchBBKDispute = () => {
       dataIndex: "statusDescription",
       key: "statusDescription",
       align: "center",
-      width: 10,
+      width: 80,
     },
     {
       title: "Reason",
       dataIndex: "reason",
       key: "reason",
       align: "center",
-      width: 20,
+      width: 200,
     },
     {
       title: "Description",
       dataIndex: "comments",
       key: "comments",
       align: "center",
-      width: 20,
+      width: 200,
     },
     {
       title: "Action By",
       dataIndex: "userName",
       key: "userName",
       align: "center",
-      width: 20,
+      width: 150,
     },
   ];
 
@@ -916,7 +916,7 @@ const SearchBBKDispute = () => {
       <Modal
         closeModal={handleCancel}
         modalState={isModalVisible}
-        width={700}
+        width={1000}
         modalTitle={<Title level={3}>View Status History</Title>}
       >
         {/* this data will be pass to modal when View Approval Icon will be clicked */}

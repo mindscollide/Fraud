@@ -510,6 +510,7 @@ const SearchADCD = () => {
       key: "creationDate",
       align: "center",
       render: (text) => DateDisplayFormat(text),
+      width: 100,
       // width: "3%",
     },
     {
@@ -518,6 +519,7 @@ const SearchADCD = () => {
       key: "creationDate",
       align: "center",
       render: (text) => TimeAndDisplayFormat(text),
+      width: 80,
       // width: "3%",
     },
     {
@@ -525,37 +527,30 @@ const SearchADCD = () => {
       dataIndex: "statusDescription",
       key: "statusDescription",
       align: "center",
+      width: 80,
     },
     {
       title: "Reason",
       dataIndex: "reason",
       key: "reason",
       align: "center",
+      width: 200,
     },
     {
       title: "Description",
       dataIndex: "comments",
       key: "comments",
       align: "center",
+      width: 200,
     },
     {
       title: "Action By",
       dataIndex: "userName",
       key: "userName",
       align: "center",
+      width: 150,
     },
   ];
-
-  // const okayButtonProp = {
-  //   primaryButton: {
-  //     text: "Close",
-  //     class: "btnBorderStyledBeach",
-  //     click: () => handleCancel(),
-  //   },
-  //   secondaryButton: {
-  //     text: "",
-  //   },
-  // };
 
   useEffect(() => {
     if (
@@ -875,7 +870,7 @@ const SearchADCD = () => {
       <Modal
         closeModal={handleCancel}
         modalState={isModalVisible}
-        width={700}
+        width={1000}
         modalTitle={<Title level={3}>View Status History</Title>}
       >
         {/* this data will be pass to modal when View Approval Icon will be clicked */}

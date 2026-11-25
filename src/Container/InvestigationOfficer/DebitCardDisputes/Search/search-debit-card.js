@@ -576,6 +576,7 @@ const SearchDebitCardDispute = () => {
       dataIndex: "creationDate",
       key: "creationDate",
       align: "center",
+      width: 100,
       render: (text) => DateDisplayFormat(text),
     },
     {
@@ -583,6 +584,7 @@ const SearchDebitCardDispute = () => {
       dataIndex: "creationDate",
       key: "creationDate",
       align: "center",
+      width: 80,
       render: (text) => TimeAndDisplayFormat(text),
     },
     {
@@ -590,37 +592,30 @@ const SearchDebitCardDispute = () => {
       dataIndex: "statusDescription",
       key: "statusDescription",
       align: "center",
+      width: 80,
     },
     {
       title: "Reason",
       dataIndex: "reason",
       key: "reason",
+      width: 200,
       align: "center",
     },
     {
       title: "Description",
       dataIndex: "comments",
       key: "comments",
+      width: 200,
       align: "center",
     },
     {
       title: "Action By",
       dataIndex: "userName",
       key: "userName",
+      width: 150,
       align: "center",
     },
   ];
-
-  const okayButtonProp = {
-    primaryButton: {
-      text: "Ok",
-      class: "btnBorderStyledBeach",
-      click: () => handleCancel(),
-    },
-    secondaryButton: {
-      text: "",
-    },
-  };
 
   useEffect(() => {
     dispatch(disableGoBack());
@@ -912,7 +907,7 @@ const SearchDebitCardDispute = () => {
       <Modal
         closeModal={handleCancel}
         modalState={isModalVisible}
-        width={700}
+        width={1000}
         modalTitle={<Title level={3}>View Status History</Title>}
       >
         {/* this data will be pass to modal when View Approval Icon will be clicked */}
