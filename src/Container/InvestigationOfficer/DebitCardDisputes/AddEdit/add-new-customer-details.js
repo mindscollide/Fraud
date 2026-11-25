@@ -1464,6 +1464,22 @@ const AddNewCustomerDetailsDC = () => {
   const TransactionDeatilHandlerChange = (e) => {
     let name = e.target.name;
     let value = e.target.value;
+    const NO_DASH_FIELDS = [
+      "ApprovalCode",
+      "ARN",
+      "POSMode",
+      "CategoryCodeMCC",
+      "MerchantID",
+      "AcquirerTerminalID",
+      "AcquirerID",
+    ];
+    if (NO_DASH_FIELDS.includes(name)) {
+      setTrsDetails((prev) => ({
+        ...prev,
+        [name]: value.replace(/-/g, "").trimStart(),
+      }));
+      return;
+    }
     if (
       name !== "TransactionDate" &&
       name !== "OtherBankAccountNumber" &&
@@ -1481,20 +1497,9 @@ const AddNewCustomerDetailsDC = () => {
       name !== "ON_OFF_US" &&
       (value !== "" || value === false)
     ) {
-      // setTrsDetails({
-      //   ...trsDetails,
-      //   [name]: value.trimStart(),
-      // });
-
       setTrsDetails({
         ...trsDetails,
-        [name]:
-          name === "ApprovalCode" ||
-          name === "ARN" ||
-          name === "POSMode" ||
-          name === "CategoryCodeMCC"
-            ? value.replace(/-/g, "").trimStart()
-            : value.trimStart(),
+        [name]: value.trimStart(),
       });
     } else if (name === "ON_OFF_US") {
       setTrsDetails({
@@ -4183,17 +4188,6 @@ const AddNewCustomerDetailsDC = () => {
                 value={caseDecisionValue}
                 change={CaseDecisionHandler}
               />
-              {/* <TextField
-                fullWidth
-                label="Case Decision"
-                size="small"
-                autoComplete="off"
-                name="CaseDecision"
-                textLength={50}
-                maxLength={50}
-                value={DCDisputes.CaseDecision}
-                change={DCDisputeHandler}
-              /> */}
             </Col>
             <Col lg={6} md={6} sm={24} xs={24}>
               <FormattedInputs
@@ -4236,7 +4230,7 @@ const AddNewCustomerDetailsDC = () => {
                 change={DCDisputeHandler}
               />
             </Col>
-            <Col lg={6} md={6} sm={24} xs={24}>
+            <Col lg={12} md={12} sm={24} xs={24}>
               <TextField
                 fullWidth
                 label={lbl(DCDisputes.Remarks, "Remarks")}

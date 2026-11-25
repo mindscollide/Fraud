@@ -1555,6 +1555,22 @@ const EditDebitCardDispute = () => {
   const TransactionDeatilHandlerChange = (e) => {
     let name = e.target.name;
     let value = e.target.value;
+    const NO_DASH_FIELDS = [
+      "ApprovalCode",
+      "ARN",
+      "POSMode",
+      "CategoryCodeMCC",
+      "MerchantID",
+      "AcquirerTerminalID",
+      "AcquirerID",
+    ];
+    if (NO_DASH_FIELDS.includes(name)) {
+      setTrsDetails((prev) => ({
+        ...prev,
+        [name]: value.replace(/-/g, "").trimStart(),
+      }));
+      return;
+    }
     if (
       name !== "TransactionDate" &&
       name !== "OtherBankAccountNumber" &&
@@ -1574,20 +1590,9 @@ const EditDebitCardDispute = () => {
       name !== "ON_OFF_US" &&
       (value !== "" || value === false)
     ) {
-      // setTrsDetails({
-      //   ...trsDetails,
-      //   [name]: value.trimStart(),
-      // });
-
       setTrsDetails({
         ...trsDetails,
-        [name]:
-          name === "ApprovalCode" ||
-          name === "ARN" ||
-          name === "POSMode" ||
-          name === "CategoryCodeMCC"
-            ? value.replace(/-/g, "").trimStart()
-            : value.trimStart(),
+        [name]: value.trimStart(),
       });
     } else if (name === "ON_OFF_US") {
       setTrsDetails({
@@ -4094,7 +4099,7 @@ const EditDebitCardDispute = () => {
                 value={trsDetails.ApprovalCode}
                 change={TransactionDeatilHandlerChange}
                 fullWidth
-                textLength={6}
+                textLength={7}
               />
             </Col>
             <Col lg={6} md={6} sm={24} xs={24}>
@@ -4207,7 +4212,7 @@ const EditDebitCardDispute = () => {
                 change={TransactionDeatilHandlerChange}
                 value={trsDetails.ARN}
                 fullWidth
-                textLength={17}
+                textLength={50}
               />
             </Col>
             <Col lg={6} md={6} sm={24} xs={24}>

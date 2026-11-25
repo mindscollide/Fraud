@@ -316,16 +316,36 @@ const EditNONAPIDispute = () => {
   const DCDisputeHandler = (e) => {
     let name = e.target.name;
     let value = e.target.value;
-    if (
-      name !== "IsTC40Reporting" &&
-      name !== "IsSafeReportingDate" &&
-      name !== "IsPOC" &&
-      (value !== "" || value === false)
-    ) {
-      setNPIDisputes({
-        ...NPIDisputes,
-        [name]: value.trimStart(),
-      });
+    // if (
+    //   name !== "IsTC40Reporting" &&
+    //   name !== "IsSafeReportingDate" &&
+    //   name !== "IsPOC" &&
+    //   (value !== "" || value === false)
+    // ) {
+    //   setNPIDisputes({
+    //     ...NPIDisputes,
+    //     [name]: value.trimStart(),
+    //   });
+    // }
+
+    const NO_DASH_FIELDS = [
+      "IsTC40Reporting",
+      "IsSafeReportingDate",
+      "IsPOC",
+      "ApprovalCode",
+      "ARN",
+      "POSMode",
+      "CategoryCodeMCC",
+      "MerchantID",
+      "AcquirerTerminalID",
+      "AcquirerID",
+    ];
+    if (NO_DASH_FIELDS.includes(name)) {
+      setNPIDisputes((prev) => ({
+        ...prev,
+        [name]: value.replace(/-/g, "").trimStart(),
+      }));
+      return;
     } else if (
       name === "IsTC40Reporting" ||
       name === "IsSafeReportingDate" ||
@@ -3773,7 +3793,7 @@ const EditNONAPIDispute = () => {
                 value={trsDetails.ApprovalCode}
                 change={TransactionDeatilHandlerChange}
                 fullWidth
-                textLength={6}
+                textLength={7}
               />
             </Col>
             <Col lg={6} md={6} sm={24} xs={24}>
@@ -4154,18 +4174,22 @@ const EditNONAPIDispute = () => {
               xs={24}
               className="u-text-align-center u-margin-top-15px"
             >
-              <label>
-                <b>Point Of Compromise Identified</b>
-              </label>
-              <br />
-              <Radio.Group
-                name="IsPOC"
-                value={NPIDisputes.IsPOC}
-                onChange={DCDisputeHandler}
-              >
-                <Radio value={true}>Yes</Radio>
-                <Radio value={false}>No</Radio>
-              </Radio.Group>
+              <div>
+                <label>
+                  <b>Point Of Compromise Identified</b>
+                </label>
+                <br />
+                <span className="u-margin-left-15px">
+                  <Radio.Group
+                    name="IsPOC"
+                    value={NPIDisputes.IsPOC}
+                    onChange={DCDisputeHandler}
+                  >
+                    <Radio value={true}>Yes</Radio>
+                    <Radio value={false}>No</Radio>
+                  </Radio.Group>
+                </span>
+              </div>
             </Col>
             <Col lg={6} md={6} sm={24} xs={24} className="u-margin-top-22px">
               <TextField

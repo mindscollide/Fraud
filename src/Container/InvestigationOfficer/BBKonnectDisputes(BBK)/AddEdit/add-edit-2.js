@@ -433,15 +433,15 @@ const AddEditBBKDispute2 = () => {
   }, [investigationOfficer.AccountsDataForMobileBBK]);
 
   //Notification
-  useEffect(() => {
-    if (investigationOfficer.ShowNotification) {
-      setOpen({
-        flag: true,
-        message: investigationOfficer.ResponseMessage,
-      });
-      dispatch(HideNotification());
-    }
-  }, [investigationOfficer.ShowNotification]);
+  // useEffect(() => {
+  //   if (investigationOfficer.ShowNotification) {
+  //     setOpen({
+  //       flag: true,
+  //       // message: investigationOfficer.ResponseMessage,
+  //     });
+  //     dispatch(HideNotification());
+  //   }
+  // }, [investigationOfficer.ShowNotification]);
 
   useEffect(() => {
     if (State.FromDate && State.ToDate !== "" && accountNumber !== "") {

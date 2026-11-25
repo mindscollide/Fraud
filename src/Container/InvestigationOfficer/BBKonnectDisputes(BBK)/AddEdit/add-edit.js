@@ -489,15 +489,15 @@ const AddEditBBKDispute = () => {
   useEffect(() => {}, [accountForMobile]);
 
   //Notification
-  useEffect(() => {
-    if (investigationOfficer.ShowNotification) {
-      setOpen({
-        flag: true,
-        message: investigationOfficer.ResponseMessage,
-      });
-      dispatch(HideNotification());
-    }
-  }, [investigationOfficer.ShowNotification]);
+  // useEffect(() => {
+  //   if (investigationOfficer.ShowNotification) {
+  //     setOpen({
+  //       flag: true,
+  //       message: investigationOfficer.ResponseMessage,
+  //     });
+  //     dispatch(HideNotification());
+  //   }
+  // }, [investigationOfficer.ShowNotification]);
 
   //for rest all sate
   useEffect(() => {
@@ -808,7 +808,9 @@ const AddEditBBKDispute = () => {
 
       <Modal
         closeModal={handleCancel}
-        modalState={investigationOfficer.CustomerFoundModal && !skipAccountConfirm}
+        modalState={
+          investigationOfficer.CustomerFoundModal && !skipAccountConfirm
+        }
         width={650}
       >
         {/* this data will be pass to modal when Add Fraud Type btn will be clicked */}
