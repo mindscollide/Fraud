@@ -1,36 +1,24 @@
 import React, { useEffect, useState } from "react";
 import { PlusOutlined as AddIcon } from "@ant-design/icons";
-import { Tooltip, Typography, Radio, Col, Row } from "antd";
-import { EditOutlined as Edit } from "@ant-design/icons";
+import { Tooltip, Typography, Col, Row } from "antd";
 import {
   Paper,
-  InputWithBtn,
   TextField,
   Table,
   SelectBox,
-  DatePicker,
   Button,
-  FancyBox,
-  ConsolidateBox,
   Notification,
-  Message,
   Loader,
-  FormattedInputs,
 } from "../../../../Components/Elements";
 import {
   HideNotification,
   GetBBKDisputesForEditByCnicAndReferenceNumber,
   SearchBBKDisputesByCnicAndReferenceNumber,
-  GetTransactionDetailsByAccountNumberBBK,
-  RESETALLSTATE,
 } from "../../../../store/actions/investigation-officer-actions";
 import { ensureLookup } from "../../../../store/actions/lookup-actions";
 import { enableGoBack } from "../../../../store/actions/ui-actions";
 import {
   DateDisplayFormat,
-  DateSendingFormat,
-  currentToOneYearBackDate,
-  NumberFormater,
   CommaFormter,
 } from "../../../../Common/Functions/date-formatter";
 import { useDispatch, useSelector } from "react-redux";
@@ -38,8 +26,6 @@ import { useNavigate } from "react-router-dom";
 
 const CustomerDetailsBBKDisputeMobile = () => {
   var mobileNumber = localStorage.getItem("MobileNumber");
-
-  const { Title } = Typography;
 
   const [btnStatus, setBtnStatus] = useState(true);
 
@@ -49,11 +35,8 @@ const CustomerDetailsBBKDisputeMobile = () => {
 
   const navigate = useNavigate();
 
-  const [CNIC, setCNIC] = useState({
-    CNIC: "",
-  });
-
   const [cityValue, setCityValue] = useState("");
+  const [city, setCity] = useState("");
 
   const [customer, setCustomer] = useState({
     custName: "",
@@ -62,16 +45,27 @@ const CustomerDetailsBBKDisputeMobile = () => {
     cnicNumber: "",
   });
 
+  const CityNameHandler = (e, value) => {
+    setCityValue(value);
+    let valueCity = setupForms.CityData;
+    valueCity.map((data, index) => {
+      if (value === data.name) {
+        let id = data.pK_CTID;
+        setCustomer({
+          ...customer,
+          ["fK_CTID"]: parseInt(id),
+          // ["CMCity"]: data.name,
+        });
+      }
+    });
+  };
+
   const [open, setOpen] = useState({
     flag: false,
     message: "",
   });
-  const [transactionDetails, setTransactionDetailsNIC] = useState([]);
 
   const { investigationOfficer, setupForms } = state;
-
-  const [allTransactionDetailsByAccount, setAllTransactionDetailsByAccount] =
-    useState([]);
 
   const [transactionDetailsAccount, setTransactionDetailsAccount] = useState(
     []
@@ -98,6 +92,28 @@ const CustomerDetailsBBKDisputeMobile = () => {
       setBtnStatus(true);
     }
   };
+
+  useEffect(() => {
+    let valueCity = setupForms.CityData;
+    setCity(
+      valueCity.map((data, index) => {
+        return data.name;
+      })
+    );
+  }, [setupForms.CityData]);
+
+  useEffect(() => {
+    let valueCity = setupForms.CityData;
+    valueCity.map((data, index) => {
+      if (customer.fk_CTID === data.pK_CTID) {
+        setCityValue(data.name);
+        setCustomer({
+          ...customer,
+          ["fk_CTID"]: parseInt(data.pK_CTID),
+        });
+      }
+    });
+  }, [setupForms.CityData]);
   // check for add new record
   useEffect(() => {
     if (
@@ -150,9 +166,6 @@ const CustomerDetailsBBKDisputeMobile = () => {
           cnicNumber: newData.cnicNumber,
         });
       }
-      setAllTransactionDetailsByAccount(
-        investigationOfficer.GetTransactionDetailsByMobileBBKData
-      );
     }
   }, [investigationOfficer.GetTransactionDetailsByMobileBBKData]);
 
@@ -346,7 +359,10 @@ const CustomerDetailsBBKDisputeMobile = () => {
             <Col lg={6} md={6} sm={24} xs={24}>
               <SelectBox
                 label="City"
+                placeholder={"Select City"}
+                option={city}
                 value={cityValue}
+                change={CityNameHandler}
                 name="fK_CTID"
                 disable={true}
               />

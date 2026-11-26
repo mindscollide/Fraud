@@ -49,10 +49,6 @@ const CustomerDetailsBBKDisputeAccount = () => {
 
   const navigate = useNavigate();
 
-  const [CNIC, setCNIC] = useState({
-    CNIC: "",
-  });
-
   const [cityValue, setCityValue] = useState("");
 
   const [customer, setCustomer] = useState({

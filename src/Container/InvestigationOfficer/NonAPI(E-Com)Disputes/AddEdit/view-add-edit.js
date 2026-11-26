@@ -1107,7 +1107,7 @@ const ViewCustomerDetailsNONAPI = () => {
           </h1>
         </Col>
         <Row gutter={8}>
-          <Col lg={6} md={6} sm={24} className="u-margin-bottom-20px">
+          <Col lg={5} md={5} sm={24} className="u-margin-bottom-20px">
             <DatePicker
               label={"Case Received Date"}
               size="large"
@@ -1122,7 +1122,7 @@ const ViewCustomerDetailsNONAPI = () => {
               disable
             />
           </Col>
-          <Col lg={6} md={6} sm={24} className="u-margin-top-22px">
+          <Col lg={5} md={5} sm={24} className="u-margin-top-22px">
             <TextField
               fullWidth
               label={lbl(
@@ -1137,7 +1137,7 @@ const ViewCustomerDetailsNONAPI = () => {
               disable
             />
           </Col>
-          <Col lg={6} md={6} sm={24} xs={24} className="u-text-align-center">
+          <Col lg={4} md={4} sm={24} xs={24} className="u-text-align-center">
             <div>
               <label>
                 <b>Case Resolved</b>
@@ -1159,7 +1159,7 @@ const ViewCustomerDetailsNONAPI = () => {
               </span>
             </div>
           </Col>
-          <Col lg={6} md={6} sm={24} className="u-margin-top-22px">
+          <Col lg={5} md={5} sm={24} className="u-margin-top-22px">
             <DatePicker
               size="large"
               width="100%"
@@ -1173,27 +1173,25 @@ const ViewCustomerDetailsNONAPI = () => {
               disable
             />
           </Col>
-          <Col lg={6} md={6} sm={24} className="u-margin-top-22px">
-            <Paper>
-              <TextField
-                fullWidth
-                label={lbl(
-                  NPIDispute.TotalTransactionAmount,
-                  "Total Dispute Amount"
-                )}
-                placeholder="Total Dispute Amount"
-                value={
-                  NPIDispute.TotalTransactionAmount === null ||
-                  NPIDispute.TotalTransactionAmount === -99999999999999999999
-                    ? null
-                    : CommaFormter(NPIDispute.TotalTransactionAmount)
-                }
-                size="small"
-                textLength={30}
-                name="TotalTransactionAmount"
-                disable={true}
-              />
-            </Paper>
+          <Col lg={5} md={5} sm={24} className="u-margin-top-22px">
+            <TextField
+              fullWidth
+              label={lbl(
+                NPIDispute.TotalTransactionAmount,
+                "Total Dispute Amount"
+              )}
+              placeholder="Total Dispute Amount"
+              value={
+                NPIDispute.TotalTransactionAmount === null ||
+                NPIDispute.TotalTransactionAmount === -99999999999999999999
+                  ? null
+                  : CommaFormter(NPIDispute.TotalTransactionAmount)
+              }
+              size="small"
+              textLength={30}
+              name="TotalTransactionAmount"
+              disable={true}
+            />
           </Col>
         </Row>
       </Paper>
