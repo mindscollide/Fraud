@@ -285,7 +285,7 @@ const SearchDisputeIO = () => {
     if (value.fK_TTID === 1) {
       await localStorage.setItem(
         "ReferenceNumber",
-        JSON.stringify(value.referenceNumber)
+        JSON.stringify(value.referenceNumber),
       );
       await localStorage.setItem("cnic", value.cnicNumber);
       let data = {
@@ -299,7 +299,7 @@ const SearchDisputeIO = () => {
     if (value.fK_TTID === 2) {
       localStorage.setItem(
         "ReferenceNumber",
-        JSON.stringify(value.referenceNumber)
+        JSON.stringify(value.referenceNumber),
       );
       localStorage.setItem("cnic2", value.cnicNumber);
       localStorage.setItem("accountNumber", value.accountNumber);
@@ -314,7 +314,7 @@ const SearchDisputeIO = () => {
     if (value.fK_TTID === 3) {
       localStorage.setItem(
         "ReferenceNumber",
-        JSON.stringify(value.referenceNumber)
+        JSON.stringify(value.referenceNumber),
       );
       localStorage.setItem("cnic", value.cnicNumber);
       localStorage.setItem("cnic2", value.cnicNumber);
@@ -330,7 +330,7 @@ const SearchDisputeIO = () => {
     if (value.fK_TTID === 4) {
       localStorage.setItem(
         "ReferenceNumber",
-        JSON.stringify(value.referenceNumber)
+        JSON.stringify(value.referenceNumber),
       );
       localStorage.setItem("cnic", value.cnicNumber);
       let data = {
@@ -346,7 +346,7 @@ const SearchDisputeIO = () => {
     if (value.fK_TTID === 5) {
       localStorage.setItem(
         "ReferenceNumber",
-        JSON.stringify(value.referenceNumber)
+        JSON.stringify(value.referenceNumber),
       );
       localStorage.setItem("cnic", value.cnicNumber);
       let data = {
@@ -361,7 +361,7 @@ const SearchDisputeIO = () => {
     if (value.fK_TTID === 6) {
       localStorage.setItem(
         "ReferenceNumber",
-        JSON.stringify(value.referenceNumber)
+        JSON.stringify(value.referenceNumber),
       );
       localStorage.setItem("cnic", value.cnicNumber);
       let data = {
@@ -385,7 +385,7 @@ const SearchDisputeIO = () => {
     sessionStorage.setItem("RestoreGlobalSearch", "true");
     localStorage.setItem(
       "ReferenceNumber",
-      JSON.stringify(record.referenceNumber)
+      JSON.stringify(record.referenceNumber),
     );
     localStorage.setItem("CNICNumber", record.cnicNumber);
     let Data = {
@@ -396,7 +396,7 @@ const SearchDisputeIO = () => {
       await localStorage.setItem("FK_TTID", record.fK_TTID);
       await localStorage.setItem(
         "ReferenceNumber",
-        JSON.stringify(record.referenceNumber)
+        JSON.stringify(record.referenceNumber),
       );
       dispatch(enableGoBack());
       await dispatch(GetCreditCardDisputesByCnic(Data));
@@ -406,7 +406,7 @@ const SearchDisputeIO = () => {
       await localStorage.setItem("FK_TTID", record.fK_TTID);
       await localStorage.setItem(
         "ReferenceNumber",
-        JSON.stringify(record.referenceNumber)
+        JSON.stringify(record.referenceNumber),
       );
       dispatch(enableGoBack());
       await dispatch(SearchDebitCardDisputesByCnicAndReferenceNumber(Data));
@@ -420,7 +420,7 @@ const SearchDisputeIO = () => {
       };
       dispatch(enableGoBack());
       await dispatch(
-        SearchTransactionDetailsADCByCNICAndReferenceNumber(ADCData)
+        SearchTransactionDetailsADCByCNICAndReferenceNumber(ADCData),
       );
       navigate("/Fraud/ADCD/ViewCustomerDetailsADC");
     }
@@ -428,7 +428,7 @@ const SearchDisputeIO = () => {
       await localStorage.setItem("FK_TTID", record.fK_TTID);
       await localStorage.setItem(
         "ReferenceNumber",
-        JSON.stringify(record.referenceNumber)
+        JSON.stringify(record.referenceNumber),
       );
       dispatch(enableGoBack());
       await dispatch(SearchNonApiDisputesByCnicAndReferenceNumber(Data));
@@ -487,7 +487,7 @@ const SearchDisputeIO = () => {
     setTransactionTypes(
       transactionName.map((data, index) => {
         return data.ttName;
-      })
+      }),
     );
   }, [setupForms.TransactionTypesData]);
 
@@ -672,6 +672,7 @@ const SearchDisputeIO = () => {
       title: "Time",
       dataIndex: "creationDate",
       key: "creationDate",
+      width: 80,
       align: "center",
       width: 80,
       render: (text) => TimeAndDisplayFormat(text),
@@ -689,6 +690,7 @@ const SearchDisputeIO = () => {
       key: "reason",
       width: 200,
       align: "center",
+      width: 200,
     },
     {
       title: "Description",
@@ -696,6 +698,7 @@ const SearchDisputeIO = () => {
       key: "comments",
       width: 200,
       align: "center",
+      width: 200,
     },
     {
       title: "Action By",
@@ -703,6 +706,7 @@ const SearchDisputeIO = () => {
       key: "userName",
       width: 150,
       align: "center",
+      width: 150,
     },
   ];
 
@@ -800,8 +804,8 @@ const SearchDisputeIO = () => {
                   disputeID,
                   setIsModalVisible2,
                   setAction,
-                  actions
-                )
+                  actions,
+                ),
               );
             }}
             className="icon-edit-list icon-size-one u-color-2f2f2f u-cursor-pointer"
@@ -848,7 +852,7 @@ const SearchDisputeIO = () => {
 
     setCaseStatus(value);
     const match = setupForms.StatusData.find(
-      (data) => data.statusDescription === value
+      (data) => data.statusDescription === value,
     );
     if (match) {
       setSearchData((prev) => ({ ...prev, fk_csid: parseInt(match.pK_CSID) }));
@@ -861,7 +865,7 @@ const SearchDisputeIO = () => {
     setCaseStatusOptions(
       caseStatus.map((data, index) => {
         return data.statusDescription;
-      })
+      }),
     );
   }, [setupForms.StatusData]);
 
@@ -882,7 +886,7 @@ const SearchDisputeIO = () => {
     setCity(
       valueCity.map((data, index) => {
         return data.name;
-      })
+      }),
     );
   }, [setupForms.CityData]);
 

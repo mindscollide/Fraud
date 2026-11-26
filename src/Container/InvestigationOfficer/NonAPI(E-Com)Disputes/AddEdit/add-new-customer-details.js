@@ -210,7 +210,7 @@ const AddNewCustomerDetailsNONAPI = () => {
 
   // uploadlist
   const [ListOfNPIDisputeDocuments, setListOfNPIDisputeDocuments] = useState(
-    []
+    [],
   );
 
   //   for current date
@@ -426,7 +426,7 @@ const AddNewCustomerDetailsNONAPI = () => {
       // lookup returns one; fK_FTID 0 means none, so clear any earlier choice
       // and leave "Select Fraud Type" for the officer.
       const prefillFraud = (setupForms.FraudTypeData || []).find(
-        (data) => Number(data.pK_FTID) === Number(customerDetail.fK_FTID)
+        (data) => Number(data.pK_FTID) === Number(customerDetail.fK_FTID),
       );
       setFraudTypeName(prefillFraud ? prefillFraud.name : "");
       setNPIDisputes((prev) => ({
@@ -457,10 +457,10 @@ const AddNewCustomerDetailsNONAPI = () => {
           var i = index;
           i = index + 1;
           return { ...item, key: i + "" };
-        }
+        },
       );
       setListOfTransactionDetailsAlreadyExsist(
-        GetTransactionDetailsByCNICArray
+        GetTransactionDetailsByCNICArray,
       );
     }
   }, [investigationOfficer.GetTransactionDetailsByCnicNONAPIexistData]);
@@ -500,7 +500,7 @@ const AddNewCustomerDetailsNONAPI = () => {
     setSourceTypeName(
       nameSource.map((data, index) => {
         return data.name;
-      })
+      }),
     );
   }, [setupForms.SourceData]);
 
@@ -511,7 +511,7 @@ const AddNewCustomerDetailsNONAPI = () => {
       setFraudType(
         nameFraud.map((data, index) => {
           return data.name;
-        })
+        }),
       );
     }
   }, [setupForms.FraudTypeData]);
@@ -1044,7 +1044,7 @@ const AddNewCustomerDetailsNONAPI = () => {
   // update transection data
   const update = (e, record) => {
     var objIndex = ListOfNPITransactionDetailsObjects.findIndex(
-      (obj) => obj.TransactionID === record.TransactionID
+      (obj) => obj.TransactionID === record.TransactionID,
     );
     // trsDetails, setTrsDetails
     setRecordIndex(objIndex);
@@ -1330,8 +1330,8 @@ const AddNewCustomerDetailsNONAPI = () => {
             setTransactionIDError,
             setTIDErrMsg,
             setSourceType,
-            setTransactionCurrencyCodeValue
-          )
+            setTransactionCurrencyCodeValue,
+          ),
         );
       }
     } else {
@@ -1342,8 +1342,8 @@ const AddNewCustomerDetailsNONAPI = () => {
           setTransactionIDError,
           setTIDErrMsg,
           setSourceType,
-          setTransactionCurrencyCodeValue
-        )
+          setTransactionCurrencyCodeValue,
+        ),
       );
     }
   };
@@ -2495,7 +2495,7 @@ const AddNewCustomerDetailsNONAPI = () => {
   // Delete Upload Document
   const deleteUploadDocument = (record) => {
     const filteredItems = ListOfNPIDisputeDocuments.filter(
-      (item) => item !== record
+      (item) => item !== record,
     );
     setListOfNPIDisputeDocuments(filteredItems);
   };
@@ -2629,7 +2629,7 @@ const AddNewCustomerDetailsNONAPI = () => {
               ToDate: "",
             };
             await dispatch(
-              SaveNonApiDisputes(data, searchData, searchDataofdate)
+              SaveNonApiDisputes(data, searchData, searchDataofdate),
             );
             let newdata2 = [...ListOfNPITransactionDetailsObjects];
             let newIdex = [];
@@ -2787,7 +2787,7 @@ const AddNewCustomerDetailsNONAPI = () => {
               ToDate: "",
             };
             await dispatch(
-              SaveAndApproveNonApiDisputes(data, searchData, searchDataofdate)
+              SaveAndApproveNonApiDisputes(data, searchData, searchDataofdate),
             );
             let newdata2 = [...ListOfNPITransactionDetailsObjects];
             let newIdex = [];
@@ -2841,7 +2841,11 @@ const AddNewCustomerDetailsNONAPI = () => {
                 ToDate: "",
               };
               dispatch(
-                SaveAndApproveNonApiDisputes(data, searchData, searchDataofdate)
+                SaveAndApproveNonApiDisputes(
+                  data,
+                  searchData,
+                  searchDataofdate,
+                ),
               );
             } else {
               setOpen({
@@ -2992,7 +2996,7 @@ const AddNewCustomerDetailsNONAPI = () => {
     setTransactionCurrencyCode(
       valuetransactionCurrencyCode.map((data, index) => {
         return data.description;
-      })
+      }),
     );
   }, [setupForms.TransactionCurrencyCodeData]);
 
@@ -3020,7 +3024,7 @@ const AddNewCustomerDetailsNONAPI = () => {
     setCity(
       valueCity.map((data, index) => {
         return data.name;
-      })
+      }),
     );
   }, [setupForms.CityData]);
 
@@ -3178,7 +3182,7 @@ const AddNewCustomerDetailsNONAPI = () => {
                 CardDetails.CardNumber,
                 <p className="PlaceholderCard">
                   Card Number<span className="important"> *</span>
-                </p>
+                </p>,
               )}
               <InputMask
                 type="text"
@@ -3279,7 +3283,7 @@ const AddNewCustomerDetailsNONAPI = () => {
                 value={trsDetails.OtherBankAccountNumber}
                 label={lbl(
                   trsDetails.OtherBankAccountNumber,
-                  "Other Bank Account Number *"
+                  "Other Bank Account Number *",
                 )}
                 placeholder={"Other Bank Account Number *"}
                 change={TransactionDeatilHandlerChange}
@@ -3377,7 +3381,7 @@ const AddNewCustomerDetailsNONAPI = () => {
                 autoComplete="off"
                 Label={lbl(
                   trsDetails.TransactionAmount,
-                  "Transaction Amount *"
+                  "Transaction Amount *",
                 )}
                 placeholder={"Transaction Amount *"}
                 fullWidth
@@ -3415,7 +3419,7 @@ const AddNewCustomerDetailsNONAPI = () => {
                 autoComplete="off"
                 Label={lbl(
                   trsDetails.DisputeAmount,
-                  "Exposure / Dispute Amount *"
+                  "Exposure / Dispute Amount *",
                 )}
                 placeholder={"Exposure / Dispute Amount *"}
                 fullWidth
@@ -3426,7 +3430,7 @@ const AddNewCustomerDetailsNONAPI = () => {
               <SelectBox
                 label={lbl(
                   transactionCurrencyCodeValue,
-                  "Select Transaction Currency Code"
+                  "Select Transaction Currency Code",
                 )}
                 placeholder={"Select Transaction Currency Code"}
                 option={transactionCurrencyCode}
@@ -3532,7 +3536,7 @@ const AddNewCustomerDetailsNONAPI = () => {
             <Col lg={6} md={6} sm={24} xs={24} className="u-text-align-center">
               <div>
                 <label>
-                  <b>On Us / Off Us</b>
+                  <b>On Us / Off Us *</b>
                 </label>
                 <br />
                 <span className="u-margin-left-15px">
@@ -3554,7 +3558,7 @@ const AddNewCustomerDetailsNONAPI = () => {
                 autoComplete="off"
                 label={lbl(
                   trsDetails.CategoryCodeMCC,
-                  "Merchant Category Code *"
+                  "Merchant Category Code *",
                 )}
                 placeholder={"Merchant Category Code *"}
                 value={trsDetails.CategoryCodeMCC}
@@ -3609,7 +3613,7 @@ const AddNewCustomerDetailsNONAPI = () => {
                 autoComplete="off"
                 label={lbl(
                   trsDetails.AcquirerTerminalID,
-                  "Acquirer Terminal ID *"
+                  "Acquirer Terminal ID *",
                 )}
                 placeholder={"Acquirer Terminal ID *"}
                 textLength={6}
@@ -3628,7 +3632,7 @@ const AddNewCustomerDetailsNONAPI = () => {
                 size="small"
                 label={lbl(
                   trsDetails.AcquirerInstitution,
-                  "Acquirer Institution *"
+                  "Acquirer Institution *",
                 )}
                 placeholder={"Acquirer Institution *"}
                 autoComplete="off"
@@ -3716,7 +3720,7 @@ const AddNewCustomerDetailsNONAPI = () => {
                 fullWidth
                 label={lbl(
                   NPIDisputes.CaseReceivedChannel,
-                  "Case Received Channel"
+                  "Case Received Channel",
                 )}
                 placeholder={"Case Received Channel"}
                 autoComplete="off"
@@ -3770,7 +3774,7 @@ const AddNewCustomerDetailsNONAPI = () => {
                   fullWidth
                   label={lbl(
                     NPIDisputes.TotalTransactionAmount,
-                    "Total Dispute Amount"
+                    "Total Dispute Amount",
                   )}
                   placeholder={"Total Dispute Amount"}
                   value={
@@ -3814,7 +3818,7 @@ const AddNewCustomerDetailsNONAPI = () => {
               <DatePicker
                 label={lbl(
                   NPIDisputes.TC40ReportingDate,
-                  "TC 40 Reporting Date"
+                  "TC 40 Reporting Date",
                 )}
                 disable={isTC40ReportingDate}
                 size="large"
@@ -3854,7 +3858,7 @@ const AddNewCustomerDetailsNONAPI = () => {
                 fullWidth
                 label={lbl(
                   NPIDisputes.POCIdentified,
-                  "Point Of Compromise Identified"
+                  "Point Of Compromise Identified",
                 )}
                 placeholder={"Point Of Compromise Identified"}
                 size="small"

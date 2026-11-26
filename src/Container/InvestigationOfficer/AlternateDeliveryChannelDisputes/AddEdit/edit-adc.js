@@ -203,7 +203,7 @@ const EditADCDispute = () => {
 
   // uploadlist
   const [ListOfADCDisputeDocuments, setListOfADCDisputeDocuments] = useState(
-    []
+    [],
   );
 
   //   for current date
@@ -538,7 +538,7 @@ const EditADCDispute = () => {
     setCity(
       valueCity.map((data, index) => {
         return data.name;
-      })
+      }),
     );
   }, [setupForms.CityData]);
 
@@ -561,7 +561,7 @@ const EditADCDispute = () => {
     setSourceTypeName(
       nameSource.map((data, index) => {
         return data.name;
-      })
+      }),
     );
   }, [setupForms.SourceData]);
 
@@ -778,7 +778,7 @@ const EditADCDispute = () => {
   // update transection data
   const update = (e, record) => {
     var objIndex = ListOfADCTransactionDetailsObjects.findIndex(
-      (obj) => obj.TransactionID === record.TransactionID
+      (obj) => obj.TransactionID === record.TransactionID,
     );
     // trsDetails, setTrsDetails
     setRecordIndex(objIndex);
@@ -1246,8 +1246,8 @@ const EditADCDispute = () => {
             setTrsDetails,
             setTransactionIDError,
             setTIDErrMsg,
-            setSourceType
-          )
+            setSourceType,
+          ),
         );
       }
     } else {
@@ -1257,8 +1257,8 @@ const EditADCDispute = () => {
           setTrsDetails,
           setTransactionIDError,
           setTIDErrMsg,
-          setSourceType
-        )
+          setSourceType,
+        ),
       );
     }
   };
@@ -2351,7 +2351,7 @@ const EditADCDispute = () => {
         obj.FK_ADCID === record.FK_ADCID &&
         obj.FK_GSSUserID === record.FK_GSSUserID &&
         obj.PK_ADCDDID === record.PK_ADCDDID &&
-        obj.DisplayFileName === record.DisplayFileName
+        obj.DisplayFileName === record.DisplayFileName,
     );
     var temp = [];
     ListOfADCDisputeDocuments.map((data, index) => {
@@ -2378,7 +2378,7 @@ const EditADCDispute = () => {
   const getFilter = () => {
     let filteredItems = ListOfADCDisputeDocuments;
     filteredItems = ListOfADCDisputeDocuments.filter(
-      (item) => item.DisplayFileName !== ""
+      (item) => item.DisplayFileName !== "",
     );
     return filteredItems;
   };
@@ -2423,7 +2423,7 @@ const EditADCDispute = () => {
   //  FOR SAVE
   const goToSaveHandler = async (e) => {
     var ReferenceNumbersave = JSON.parse(
-      localStorage.getItem("ReferenceNumber")
+      localStorage.getItem("ReferenceNumber"),
     );
     e.preventDefault();
     if (saveValue === 1) {
@@ -2540,8 +2540,8 @@ const EditADCDispute = () => {
               searchData,
               searchDataofdate,
               DataForGlobal,
-              DataForGlobalDate
-            )
+              DataForGlobalDate,
+            ),
           );
           setAddInedx([]);
         } else {
@@ -2623,8 +2623,8 @@ const EditADCDispute = () => {
               searchData,
               searchDataofdate,
               DataForGlobal,
-              DataForGlobalDate
-            )
+              DataForGlobalDate,
+            ),
           );
         }
       } else if (listOfTransactionDetailsAlreadyExsist.length > 0) {
@@ -2740,8 +2740,8 @@ const EditADCDispute = () => {
               searchData,
               searchDataofdate,
               DataForGlobal,
-              DataForGlobalDate
-            )
+              DataForGlobalDate,
+            ),
           );
           setAddInedx([]);
         } else {
@@ -2874,8 +2874,8 @@ const EditADCDispute = () => {
                 searchData,
                 searchDataofdate,
                 DataForGlobal,
-                DataForGlobalDate
-              )
+                DataForGlobalDate,
+              ),
             );
           }
           setAddInedx([]);
@@ -2964,8 +2964,8 @@ const EditADCDispute = () => {
                 searchData,
                 searchDataofdate,
                 DataForGlobal,
-                DataForGlobalDate
-              )
+                DataForGlobalDate,
+              ),
             );
           }
         }
@@ -3086,8 +3086,8 @@ const EditADCDispute = () => {
                 searchData,
                 searchDataofdate,
                 DataForGlobal,
-                DataForGlobalDate
-              )
+                DataForGlobalDate,
+              ),
             );
           }
           setAddInedx([]);
@@ -3192,7 +3192,7 @@ const EditADCDispute = () => {
     setSourceOfIB(
       nameSourceOfIB.map((data, index) => {
         return data.name;
-      })
+      }),
     );
   }, [setupForms.SourceOfIBChannelCreationData]);
 
@@ -3247,7 +3247,7 @@ const EditADCDispute = () => {
     setCaseDecision(
       valueCaseDecision.map((data, index) => {
         return data.name;
-      })
+      }),
     );
   }, [setupForms.CaseDecisionData]);
 
@@ -3348,10 +3348,10 @@ const EditADCDispute = () => {
           var i = index;
           i = index + 1;
           return { ...item, key: i + "" };
-        }
+        },
       );
       setListOfTransactionDetailsAlreadyExsist(
-        GetTransactionDetailsByCNICArray
+        GetTransactionDetailsByCNICArray,
       );
     }
     if (adcDisputesDetail !== undefined && adcDisputesDetail !== null) {
@@ -3566,7 +3566,7 @@ const EditADCDispute = () => {
                 }
                 label={lbl(
                   trsDetails.BeneficiaryAccountNumber,
-                  "Beneficiary Account Number *"
+                  "Beneficiary Account Number *",
                 )}
                 placeholder={"Beneficiary Account Number *"}
                 change={TransactionDeatilHandlerChange}
@@ -3583,7 +3583,7 @@ const EditADCDispute = () => {
                 value={trsDetails.BeneficiaryBankName}
                 label={lbl(
                   trsDetails.BeneficiaryBankName,
-                  "Beneficiary Bank Name *"
+                  "Beneficiary Bank Name *",
                 )}
                 placeholder={"Beneficiary Bank Name *"}
                 change={TransactionDeatilHandlerChange}
@@ -3656,7 +3656,7 @@ const EditADCDispute = () => {
                 size="small"
                 Label={lbl(
                   trsDetails.TransactionAmount,
-                  "Transaction Amount *"
+                  "Transaction Amount *",
                 )}
                 placeholder={"Transaction Amount *"}
                 value={
@@ -3676,7 +3676,7 @@ const EditADCDispute = () => {
                 size="small"
                 Label={lbl(
                   trsDetails.DisputeAmount,
-                  "Exposure / Dispute Amount *"
+                  "Exposure / Dispute Amount *",
                 )}
                 placeholder={"Exposure / Dispute Amount *"}
                 value={
@@ -3731,7 +3731,7 @@ const EditADCDispute = () => {
                 }
                 fullWidth
                 change={TransactionDeatilHandlerChange}
-                textLength={20}
+                textLength={6}
               />
             </Col>
             <Col lg={6} md={6} sm={24} xs={24}>
@@ -3773,7 +3773,7 @@ const EditADCDispute = () => {
                 autoComplete="off"
                 label={lbl(
                   trsDetails.MerchantCategoryCodeMCC,
-                  "Merchant Category Code *"
+                  "Merchant Category Code *",
                 )}
                 placeholder={"Merchant Category Code *"}
                 value={
@@ -3847,7 +3847,7 @@ const EditADCDispute = () => {
             <Col lg={6} md={6} sm={24} xs={24}>
               {lbl(
                 trsDetails.IPAddress,
-                <p className="PlaceholderCard">IP Address *</p>
+                <p className="PlaceholderCard">IP Address *</p>,
               )}
               <InputMask
                 type="text"
@@ -3954,7 +3954,7 @@ const EditADCDispute = () => {
                 fullWidth
                 label={lbl(
                   ADCDisputes.CaseReceivedChannel,
-                  "Case Received Channel"
+                  "Case Received Channel",
                 )}
                 placeholder="Case Received Channel"
                 autoComplete="off"
@@ -4011,7 +4011,7 @@ const EditADCDispute = () => {
                 fullWidth
                 label={lbl(
                   ADCDisputes.TotalTransactionAmount,
-                  "Total Dispute Amount"
+                  "Total Dispute Amount",
                 )}
                 placeholder="Total Dispute Amount"
                 value={
@@ -4203,7 +4203,7 @@ const EditADCDispute = () => {
                 fullWidth
                 label={lbl(
                   ADCDisputes.CustomerClamiedInformation,
-                  "Customer Clamied Information"
+                  "Customer Clamied Information",
                 )}
                 placeholder="Customer Clamied Information"
                 size="small"
@@ -4219,7 +4219,7 @@ const EditADCDispute = () => {
                 fullWidth
                 Label={lbl(
                   ADCDisputes.ExpectedRecoveryFromHBLBeneficiary,
-                  "Expected Recovery From Bank"
+                  "Expected Recovery From Bank",
                 )}
                 placeholder="Expected Recovery From Bank *"
                 size="small"
@@ -4243,7 +4243,7 @@ const EditADCDispute = () => {
                 fullWidth
                 Label={lbl(
                   ADCDisputes.ExpectedRecoveryFromMemberBankBeneficiary,
-                  "Expected Recovery From Member Bank"
+                  "Expected Recovery From Member Bank",
                 )}
                 placeholder="Expected Recovery From Member Bank *"
                 size="small"
@@ -4318,7 +4318,7 @@ const EditADCDispute = () => {
                 option={sourceOfIB}
                 label={lbl(
                   sourceOfIBName,
-                  "Select Source of IB Channel Creation"
+                  "Select Source of IB Channel Creation",
                 )}
                 placeholder="Select Source of IB Channel Creation"
                 name="FK_SIBCCID"

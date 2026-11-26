@@ -156,7 +156,7 @@ const InvestigationOfficerReducers = (state = initialState, action) => {
           var i = index;
           i = index + 1;
           return { ...item, key: i + "" };
-        }
+        },
       );
       return {
         ...state,
@@ -182,7 +182,7 @@ const InvestigationOfficerReducers = (state = initialState, action) => {
           var i = index;
           i = index + 1;
           return { ...item, key: i + "" };
-        }
+        },
       );
       return {
         ...state,
@@ -238,7 +238,10 @@ const InvestigationOfficerReducers = (state = initialState, action) => {
         ...state,
         SearchCreditCardDisputeData: [],
         GetCreditCardDisputesData: action.response,
-        ResponseMessage: action.response.responseMessage,
+        ResponseMessage:
+          action.response.responseMessage === "Record Found"
+            ? ""
+            : action.response.responseMessage,
         Loading: false,
       };
 
@@ -482,7 +485,7 @@ const InvestigationOfficerReducers = (state = initialState, action) => {
           var i = index;
           i = index + 1;
           return { ...item, key: i + "" };
-        }
+        },
       );
       return {
         ...state,
@@ -855,7 +858,7 @@ const InvestigationOfficerReducers = (state = initialState, action) => {
           var i = index;
           i = index + 1;
           return { ...item, key: i + "" };
-        }
+        },
       );
       return {
         ...state,
@@ -1050,12 +1053,15 @@ const InvestigationOfficerReducers = (state = initialState, action) => {
           var i = index;
           i = index + 1;
           return { ...item, key: i + "" };
-        }
+        },
       );
       return {
         ...state,
         Loading: false,
-        ResponseMessage: action.response.responseMessage,
+        ResponseMessage:
+          action.response.responseMessage === "Record Found"
+            ? ""
+            : action.response.responseMessage,
         SearchBBKDisputeData: SearchBBKonnectDisputeArray,
       };
 
@@ -1307,7 +1313,7 @@ const InvestigationOfficerReducers = (state = initialState, action) => {
         (item, index) => ({
           ...item,
           key: index,
-        })
+        }),
       );
       return {
         ...state,
@@ -1407,12 +1413,15 @@ const InvestigationOfficerReducers = (state = initialState, action) => {
           var i = index;
           i = index + 1;
           return { ...item, key: i + "" };
-        }
+        },
       );
       return {
         ...state,
         Loading: false,
-        ResponseMessage: action.response.responseMessage,
+        ResponseMessage:
+          action.response.responseMessage === "Record Found"
+            ? ""
+            : action.response.responseMessage,
         SearchNonApiDisputesData: SearchNonApiDisputeArray,
       };
 
@@ -1531,7 +1540,7 @@ const InvestigationOfficerReducers = (state = initialState, action) => {
           var i = index;
           i = index + 1;
           return { ...item, key: i + "" };
-        }
+        },
       );
       return {
         ...state,

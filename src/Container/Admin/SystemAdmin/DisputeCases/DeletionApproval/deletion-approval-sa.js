@@ -473,6 +473,7 @@ const PendingDeletionApprovals = () => {
       dataIndex: "creationDate",
       key: "creationDate",
       align: "center",
+      width: 100,
       render: (text) => DateDisplayFormat(text),
     },
     {

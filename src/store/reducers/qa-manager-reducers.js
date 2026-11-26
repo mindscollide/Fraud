@@ -49,7 +49,10 @@ const QAManagerReducers = (state = initialState, action) => {
       return {
         ...state,
         AllDisputesData: AllDisputesArray,
-        ResponseMessage: action.response.responseMessage,
+        ResponseMessage:
+          action.response.responseMessage === "Record Found"
+            ? ""
+            : action.response.responseMessage,
       };
 
     case actions.GET_PENDINGFORAPPROVALQA_UNIT_FAIL:

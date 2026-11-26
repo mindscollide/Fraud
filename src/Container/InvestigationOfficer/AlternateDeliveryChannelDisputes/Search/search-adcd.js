@@ -328,7 +328,7 @@ const SearchADCD = () => {
   const View = (e, value) => {
     localStorage.setItem(
       "ReferenceNumber",
-      JSON.stringify(value.refrenceNumber)
+      JSON.stringify(value.refrenceNumber),
     );
     localStorage.setItem("CNICNumber", JSON.stringify(value.cnicNumber));
     localStorage.removeItem("CaseStatus");
@@ -348,7 +348,7 @@ const SearchADCD = () => {
 
     localStorage.setItem(
       "ReferenceNumber",
-      JSON.stringify(value.refrenceNumber)
+      JSON.stringify(value.refrenceNumber),
     );
     localStorage.removeItem("CaseStatus");
     setCaseStatus("");
@@ -471,7 +471,7 @@ const SearchADCD = () => {
             onClick={() => {
               let disputeID = record.pK_ADCDID;
               dispatch(
-                GetDisputeStatusADC(disputeID, showModal, setAction, actions)
+                GetDisputeStatusADC(disputeID, showModal, setAction, actions),
               );
             }}
             className="icon-edit-list icon-size-one beachGreen u-cursor-pointer"
@@ -521,6 +521,7 @@ const SearchADCD = () => {
       render: (text) => TimeAndDisplayFormat(text),
       width: 80,
       // width: "3%",
+      width: 80,
     },
     {
       title: "Status",
@@ -598,7 +599,7 @@ const SearchADCD = () => {
     setCaseStatusOptions(
       caseStatus.map((data, index) => {
         return data.statusDescription;
-      })
+      }),
     );
   }, [setupForms.StatusData]);
 
@@ -634,7 +635,7 @@ const SearchADCD = () => {
     setCity(
       valueCity.map((data, index) => {
         return data.name;
-      })
+      }),
     );
   }, [setupForms.CityData]);
 

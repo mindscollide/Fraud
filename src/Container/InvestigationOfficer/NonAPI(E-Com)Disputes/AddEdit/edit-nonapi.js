@@ -197,7 +197,7 @@ const EditNONAPIDispute = () => {
 
   // uploadlist
   const [ListOfNPIDisputeDocuments, setListOfNPIDisputeDocuments] = useState(
-    []
+    [],
   );
 
   //   for current date
@@ -421,7 +421,7 @@ const EditNONAPIDispute = () => {
     setCity(
       valueCity.map((data, index) => {
         return data.name;
-      })
+      }),
     );
   }, [setupForms.CityData]);
 
@@ -457,7 +457,7 @@ const EditNONAPIDispute = () => {
     setSourceTypeName(
       nameSource.map((data, index) => {
         return data.name;
-      })
+      }),
     );
   }, [setupForms.SourceData]);
 
@@ -842,7 +842,7 @@ const EditNONAPIDispute = () => {
         return { ...item, key: i + "" };
       });
       setListOfTransactionDetailsAlreadyExsist(
-        GetTransactionDetailsByCNICArray
+        GetTransactionDetailsByCNICArray,
       );
     }
   }, [
@@ -868,7 +868,7 @@ const EditNONAPIDispute = () => {
       setFraudType(
         nameFraud.map((data, index) => {
           return data.name;
-        })
+        }),
       );
     }
   }, [setupForms.FraudTypeData]);
@@ -932,7 +932,7 @@ const EditNONAPIDispute = () => {
   // update transection data
   const update = (e, record) => {
     var objIndex = ListOfNPITransactionDetailsObjects.findIndex(
-      (obj) => obj.TransactionID === record.TransactionID
+      (obj) => obj.TransactionID === record.TransactionID,
     );
     // trsDetails, setTrsDetails
     setRecordIndex(objIndex);
@@ -1562,8 +1562,8 @@ const EditNONAPIDispute = () => {
             setTransactionIDError,
             setTIDErrMsg,
             setSourceType,
-            setTransactionCurrencyCodeValue
-          )
+            setTransactionCurrencyCodeValue,
+          ),
         );
       }
     } else {
@@ -1574,8 +1574,8 @@ const EditNONAPIDispute = () => {
           setTransactionIDError,
           setTIDErrMsg,
           setSourceType,
-          setTransactionCurrencyCodeValue
-        )
+          setTransactionCurrencyCodeValue,
+        ),
       );
     }
   };
@@ -1613,6 +1613,8 @@ const EditNONAPIDispute = () => {
       "AcquirerID",
       "ARN",
       "MerchantNumber",
+      "MerchantID",
+      "AcquirerTerminalID",
     ];
     if (NO_DASH_FIELDS.includes(name)) {
       setTrsDetails((prev) => ({
@@ -1630,7 +1632,6 @@ const EditNONAPIDispute = () => {
       name !== "DisputeAmount" &&
       name !== "TransactionCurrencyCode" &&
       name !== "MerchantName" &&
-      name !== "MerchantID" &&
       name !== "MerchantCity" &&
       name !== "AcquirerTerminalID" &&
       name !== "ON_OFF_US" &&
@@ -1692,19 +1693,6 @@ const EditNONAPIDispute = () => {
         });
       }
     } else if (name === "TransactionCurrencyCode" && value === "") {
-      setTrsDetails({
-        ...trsDetails,
-        [name]: "",
-      });
-    } else if (name === "MerchantID" && value !== "") {
-      var valueCheck = value.replace(/[^\d-]/g, "");
-      if (valueCheck != "") {
-        setTrsDetails({
-          ...trsDetails,
-          [name]: valueCheck,
-        });
-      }
-    } else if (name === "MerchantID" && value === "") {
       setTrsDetails({
         ...trsDetails,
         [name]: "",
@@ -2502,7 +2490,7 @@ const EditNONAPIDispute = () => {
         obj.DisplayFileName === record.DisplayFileName &&
         obj.PK_NAPIDDID === record.PK_NAPIDDID &&
         obj.FK_NAPIDID === record.FK_NAPIDID &&
-        obj.FK_GSSUserID === record.FK_GSSUserID
+        obj.FK_GSSUserID === record.FK_GSSUserID,
     );
     var temp = [];
     ListOfNPIDisputeDocuments.map((data, index) => {
@@ -2528,7 +2516,7 @@ const EditNONAPIDispute = () => {
   const getFilter = () => {
     let filteredItems = ListOfNPIDisputeDocuments;
     filteredItems = ListOfNPIDisputeDocuments.filter(
-      (item) => item.DisplayFileName !== ""
+      (item) => item.DisplayFileName !== "",
     );
     return filteredItems;
   };
@@ -2560,7 +2548,7 @@ const EditNONAPIDispute = () => {
       GetNonApiDisputesForEditByCnicAndReferenceNumber({
         CNICNumber,
         ReferenceNumber,
-      })
+      }),
     );
   }, []);
 
@@ -2712,8 +2700,8 @@ const EditNONAPIDispute = () => {
                   searchData,
                   searchDataofdate,
                   DataForGlobal,
-                  DataForGlobalDate
-                )
+                  DataForGlobalDate,
+                ),
               );
               setAddInedx([]);
             } else {
@@ -2792,8 +2780,8 @@ const EditNONAPIDispute = () => {
                 searchData,
                 searchDataofdate,
                 DataForGlobal,
-                DataForGlobalDate
-              )
+                DataForGlobalDate,
+              ),
             );
           }
         }
@@ -2910,8 +2898,8 @@ const EditNONAPIDispute = () => {
                 searchData,
                 searchDataofdate,
                 DataForGlobal,
-                DataForGlobalDate
-              )
+                DataForGlobalDate,
+              ),
             );
             setAddInedx([]);
           } else {
@@ -3043,8 +3031,8 @@ const EditNONAPIDispute = () => {
                   searchData,
                   searchDataofdate,
                   DataForGlobal,
-                  DataForGlobalDate
-                )
+                  DataForGlobalDate,
+                ),
               );
               setAddInedx([]);
             } else {
@@ -3123,8 +3111,8 @@ const EditNONAPIDispute = () => {
                 searchData,
                 searchDataofdate,
                 DataForGlobal,
-                DataForGlobalDate
-              )
+                DataForGlobalDate,
+              ),
             );
             // }
           }
@@ -3244,8 +3232,8 @@ const EditNONAPIDispute = () => {
                 searchData,
                 searchDataofdate,
                 DataForGlobal,
-                DataForGlobalDate
-              )
+                DataForGlobalDate,
+              ),
             );
             setAddInedx([]);
           } else {
@@ -3480,7 +3468,7 @@ const EditNONAPIDispute = () => {
     setTransactionCurrencyCode(
       valuetransactionCurrencyCode.map((data, index) => {
         return data.description;
-      })
+      }),
     );
   }, [setupForms.TransactionCurrencyCodeData]);
   // true when a field actually holds a value (treats "", null, undefined,
@@ -3653,7 +3641,7 @@ const EditNONAPIDispute = () => {
                 placeholder={"Other Bank Account Number *"}
                 label={lbl(
                   trsDetails.OtherBankAccountNumber,
-                  "Other Bank Account Number *"
+                  "Other Bank Account Number *",
                 )}
                 change={TransactionDeatilHandlerChange}
                 fullWidth
@@ -3744,7 +3732,7 @@ const EditNONAPIDispute = () => {
                 placeholder={"Transaction Amount *"}
                 Label={lbl(
                   trsDetails.TransactionAmount,
-                  "Transaction Amount *"
+                  "Transaction Amount *",
                 )}
                 fullWidth
                 change={TransactionDeatilHandlerChange}
@@ -3764,7 +3752,7 @@ const EditNONAPIDispute = () => {
                 placeholder={"Exposure / Dispute Amount *"}
                 Label={lbl(
                   trsDetails.DisputeAmount,
-                  "Exposure / Dispute Amount *"
+                  "Exposure / Dispute Amount *",
                 )}
                 fullWidth
                 change={TransactionDeatilHandlerChange}
@@ -3775,7 +3763,7 @@ const EditNONAPIDispute = () => {
                 placeholder="Select Transaction Currency Code"
                 label={lbl(
                   transactionCurrencyCodeValue,
-                  "Select Transaction Currency Code"
+                  "Select Transaction Currency Code",
                 )}
                 option={transactionCurrencyCode}
                 value={transactionCurrencyCodeValue}
@@ -3865,7 +3853,7 @@ const EditNONAPIDispute = () => {
               <div>
                 <span className="u-margin-left-15px">
                   <label>
-                    <b>On Us / Off Us</b>
+                    <b>On Us / Off Us *</b>
                   </label>
                   <br />
 
@@ -3887,13 +3875,13 @@ const EditNONAPIDispute = () => {
                 placeholder={"Merchant Category Code *"}
                 label={lbl(
                   trsDetails.CategoryCodeMCC,
-                  "Merchant Category Code *"
+                  "Merchant Category Code *",
                 )}
                 autoComplete="off"
                 value={trsDetails.CategoryCodeMCC}
                 change={TransactionDeatilHandlerChange}
                 fullWidth
-                textLength={6}
+                textLength={7}
               />
             </Col>
             <Col lg={6} md={6} sm={24} xs={24}>
@@ -3929,7 +3917,7 @@ const EditNONAPIDispute = () => {
                 value={trsDetails.AcquirerID}
                 change={TransactionDeatilHandlerChange}
                 fullWidth
-                textLength={6}
+                textLength={12}
               />
             </Col>
             <Col lg={6} md={6} sm={24} xs={24}>
@@ -3940,7 +3928,7 @@ const EditNONAPIDispute = () => {
                 placeholder={"Acquirer Terminal ID *"}
                 label={lbl(
                   trsDetails.AcquirerTerminalID,
-                  "Acquirer Terminal ID *"
+                  "Acquirer Terminal ID *",
                 )}
                 textLength={6}
                 value={
@@ -3959,7 +3947,7 @@ const EditNONAPIDispute = () => {
                 placeholder={"Acquirer Institution *"}
                 label={lbl(
                   trsDetails.AcquirerInstitution,
-                  "Acquirer Institution *"
+                  "Acquirer Institution *",
                 )}
                 autoComplete="off"
                 value={trsDetails.AcquirerInstitution}
@@ -4042,7 +4030,7 @@ const EditNONAPIDispute = () => {
                 placeholder="Case Received Channel"
                 label={lbl(
                   NPIDisputes.CaseReceivedChannel,
-                  "Case Received Channel"
+                  "Case Received Channel",
                 )}
                 autoComplete="off"
                 value={NPIDisputes.CaseReceivedChannel}
@@ -4102,7 +4090,7 @@ const EditNONAPIDispute = () => {
                   placeholder="Total Dispute Amount"
                   label={lbl(
                     NPIDisputes.TotalTransactionAmount,
-                    "Total Dispute Amount"
+                    "Total Dispute Amount",
                   )}
                   value={
                     NPIDisputes.TotalTransactionAmount === null ||
@@ -4152,7 +4140,7 @@ const EditNONAPIDispute = () => {
                 placeholder={"TC40 Reporting Date"}
                 label={lbl(
                   NPIDisputes.TC40ReportingDate,
-                  "TC40 Reporting Date"
+                  "TC40 Reporting Date",
                 )}
                 disable={isTC40ReportingDate}
                 size="large"
@@ -4198,7 +4186,7 @@ const EditNONAPIDispute = () => {
                 placeholder="Point Of Compromise Identified"
                 label={lbl(
                   NPIDisputes.POCIdentified,
-                  "Point Of Compromise Identified"
+                  "Point Of Compromise Identified",
                 )}
                 size="small"
                 name="POCIdentified"
@@ -4240,7 +4228,7 @@ const EditNONAPIDispute = () => {
                 placeholder="Aging"
                 label={lbl(
                   NPIDisputes.Aging === -1 ? null : NPIDisputes.Aging,
-                  "Aging"
+                  "Aging",
                 )}
                 size="small"
                 name="Aging"
@@ -4261,7 +4249,7 @@ const EditNONAPIDispute = () => {
                   NPIDisputes.CaseClosedTAT === -1
                     ? null
                     : NPIDisputes.CaseClosedTAT,
-                  "Case Closed TAT"
+                  "Case Closed TAT",
                 )}
                 size="small"
                 name="CaseClosedTAT"
